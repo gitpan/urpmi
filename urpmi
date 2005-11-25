@@ -1,0 +1,780 @@
+#!/usr/bin/perl
+
+# $Id: urpmi,v 1.330 2005/11/21 10:02:02 rgarciasuarez Exp $
+
+#- Copyright (C) 1999-2005 Mandriva (pixel@mandriva.com)
+#-
+#- This program is free software; you can redistribute it and/or modify
+#- it under the terms of the GNU General Public License as published by
+#- the Free Software Foundation; either version 2, or (at your option)
+#- any later version.
+#-
+#- This program is distributed in the hope that it will be useful,
+#- but WITHOUT ANY WARRANTY; without even the implied warranty of
+#- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#- GNU General Public License for more details.
+#-
+#- You should have received a copy of the GNU General Public License
+#- along with this program; if not, write to the Free Software
+#- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+use strict;
+use urpm;
+use urpm::args;
+use urpm::msg;
+use urpm::util qw(untaint difference2);
+
+#- contains informations to parse installed system.
+my $urpm = new urpm;
+
+#- default options.
+our $update = 0;
+our $media = '';
+our $searchmedia;
+our $excludemedia = '';
+our $sortmedia = '';
+our $synthesis = '';
+our $allow_medium_change = 0;
+our $auto_select = 0;
+our $no_install = 0;
+our $no_remove = 0;
+our $src = 0;
+our $install_src = 0;
+our $clean = 0;
+our $noclean = 0;
+my $split_level = 20;
+my $split_length = 1;
+our $force = 0;
+our $parallel = '';
+our $env = '';
+our $WID = 0;
+our $test = 0;
+our $root = '';
+our $all = 0;
+our $rpm_opt = "vh";
+our $use_provides = 1;
+our $verbose = 0;
+our $usedistrib = 0;
+our $log = '';
+our $restricted = 0;
+our $nolock = 0;
+
+my @files;
+my @src_files;
+my @names;
+my @src_names;
+
+$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
+delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
+$ENV{HOME} ||= "/root";
+$ENV{USER} ||= "root";
+
+sub usage {
+    print N("urpmi version %s
+Copyright (C) 1999-2005 Mandriva.
+This is free software and may be redistributed under the terms of the GNU GPL.
+
+usage:
+", $urpm::VERSION) . N("  --help         - print this help message.
+") . N("  --update       - use only update media.
+") . N("  --media        - use only the given media, separated by comma.
+") . N("  --searchmedia  - use only the given media to search requested (or updated) packages.
+") . N("  --excludemedia - do not use the given media, separated by comma.
+") . N("  --sortmedia    - sort media according to substrings separated by comma.
+") . N("  --synthesis    - use the given synthesis instead of urpmi db.
+") . N("  --auto         - automatically select a package in choices.
+") . N("  --auto-select  - automatically select packages to upgrade the system.
+") . N("  --no-uninstall - never ask to uninstall a package, abort the installation.
+") . N("  --no-install   - don't install packages (only download)
+") . N("  --keep         - keep existing packages if possible, reject requested
+                   packages that lead to removals.
+") . N("  --split-level  - split in small transaction if more than given packages
+                   are going to be installed or upgraded,
+                   default is %d.
+", $split_level) . N("  --split-length - small transaction length, default is %d.
+", $split_length) . N("  --fuzzy        - impose fuzzy search (same as -y).
+") . N("  --src          - next package is a source package (same as -s).
+") . N("  --install-src  - install only source package (no binaries).
+") . N("  --clean        - remove rpm from cache before anything else.
+") . N("  --noclean      - don't clean rpms from cache.
+") . N("  --force        - force invocation even if some packages do not exist.
+") . N("  --allow-nodeps - allow asking user to install packages without
+                   dependencies checking.
+") . N("  --allow-force  - allow asking user to install packages without
+                   dependencies checking and integrity.
+") . N("  --parallel     - distributed urpmi across machines of alias.
+") . N("  --root         - use another root for rpm installation.
+") . N("  --use-distrib  - configure urpmi on the fly from a distrib tree, useful
+                   to install a chroot with --root option.
+") . N("  --wget         - use wget to retrieve distant files.
+") . N("  --curl         - use curl to retrieve distant files.
+") . N("  --limit-rate   - limit the download speed.
+") . N("  --resume       - resume transfer of partially-downloaded files
+                   (--no-resume disables it, default is disabled).
+") . N("  --proxy        - use specified HTTP proxy, the port number is assumed
+                   to be 1080 by default (format is <proxyhost[:port]>).
+") . N("  --proxy-user   - specify user and password to use for proxy
+                   authentication (format is <user:password>).
+") . N("  --bug          - output a bug report in directory indicated by
+                   next arg.
+") . N("  --env          - use specific environment (typically a bug report).
+") . N("  --verify-rpm   - verify rpm signature before installation
+                   (--no-verify-rpm disable it, default is enabled).
+") . N("  --test         - verify if the installation can be achieved correctly.
+") . N("  --excludepath  - exclude path separated by comma.
+") . N("  --excludedocs  - exclude doc files.
+") . N("  --ignoresize   - don't verify disk space before installation.
+") . N("  --noscripts    - do not execute package scriptlet(s)
+") . N("  --skip         - packages which installation should be skipped
+") . N("  --more-choices - when several packages are found, propose more choices
+                   than the default.
+") . N("  --norebuild    - don't try to rebuild hdlist if not readable.
+") . N("  --strict-arch  - upgrade only packages with the same architecture.
+") . N("  -a             - select all matches on command line.
+") . N("  -p             - allow search in provides to find package.
+") . N("  -P             - do not search in provides to find package.
+") . N("  -y             - impose fuzzy search (same as --fuzzy).
+") . N("  -s             - next package is a source package (same as --src).
+") . N("  -q             - quiet mode.
+") . N("  -v             - verbose mode.
+") . "\n" . N("  names or rpm files given on command line will be installed.
+");
+    exit(0);
+}
+
+# Parse command line
+my $command_line = join " ", @ARGV;
+@ARGV or usage;
+my @ARGVcopy; # keep a copy, in case we have to restart
+
+# Expand *.urpmi arguments
+if (grep { $_ eq '--restricted' } @ARGV) {
+    @ARGVcopy = @ARGV;
+} else {
+    foreach my $a (@ARGV) {
+	if ($a =~ /\.urpmi$/) {
+	    open my $fh, '<', $a or do { warn "Can't open $a: $!\n"; next };
+	    push @ARGVcopy, map { chomp; $_ } <$fh>;
+	    close $fh;
+	} else {
+	    push @ARGVcopy, $a;
+	}
+    }
+    @ARGV = @ARGVcopy;
+}
+
+# Parse command line options
+urpm::args::parse_cmdline(urpm => $urpm);
+
+# Process the rest of the arguments
+while (defined($_ = shift @ARGV)) {
+    if (/\.rpm$/) {
+	if (/\.src\.rpm$/) {
+	    push @src_files, $_;
+	} else {
+	    push @files, untaint($_);
+	}
+	next;
+    }
+    if ($src) {
+	push @src_names, $_;
+    } else {
+	push @names, $_;
+    }
+    $src = 0; #- reset switch for next package.
+}
+
+#- use install_src to promote all names as src package.
+if ($install_src) {
+    @files and $urpm->{fatal}(1, N("What can be done with binary rpm files when using --install-src"));
+    push @src_names, @names;
+    @names = ();
+}
+
+#- rurpmi checks
+if ($restricted) {
+    urpm::error_restricted($urpm) if @src_files || @files;
+    #- force some options
+    foreach (qw(keep verify-rpm norebuild)) { $urpm->{options}{$_} = 1 }
+    #- forbid some other options
+    urpm::error_restricted($urpm) if $root || $usedistrib || $force || $env || $parallel || $synthesis || $nolock;
+    foreach (qw(allow-nodeps allow-force)) { urpm::error_restricted($urpm) if $urpm->{options}{$_} }
+}
+
+#- prepare bug report.
+my $bug = $urpm::args::options{bug};
+if ($bug) {
+    mkdir $bug or $urpm->{fatal}(8, (-d $bug
+	    ? N("Directory [%s] already exists, please use another directory for bug report or delete it", $bug)
+	    : N("Unable to create directory [%s] for bug report", $bug)));
+    #- copy all synthesis file used, along with configuration of urpmi
+    system("cp", "-af", $urpm->{skiplist}, $urpm->{instlist}, $urpm->{config}, $bug)
+	and die N("Copying failed");
+    #- allow log file.
+    $log = "$bug/urpmi.log";
+}
+
+if ($env) {
+    print STDERR N("using specific environment on %s\n", $env);
+    $log = "$env/urpmi_env.log";
+    unlink $log;
+    #- setting new environment.
+    $urpm->{config} = "$env/urpmi.cfg";
+    $urpm->{skiplist} = "$env/skip.list";
+    $urpm->{instlist} = "$env/inst.list";
+    $urpm->{statedir} = $env;
+} else {
+    if ($< != 0) {
+	#- need to be root if binary rpms are to be installed
+	$auto_select || @names || @files and $urpm->{fatal}(1, N("Only superuser is allowed to install packages"));
+    } else {
+	#- allow log if not defined.
+	$log ||= "/var/log/urpmi.log";
+    }
+}
+
+unless ($bug || $install_src || $env || $urpm->{options}{'allow-force'} || $root) {
+    require urpm::sys;
+    urpm::sys::check_fs_writable() or $urpm->{fatal}(1, N("Error: %s appears to be mounted read-only.
+Use --allow-force to force operation.", $urpm::sys::mountpoint));
+}
+
+my ($pid_out, $pid_err);
+open SAVEOUT, ">&STDOUT"; select SAVEOUT; $| = 1;
+open SAVEERR, ">&STDERR"; select SAVEERR; $| = 1;
+if ($log && !$INC{"Devel/Trace.pm"}) {
+    #- log only at this point in case of query usage.
+    log_it(scalar localtime, " urpmi called with $command_line\n");
+
+    unless ($pid_out = open STDOUT, "|-") {
+	my $buf_r;
+	while (<STDIN>) {
+	    open my $fh, ">>$log"; select $fh; $| = 1;
+	    select SAVEOUT; $| = 1;
+	    $/ = \1;
+	    print SAVEOUT $_;
+	    print $fh $_;
+	    close $fh;
+	}
+	exit 0;
+    }
+    unless ($pid_err = open STDERR, "|-") {
+	my $buf_r;
+	while (<STDIN>) {
+	    open my $fh, ">>$log"; select $fh; $| = 1;
+	    select SAVEERR; $| = 1;
+	    $/ = \1;
+	    print SAVEERR $_;
+	    print $fh $_;
+	    close $fh;
+	}
+	exit 0;
+    }
+}
+#- make unbuffered, and STDOUT the default
+select STDERR; $| = 1;
+select STDOUT; $| = 1;
+
+#- log to SAVEERR instead of STDERR
+unless ($bug) {
+    $urpm->{fatal} = sub { printf SAVEERR "%s\n", $_[1]; exit($_[0]) };
+    $urpm->{error} = sub { printf SAVEERR "%s\n", $_[0] };
+    $urpm->{log}   = sub { printf SAVEOUT "%s\n", $_[0] };
+}
+$verbose > 0 or $urpm->{log} = sub {};
+
+unless ($env || $nolock) {
+    $urpm->exlock_rpm_db;
+    $urpm->shlock_urpmi_db;
+}
+$urpm->configure(nocheck_access => $env || $< != 0,
+		 media => $media,
+		 searchmedia => $searchmedia,
+		 excludemedia => $excludemedia,
+		 sortmedia => $sortmedia,
+		 synthesis => $synthesis,
+		 update => $update,
+		 skip => $urpm::args::options{skip},
+		 root => $root,
+		 bug => $bug,
+		 parallel => $parallel,
+		 usedistrib => $usedistrib,
+		);
+#- get back activated default values of boolean options.
+exists $urpm->{options}{'split-level'} or $urpm->{options}{'split-level'} = $split_level;
+exists $urpm->{options}{'split-length'} or $urpm->{options}{'split-length'} = $split_length;
+# comma-separated list of packages that should be installed first,
+# and that trigger an urpmi restart
+exists $urpm->{options}{'priority-upgrade'}
+    or $urpm->{options}{'priority-upgrade'} = 'rpm,perl-URPM,urpmi,glibc';
+
+my $state = {};
+my %requested = $urpm->register_rpms(@files, @src_files);
+
+#- finish bug environment creation.
+if ($bug) {
+    require URPM::Build;
+    foreach (@{$urpm->{media}}) {
+	#- take care of virtual medium this way.
+	$_->{hdlist} ||= "hdlist.$_->{name}.cz";
+	#- now build directly synthesis file, this is by far the simplest method.
+	if (defined $_->{start} && defined $_->{end}) {
+	    $urpm->build_synthesis(start => $_->{start}, end => $_->{end}, synthesis => "$bug/synthesis.$_->{hdlist}");
+	    $urpm->{log}(N("built hdlist synthesis file for medium \"%s\"", $_->{name}));
+	}
+    }
+    #- fake configuration written to convert virtual media on the fly.
+    local $urpm->{config} = "$bug/urpmi.cfg";
+    $urpm->write_config;
+    #- handle local packages, copy them directly in bug environment.
+    foreach (keys %requested) {
+	if ($urpm->{source}{$_}) {
+	    system "cp", "-af", $urpm->{source}{$_}, $bug
+		and die N("Copying failed");
+	}
+    }
+}
+
+#- search the packages according to the selection given by the user.
+if (@names) {
+    $urpm->search_packages(\%requested, [ @names ],
+			   all => $all,
+			   use_provides => $use_provides,
+			   fuzzy => $urpm->{options}{fuzzy})
+      || $force or exit 1;
+}
+if (@src_names) {
+    $urpm->search_packages(\%requested, [ @src_names ],
+			   all => $all,
+			   use_provides => $use_provides,
+			   fuzzy => $urpm->{options}{fuzzy},
+			   src => 1)
+      || $force or exit 1;
+}
+
+sub ask_choice {
+    my ($urpm, $db, $state, $choices) = @_;
+    my $n = 1; #- default value.
+    my (@l) = map {
+	(scalar $_->fullname)
+	. ($_->summary ? ' : ' . $_->summary : '')
+	. ($_->flag_installed ? ' (to upgrade)' : '')
+	. ($_->flag_upgrade   ? ' (to install)' : '');
+    } @$choices;
+
+    if (@l > 1 && !$urpm->{options}{auto}) {
+	message(N("One of the following packages is needed:"));
+	my $i = 0; foreach (@l) { message(" " . ++$i . "- $_") }
+	$n = message_input(N("What is your choice? (1-%d) ", $i), undef, range_min => 0, range => $i);
+	defined($n) && $n ne "0" or exit 1; # abort.
+	if ($n =~ /\D/) {
+	    my @nn = map { $choices->[$_ - 1] } grep { !/\D/ } split /[, \t]+/, $n;
+	    @nn or exit 1;
+	    return @nn;
+	}
+    }
+    $choices->[$n - 1];
+}
+
+#- do the resolution of dependencies between requested package (and auto selection if any).
+#- handle parallel option if any.
+#- return value is true if program should be restarted (in order to take care of important
+#- packages being upgraded (problably urpmi and perl-URPM, but maybe rpm too, and glibc also ?).
+my $restart_itself = $urpm->resolve_dependencies(
+    $state,
+    \%requested,
+    rpmdb => $env && "$env/rpmdb.cz",
+    auto_select => $auto_select,
+    callback_choices => \&ask_choice,
+    install_src => $install_src,
+    keep => $urpm->{options}{keep},
+    nodeps => $urpm->{options}{'allow-nodeps'} || $urpm->{options}{'allow-force'},
+    priority_upgrade => $test || $env ? '' : $urpm->{options}{'priority-upgrade'},
+);
+
+my @unselected_uninstalled = @{$state->{unselected_uninstalled} || []};
+if (@unselected_uninstalled) {
+    my $list = join "\n", map { $_->name . '-' . $_->version . '-' . $_->release  } @unselected_uninstalled;
+    my $msg = N("The following packages can't be installed because they depend on packages
+that are older than the installed ones:\n%s", $list);
+    if ($urpm->{options}{auto}) {
+	message($msg);
+    } else {
+	my $noexpr = N("Nn");
+	my $yesexpr = N("Yy");
+	message_input(
+	    $msg . N("\nContinue installation anyway?") . N(" (Y/n) "),
+	    $force && $yesexpr,
+	    boolean => 1,
+	) =~ /[$noexpr]/
+	    and exit 0;
+    }
+}
+
+my @ask_unselect = $urpm->unselected_packages($state);
+if (@ask_unselect) {
+    my $list = join "\n", $urpm->translate_why_unselected($state, sort @ask_unselect);
+    my $msg = N("Some requested packages cannot be installed:\n%s", $list);
+    if ($urpm->{options}{auto}) {
+	message($msg);
+    } else {
+	my $noexpr = N("Nn");
+	my $yesexpr = N("Yy");
+	message_input(
+	    $msg . N("\nContinue installation anyway?") . N(" (Y/n) "),
+	    $force && $yesexpr,
+	    boolean => 1,
+	) =~ /[$noexpr]/
+	    and exit 0;
+    }
+}
+
+my @ask_remove = $urpm->{options}{'allow-force'} ? @{[]} : $urpm->removed_packages($state);
+if (@ask_remove) {
+    {
+	my $db = URPM::DB::open($root);
+	$urpm->find_removed_from_basesystem($db, $state, sub {
+	    my $urpm = shift @_;
+	    foreach (@_) {
+		$urpm->{error}(N("removing package %s will break your system", $_));
+	    }
+	    @_ and $no_remove = 1;
+	});
+    }
+    my $list = join "\n", $urpm->translate_why_removed($state, sort @ask_remove);
+
+    if ($no_remove && !$force) {
+	message(N("The installation cannot continue because the following packages
+have to be removed for others to be upgraded:\n%s\n", $list));
+	exit 0;
+    }
+
+    my $msg = N("The following packages have to be removed for others to be upgraded:\n%s", $list);
+    if ($urpm->{options}{auto}) {
+	message($msg);
+    } else {
+	my $noexpr = N("Nn");
+	my $yesexpr = N("Yy");
+	message_input($msg . N(" (y/N) "), $force && $yesexpr, boolean => 1) =~ /[$yesexpr]/ or exit 0;
+    }
+}
+
+#- package to install as a array of strings.
+my @to_install;
+
+#- check if there is at least one package to install that
+#- has not been given by the user.
+my $ask_user = $env;
+my $sum = 0;
+my @root_only;
+
+foreach my $pkg (sort { $a->name cmp $b->name } @{$urpm->{depslist}}[keys %{$state->{selected}}]) {
+    #- reflect change in flag usage, now requested is set whatever a package is selected or not,
+    #- but required is always set (so a required but not requested is a pure dependency).
+    $ask_user ||= !$pkg->flag_requested || $auto_select || $parallel;
+
+    my $fullname = $pkg->fullname;
+    if (!$env && $install_src && $pkg->arch ne 'src') {
+	push @root_only, $fullname;
+    } elsif ($install_src || $pkg->arch ne 'src') {
+	$sum += $pkg->size;
+	push @to_install, $fullname;
+    }
+}
+$urpm->{nb_install} = @to_install;
+if ($env) {
+    my $msg = $#to_install
+      ? N("To satisfy dependencies, the following packages are going to be installed")
+      : N("To satisfy dependencies, the following package is going to be installed");
+    my $msg2 = N("(%d packages, %d MB)", $urpm->{nb_install}, toMb($sum));
+    my $p = join "\n", @to_install;
+    print STDERR "$msg:\n$p\n$msg2\n";
+    exit 0; #- exit now for specific environment.
+}
+if (@root_only) {
+    print STDERR N("You need to be root to install the following dependencies:\n%s\n", join ' ', @root_only);
+    exit 1;
+} elsif (!$urpm->{options}{auto} && $ask_user && @to_install) {
+    my $msg = $#to_install
+      ? N("To satisfy dependencies, the following packages are going to be installed")
+      : N("To satisfy dependencies, the following package is going to be installed");
+    my $msg2 = N("Proceed with the installation of the %d packages? (%d MB)", $urpm->{nb_install}, toMb($sum));
+    my $p = join "\n", @to_install;
+    my $noexpr = N("Nn");
+    my $yesexpr = N("Yy");
+    message_input("$msg:\n$p\n$msg2" . N(" (Y/n) "), $force && $yesexpr, boolean => 1) =~ /[$noexpr]/ and exit 0;
+}
+
+my ($local_sources, $list) = $urpm->get_source_packages(
+    $state->{selected},
+    clean_all => $clean,
+    clean_other => !$noclean && $urpm->{options}{'pre-clean'},
+);
+unless ($local_sources || $list) {
+    $urpm->{fatal}(3, N("unable to get source packages, aborting"));
+}
+
+my %sources = %$local_sources;
+my %error_sources;
+
+$urpm->copy_packages_of_removable_media(
+    $list, \%sources,
+    verbose => $verbose > 0,
+    force_local => 1,
+    ask_for_medium => (!$urpm->{options}{auto} || $allow_medium_change) && sub {
+	my $msg = N("Please insert the medium named \"%s\" on device [%s]", $_[0], $_[1]);
+	my $msg2 = N("Press Enter when ready...");
+	if ($ENV{DISPLAY} && $::gui) {
+	    #- probably run from a drak tool
+	    (my $gmessage) = grep { -x $_ } '/usr/X11R6/bin/gmessage', '/usr/bin/gmessage';
+	    if ($gmessage) {
+		my $m = to_utf8("\n$msg\n");
+		return system($gmessage, '-buttons', N("Ok") . ':1,' . N("Cancel") . ':0', $m);
+	    }
+	}
+	return defined message_input("$msg\n$msg2 ");
+    },
+);
+
+#- now create transaction just before installation, this will save user impression of slowness.
+#- split of transaction should be disabled if --test is used.
+$urpm->create_transaction($state,
+			  nodeps => $urpm->{options}{'allow-nodeps'} || $urpm->{options}{'allow-force'},
+			  split_level => $urpm->{options}{'split-level'},
+			  split_length => !$test && $urpm->{options}{'split-length'});
+
+my ($ok, $nok) = (0, 0);
+my @errors;
+
+foreach my $set (@{$state->{transaction} || []}) {
+    my (@transaction_list, %transaction_sources);
+
+    #- put a blank line to separate with previous transaction or user question.
+    message("");
+
+    #- prepare transaction...
+    $urpm->prepare_transaction($set, $list, \%sources, \@transaction_list, \%transaction_sources);
+
+    #- first, filter out what is really needed to download for this small transaction.
+    $urpm->download_packages_of_distant_media(
+	\@transaction_list,
+	\%transaction_sources,
+	\%error_sources,
+	verbose => $verbose > 0,
+	quiet => $verbose < 0,
+	limit_rate => $urpm->{options}{'limit-rate'},
+	compress => $urpm->{options}{compress},
+	resume => $urpm->{options}{resume},
+	force_local => 1,
+	callback => sub {
+	    my ($mode, $file, $percent, $total, $eta, $speed) = @_;
+	    goto &urpm::download::sync_logger;
+	},
+    );
+    my %transaction_sources_install = %{$urpm->extract_packages_to_install(\%transaction_sources) || {}};
+
+    if (!$force && ($urpm->{options}{'verify-rpm'} || grep { $_->{'verify-rpm'} } @{$urpm->{media}})) {
+	my @bad_signatures = $urpm->check_sources_signatures(\%transaction_sources_install, \%transaction_sources, translate => 1);
+
+	if (@bad_signatures) {
+	    my $msg = N("The following packages have bad signatures");
+	    my $msg2 = N("Do you want to continue installation ?");
+	    my $p = join "\n", @bad_signatures;
+	    if ($urpm->{options}{auto}) {
+		message("$msg:\n$p\n");
+		exit 1;
+	    } else {
+		my $noexpr = N("Nn");
+		my $yesexpr = N("Yy");
+		message_input("$msg:\n$p\n$msg2" . N(" (y/N) "), $force && $yesexpr, boolean => 1) =~ /[$yesexpr]/ or exit 1;
+	    }
+	}
+    }
+
+    #- check for local files.
+    if (my @missing = grep { m|^/| && ! -e $_ } values %transaction_sources_install, values %transaction_sources) {
+	#- Warning : the following message is parsed in urpm::parallel_*
+	message(N("Installation failed, some files are missing:\n%s\nYou may want to update your urpmi database",
+		  join "\n", map { s|([^:]*://[^/:\@]*:)[^/:\@]*(\@.*)|$1xxxx$2|; "    $_" } @missing));
+	++$nok;
+	next;
+    }
+
+    #- install source package only (whatever the user is root or not, but use rpm for that).
+    if ($install_src) {
+	if (my @l = grep { /\.src\.rpm$/ } values %transaction_sources_install, values %transaction_sources) {
+	    system("rpm", "-i$rpm_opt", @l, ($root ? ("--root", $root) : @{[]}));
+	    #- Warning : the following message is parsed in urpm::parallel_*
+	    $? and message(N("Installation failed")), ++$nok;
+	}
+	next;
+    }
+
+    next if $no_install;
+
+    #- clean to remove any src package now.
+    foreach (\%transaction_sources_install, \%transaction_sources) {
+	foreach my $id (keys %$_) {
+	    my $pkg = $urpm->{depslist}[$id] or next;
+	    $pkg->arch eq 'src' and delete $_->{$id};
+	}
+    }
+
+    if (keys(%transaction_sources_install) || keys(%transaction_sources)) {
+	if ($parallel) {
+	    message(N("distributing %s", join(' ', values %transaction_sources_install, values %transaction_sources)));
+	    #- no remove are handle here, automatically done by each distant node.
+	    $urpm->{log}("starting distributed install");
+	    $urpm->parallel_install([ keys %{$state->{rejected} || {}} ], \%transaction_sources_install, \%transaction_sources,
+				    test => $test,
+				    excludepath => $urpm->{options}{excludepath}, excludedocs => $urpm->{options}{excludedocs});
+	} else {
+	    my @packnames = (values %transaction_sources_install, values %transaction_sources);
+	    (my $common_prefix) = $packnames[0] =~ /^(.*)\//;
+	    if (length($common_prefix) && @packnames == grep { /^\Q$common_prefix\// } @packnames) {
+		#- there's a common prefix, simplify message
+		message(N("installing %s from %s", join(' ', map { s/.*\///; $_ } @packnames), $common_prefix));
+	    } else {
+		message(N("installing %s", join(' ', @packnames)));
+	    }
+	    @{!$urpm->{options}{'allow-force'} && $set->{remove} || []} and
+		message(N("removing %s", join(' ', @{!$urpm->{options}{'allow-force'} && $set->{remove} || []})));
+	    log_it(scalar localtime, " ", join(' ', values %transaction_sources_install, values %transaction_sources), "\n");
+	    $urpm->{log}("starting installing packages");
+	    my %install_options_common = (
+		test => $test,
+		excludepath => $urpm->{options}{excludepath},
+		excludedocs => $urpm->{options}{excludedocs},
+		post_clean_cache => $urpm->{options}{'post-clean'},
+		translate_message => 1,
+		oldpackage => $state->{oldpackage},
+		nosize => $urpm->{options}{ignoresize},
+		noscripts => $urpm->{options}{noscripts},
+	    );
+	    my @l = $urpm->install(
+		!$urpm->{options}{'allow-force'} && $set->{remove} || [],
+		\%transaction_sources_install, \%transaction_sources,
+		'fork' => @{$state->{transaction} || []} > 1, #- fork if multiple transaction
+		%install_options_common,
+	    );
+	    if (@l) {
+		#- Warning : the following message is parsed in urpm::parallel_*
+		message(N("Installation failed") . ":\n" . join("\n",  map { "\t$_" } @l));
+		if ($urpm->{options}{auto} || !$urpm->{options}{'allow-nodeps'} && !$urpm->{options}{'allow-force'}) {
+		    ++$nok;
+		    push @errors, @l;
+		} else {
+		    my $noexpr = N("Nn");
+		    my $yesexpr = N("Yy");
+		    message_input(N("Try installation without checking dependencies? (y/N) "),
+				  $force && $yesexpr, boolean => 1) =~ /[$yesexpr]/ or ++$nok, next;
+		    $urpm->{log}("starting installing packages without deps");
+		    @l = $urpm->install(
+			!$urpm->{options}{'allow-force'} && $set->{remove} || [],
+			\%transaction_sources_install, \%transaction_sources,
+			'fork' => @{$state->{transaction} || []} > 1, #- fork if multiple transaction
+			nodeps => 1,
+			%install_options_common,
+		    );
+		    if (@l) {
+			#- Warning : the following message is parsed in urpm::parallel_*
+			message(N("Installation failed") . ":\n" . join("\n", map { "\t$_" } @l));
+			if (!$urpm->{options}{'allow-force'}) {
+			    ++$nok;
+			    push @errors, @l;
+			} else {
+			    message_input(N("Try harder to install (--force)? (y/N) "),
+					  $force && $yesexpr, boolean => 1) =~ /[$yesexpr]/ or ++$nok, next;
+			    $urpm->{log}("starting force installing packages without deps");
+			    @l = $urpm->install(
+				!$urpm->{options}{'allow-force'} && $set->{remove} || [],
+				\%transaction_sources_install, \%transaction_sources,
+				'fork' => @{$state->{transaction} || []} > 1, #- fork if multiple transaction
+				nodeps => 1, force => 1,
+				%install_options_common,
+			    );
+			    if (@l) {
+				#- Warning : the following message is parsed in urpm::parallel_*
+				message(N("Installation failed") . ":\n" . join("\n", map { "\t$_" } @l));
+				++$nok;
+				push @errors, @l;
+			    } else {
+				++$ok;
+			    }
+			}
+		    } else {
+			++$ok;
+		    }
+		}
+	    } else {
+		++$ok;
+	    }
+	}
+    }
+}
+
+#- keep a track of error code.
+my $exit_code = 0;
+if (values %error_sources) {
+    #- Warning : the following message is parsed in urpm::parallel_*
+    message(N("Installation failed, some files are missing:\n%s\nYou may want to update your urpmi database",
+	      join "\n", map { s|([^:]*://[^/:\@]*:)[^/:\@]*(\@.*)|$1xxxx$2|; "    $_" } values %error_sources));
+    $exit_code = 10;
+}
+if ($nok) {
+    $nok > 1 and message(N("%d installation transactions failed", $nok) . (@errors && ":\n" . join("\n", map { "\t$_" } @errors)));
+    if ($exit_code) {
+	$exit_code = $ok ? 13 : 14;
+    } else {
+	$exit_code = $ok ? 11 : 12;
+    }
+} else {
+    if ($test) {
+	#- Warning : the following message is parsed in urpm::parallel_*
+	message(N("Installation is possible"));
+    } elsif (@names || @src_names || @files || @src_files || $auto_select) {
+	if (@{$state->{transaction} || []} == 0 && @ask_unselect == 0) {
+	    message(N("The package(s) are already installed")) if $verbose >= 0;
+	    if ($verbose >= 0 && !$auto_select) {
+		my @packages = map { $urpm->{depslist}[$_]->name } keys %requested;
+		my @guessed = difference2(\@packages, \(@names, @src_names));
+		message(N("The following package names were assumed: %s", join ", ", @guessed)) if @guessed;
+	    }
+	    $exit_code = 15 if our $expect_install;
+	}
+    }
+}
+
+unless ($env || $nolock) {
+    $urpm->unlock_urpmi_db;
+    $urpm->unlock_rpm_db;
+
+    #- try to umount removable device which may have been mounted.
+    $urpm->try_umounting_removables;
+}
+
+#- restart urpmi if needed, keep command line for that.
+if ($restart_itself && !$exit_code) {
+    message(N("restarting urpmi"));
+    #- it seems to work correctly with exec instead of system, provided
+    #- STDOUT or STDERR are not closed before (else no output at all).
+    #- added --no-priority-upgrade to make sure no restart will be done after this one.
+    #- renamed bug report dir as /restarted to avoid exit because it already exists
+    #- This permits to have in a same dir bug reports before and after the restart
+    @ARGV = @ARGVcopy;
+    my @arg = ($ARGV[0], map {
+	    $ARGV[$_] . ($ARGV[$_ - 1] eq '--bug' ? "/restarted" : "");
+	} (1 .. $#ARGV));
+    exec $0, '--no-priority-upgrade', @arg;
+}
+
+#- this help flushing correctly by closing this file before (piped on tee).
+#- but killing them is generally better.
+if ($pid_err && $pid_out) {
+    kill 15, $pid_err, $pid_out;
+    close STDERR;
+    close STDOUT;
+}
+
+use POSIX ();
+POSIX::_exit($exit_code);

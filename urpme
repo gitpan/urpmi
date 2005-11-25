@@ -1,0 +1,129 @@
+#!/usr/bin/perl
+
+# $Id: urpme,v 1.56 2005/11/17 10:51:35 rgarciasuarez Exp $
+
+# Copyright (C) 1999-2005 Mandriva <pixel@mandriva.com>
+#                                  <fpons@mandriva.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+use strict;
+use urpm;
+use urpm::args;
+use urpm::msg;
+
+$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
+delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
+
+our ($root, $test, $parallel, $auto, $matches, $verbose, $maymatch, $usedistrib, $force, @l);
+my $askok = N("Is this OK?");
+# Translator: Add here the keys which might be pressed in the "No"-case.
+my $noexpr = N("Nn");
+# Translator: Add here the keys which might be pressed in the "Yes"-case.
+my $yesexpr = N("Yy");
+
+sub usage {
+    print N("urpme version %s
+Copyright (C) 1999-2005 Mandriva.
+This is free software and may be redistributed under the terms of the GNU GPL.
+
+usage:
+", $urpm::VERSION) . N("  --help         - print this help message.
+") . N("  --auto         - automatically select a package in choices.
+") . N("  --test         - verify if the removal can be achieved correctly.
+") . N("  --force        - force invocation even if some packages do not exist.
+") . N("  --parallel     - distributed urpmi across machines of alias.
+") . N("  --root         - use another root for rpm removal.
+") . N("  --use-distrib  - configure urpmi on the fly from a distrib tree, useful
+                   to (un)install a chroot with --root option.
+") . N("  -v             - verbose mode.
+") . N("  -a             - select all packages matching expression.
+");
+    exit(0);
+}
+
+@ARGV or usage;
+urpm::args::parse_cmdline();
+@l = @ARGV;
+
+my $urpm = new urpm;
+my $state = {};
+
+#- remove verbose if not asked.
+$verbose or $urpm->{log} = sub {};
+
+if ($< && !$test) {
+    $urpm->{fatal}(1, N("Only superuser is allowed to remove packages"));
+}
+
+#- just configure parallel mode if available.
+$urpm->configure(
+    synthesis => ($parallel ? 'none' : ''),
+    root => $root,
+    parallel => $parallel,
+    usedistrib => $usedistrib,
+);
+
+#- examine packages...
+my @toremove = $urpm->find_packages_to_remove(
+    $state,
+    \@l,
+    test => $test,
+    matches => $matches,
+    auto => $auto,
+    force => $force,
+    callback_notfound => sub {
+	my $urpm = shift @_;
+	#- Warning : the following message is parsed in urpm::parallel_*
+	$urpm->{fatal}(1, (@_ > 1 ? N("unknown packages") : N("unknown package")) .
+	    ': ' . join(', ', @_)); 0 },
+    callback_fuzzy => sub {
+	my $urpm = shift @_;
+	my $match = shift @_;
+	#- Warning : the following message is parsed in urpm::parallel_*
+	$urpm->{fatal}(1, N("The following packages contain %s: %s",
+		$match, join(' ', @_))); 0 },
+    callback_base => sub {
+	my $urpm = shift @_;
+	foreach (@_) {
+	    #- Warning : the following message is parsed in urpm::parallel_*
+	    $urpm->{error}(N("removing package %s will break your system", $_));
+	} 0 },
+    root => $root,
+) or $urpm->{fatal}(0, N("Nothing to remove"));
+
+my $list = join "\n", $urpm->translate_why_removed($state, sort @toremove);
+if ($test && $auto) {
+    #- Warning : the following message is parsed in urpm::parallel_*
+    my $msg = N("Checking to remove the following packages");
+    print STDOUT "$msg:\n$list\n";
+} elsif (($parallel || @toremove > @l) && !$auto) {
+    my $sum = 0;
+    foreach (@toremove) {
+	$sum += $state->{rejected}{$_}{size};
+    }
+    my $msg = N("To satisfy dependencies, the following %d packages will be removed (%d MB)", scalar(@toremove), toMb($sum));
+    print STDOUT "$msg:\n$list\n";
+    message_input($askok . N(" (y/N) "), $force && $yesexpr, boolean => 1) =~ /[$yesexpr]/ or exit 0;
+}
+
+#- Warning : the following message is parsed in urpm::parallel_*
+print "\n" . N("removing %s", join(' ', sort @toremove)) . "\n";
+@l = $parallel
+    ? $urpm->parallel_remove(\@toremove, test => $test, force => $force, translate_message => 1)
+    : $urpm->install(\@toremove, {}, {}, test => $test, force => $force, translate_message => 1);
+
+#- Warning : the following message is parsed in urpm::parallel_*
+@l and $urpm->{fatal}(2, N("Removal failed") . ":\n" . join("\n",  map { "\t$_" } @l));

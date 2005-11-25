@@ -1,0 +1,221 @@
+#!/usr/bin/perl
+
+# $Id: urpmf,v 1.71 2005/10/27 14:43:27 pablo Exp $
+
+#- Copyright (C) 2002, 2003, 2004, 2005 Mandriva
+#-
+#- This program is free software; you can redistribute it and/or modify
+#- it under the terms of the GNU General Public License as published by
+#- the Free Software Foundation; either version 2, or (at your option)
+#- any later version.
+#-
+#- This program is distributed in the hope that it will be useful,
+#- but WITHOUT ANY WARRANTY; without even the implied warranty of
+#- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#- GNU General Public License for more details.
+#-
+#- You should have received a copy of the GNU General Public License
+#- along with this program; if not, write to the Free Software
+#- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+use strict;
+use urpm;
+use urpm::args;
+use urpm::msg;
+
+sub usage {
+    print N("urpmf version %s
+Copyright (C) 2002-2005 Mandriva.
+This is free software and may be redistributed under the terms of the GNU GPL.
+
+usage: urpmf [options] pattern-expression
+", $urpm::VERSION)
+   . N("  --help         - print this help message.
+") . N("  --version      - print this tool's version number.
+") . N("  --env          - use specific environment (typically a bug report).
+") . N("  --excludemedia - do not use the given media, separated by comma.
+") . N("  --literal, -l  - don't match patterns, use argument as a literal string.
+") . N("  --media        - use only the given media, separated by comma.
+") . N("  --sortmedia    - sort media according to substrings separated by comma.
+") . N("  --synthesis    - use the given synthesis instead of urpmi db.
+") . N("  --uniq         - do not print identical lines twice.
+") . N("  --update       - use only update media.
+") . N("  --verbose      - verbose mode.
+") . N("  -i             - ignore case distinctions in patterns.
+") . N("  -F<str>        - change field separator (defaults to ':').
+") . N("Pattern expressions:
+") . N("  text           - any text is parsed as a regexp, unless -l is used.
+") . N("  -e             - include perl code directly as perl -e.
+") . N("  -a             - binary AND operator.
+") . N("  -o             - binary OR operator.
+") . N("  !              - unary NOT.
+") . N("  ( )            - left and right parentheses.
+") . N("List of tags:
+") . N("  --qf           - specify a printf-like output format
+") . N("                   example: '%%name:%%files'
+") . N("  --arch         - architecture
+") . N("  --buildhost    - build host
+") . N("  --buildtime    - build time
+") . N("  --conffiles    - configuration files
+") . N("  --conflicts    - conflict tags
+") . N("  --description  - package description
+") . N("  --distribution - distribution
+") . N("  --epoch        - epoch
+") . N("  --filename     - filename of the package
+") . N("  --files        - list of files contained in the package
+") . N("  --group        - group
+") . N("  --name         - package name
+") . N("  --obsoletes    - obsoletes tags
+") . N("  --packager     - packager
+") . N("  --provides     - provides tags
+") . N("  --requires     - requires tags
+") . N("  --size         - installed size
+") . N("  --sourcerpm    - source rpm name
+") . N("  --summary      - summary
+") . N("  --url          - url
+") . N("  --vendor       - vendor
+") . N("  -m             - the media in which the package was found
+") . N("  -f             - print version, release and arch with name.
+");
+    exit(0);
+}
+
+#- default options.
+our $env;		# bug report directory
+our $excludemedia = '';
+our $full = '';		# -f : print rpm fullname instead of rpm name
+our $literal = 0;	# should we quotemeta the pattern
+our $media = '';
+our $pattern = '';	# regexp match flags ("i" or "")
+our $qf = '%default';	# format string
+our $separator = ':';	# default field separator
+our $sortmedia = '';
+our $synthesis = '';
+our $uniq = '';		# --uniq
+our $update = 0;	# --update
+our $verbose = 0;	# --verbose
+
+#- globals used in callback
+our $expr;		# regexp to match against
+our %uniq;
+
+#- parse arguments list.
+urpm::args::parse_cmdline();
+
+if ($qf eq '%default') {
+    #- nothing on the command-line : default is to search on file names
+    $qf = '%name' . $separator . '%files';
+} else {
+    #- else default to a leading %name
+    $qf =~ s/%default\b/%name/;
+}
+
+#- replace first %name by %fullname if -f was specified
+if ($full) { $qf =~ s/%name\b/%fullname/ }
+
+my $urpm = new urpm;
+$verbose or $urpm->{log} = sub {};
+
+#- build the callback matching the expression.
+#- count multi-valued tags
+my $multi = 0;
+my $multitag = '';
+my %multitags = map { $_ => 1 } qw/conffiles conflicts files obsoletes provides requires/;
+my %usedtags;
+while ($qf =~ /%[-\d]*(\w+)/g) {
+    ++$multi, $multitag = $1 if $multitags{$1};
+    $usedtags{$1} = 1;
+}
+$multi > 1
+    and $urpm->{fatal}->(1, N("Incorrect format: you may use only one multi-valued tag"));
+
+#- it would be nice to use "my $_" in this callback.
+my $callback = qq<sub {
+    my (\$urpm, \$pkg) = \@_;
+    local *_;>;
+if ($multi) {
+    $callback .= qq/
+    for my \$mt (\$pkg->$multitag) {/;
+}
+$callback .= qq<
+    \$_ = sprintf(qq{$qf\\n}>;
+
+my $sprintfargs = '';
+while ($callback =~ /%[-\d]*(\w+)/g) {
+    my $tag = $1;
+    if ($tag eq 'media') {
+	$sprintfargs .= ', $urpm::currentmedia->{name}';
+    } elsif ($tag eq 'fullname') {
+	$sprintfargs .= ', scalar($pkg->fullname)';
+    } elsif ($tag eq $multitag) {
+	$sprintfargs .= ', $mt';
+    } else {
+	$sprintfargs .= ', $pkg->' . $tag;
+    }
+}
+$callback =~ s/%([-\d]*)(\w+)/%${1}s/g;
+my $next_st = $multi ? 'next' : 'return 1';
+$uniq and $uniq = "\n" . '    $uniq{$_} and ' . $next_st . '; $uniq{$_} = 1;';
+$callback .= qq<$sprintfargs);
+    $expr or $next_st;$uniq
+    print;>;
+$callback .= "\n    }" if $multi;
+$callback .= "\n    1;\n}";
+$urpm->{error}("qf:[$qf]\ncallback:\n$callback") if our $debug;
+$callback = eval $callback;
+if ($@) {
+    $debug and warn "Internal error: $@\n";
+    usage;
+}
+
+if ($env) {
+    print STDERR N("using specific environment on %s\n", $env);
+    #- setting new environment.
+    $urpm->{config} = "$env/urpmi.cfg";
+    $urpm->{skiplist} = "$env/skip.list";
+    $urpm->{instlist} = "$env/inst.list";
+    $urpm->{statedir} = $env;
+}
+
+{
+    #- lock to avoid concurrent media updates,
+    #- but don't die if it doesn't work
+    local $urpm->{fatal} = sub { printf STDERR "%s\n", $_[1] };
+    $urpm->shlock_urpmi_db;
+}
+my $use_hdlist = grep { $usedtags{$_} } qw(
+    buildhost
+    buildtime
+    conf_files
+    description
+    distribution
+    files
+    packager
+    sourcerpm
+    url
+    vendor
+);
+$urpm->configure(
+    nocheck_access => 1,
+    noskipping => 1,
+    media => $media,
+    excludemedia => $excludemedia,
+    sortmedia => $sortmedia,
+    synthesis => $synthesis,
+    update => $update,
+    callback => $callback,
+    call_back_only_once => 1,
+    hdlist => $use_hdlist,
+);
+$urpm->unlock_urpmi_db;
+
+if ($use_hdlist) {
+    # @hdmedia is the list of all media searched that use hdlists
+    my @hdmedia = grep {
+	!$_->{synthesis} && !$_->{removable} && !$_->{ignore};
+    } @{ $urpm->{media} };
+    if (!@hdmedia) {
+	print N("Note: since no media searched uses hdlists, urpmf was unable to return any result\n");
+	print N("You may want to use --name to search for package names.\n") if !$usedtags{name};
+    }
+}

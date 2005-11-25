@@ -1,0 +1,510 @@
+#!/usr/bin/perl
+
+# $Id: urpmq,v 1.143 2005/11/07 15:51:22 rgarciasuarez Exp $
+
+#- Copyright (C) 2000-2005 Mandriva (fpons@mandriva.com)
+#-
+#- This program is free software; you can redistribute it and/or modify
+#- it under the terms of the GNU General Public License as published by
+#- the Free Software Foundation; either version 2, or (at your option)
+#- any later version.
+#-
+#- This program is distributed in the hope that it will be useful,
+#- but WITHOUT ANY WARRANTY; without even the implied warranty of
+#- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#- GNU General Public License for more details.
+#-
+#- You should have received a copy of the GNU General Public License
+#- along with this program; if not, write to the Free Software
+#- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+#- this program is based upon urpmi.
+
+use strict;
+
+use urpm;
+use urpm::args;
+use urpm::msg;
+use urpm::sys;
+
+#- default options.
+$urpm::args::options = { use_provides => 1 };
+
+our @files;
+our @names;
+our @src_names;
+
+sub usage {
+    print N("urpmq version %s
+Copyright (C) 2000-2005 Mandriva.
+This is free software and may be redistributed under the terms of the GNU GPL.
+
+usage:
+", $urpm::VERSION) . N("  --help         - print this help message.
+") . N("  --update       - use only update media.
+") . N("  --media        - use only the given media, separated by comma.
+") . N("  --searchmedia  - use only the given media to search requested (or updated) packages.
+") . N("  --excludemedia - do not use the given media, separated by comma.
+") . N("  --sortmedia    - sort media according to substrings separated by comma.
+") . N("  --synthesis    - use the given synthesis instead of urpmi db.
+") . N("  --auto-select  - automatically select packages to upgrade the system.
+") . N("  --fuzzy        - impose fuzzy search (same as -y).
+") . N("  --keep         - keep existing packages if possible, reject requested
+                   packages that lead to removals.
+") . N("  --list         - list available packages.
+") . N("  --list-media   - list available media.
+") . N("  --list-url     - list available media and their url.
+") . N("  --list-nodes   - list available nodes when using --parallel.
+") . N("  --list-aliases - list available parallel aliases.
+") . N("  --dump-config  - dump the config in form of urpmi.addmedia argument.
+") . N("  --src          - next package is a source package (same as -s).
+") . N("  --headers      - extract headers for package listed from urpmi db to
+                   stdout (root only).
+") . N("  --sources      - give all source packages before downloading (root only).
+") . N("  --force        - force invocation even if some packages do not exist.
+") . N("  --parallel     - distributed urpmi across machines of alias.
+") . N("  --use-distrib  - configure urpmi on the fly from a distrib tree.
+                   This permit to querying a distro.
+") . N("  --wget         - use wget to retrieve distant files.
+") . N("  --curl         - use curl to retrieve distant files.
+") . N("  --proxy        - use specified HTTP proxy, the port number is assumed
+                   to be 1080 by default (format is <proxyhost[:port]>).
+") . N("  --proxy-user   - specify user and password to use for proxy
+                   authentication (format is <user:password>).
+") . N("  --env          - use specific environment (typically a bug report).
+") . N("  --changelog    - print changelog.
+") . N("  --summary, -S  - print summary.
+") . N("  -a             - select all matches on command line.
+") . N("  -c             - complete output with package to be removed.
+") . N("  -d             - extend query to package dependencies.
+") . N("  -f             - print version, release and arch with name.
+") . N("  -g             - print groups with name also.
+") . N("  -i             - print useful information in human readable form.
+") . N("  -l             - list files in package.
+") . N("  -P             - do not search in provides to find package (default).
+") . N("  -p             - search in provides to find package.
+") . N("  -r             - print version and release with name also.
+") . N("  -R             - reverse search to what requires package.
+") . N("  -RR            - extended reverse search (includes virtual packages).
+") . N("  -s             - next package is a source package (same as --src).
+") . N("  -u             - remove package if a more recent version is already installed.
+") . N("  -v             - verbose mode.
+") . N("  -y             - impose fuzzy search (same as --fuzzy).
+") . N("  -Y             - like -y, but forces to match case-insensitively.
+") . "\n" . N("  names or rpm files given on command line are queried.
+");
+    exit(0);
+}
+
+#- parse arguments list.
+@ARGV or usage;
+my $urpm = new urpm;
+urpm::args::parse_cmdline(urpm => $urpm);
+
+#- remove verbose if not asked.
+$urpm::args::options{verbose} or $urpm->{log} = sub {};
+
+#- improve speed if using any list_... options.
+$urpm::args::options{nodepslist} = $urpm::args::options{list_aliases}
+				|| $urpm::args::options{list_nodes}
+				|| $urpm::args::options{list_media}
+				|| $urpm::args::options{dump_config}
+				|| $urpm::args::options{list_url};
+$urpm::args::options{nolock} = 1 if $urpm::args::options{nodepslist};
+
+if ($urpm::args::options{env}) {
+    print STDERR N("using specific environment on %s\n", $urpm::args::options{env});
+    #- setting new environment.
+    $urpm->{config} = "$urpm::args::options{env}/urpmi.cfg";
+    $urpm->{skiplist} = "$urpm::args::options{env}/skip.list";
+    $urpm->{instlist} = "$urpm::args::options{env}/inst.list";
+    $urpm->{statedir} = $urpm::args::options{env};
+}
+
+$urpm::args::options{upgrade} && !$urpm::args::options{env} && !$urpm::args::options{nolock}
+    and $urpm->shlock_rpm_db;
+$urpm::args::options{nolock} or $urpm->shlock_urpmi_db;
+$urpm->configure(
+    nocheck_access => 1,
+    noskipping => $urpm::args::options{nodepslist},
+    noinstalling => $urpm::args::options{nodepslist},
+    nodepslist => $urpm::args::options{nodepslist},
+    media => $urpm::args::options{media},
+    searchmedia => $urpm::args::options{searchmedia},
+    excludemedia => $urpm::args::options{excludemedia},
+    sortmedia => $urpm::args::options{sortmedia},
+    synthesis => $urpm::args::options{synthesis},
+    update => $urpm::args::options{update},
+    skip => $urpm::args::options{skip},
+    root => $urpm::args::options{root},
+    parallel => $urpm::args::options{parallel},
+    usedistrib => $urpm::args::options{usedistrib},
+);
+
+my $state = {};
+my %requested;
+
+if ($urpm::args::options{list_aliases}) {
+    local $_;
+    open my $parallelfh, "/etc/urpmi/parallel.cfg";
+    while (<$parallelfh>) {
+	chomp; s/#.*$//; s/^\s*//; s/\s*$//;
+	/\s*([^:]*):/
+	    and print "$1\n";
+    }
+    close $parallelfh;
+} elsif ($urpm::args::options{list_nodes}) {
+    $urpm::args::options{parallel} or $urpm->{fatal}(1, N("--list-nodes can only be used with --parallel"));
+    foreach (keys %{$urpm->{parallel_handler}{nodes} || {}}) {
+	print "$_\n";
+    }
+    exit 0;
+} elsif ($urpm::args::options{list_media} || $urpm::args::options{list_url}) {
+    foreach (@{$urpm->{media}}) {
+	next if $urpm::args::options{list_media} eq 'update' and ! $_->{update};
+	next if $urpm::args::options{list_media} eq 'active' and $_->{ignore};
+	print $_->{name} . ($urpm::args::options{list_url} ? " $_->{url}" : "") . "\n";
+    }
+    exit 0;
+} elsif ($urpm::args::options{dump_config}) {
+   foreach (@{$urpm->{media}}) {
+	$_->{update} and print "--update ";
+	$_->{virtual} and print "--virtual ";
+	print "$_->{name} ";
+	print "$_->{url} ";
+	print $_->{with_hdlist} ? "with $_->{with_hdlist}" : "";
+	print "\n";
+   }
+   exit 0;
+} elsif ($urpm::args::options{list}) {
+    # --list lists all available packages: select them all
+    @{$state->{selected}}{0 .. $#{$urpm->{depslist}}} = ();
+} else {
+    %requested = $urpm->register_rpms(@files);
+
+    #- search the packages according to the selection given by the user.
+    if (@names) {
+	$urpm->search_packages(
+	    \%requested,
+	    [ @names ],
+	    use_provides => $urpm::args::options{use_provides},
+	    fuzzy => $urpm::args::options{fuzzy},
+	    caseinsensitive => $urpm::args::options{caseinsensitive},
+	    all => $urpm::args::options{all},
+	) or $urpm::args::options{force}
+	    or exit 1;
+    }
+    if (@src_names) {
+	$urpm->search_packages(
+	    \%requested,
+	    [ @src_names ],
+	    use_provides => $urpm::args::options{use_provides},
+	    fuzzy => $urpm::args::options{fuzzy},
+	    caseinsensitive => $urpm::args::options{caseinsensitive},
+	    src => 1,
+	) or $urpm::args::options{force}
+	    or exit 1;
+    }
+
+    #- keep track of choices, don't propagate but mark them selected.
+    my $stop_on_choices = sub {
+	my (undef, undef, $state_, $choices) = @_;
+	$state_->{selected}{join '|', sort { $a <=> $b } map { $_ ? $_->id : () } @$choices} = 0;
+    };
+    #- open/close of database should be moved here, in order to allow testing
+    #- some bogus case and check for integrity. (note auto_select implies upgrade).
+    if ($urpm::args::options{what_requires}) {
+	#- search for packages that require one of the proposed packages.
+	my (@properties, %requires, %properties, $dep);
+
+	#- keep in mind the requested id (if given) in order to prefer these packages
+	#- on choices instead of anything other one.
+	@properties = keys %requested;
+
+	if (@properties) {
+	    #- build a requires to packages id hash.
+	    foreach my $pkg (@{$urpm->{depslist}}) {
+		foreach ($pkg->requires_nosense) {
+		    $requires{$_}{$pkg->id} = undef;
+		}
+	    }
+
+	    #- for each dep property evaluated, examine which package will be obsoleted on $db,
+	    #- then examine provides that will be removed (which need to be satisfied by another
+	    #- package present or by a new package to upgrade), then requires not satisfied and
+	    #- finally conflicts that will force a new upgrade or a remove.
+	    while (defined ($dep = shift @properties)) {
+		#- take the best package for each choices of same name.
+		my $packages = $urpm->find_candidate_packages($dep);
+		foreach (values %$packages) {
+		    my ($best_requested, $best);
+		    foreach (@$_) {
+			if ($best_requested || exists $requested{$_->id}) {
+			    if ($best_requested && $best_requested != $_) {
+				$_->compare_pkg($best_requested) > 0 and $best_requested = $_;
+			    } else {
+				$best_requested = $_;
+			    }
+			} elsif ($best && $best != $_) {
+			    $_->compare_pkg($best) > 0 and $best = $_;
+			} else {
+			    $best = $_;
+			}
+		    }
+
+		    #- examine all proposed choices.
+		    my $pkg = $best_requested || $best or next;
+		    exists $state->{selected}{$pkg->id} and next;
+		    $state->{selected}{$pkg->id} = undef;
+
+		    #- for all provides of package, look up what is requiring them.
+		    foreach ($pkg->provides) {
+			if (my ($n, $s) = /^([^\s\[]*)(?:\[\*\])?\[?([^\s\]]*\s*[^\s\]]*)/) {
+			    #- NOTE. if the "provides" has no version specification, we happily
+			    #- assume that it can be skipped, because it most probably refers
+			    #- to a virtual package.
+			    next if $s eq '' && $urpm::args::options{what_requires} <= 1;
+			    foreach (map { $urpm->{depslist}[$_] }
+				     grep { ! exists $state->{selected}{$_} && ! exists $properties{$_} }
+				     keys %{$requires{$n} || {}}) {
+				if (grep { URPM::ranges_overlap("$n $s", $_) } $_->requires) {
+				    push @properties, $_->id;
+				    $properties{$_->id} = undef;
+				}
+			    }
+			}
+		    }
+		}
+	    }
+	}
+    } elsif ($urpm::args::options{auto_select} || $urpm::args::options{upgrade}) {
+	$urpm->resolve_dependencies($state, \%requested,
+				    keep => $urpm::args::options{keep},
+				    rpmdb => $urpm::args::options{env} && "$urpm::args::options{env}/rpmdb.cz",
+				    auto_select => $urpm::args::options{auto_select},
+				    callback_choices => $stop_on_choices);
+	$urpm::args::options{deps} or delete @{$state->{selected}}{grep { exists $state->{selected}{$_} &&
+								  ! defined $state->{selected}{$_} } keys %{$state->{selected}}};
+    } elsif ($urpm::args::options{deps}) {
+	#- only deps required.
+	my $empty_db = new URPM; #- URPM has same methods as URPM::DB and empty URPM will be seen as empty URPM::DB.
+	$urpm->resolve_requested($empty_db, $state, \%requested, callback_choices => $stop_on_choices, nodeps => 1);
+    } else {
+	$state->{selected} = \%requested;
+    }
+
+    if ($urpm::args::options{headers}
+	|| $urpm::args::options{sources}
+	|| $urpm::args::options{info}
+	|| $urpm::args::options{summary}
+	|| $urpm::args::options{list_files}
+	|| $urpm::args::options{changelog})
+    {
+	my ($local_sources, $list) = $urpm->get_source_packages($state->{selected});
+
+	if ($urpm::args::options{headers}) {
+	    #- now examine source package to build headers list to extract.
+	    unless ($local_sources || $list) {
+		$urpm->{fatal}(1, N("unable to get source packages, aborting"));
+	    }
+	    my $rpm2header = '/usr/bin/rpm2header';
+	    # TODO rewrite rpm2header in perl
+	    -x $rpm2header
+		or $urpm->{fatal}(2, N("rpm2header utility not found, impossible to use the --header option"));
+	    if (values %$local_sources) {
+		system $rpm2header, values %$local_sources;
+	    }
+	    foreach (0..$#{$urpm->{media} || []}) {
+		my @headers = (grep {
+			my $file = "$urpm->{cachedir}/headers/$_";
+			if (-s $file) {
+			    my $fh; open $fh, '<', $file and do {
+				while (<$fh>) { print STDOUT $_ }
+				close $fh;
+			    };
+			}
+			! -s $file;
+		    } map { m|(.*)/([^/]*)-([^-]*)-([^-]*)\.([^\.]*)\.rpm| and "$2-$3-$4.$5" } values %{$list->[$_]});
+		@headers > 0 or next;
+
+		if (-s "$urpm->{statedir}/$urpm->{media}[$_]{hdlist}") {
+		    require MDV::Packdrakeng;
+		    my $packer = MDV::Packdrakeng->open(
+			archive => (
+			    $urpm->{media}[$_]{virtual}
+			    ? ("$urpm->{media}[$_]{url}/$urpm->{media}[$_]{with_hdlist}" =~ m!^(?:file:/*)?(/[^/].*)!)[0]
+			    : "$urpm->{statedir}/$urpm->{media}[$_]{hdlist}",
+			),
+			quiet => 1,
+		    );
+		    defined $packer or do {
+			warn "Can't open archive: $MDV::Packdrakeng::error";
+			exit 1;
+		    };
+		    $packer->extract(undef, @headers);
+		} else {
+		    #- fallback to retrieve rpm package before, so that --headers will be ok.
+		    my %downloads = $urpm->download_source_packages({}, $list, force_local => 1);
+		    system "rpm2header", values %downloads;
+		}
+	    }
+	} elsif ($urpm::args::options{info} || $urpm::args::options{list_files} || $urpm::args::options{changelog}
+		|| $urpm::args::options{summary}) {
+	    my %downloads;
+	    # get descriptions of update sources
+	    my $updates_descr = $urpm->urpm::get_updates_description;
+	    # if not root, use a temporary directory to store headers
+	    my $tmp_header_dir = "$urpm->{cachedir}/headers";
+	    $< != 0 and $tmp_header_dir = urpm::sys::mktempdir();
+	    my @selected = map { split /\|/ } keys %{$state->{selected}};
+	    foreach (0..$#{$urpm->{media} || []}) {
+		if ($urpm->{media}[$_]{synthesis}) {
+		    $urpm->{log}->(N("skipping media %s: no hdlist", $urpm->{media}[$_]{name}));
+		    next;
+		}
+		if (my @headers = (grep { ! -s "$urpm->{cachedir}/headers/$_" }
+			map { my $pkg = $urpm->{depslist}[$_];
+			    $pkg && $pkg->header_filename } @selected))
+		{
+		    my %h = map { $_ => 1 } @headers; @headers = keys %h;
+                    my $hdlist_path = $urpm->{media}[$_]{virtual}
+                      ? ("$urpm->{media}[$_]{url}/$urpm->{media}[$_]{with_hdlist}" =~ m!^(?:file:/*)?(/[^/].*)!)[0]
+                      :  "$urpm->{statedir}/$urpm->{media}[$_]{hdlist}";
+                    if (-s $hdlist_path) {
+			require MDV::Packdrakeng;
+			my $packer = MDV::Packdrakeng->open(archive => $hdlist_path, quiet => 1);
+			defined $packer or do {
+			    warn "Can't open archive: $MDV::Packdrakeng::error";
+			    exit 1;
+			};
+			$packer->extract($tmp_header_dir, @headers);
+		    } elsif (!%downloads) {
+			#- fallback to retrieve rpm package before, so that --headers will be ok.
+			%downloads = $urpm->download_source_packages({}, $list, force_local => 1);
+		    }
+		}
+	    }
+	    foreach (keys %{$state->{selected}}) {
+		foreach (split /\|/, $_) {
+		    my $pkg = $urpm->{depslist}[$_] or next;
+		    #- even if non-root, search for a header in the global cachedir
+		    my $file = $local_sources->{$_} || $downloads{$_} || "$urpm->{cachedir}/headers/".$pkg->header_filename;
+		    if (-s $file) {
+			$pkg->update_header($file, keep_all_tags => 1);
+		    } elsif ($< != 0) {
+			$pkg->update_header("$tmp_header_dir/".$pkg->header_filename, keep_all_tags => 1);
+			unlink "$tmp_header_dir/".$pkg->header_filename;
+		    }
+		    if ($urpm::args::options{info})  {
+			printf "%-12s: %s\n", "Name", $pkg->name;
+			printf "%-12s: %s\n", "Version", $pkg->version;
+			printf "%-12s: %s\n", "Release", $pkg->release;
+			print from_utf8(sprintf("%-12s: %s\n", "Group", $pkg->group));
+			printf "%-12s: %-28s %12s: %s\n", "Size", $pkg->size, "Architecture", $pkg->arch;
+			if ($pkg->sourcerpm || $pkg->buildhost) {
+			    if ($pkg->sourcerpm && $pkg->buildhost) {
+				printf "%-12s: %-28s %12s: %s\n", "Source RPM", $pkg->sourcerpm, "Build Host", $pkg->buildhost;
+			    } elsif ($pkg->sourcerpm) {
+				$pkg->sourcerpm and printf "%-12s: %s\n", "Source RPM", $pkg->sourcerpm;
+			    } else {
+				$pkg->sourcerpm and printf "%-12s: %s\n", "Build Host", $pkg->buildhost;
+			    }
+			}
+			$pkg->packager and print from_utf8(sprintf("%-12s: %s\n", "Packager", $pkg->packager));
+			$pkg->url and printf "%-12s: %s\n", "URL", $pkg->url;
+			$pkg->summary and print from_utf8(sprintf("%-12s: %s\n", "Summary", $pkg->summary));
+			my $updesc = $updates_descr->{$pkg->name};
+			$pkg->description && !$updesc->{description}
+			    and print from_utf8(sprintf("%-12s:\n%s\n", "Description", $pkg->description));
+			if ($updesc) {
+			    $updesc->{description}
+				and print from_utf8(sprintf("%-12s:\n%s\n", "Description", $updesc->{description}));
+			    $updesc->{updated}
+				and print from_utf8(sprintf("%-20s: %s\n", "Last updated", $updesc->{updated}));
+			    $updesc->{importance}
+				and print from_utf8(sprintf("%-20s: %s\n", "Update importance", $updesc->{importance}));
+			    $updesc->{pre}
+				and print from_utf8(sprintf("%-20s:\n%s\n", "Reason for update", $updesc->{pre}));
+			}
+		    }
+		    if ($urpm::args::options{summary})  {
+			printf "%s : %s ( %s%s-%s )\n", $pkg->name, $pkg->summary, ($pkg->epoch ? $pkg->epoch . ':' : ''), $pkg->version, $pkg->release;
+		    }
+		    if ($urpm::args::options{list_files}) {
+			if ($pkg->files) {
+			    print join("\n", $pkg->files)."\n";
+			} else {
+			    print STDERR N("No filelist found\n");
+			}
+		    }
+		    if ($urpm::args::options{changelog}) {
+			if ($pkg->changelog_time && $pkg->changelog_name && $pkg->changelog_text) {
+			    my @ti = $pkg->changelog_time;
+			    my @na = $pkg->changelog_name;
+			    my @tx = $pkg->changelog_text;
+			    for my $i (0 .. $#ti) {
+				print "* " . urpm::msg::localtime2changelog($ti[$i]) . " $na[$i]\n$tx[$i]\n\n";
+			    }
+			} else {
+			    print STDERR N("No changelog found\n");
+			}
+		    }
+		}
+	    }
+	    -d $tmp_header_dir && $< != 0 and rmdir $tmp_header_dir;
+	} elsif ($urpm::args::options{sources}) {
+	    print join "\n", values %$local_sources; values %$local_sources and print "\n";
+	    foreach (0..$#{$urpm->{media} || []}) {
+		print join "\n", values %{$list->[$_]}; values %{$list->[$_]} and print "\n";
+	    }
+	}
+	exit 0;
+    }
+}
+$urpm::args::options{nolock} or $urpm->unlock_urpmi_db;
+$urpm::args::options{upgrade} && !$urpm::args::options{env} && !$urpm::args::options{nolock}
+    and $urpm->unlock_rpm_db;
+
+#- print sub for query.
+my $query_sub = sub {
+    my ($id) = @_;
+    my $pkg = $urpm->{depslist}[$id];
+    my $str = '';
+    $urpm::args::options{group} and $str .= $pkg->group . '/';
+    $str .= $pkg->name;
+    $urpm::args::options{version} and $str .= '-' . $pkg->version;
+    $urpm::args::options{release} and $str .= '-' . $pkg->release;
+    $urpm::args::options{arch} and $str .= '.' . $pkg->arch;
+    $str;
+};
+
+my %hack_only_one;
+if ($urpm::args::options{complete}) {
+    foreach my $removal (grep { $state->{rejected}{$_}{removed} && !$state->{rejected}{$_}{obsoleted} }
+			 keys %{$state->{rejected} || {}}) {
+	print '@removing@' . $removal . "\n";
+    }
+    foreach my $selected (values %{$state->{selected} || {}}) {
+	if (ref($selected) eq 'HASH' && ref($selected->{unsatisfied}) eq 'ARRAY') {
+	    foreach (@{$selected->{unsatisfied}}) {
+		exists $hack_only_one{$_} and next;
+		print '@unsatisfied@' . $_ . "\n";
+		$hack_only_one{$_} = undef;
+	    }
+	}
+    }
+}
+foreach my $id (sort { eval { $urpm->{depslist}[$a]->name cmp $urpm->{depslist}[$b]->name } || $a <=> $b }
+		$state->{selected} ? keys %{$state->{selected}} : keys %requested) {
+    my $class = $state->{selected}{$id} || $requested{$id};
+    if (ref($class) eq 'ARRAY') {
+	foreach my $choices (@{$class || []}) {
+	    exists $hack_only_one{$choices} and next;
+	    print join('|', map { $query_sub->($_) } @$choices), "\n";
+	    $hack_only_one{$choices} = undef;
+	}
+    } else {
+	print join('|', map { $query_sub->($_) } split '\|', $id), "\n";
+    }
+}
+
