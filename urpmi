@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmi,v 1.330 2005/11/21 10:02:02 rgarciasuarez Exp $
+# $Id: urpmi,v 1.333 2005/12/02 14:50:23 rgarciasuarez Exp $
 
-#- Copyright (C) 1999-2005 Mandriva (pixel@mandriva.com)
+#- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+#- Copyright (C) 2005 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -108,6 +109,9 @@ usage:
                    to install a chroot with --root option.
 ") . N("  --wget         - use wget to retrieve distant files.
 ") . N("  --curl         - use curl to retrieve distant files.
+") . N("  --curl-options - additional options to pass to curl
+") . N("  --rsync-options- additional options to pass to rsync
+") . N("  --wget-options - additional options to pass to wget
 ") . N("  --limit-rate   - limit the download speed.
 ") . N("  --resume       - resume transfer of partially-downloaded files
                    (--no-resume disables it, default is disabled).
@@ -198,7 +202,9 @@ if ($restricted) {
     foreach (qw(keep verify-rpm norebuild)) { $urpm->{options}{$_} = 1 }
     #- forbid some other options
     urpm::error_restricted($urpm) if $root || $usedistrib || $force || $env || $parallel || $synthesis || $nolock;
-    foreach (qw(allow-nodeps allow-force)) { urpm::error_restricted($urpm) if $urpm->{options}{$_} }
+    foreach (qw(allow-nodeps allow-force curl-options rsync-options wget-options)) {
+	urpm::error_restricted($urpm) if $urpm->{options}{$_};
+    }
 }
 
 #- prepare bug report.

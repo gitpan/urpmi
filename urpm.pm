@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.584 2005/11/25 14:45:13 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.588 2005/12/05 10:33:39 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.2';
+our $VERSION = '4.8.3';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -58,11 +58,9 @@ sub new {
 }
 
 #- syncing algorithms.
-#- currently wget and curl methods are implemented; trying to find the best
-#- (and one which will work :-)
 sub sync_webfetch {
-    my $urpm = shift @_;
-    my $options = shift @_;
+    my $urpm = shift;
+    my $options = shift;
     my %files;
     #- currently ftp and http protocols are managed by curl or wget,
     #- ssh and rsync protocols are managed by rsync *AND* ssh.
@@ -76,6 +74,9 @@ sub sync_webfetch {
 	};
 	$urpm->{fatal}(10, $@) if $@;
 	delete @files{qw(removable file)};
+    }
+    for my $cpt (qw(wget-options curl-options rsync-options)) {
+	$options->{$cpt} = $urpm->{options}{$cpt} if defined $urpm->{options}{$cpt};
     }
     if ($files{ftp} || $files{http} || $files{https}) {
 	my @webfetch = qw(curl wget);
@@ -156,6 +157,7 @@ sub read_config {
 	    auto
 	    compress
 	    downloader
+	    default-media
 	    excludedocs
 	    excludepath
 	    fuzzy
@@ -174,6 +176,9 @@ sub read_config {
 	    split-level
 	    strict-arch
 	    verify-rpm
+	    curl-options
+	    rsync-options
+	    wget-options
 	)) {
 	    if (defined $config->{''}{$opt} && !exists $urpm->{options}{$opt}) {
 		$urpm->{options}{$opt} = $config->{''}{$opt};
@@ -503,10 +508,13 @@ sub configure {
             $urpm->add_distrib_media("Virtual", $options{usedistrib}, %options, 'virtual' => 1);
         } else {
 	    $urpm->read_config(%options);
+	    if (!$options{media} && $urpm->{options}{'default-media'}) {
+		$options{media} = $urpm->{options}{'default-media'};
+	    }
         }
 	if ($options{media}) {
 	    delete $_->{modified} foreach @{$urpm->{media} || []};
-	    $urpm->select_media(split ',', $options{media});
+	    $urpm->select_media(split /,/, $options{media});
 	    foreach (grep { !$_->{modified} } @{$urpm->{media} || []}) {
 		#- this is only a local ignore that will not be saved.
 		$_->{ignore} = 1;
@@ -523,7 +531,7 @@ sub configure {
 	}
 	if ($options{excludemedia}) {
 	    delete $_->{modified} foreach @{$urpm->{media} || []};
-	    $urpm->select_media(split ',', $options{excludemedia});
+	    $urpm->select_media(split /,/, $options{excludemedia});
 	    foreach (grep { $_->{modified} } @{$urpm->{media} || []}) {
 		#- this is only a local ignore that will not be saved.
 		$_->{ignore} = 1;
@@ -2015,9 +2023,15 @@ this could happen if you mounted manually the directory when creating the medium
 	    my $fh = $urpm->open_safe(">", "$urpm->{statedir}/names.$_->{name}");
 	    if ($fh) {
 		foreach ($_->{start} .. $_->{end}) {
-		    print $fh $urpm->{depslist}[$_]->name . "\n";
+		    if (defined $urpm->{depslist}[$_]) {
+			print $fh $urpm->{depslist}[$_]->name . "\n";
+		    } else {
+			$urpm->{error}(N("Error generating names file: dependency %d not found", $_));
+		    }
 		}
 		close $fh;
+	    } else {
+		$urpm->{error}(N("Error generating names file: Can't write to file (%s)", $!));
 	    }
 	}
     }
@@ -3434,12 +3448,14 @@ on a Mandriva Linux distribution.
 
 =head1 SEE ALSO
 
-The perl-URPM package is used to manipulate at a lower level hdlist and rpm
+The C<URPM> package is used to manipulate at a lower level hdlist and rpm
 files.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000-2005 Mandriva
+Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,8 +1,8 @@
 package urpm::sys;
 
-# $Id: sys.pm,v 1.13 2005/11/03 10:43:50 rgarciasuarez Exp $
-
 use strict;
+
+(our $VERSION) = q$Id: sys.pm,v 1.16 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 #- find used mount point from a pathname, use a optional mode to allow
 #- filtering according the next operation (mount or umount).
@@ -121,7 +121,7 @@ sub check_fs_writable () {
     local *_;
     while (<$mounts>) {
 	(undef, our $mountpoint, undef, my $opts) = split ' ';
-	if ($opts =~ /\bro\b/ && $mountpoint =~ m!^(/|/usr|/s?bin)\z!) {
+	if ($opts =~ /(?:^|,)ro(?:,|$)/ && $mountpoint =~ m!^(/|/usr|/s?bin)\z!) {
 	    return 0;
 	}
     }
@@ -167,3 +167,20 @@ sub mktempdir {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+urpm::sys - OS-related routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
+
+=cut

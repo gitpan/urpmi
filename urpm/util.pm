@@ -10,6 +10,8 @@ our @EXPORT = qw(quotespace unquotespace
     difference2
 );
 
+(our $VERSION) = q$Id: util.pm,v 1.10 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+
 #- quoting/unquoting a string that may be containing space chars.
 sub quotespace		 { my $x = $_[0] || ''; $x =~ s/(\s)/\\$1/g; $x }
 sub unquotespace	 { my $x = $_[0] || ''; $x =~ s/\\(\s)/$1/g; $x }
@@ -100,3 +102,19 @@ sub difference2 { my %l; @l{@{$_[1]}} = (); grep { !exists $l{$_} } @{$_[0]} }
 1;
 
 __END__
+
+=head1 NAME
+
+urpm::util - Misc. utilities subs for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
+
+=cut

@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmf,v 1.71 2005/10/27 14:43:27 pablo Exp $
+# $Id: urpmf,v 1.72 2005/12/02 11:46:41 rgarciasuarez Exp $
 
-#- Copyright (C) 2002, 2003, 2004, 2005 Mandriva
+#- Copyright (C) 2002, 2003, 2004, 2005 MandrakeSoft SA
+#- Copyright (C) 2005 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by

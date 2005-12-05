@@ -5,6 +5,8 @@ use urpm::msg;
 use urpm::cfg;
 use Cwd;
 
+(our $VERSION) = q$Id: download.pm,v 1.48 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+
 #- proxy config file.
 our $PROXY_CFG = '/etc/urpmi/proxy.cfg';
 my $proxy_config;
@@ -207,7 +209,7 @@ sub sync_wget {
     my $cwd = getcwd();
     chdir $options->{dir};
     my ($buf, $total, $file) = ('', undef, undef);
-    my $wget_pid = open my $wget, join(" ", map { "'$_'" }
+    my $wget_command = join(" ", map { "'$_'" }
 	#- construction of the wget command-line
 	"/usr/bin/wget",
 	($options->{limit_rate} ? "--limit-rate=$options->{limit_rate}" : ()),
@@ -219,10 +221,12 @@ sub sync_wget {
 	"--retr-symlinks",
 	"--no-check-certificate",
 	"--timeout=$CONNECT_TIMEOUT",
-	"-NP",
-	$options->{dir},
+	"-N",
+	(defined $options->{'wget-options'} ? split /\s+/, $options->{'wget-options'} : ()),
+	'-P', $options->{dir},
 	@_
     ) . " |";
+    my $wget_pid = open my $wget, $wget_command;
     local $/ = \1; #- read input by only one char, this is slow but very nice (and it works!).
     while (<$wget>) {
 	$buf .= $_;
@@ -293,7 +297,9 @@ sub sync_curl {
 	    "--stderr", "-", # redirect everything to stdout
 	    "--disable-epsv",
 	    "--connect-timeout", $CONNECT_TIMEOUT,
-	    "-s", "-I", @ftp_files) . " |";
+	    "-s", "-I",
+	    (defined $options->{'curl-options'} ? split /\s+/, $options->{'curl-options'} : ()),
+	    @ftp_files) . " |";
 	while (<$curl>) {
 	    if (/Content-Length:\s*(\d+)/) {
 		!$cur_ftp_file || exists($ftp_files_info{$cur_ftp_file}{size})
@@ -353,6 +359,7 @@ sub sync_curl {
 	    "-f",
 	    "--disable-epsv",
 	    "--connect-timeout", $CONNECT_TIMEOUT,
+	    (defined $options->{'curl-options'} ? split /\s+/, $options->{'curl-options'} : ()),
 	    "--stderr", "-", # redirect everything to stdout
 	    @all_files) . " |";
 	local $/ = \1; #- read input by only one char, this is slow but very nice (and it works!).
@@ -429,6 +436,7 @@ sub sync_rsync {
 		($options->{compress} ? qw(-z) : @{[]}),
 		($options->{ssh} ? qw(-e ssh) : @{[]}),
 		qw(--partial --no-whole-file),
+		(defined $options->{'rsync-options'} ? split /\s+/, $options->{'rsync-options'} : ()),
 		"'$file' '$options->{dir}' |");
 	    local $/ = \1; #- read input by only one char, this is slow but very nice (and it works!).
 	    while (<$rsync>) {
@@ -504,6 +512,8 @@ urpm::download - download routines for the urpm* tools
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000-2005 Mandriva
+Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
 
 =cut

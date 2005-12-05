@@ -2,6 +2,8 @@ package urpm::prompt;
 
 use strict;
 
+(our $VERSION) = q$Id: prompt.pm,v 1.3 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+
 sub new {
     my ($class, $title, $prompts, $defaults, $hidden) = @_;
     bless {
@@ -52,6 +54,8 @@ urpm::prompt - base class to prompt the user for data
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005 Mandriva
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
 
 =cut

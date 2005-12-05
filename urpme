@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpme,v 1.56 2005/11/17 10:51:35 rgarciasuarez Exp $
+# $Id: urpme,v 1.57 2005/12/02 11:46:41 rgarciasuarez Exp $
 
-# Copyright (C) 1999-2005 Mandriva <pixel@mandriva.com>
-#                                  <fpons@mandriva.com>
+#- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+#- Copyright (C) 2005 Mandriva SA
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

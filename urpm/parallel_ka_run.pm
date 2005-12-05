@@ -1,8 +1,11 @@
 package urpm::parallel_ka_run;
 
+#- Copyright (C) 2002, 2003, 2004, 2005 MandrakeSoft SA
+#- Copyright (C) 2005 Mandriva SA
+
 use strict;
 
-(our $VERSION) = q$Id: parallel_ka_run.pm,v 1.35 2005/11/17 11:04:17 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: parallel_ka_run.pm,v 1.36 2005/12/02 11:46:41 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 our $mput_command = $ENV{URPMI_MPUT_COMMAND};
 our $rshp_command = $ENV{URPMI_RSHP_COMMAND};
 

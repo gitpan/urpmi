@@ -1,12 +1,12 @@
 package urpm::ldap;
 
-# $Id: ldap.pm,v 1.11 2005/11/03 14:57:51 rgarciasuarez Exp $
-
 use strict;
 use warnings;
 use urpm;
 use urpm::msg 'N';
 use Net::LDAP;
+
+(our $VERSION) = q$Id: ldap.pm,v 1.13 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 our $LDAP_CONFIG_FILE = '/etc/ldap.conf';
 my @per_media_opt = (@urpm::PER_MEDIA_OPT, qw(ftp-proxy http-proxy));
@@ -218,3 +218,13 @@ sub load_ldap_media($%) {
 }
 
 1;
+
+__END__
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
+
+=cut

@@ -3,6 +3,9 @@ package urpm::msg;
 use strict;
 no warnings;
 use Exporter;
+
+(our $VERSION) = q$Id: msg.pm,v 1.21 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+
 our @ISA = 'Exporter';
 our @EXPORT = qw(N log_it to_utf8 message_input message toMb from_utf8);
 
@@ -114,6 +117,8 @@ urpm::msg - routines to prompt messages from the urpm* tools
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000-2005 Mandriva
+Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
 
 =cut

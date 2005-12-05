@@ -5,6 +5,8 @@ use warnings;
 use urpm::util;
 use urpm::msg 'N';
 
+(our $VERSION) = q$Id: cfg.pm,v 1.35 2005/12/02 17:14:22 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+
 =head1 NAME
 
 urpm::cfg - routines to handle the urpmi configuration files
@@ -150,6 +152,8 @@ sub load_config ($;$) {
 	  |prohibit-remove
 	  |downloader
 	  |retry
+	  |default-media
+	  |(?:curl|rsync|wget)-options
 	 )\s*:\s*['"]?(.*?)['"]?$/x
 	    and $config{$medium}{$1} = $2, next;
 	/^key[-_]ids\s*:\s*['"]?(.*?)['"]?$/
@@ -245,6 +249,8 @@ __END__
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000-2005 Mandriva
+Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
+
+Copyright (C) 2005 Mandriva SA
 
 =cut
