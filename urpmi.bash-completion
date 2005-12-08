@@ -1,6 +1,6 @@
 # bash completion for urpmi and friends
 # Copyright (c) 2002-2004 Guillaume Rousse <guillomovitch@mandriva.com>
-# $Id: urpmi.bash-completion,v 1.21 2005/11/25 17:59:18 rgarciasuarez Exp $
+# $Id: urpmi.bash-completion,v 1.22 2005/12/06 11:24:33 rgarciasuarez Exp $
 
 # utility functions
 _urpmi_get_medias()
@@ -134,7 +134,7 @@ _urpmq()
 			-r -f -h -l --help --update --media --excludemedia \
 			--sortmedia --synthesis --auto-select --fuzzy --keep \
 			--list --list-url --list-media --list-nodes --list-aliases \
-			--src --headers --sources --force --parallel --wget --curl \
+			--src --sources --force --parallel --wget --curl \
 			--changelog --proxy --proxy-user --env --dump-config \
 			--use-distrib --searchmedia' -- $cur))
 	else

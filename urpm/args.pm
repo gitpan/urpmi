@@ -7,7 +7,7 @@ use Getopt::Long;# 2.33;
 use urpm::download;
 use urpm::msg;
 
-(our $VERSION) = q$Id: args.pm,v 1.82 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: args.pm,v 1.83 2005/12/06 11:24:33 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 # The program that invokes us
 (my $tool = $0) =~ s!.*/!!;
@@ -213,7 +213,6 @@ my %options_spec = (
 	'list-aliases' => \$options{list_aliases},
 	'dump-config' => \$options{dump_config},
 	'src|s' => \$options{src},
-	headers => \$options{headers},
 	sources => \$options{sources},
 	force => \$options{force},
 	'skip=s' => \$options{skip},

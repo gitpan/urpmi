@@ -22,6 +22,7 @@ use strict;
 use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(fatal but quit add_button_box new_label N);
+(our $VERSION) = q$Id: gurpmi.pm,v 1.11 2005/12/05 12:53:40 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 sub usage () {
     print <<USAGE;

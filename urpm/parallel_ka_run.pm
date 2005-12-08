@@ -5,7 +5,7 @@ package urpm::parallel_ka_run;
 
 use strict;
 
-(our $VERSION) = q$Id: parallel_ka_run.pm,v 1.36 2005/12/02 11:46:41 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: parallel_ka_run.pm,v 1.37 2005/12/06 14:47:26 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 our $mput_command = $ENV{URPMI_MPUT_COMMAND};
 our $rshp_command = $ENV{URPMI_RSHP_COMMAND};
 
@@ -249,6 +249,8 @@ sub parallel_install {
 #- allow to bootstrap from urpmi code directly (namespace is urpm).
 
 package urpm;
+
+no warnings 'redefine';
 
 sub handle_parallel_options {
     my (undef, $options) = @_;

@@ -6,7 +6,7 @@ package urpm::parallel_ssh;
 use strict;
 use Time::HiRes qw(gettimeofday);
 
-(our $VERSION) = q$Id: parallel_ssh.pm,v 1.46 2005/12/02 11:46:41 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: parallel_ssh.pm,v 1.47 2005/12/06 14:47:26 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 sub _localhost { $_[0] eq 'localhost' }
 sub _nolock    { &_localhost ? '--nolock ' : '' }
@@ -286,6 +286,8 @@ sub parallel_install {
 #- allow to bootstrap from urpmi code directly (namespace is urpm).
 
 package urpm;
+
+no warnings 'redefine';
 
 sub handle_parallel_options {
     my (undef, $options) = @_;

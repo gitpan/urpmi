@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.588 2005/12/05 10:33:39 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.591 2005/12/08 16:24:12 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.3';
+our $VERSION = '4.8.4';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -2893,12 +2893,14 @@ sub prepare_transaction {
 #- extract package that should be installed instead of upgraded,
 #- sources is a hash of id -> source rpm filename.
 sub extract_packages_to_install {
-    my ($urpm, $sources) = @_;
+    my ($urpm, $sources, $state) = @_;
     my %inst;
+    my $rej = ref $state ? $state->{rejected} || {} : {};
 
     foreach (keys %$sources) {
 	my $pkg = $urpm->{depslist}[$_] or next;
 	$pkg->flag_disable_obsolete || !$pkg->flag_installed
+	    and !grep { exists $rej->{$_}{closure}{$pkg->fullname} } keys %$rej
 	    and $inst{$pkg->id} = delete $sources->{$pkg->id};
     }
 

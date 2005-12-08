@@ -5,7 +5,7 @@ use urpm::msg;
 use urpm::cfg;
 use Cwd;
 
-(our $VERSION) = q$Id: download.pm,v 1.48 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: download.pm,v 1.50 2005/12/08 15:55:16 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 #- proxy config file.
 our $PROXY_CFG = '/etc/urpmi/proxy.cfg';
@@ -125,6 +125,7 @@ sub copy_cmd_line_proxy {
 #- overrides the config file proxy settings with values passed via command-line
 sub set_cmdline_proxy {
     my (%h) = @_;
+    load_proxy_config();
     $proxy_config->{cmd_line} ||= {
 	http_proxy => undef,
 	ftp_proxy => undef,
@@ -226,7 +227,7 @@ sub sync_wget {
 	'-P', $options->{dir},
 	@_
     ) . " |";
-    my $wget_pid = open my $wget, $wget_command;
+    my $wget_pid = open my($wget), $wget_command;
     local $/ = \1; #- read input by only one char, this is slow but very nice (and it works!).
     while (<$wget>) {
 	$buf .= $_;
