@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpmi,v 1.342 2006/01/04 10:29:15 rgarciasuarez Exp $
+# $Id: urpmi,v 1.350 2006/01/13 10:50:07 rgarciasuarez Exp $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005 Mandriva SA
@@ -71,20 +71,20 @@ delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
 $ENV{HOME} ||= "/root";
 $ENV{USER} ||= "root";
 
-sub usage {
+sub usage () {
     print N("urpmi version %s
 Copyright (C) 1999-2005 Mandriva.
 This is free software and may be redistributed under the terms of the GNU GPL.
 
 usage:
 ", $urpm::VERSION) . N("  --help         - print this help message.
-") . N("  --update       - use only update media.
 ") . N("  --media        - use only the given media, separated by comma.
-") . N("  --searchmedia  - use only the given media to search requested (or updated) packages.
 ") . N("  --excludemedia - do not use the given media, separated by comma.
+") . N("  --update       - use only update media.
+") . N("  --searchmedia  - use only the given media to search requested packages.
 ") . N("  --sortmedia    - sort media according to substrings separated by comma.
 ") . N("  --synthesis    - use the given synthesis instead of urpmi db.
-") . N("  --auto         - automatically select a package in choices.
+") . N("  --auto         - non-interactive mode, assume default answers to questions.
 ") . N("  --auto-select  - automatically select packages to upgrade the system.
 ") . N("  --no-uninstall - never ask to uninstall a package, abort the installation.
 ") . N("  --no-install   - don't install packages (only download)
@@ -94,8 +94,8 @@ usage:
                    are going to be installed or upgraded,
                    default is %d.
 ", $split_level) . N("  --split-length - small transaction length, default is %d.
-", $split_length) . N("  --fuzzy        - impose fuzzy search (same as -y).
-") . N("  --src          - next package is a source package (same as -s).
+", $split_length) . N("  --fuzzy, -y    - impose fuzzy search.
+") . N("  --src, -s      - next package is a source package.
 ") . N("  --install-src  - install only source package (no binaries).
 ") . N("  --clean        - remove rpm from cache before anything else.
 ") . N("  --noclean      - don't clean rpms from cache.
@@ -124,8 +124,8 @@ usage:
                    next arg.
 ") . N("  --env          - use specific environment (typically a bug report).
 ") . N("  --verify-rpm   - verify rpm signature before installation
-                   (--no-verify-rpm disable it, default is enabled).
-") . N("  --test         - verify if the installation can be achieved correctly.
+                   (--no-verify-rpm disables it, default is enabled).
+") . N("  --test         - only verify if the installation can be achieved correctly.
 ") . N("  --excludepath  - exclude path separated by comma.
 ") . N("  --excludedocs  - exclude doc files.
 ") . N("  --ignoresize   - don't verify disk space before installation.
@@ -134,12 +134,11 @@ usage:
 ") . N("  --more-choices - when several packages are found, propose more choices
                    than the default.
 ") . N("  --norebuild    - don't try to rebuild hdlist if not readable.
+") . N("  --nolock       - don't lock rpm db.
 ") . N("  --strict-arch  - upgrade only packages with the same architecture.
 ") . N("  -a             - select all matches on command line.
 ") . N("  -p             - allow search in provides to find package.
 ") . N("  -P             - do not search in provides to find package.
-") . N("  -y             - impose fuzzy search (same as --fuzzy).
-") . N("  -s             - next package is a source package (same as --src).
 ") . N("  -q             - quiet mode.
 ") . N("  -v             - verbose mode.
 ") . "\n" . N("  names or rpm files given on command line will be installed.
@@ -149,7 +148,6 @@ usage:
 
 # Parse command line
 my $command_line = join " ", @ARGV;
-@ARGV or usage;
 my @ARGVcopy; # keep a copy, in case we have to restart
 
 # Expand *.urpmi arguments
@@ -171,6 +169,9 @@ if (grep { $_ eq '--restricted' } @ARGV) {
 # Parse command line options
 urpm::args::parse_cmdline(urpm => $urpm);
 
+# Verify that arguments were given
+@ARGV || $auto_select or usage;
+
 # Process the rest of the arguments
 while (defined($_ = shift @ARGV)) {
     if (/\.rpm$/) {
@@ -191,9 +192,11 @@ while (defined($_ = shift @ARGV)) {
 
 #- use install_src to promote all names as src package.
 if ($install_src) {
-    @files and $urpm->{fatal}(1, N("What can be done with binary rpm files when using --install-src"));
+    @files and $urpm->{fatal}(1, N("You can't install binary rpm files when using --install-src"));
     push @src_names, @names;
     @names = ();
+    #- allow to use --install-src as a non-root user
+    $nolock = 1;
 }
 
 #- rurpmi checks
@@ -202,7 +205,7 @@ if ($restricted) {
     #- force some options
     foreach (qw(keep verify-rpm norebuild)) { $urpm->{options}{$_} = 1 }
     #- forbid some other options
-    urpm::error_restricted($urpm) if $root || $usedistrib || $force || $env || $parallel || $synthesis || $nolock || $auto_update;
+    urpm::error_restricted($urpm) if $root || $usedistrib || $force || $env || $parallel || $synthesis || $auto_update;
     foreach (qw(allow-nodeps allow-force curl-options rsync-options wget-options)) {
 	urpm::error_restricted($urpm) if $urpm->{options}{$_};
     }
@@ -482,6 +485,9 @@ have to be removed for others to be upgraded:\n%s\n", $list));
     }
 
     my $msg = N("The following packages have to be removed for others to be upgraded:\n%s", $list);
+    if ($test) {
+	$msg = "$msg\n" . N("(test only, removal will not be actually done)");
+    }
     if ($urpm->{options}{auto}) {
 	message($msg);
     } else {
@@ -530,6 +536,9 @@ if (@root_only) {
     my $msg = $#to_install
       ? N("To satisfy dependencies, the following packages are going to be installed")
       : N("To satisfy dependencies, the following package is going to be installed");
+    if ($test) {
+	$msg = "$msg\n" . N("(test only, installation will not be actually done)");
+    }
     my $msg2 = N("Proceed with the installation of the %d packages? (%d MB)", $urpm->{nb_install}, toMb($sum));
     my $p = join "\n", @to_install;
     my $noexpr = N("Nn");
@@ -552,7 +561,6 @@ my %error_sources;
 $urpm->copy_packages_of_removable_media(
     $list, \%sources,
     verbose => $verbose > 0,
-    force_local => 1,
     ask_for_medium => (!$urpm->{options}{auto} || $allow_medium_change) && sub {
 	my $msg = N("Please insert the medium named \"%s\" on device [%s]", $_[0], $_[1]);
 	my $msg2 = N("Press Enter when ready...");
@@ -597,7 +605,6 @@ foreach my $set (@{$state->{transaction} || []}) {
 	limit_rate => $urpm->{options}{'limit-rate'},
 	compress => $urpm->{options}{compress},
 	resume => $urpm->{options}{resume},
-	force_local => 1,
 	callback => sub {
 	    my ($mode, $file, $percent, $total, $eta, $speed) = @_;
 	    goto &urpm::download::sync_logger;

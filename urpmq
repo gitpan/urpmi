@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpmq,v 1.146 2005/12/06 11:24:33 rgarciasuarez Exp $
+# $Id: urpmq,v 1.148 2006/01/13 10:50:07 rgarciasuarez Exp $
 
 #- Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005 Mandriva SA
@@ -331,7 +331,7 @@ if ($urpm::args::options{list_aliases}) {
 			};
 			$packer->extract($tmp_header_dir, @headers);
 		    } elsif (!%downloads) {
-			%downloads = $urpm->download_source_packages({}, $list, force_local => 1);
+			%downloads = $urpm->download_source_packages({}, $list, nolock => $urpm::args::options{nolock});
 		    }
 		}
 	    }

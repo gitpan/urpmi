@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.598 2006/01/04 13:31:25 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.603 2006/01/13 10:50:07 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.6';
+our $VERSION = '4.8.7';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -2556,23 +2556,16 @@ sub is_delta_installable {
     $v_match eq $v_installed;
 }
 
-#- download package that may need to be downloaded.
-#- make sure header are available in the appropriate directory.
-#- change location to find the right package in the local
-#- filesystem for only one transaction.
-#- try to mount/eject removable media here.
-#- return a list of package ready for rpm.
+#- Obsolescent method.
 sub download_source_packages {
     my ($urpm, $local_sources, $list, %options) = @_;
     my %sources = %$local_sources;
     my %error_sources;
 
-    #print STDERR "calling obsoleted method urpm::download_source_packages\n";
-
-    $urpm->exlock_urpmi_db;
+    $urpm->exlock_urpmi_db unless $options{nolock};
     $urpm->copy_packages_of_removable_media($list, \%sources, %options) or return;
     $urpm->download_packages_of_distant_media($list, \%sources, \%error_sources, %options);
-    $urpm->unlock_urpmi_db;
+    $urpm->unlock_urpmi_db unless $options{nolock};
 
     %sources, %error_sources;
 }
@@ -2766,19 +2759,19 @@ sub copy_packages_of_removable_media {
     1;
 }
 
+# TODO verify that files are downloaded from the right corresponding media
 sub download_packages_of_distant_media {
     my ($urpm, $list, $sources, $error_sources, %options) = @_;
 
     #- get back all ftp and http accessible rpm files into the local cache
-    #- if necessary (as used by checksig or any other reasons).
-    foreach (0..$#$list) {
+    foreach my $n (0..$#$list) {
 	my %distant_sources;
 
-	#- ignore as well medium that contains nothing about the current set of files.
-	values %{$list->[$_]} or next;
+	#- ignore media that contain nothing for the current set of files
+	values %{$list->[$n]} or next;
 
 	#- examine all files to know what can be indexed on multiple media.
-	while (my ($i, $url) = each %{$list->[$_]}) {
+	while (my ($i, $url) = each %{$list->[$n]}) {
 	    #- the given URL is trusted, so the file can safely be ignored.
 	    defined $sources->{$i} and next;
 	    if ($url =~ m!^(removable[^:]*:/|file:/)?(/.*\.rpm)\Z!) {
@@ -2787,21 +2780,17 @@ sub download_packages_of_distant_media {
 		} else {
 		    $error_sources->{$i} = $2;
 		}
-	    } elsif ($url =~ m|^([^:]*):/(.*/([^/]*\.rpm))$|) {
-		if ($options{force_local} || $1 ne 'ftp' && $1 ne 'http') { #- only ftp and http protocol supported by grpmi.
-		    $distant_sources{$i} = "$1:/$2";
-		} else {
-		    $sources->{$i} = "$1:/$2";
-		}
+	    } elsif ($url =~ m!^([^:]*):/(.*/([^/]*\.rpm))\Z!) {
+		$distant_sources{$i} = "$1:/$2"; #- will download now
 	    } else {
-		$urpm->{error}(N("malformed input: [%s]", $url));
+		$urpm->{error}(N("malformed URL: [%s]", $url));
 	    }
 	}
 
 	#- download files from the current medium.
 	if (%distant_sources) {
 	    eval {
-		$urpm->{log}(N("retrieving rpm files from medium \"%s\"...", $urpm->{media}[$_]{name}));
+		$urpm->{log}(N("retrieving rpm files from medium \"%s\"...", $urpm->{media}[$n]{name}));
 		$urpm->{sync}(
 		    {
 			dir => "$urpm->{cachedir}/partial",
@@ -2810,8 +2799,8 @@ sub download_packages_of_distant_media {
 			resume => $options{resume},
 			compress => $options{compress},
 			callback => $options{callback},
-			proxy => get_proxy($urpm->{media}[$_]{name}),
-			media => $urpm->{media}[$_]{name},
+			proxy => get_proxy($urpm->{media}[$n]{name}),
+			media => $urpm->{media}[$n]{name},
 			retry => $urpm->{options}{retry},
 		    },
 		    values %distant_sources,
@@ -3265,9 +3254,11 @@ sub translate_why_removed {
 sub check_sources_signatures {
     my ($urpm, $sources_install, $sources, %options) = @_;
     my ($medium, %invalid_sources);
+    my $s = $sources_install;
 
-    foreach my $id (sort { $a <=> $b } keys %$sources_install, keys %$sources) {
-	my $filepath = $sources_install->{$id} || $sources->{$id};
+    foreach my $id (keys %$sources_install, -1, keys %$sources) {
+	if ($id == -1) { $s = $sources; next }
+	my $filepath = $s->{$id};
 	my $verif = URPM::verify_rpm($filepath);
 
 	if ($verif =~ /NOT OK/) {
@@ -3284,11 +3275,12 @@ sub check_sources_signatures {
 			and $medium = $_, last;
 		}
 	    }
+	    #- no medium found for this rpm ?
+	    next if !$medium;
 	    #- check whether verify-rpm is specifically disabled for this medium
-	    $medium && defined $medium->{'verify-rpm'} && !$medium->{'verify-rpm'}
-		and next;
+	    next if defined $medium->{'verify-rpm'} && !$medium->{'verify-rpm'};
 
-	    my $key_ids = $medium && $medium->{'key-ids'} || $urpm->{options}{'key-ids'};
+	    my $key_ids = $medium->{'key-ids'} || $urpm->{options}{'key-ids'};
 	    #- check that the key ids of the medium match the key ids of the package.
 	    if ($key_ids) {
 		my $valid_ids = 0;

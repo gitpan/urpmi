@@ -1,7 +1,7 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         urpmi
-version:      4.8.6
+version:      4.8.7
 version_from: urpm.pm
 installdirs:  site
 requires:
