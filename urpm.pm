@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.603 2006/01/13 10:50:07 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.609 2006/01/25 16:17:43 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.7';
+our $VERSION = '4.8.8';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -2081,10 +2081,10 @@ sub register_rpms {
     #- depslist and provides environment.
     $start = @{$urpm->{depslist}};
     foreach (@files) {
-	/\.rpm$/ or $error = 1, $urpm->{error}(N("invalid rpm file name [%s]", $_)), next;
+	/\.(?:rpm|spec)$/ or $error = 1, $urpm->{error}(N("invalid rpm file name [%s]", $_)), next;
 
 	#- allow url to be given.
-	if (my ($basename) = m|^[^:]*:/.*/([^/]*\.rpm)$|) {
+	if (my ($basename) = m{^[^:]*:/.*/([^/]*\.(?:rpm|spec))\z}) {
 	    unlink "$urpm->{cachedir}/partial/$basename";
 	    eval {
 		$urpm->{log}(N("retrieving rpm file [%s] ...", $_));
@@ -2108,10 +2108,21 @@ sub register_rpms {
 	    -r $_ or $error = 1, $urpm->{error}(N("unable to access rpm file [%s]", $_)), next;
 	}
 
-	($id, undef) = $urpm->parse_rpm($_);
-	my $pkg = defined $id && $urpm->{depslist}[$id];
-	$pkg or $urpm->{error}(N("unable to register rpm file")), next;
-	$urpm->{source}{$id} = $_;
+	if (/\.spec$/) {
+	    my $pkg = URPM::spec2srcheader($_)
+		or $error = 1, $urpm->{error}(N("unable to parse spec file %s [%s]", $_, $!)), next;
+	    $id = @{$urpm->{depslist}};
+	    $urpm->{depslist}[$id] = $pkg;
+	    #- It happens that URPM sets an internal id to the depslist id.
+	    #- We need to set it by hand here.
+	    $pkg->set_id($id);
+	    $urpm->{source}{$id} = $_;
+	} else {
+	    ($id, undef) = $urpm->parse_rpm($_);
+	    my $pkg = defined $id && $urpm->{depslist}[$id];
+	    $pkg or $error = 1, $urpm->{error}(N("unable to register rpm file")), next;
+	    $urpm->{source}{$id} = $_;
+	}
     }
     $error and $urpm->{fatal}(2, N("error registering local packages"));
     defined $id && $start <= $id and @requested{($start .. $id)} = (1) x ($id-$start+1);
@@ -3434,7 +3445,7 @@ files.
 
 Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

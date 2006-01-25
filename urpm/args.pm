@@ -7,7 +7,7 @@ use Getopt::Long;# 2.33;
 use urpm::download;
 use urpm::msg;
 
-(our $VERSION) = q$Id: args.pm,v 1.86 2006/01/11 13:17:49 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: args.pm,v 1.88 2006/01/24 10:16:13 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 # The program that invokes us
 (my $tool = $0) =~ s!.*/!!;
@@ -296,8 +296,6 @@ my %options_spec = (
 	'no-probe' => sub { $options{probe_with} = undef },
 	distrib => sub { $options{distrib} = 1 },
 	'from=s' => \$options{mirrors_url},
-	'version=s' => \$options{version},
-	'arch=s' => \$options{arch},
 	virtual => \$options{virtual},
 	nopubkey => \$options{nopubkey},
 	'q|quiet'   => sub { --$options{verbose} },
@@ -396,7 +394,7 @@ urpm::args - command-line argument parser for the urpm* tools
 
 Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 =cut
 

@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmi,v 1.350 2006/01/13 10:50:07 rgarciasuarez Exp $
+# $Id: urpmi,v 1.353 2006/01/25 14:26:05 rgarciasuarez Exp $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005 Mandriva SA
+#- Copyright (C) 2005, 2006 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -174,8 +174,8 @@ urpm::args::parse_cmdline(urpm => $urpm);
 
 # Process the rest of the arguments
 while (defined($_ = shift @ARGV)) {
-    if (/\.rpm$/) {
-	if (/\.src\.rpm$/) {
+    if (/\.(?:rpm|spec)$/) {
+	if (/\.(?:src\.rpm|spec)$/) {
 	    push @src_files, $_;
 	} else {
 	    push @files, untaint($_);
@@ -317,6 +317,7 @@ if (exists $urpm->{options}{'priority-upgrade'} && $urpm->{options}{'priority-up
     $auto_update = 0;
 }
 if ($auto_update && !$bug && !$env) {
+    #- For translators : there are several media here
     message(N("Updating media..."));
     #- FIXME we need to configure it twice; otherwise
     #- some settings are lost (like the skiplist) for

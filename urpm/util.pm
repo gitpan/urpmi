@@ -10,7 +10,7 @@ our @EXPORT = qw(quotespace unquotespace
     difference2
 );
 
-(our $VERSION) = q$Id: util.pm,v 1.10 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: util.pm,v 1.11 2006/01/24 11:13:24 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 #- quoting/unquoting a string that may be containing space chars.
 sub quotespace		 { my $x = $_[0] || ''; $x =~ s/(\s)/\\$1/g; $x }
@@ -82,9 +82,18 @@ sub untaint {
 }
 
 sub md5sum {
-    #- Use an external command to avoid depending on perl
     my ($file) = @_;
-    return((split ' ', `/usr/bin/md5sum '$file'`)[0]);
+    eval { require Digest::MD5 };
+    if ($@) {
+	#- Use an external command to avoid depending on perl
+	return((split ' ', `/usr/bin/md5sum '$file'`)[0]);
+    } else {
+	my $ctx = Digest::MD5->new;
+	open my $fh, $file or return '';
+	$ctx->addfile($fh);
+	close $fh;
+	return $ctx->hexdigest;
+    }
 }
 
 sub copy {
@@ -115,6 +124,6 @@ urpm::util - Misc. utilities subs for urpmi
 
 Copyright (C) 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 =cut
