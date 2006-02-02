@@ -5,7 +5,7 @@ use urpm::msg;
 use urpm::cfg;
 use Cwd;
 
-(our $VERSION) = q$Id: download.pm,v 1.50 2005/12/08 15:55:16 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: download.pm,v 1.51 2006/01/27 15:52:11 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 #- proxy config file.
 our $PROXY_CFG = '/etc/urpmi/proxy.cfg';
@@ -269,6 +269,10 @@ sub sync_curl {
     -x "/usr/bin/curl" or die N("curl is missing\n");
     my $options = shift @_;
     $options = { dir => $options } if !ref $options;
+    if (defined $options->{limit_rate} && $options->{limit_rate} =~ /\d$/) {
+	#- use bytes by default
+	$options->{limit_rate} .= 'B';
+    }
     #- force download to be done in cachedir to avoid polluting cwd,
     #- however for curl, this is mandatory.
     my $cwd = getcwd();

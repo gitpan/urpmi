@@ -1,6 +1,6 @@
 #!perl
 # Makefile.PL for urpmi
-# $Id: Makefile.PL,v 1.6 2005/11/25 14:08:17 rgarciasuarez Exp $
+# $Id: Makefile.PL,v 1.7 2006/01/25 16:30:05 rgarciasuarez Exp $
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -112,7 +112,7 @@ WriteMakefile(
     PREREQ_PM		=> {
 	'Locale::gettext'	=> '1.01',
 	'MDV::Packdrakeng'	=> '1.01',
-	'URPM'			=> '1.29',
+	'URPM'			=> '1.32',
     },
     VERSION_FROM	=> 'urpm.pm',
     macro		=> {

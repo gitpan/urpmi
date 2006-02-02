@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.609 2006/01/25 16:17:43 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.612 2006/02/02 15:03:45 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.8';
+our $VERSION = '4.8.9';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -1438,10 +1438,16 @@ this could happen if you mounted manually the directory when creating the medium
 		media => $medium->{name},
 	    };
 	    eval { $urpm->{sync}($syncopts, reduce_pathname("$medium->{url}/media_info/descriptions")) };
-	    -e "$urpm->{cachedir}/partial/descriptions" or eval {
-		#- try older location
-		$urpm->{sync}($syncopts, reduce_pathname("$medium->{url}/../descriptions"));
-	    };
+	    #- It is possible that the original fetch of the descriptions
+	    #- failed, but the file still remains in partial/ because it was
+	    #- moved from $urpm->{statedir} earlier. So we need to check if
+	    #- the previous download failed.
+	    if ($@ || (! -e "$urpm->{cachedir}/partial/descriptions")) {
+		eval {
+		    #- try older location
+		    $urpm->{sync}($syncopts, reduce_pathname("$medium->{url}/../descriptions"));
+		};
+	    }
 	    if (-e "$urpm->{cachedir}/partial/descriptions") {
 		urpm::util::move("$urpm->{cachedir}/partial/descriptions", "$urpm->{statedir}/descriptions.$medium->{name}");
 	    }
@@ -3211,14 +3217,20 @@ sub unselected_packages {
 sub uniq { my %l; $l{$_} = 1 foreach @_; grep { delete $l{$_} } @_ }
 
 sub translate_why_unselected {
-    my (undef, $state, @l) = @_;
+    my ($urpm, $state, @l) = @_;
 
-    map { my $rb = $state->{rejected}{$_}{backtrack};
+    map {
+	my $rb = $state->{rejected}{$_}{backtrack};
 	my @froms = keys %{$rb->{closure} || {}};
 	my @unsatisfied = @{$rb->{unsatisfied} || []};
 	my $s = join ", ", (
 	    (map { N("due to missing %s", $_) } @froms),
-	    (map { N("due to unsatisfied %s", $_) } uniq @unsatisfied),
+	    (map { N("due to unsatisfied %s", $_) } uniq map {
+		    #- XXX in theory we shouldn't need this, dependencies (and not ids) should
+		    #- already be present in @unsatisfied. But with biarch packages this is
+		    #- not always the case.
+		    /\D/ ? $_ : scalar($urpm->{depslist}[$_]->fullname)
+		} @unsatisfied),
 	    $rb->{promote} && !$rb->{keep} ? N("trying to promote %s", join(", ", @{$rb->{promote}})) : @{[]},
 	    $rb->{keep} ? N("in order to keep %s", join(", ", @{$rb->{keep}})) : @{[]},
 	);
