@@ -5,7 +5,7 @@ use warnings;
 use urpm::util;
 use urpm::msg 'N';
 
-(our $VERSION) = q$Id: cfg.pm,v 1.35 2005/12/02 17:14:22 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: cfg.pm,v 1.37 2006/02/13 11:03:47 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 =head1 NAME
 
@@ -42,7 +42,9 @@ Returns 1 on success, 0 on failure.
 
 =cut
 
-#- implementations of the substitutions. arch and release are mdk-specific
+#- implementations of the substitutions. arch and release are mdk-specific.
+#- XXX this is fragile code, it's an heuristic that depends on the format of
+#- /etc/release
 
 my ($arch, $release);
 sub _init_arch_release () {
@@ -173,6 +175,7 @@ sub load_config ($;$) {
 	    |compress
 	    |keep
 	    |auto
+	    |repackage
 	    |strict-arch
 	    |nopubkey
 	    |resume)(?:\s*:\s*(.*))?$/x
@@ -251,6 +254,6 @@ __END__
 
 Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 =cut

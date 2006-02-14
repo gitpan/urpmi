@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmf,v 1.72 2005/12/02 11:46:41 rgarciasuarez Exp $
+# $Id: urpmf,v 1.74 2006/02/13 14:45:56 rgarciasuarez Exp $
 
 #- Copyright (C) 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005 Mandriva SA
+#- Copyright (C) 2005, 2006 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ use urpm::msg;
 
 sub usage {
     print N("urpmf version %s
-Copyright (C) 2002-2005 Mandriva.
+Copyright (C) 2002-2006 Mandriva.
 This is free software and may be redistributed under the terms of the GNU GPL.
 
 usage: urpmf [options] pattern-expression
@@ -101,7 +101,7 @@ our $expr;		# regexp to match against
 our %uniq;
 
 #- parse arguments list.
-urpm::args::parse_cmdline();
+urpm::args::parse_cmdline() or exit(1);
 
 if ($qf eq '%default') {
     #- nothing on the command-line : default is to search on file names
@@ -166,11 +166,11 @@ $urpm->{error}("qf:[$qf]\ncallback:\n$callback") if our $debug;
 $callback = eval $callback;
 if ($@) {
     $debug and warn "Internal error: $@\n";
-    usage;
+    exit(1);
 }
 
 if ($env) {
-    print STDERR N("using specific environment on %s\n", $env);
+    print N("using specific environment on %s\n", $env);
     #- setting new environment.
     $urpm->{config} = "$env/urpmi.cfg";
     $urpm->{skiplist} = "$env/skip.list";

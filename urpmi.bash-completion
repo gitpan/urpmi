@@ -1,6 +1,6 @@
 # bash completion for urpmi and friends
-# Copyright (c) 2002-2004 Guillaume Rousse <guillomovitch@mandriva.com>
-# $Id: urpmi.bash-completion,v 1.23 2005/12/22 15:14:34 rgarciasuarez Exp $
+# Copyright (c) 2002-2006 Guillaume Rousse <guillomovitch@mandriva.com>
+# $Id: urpmi.bash-completion,v 1.26 2006/02/13 11:36:11 rgarciasuarez Exp $
 
 # utility functions
 _urpmi_get_medias()
@@ -92,7 +92,7 @@ _urpmi()
 			--wget --curl --limit-rate --proxy --proxy-user --bug \
 			--env --verify-rpm --no-verify-rpm --no-install \
 			--test --excludepath --excludedocs --root --norebuild \
-			--searchmedia --noscripts --ignoresize' -- $cur ) )
+			--searchmedia --noscripts --ignoresize --ignorearch' -- $cur ) )
 	else
 		# return available packages (unless it is clearly a file) and rpm files
 		if [[ "$cur" != */* ]]; then
@@ -136,7 +136,7 @@ _urpmq()
 			--list --list-url --list-media --list-nodes --list-aliases \
 			--src --sources --force --parallel --wget --curl \
 			--changelog --proxy --proxy-user --env --dump-config \
-			--use-distrib --searchmedia' -- $cur))
+			--use-distrib --searchmedia --ignorearch' -- $cur))
 	else
 		# return available packages (unless it is clearly a file) and rpm files
 		if [[ "$cur" != */* ]]; then
@@ -159,7 +159,7 @@ _urpme()
 	if [[ "$cur" == -* ]]; then
 		# return list of available options
 		COMPREPLY=( $( compgen -W '-v -a -h --help --auto --test \
-			--parallel' -- $cur ) )
+			--parallel --noscripts' -- $cur ) )
 	else
 		# return list of available packages
 		_rpm_installed_packages

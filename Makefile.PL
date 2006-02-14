@@ -1,13 +1,13 @@
 #!perl
 # Makefile.PL for urpmi
-# $Id: Makefile.PL,v 1.7 2006/01/25 16:30:05 rgarciasuarez Exp $
+# $Id: Makefile.PL,v 1.11 2006/02/13 15:02:25 rgarciasuarez Exp $
 
 use strict;
 use ExtUtils::MakeMaker;
 
 # Command-line parsing.
-# --without-rpm : use rpm to find some paths, and generate make targets to
-#   produce an rpm of this
+# --without-rpm : don't use rpm to find some paths, and generate make targets
+#   to produce an rpm of this
 # --install-po : compile .po files and install locale files
 # --install-gui : install gurpmi
 my $with_rpm = 1; $with_rpm = 0 if grep $_ eq '--without-rpm', @ARGV;
@@ -19,7 +19,7 @@ my $rpmtopdir = $with_rpm ? qx(rpm --eval %_topdir) : '';
 chomp $rpmtopdir;
 
 # All scripts, some of them go in /usr/sbin (see DESTINSTALLSBIN below)
-our @bin_scripts = qw(urpmq urpmf rpm-find-leaves);
+our @bin_scripts = qw(urpmq urpmf rpm-find-leaves urpmi.recover);
 our @sbin_scripts = qw(urpmi urpme urpmi.addmedia urpmi.update urpmi.removemedia rurpmi);
 if ($with_gui) {
     push @bin_scripts, qw(gurpmi);
@@ -112,7 +112,7 @@ WriteMakefile(
     PREREQ_PM		=> {
 	'Locale::gettext'	=> '1.01',
 	'MDV::Packdrakeng'	=> '1.01',
-	'URPM'			=> '1.32',
+	'URPM'			=> '1.36',
     },
     VERSION_FROM	=> 'urpm.pm',
     macro		=> {

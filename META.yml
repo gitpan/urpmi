@@ -1,13 +1,13 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         urpmi
-version:      4.8.9
+version:      4.8.10
 version_from: urpm.pm
 installdirs:  site
 requires:
     Locale::gettext:               1.01
     MDV::Packdrakeng:              1.01
-    URPM:                          1.32
+    URPM:                          1.36
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.30_01

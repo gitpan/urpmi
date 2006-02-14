@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpmq,v 1.149 2006/01/24 10:10:24 rgarciasuarez Exp $
+# $Id: urpmq,v 1.153 2006/02/13 14:45:56 rgarciasuarez Exp $
 
 #- Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005, 2006 Mandriva SA
@@ -37,7 +37,7 @@ our @src_names;
 
 sub usage {
     print N("urpmq version %s
-Copyright (C) 2000-2005 Mandriva.
+Copyright (C) 2000-2006 Mandriva.
 This is free software and may be redistributed under the terms of the GNU GPL.
 
 usage:
@@ -61,6 +61,7 @@ usage:
 ") . N("  --src          - next package is a source package (same as -s).
 ") . N("  --sources      - give all source packages before downloading (root only).
 ") . N("  --force        - force invocation even if some packages do not exist.
+") . N("  --ignorearch   - allow to query rpms for unmatched architectures.
 ") . N("  --parallel     - distributed urpmi across machines of alias.
 ") . N("  --use-distrib  - configure urpmi on the fly from a distrib tree.
                    This permit to querying a distro.
@@ -108,7 +109,7 @@ sub escape_shell ($) {
 #- parse arguments list.
 @ARGV or usage;
 my $urpm = new urpm;
-urpm::args::parse_cmdline(urpm => $urpm);
+urpm::args::parse_cmdline(urpm => $urpm) or exit(1);
 
 #- remove verbose if not asked.
 $urpm::args::options{verbose} or $urpm->{log} = sub {};
@@ -122,13 +123,16 @@ $urpm::args::options{nodepslist} = $urpm::args::options{list_aliases}
 $urpm::args::options{nolock} = 1 if $urpm::args::options{nodepslist};
 
 if ($urpm::args::options{env}) {
-    print STDERR N("using specific environment on %s\n", $urpm::args::options{env});
+    print N("using specific environment on %s\n", $urpm::args::options{env});
     #- setting new environment.
     $urpm->{config} = "$urpm::args::options{env}/urpmi.cfg";
     $urpm->{skiplist} = "$urpm::args::options{env}/skip.list";
     $urpm->{instlist} = "$urpm::args::options{env}/inst.list";
     $urpm->{statedir} = $urpm::args::options{env};
 }
+
+#- should we ignore arch compatibility
+if ($urpm::args::options{ignorearch}) { urpm::shunt_ignorearch() }
 
 $urpm::args::options{upgrade} && !$urpm::args::options{env} && !$urpm::args::options{nolock}
     and $urpm->shlock_rpm_db;

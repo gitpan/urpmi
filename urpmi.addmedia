@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpmi.addmedia,v 1.101 2006/01/24 10:16:13 rgarciasuarez Exp $
+# $Id: urpmi.addmedia,v 1.102 2006/02/13 14:45:56 rgarciasuarez Exp $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005, 2006 Mandriva SA
@@ -98,7 +98,7 @@ $options{force} = 0;
 $options{noclean} = 1;
 $options{verbose} = 1;
 my $urpm = new urpm;
-urpm::args::parse_cmdline(urpm => $urpm);
+urpm::args::parse_cmdline(urpm => $urpm) or usage;
 #- the default is to probe a synthesis file, except for --distrib
 $options{probe_with} = 'synthesis' unless $options{distrib} || exists($options{probe_with});
 our ($name, $url, $with, $relative_hdlist) = our @cmdline;

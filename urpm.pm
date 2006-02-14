@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.612 2006/02/02 15:03:45 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.622 2006/02/14 14:40:58 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.9';
+our $VERSION = '4.8.10';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -24,6 +24,11 @@ BEGIN {
 	require encoding::warnings;
 	encoding::warnings->import;
     }
+}
+
+#- this violently overrides is_arch_compat() to always return true.
+sub shunt_ignorearch {
+    eval q( sub URPM::Package::is_arch_compat { 1 } );
 }
 
 #- create a new urpm object.
@@ -170,6 +175,7 @@ sub read_config {
 	    pre-clean
 	    priority-upgrade
 	    prohibit-remove
+	    repackage
 	    resume
 	    retry
 	    split-length
@@ -548,7 +554,7 @@ sub configure {
 	    }
 	    #- anything not selected should be added here, as it's after the selected ones.
 	    $urpm->{media} = [ @newmedia, @oldmedia ];
-	    #- clean remaining modified flags.
+	    #- forget remaining modified flags.
 	    delete $_->{modified} foreach @{$urpm->{media} || []};
 	}
 	unless ($options{nodepslist}) {
@@ -1315,7 +1321,7 @@ this could happen if you mounted manually the directory when creating the medium
 			$medium->{ignore} = 1;
 		    } else {
 			$options{force} < 2 and $options{force} = 2;
-			#- clean error state now.
+			#- clear error state now.
 			$error = undef;
 		    }
 		}
@@ -1847,7 +1853,7 @@ this could happen if you mounted manually the directory when creating the medium
 		    $medium->{ignore} = 1;
 		}
 	    } else {
-		#- make sure to rebuild base files and clean medium modified state.
+		#- make sure to rebuild base files and clear medium modified state.
 		$medium->{modified} = 0;
 		$urpm->{modified} = 1;
 
@@ -2045,8 +2051,10 @@ sub try_mounting {
 	if ($is_iso) {
 	    #- to mount an iso image, grab the first loop device
 	    my $loopdev = urpm::sys::first_free_loopdev();
+	    sys_log("mount iso $_ on $removable");
 	    $loopdev and system("mount '$removable' '$_' -t iso9660 -o loop=$loopdev");
 	} else {
+	    sys_log("mount $_");
 	    system("mount '$_' 2>/dev/null");
 	}
 	$removable && $infos{$_}{fs} ne 'supermount' and $urpm->{removable_mounted}{$_} = undef;
@@ -2064,6 +2072,7 @@ sub try_umounting {
 	} urpm::sys::find_mntpoints($dir, \%infos))
     {
 	$urpm->{log}(N("unmounting %s", $_));
+	sys_log("umount $_");
 	system("umount '$_' 2>/dev/null");
 	delete $urpm->{removable_mounted}{$_};
     }
@@ -2154,7 +2163,6 @@ sub _findindeps {
 sub search_packages {
     my ($urpm, $packages, $names, %options) = @_;
     my (%exact, %exact_a, %exact_ra, %found, %foundi);
-	$urpm->{log}(N("Search"));
     foreach my $v (@$names) {
 	my $qv = quotemeta $v;
 	$qv = '(?i)' . $qv if $options{caseinsensitive};
@@ -2431,28 +2439,26 @@ sub get_source_packages {
     #- examine the local repository, which is trusted (no gpg or pgp signature check but md5 is now done).
     my $dh = $urpm->opendir_safe("$urpm->{cachedir}/rpms");
     if ($dh) {
-	while (defined($_ = readdir $dh)) {
-	    if (/\.rpm$/) {
-		my $filename = $_;
-		my $filepath = "$urpm->{cachedir}/rpms/$filename";
-		if (!$options{clean_all} && -s $filepath) {
-		    if (keys(%{$file2fullnames{$filename} || {}}) > 1) {
-			$urpm->{error}(N("there are multiple packages with the same rpm filename \"%s\"", $filename));
-			next;
-		    } elsif (keys(%{$file2fullnames{$filename} || {}}) == 1) {
-			my ($fullname) = keys(%{$file2fullnames{$filename} || {}});
-			if (defined($id = delete $fullname2id{$fullname})) {
-			    $local_sources{$id} = $filepath;
-			} else {
-			    $options{clean_other} && ! exists $protected_files{$filepath} and unlink $filepath;
-			}
+	while (defined(my $filename = readdir $dh)) {
+	    my $filepath = "$urpm->{cachedir}/rpms/$filename";
+	    next if -d $filepath;
+	    if (!$options{clean_all} && -s _) {
+		if (keys(%{$file2fullnames{$filename} || {}}) > 1) {
+		    $urpm->{error}(N("there are multiple packages with the same rpm filename \"%s\"", $filename));
+		    next;
+		} elsif (keys(%{$file2fullnames{$filename} || {}}) == 1) {
+		    my ($fullname) = keys(%{$file2fullnames{$filename} || {}});
+		    if (defined($id = delete $fullname2id{$fullname})) {
+			$local_sources{$id} = $filepath;
 		    } else {
 			$options{clean_other} && ! exists $protected_files{$filepath} and unlink $filepath;
 		    }
 		} else {
-		    unlink $filepath; #- this file should be removed or is already empty.
+		    $options{clean_other} && ! exists $protected_files{$filepath} and unlink $filepath;
 		}
-	    } #- no error on unknown filename located in cache (because .listing) inherited from old urpmi
+	    } else {
+		unlink $filepath; #- this file should be removed or is already empty.
+	    }
 	}
 	closedir $dh;
     }
@@ -2825,9 +2831,9 @@ sub download_packages_of_distant_media {
 		$urpm->{log}(N("...retrieving done"));
 	    };
 	    $@ and $urpm->{error}(N("...retrieving failed: %s", $@));
-	    #- clean files that have not been downloaded, but keep mind there
-	    #- has been problem downloading them at least once, this is
-	    #- necessary to keep track of failing download in order to
+	    #- clean files that have not been downloaded, but keep in mind
+	    #- there have been problems downloading them at least once, this
+	    #- is necessary to keep track of failing downloads in order to
 	    #- present the error to the user.
 	    foreach my $i (keys %distant_sources) {
 		my ($filename) = $distant_sources{$i} =~ m|/([^/]*\.rpm)$|;
@@ -2881,11 +2887,15 @@ sub extract_packages_to_install {
     \%inst;
 }
 
-#- install logger (ala rpm)
+#- install logger (a la rpm)
 sub install_logger {
     my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
     my $pkg = defined $id && $urpm->{depslist}[$id];
     my $total_pkg = $urpm->{nb_install};
+    if ($urpm->{options}{repackage} || URPM::expand('%_repackage_all_erasures')) {
+	# there are repackaging transactions too
+	$total_pkg *= 2;
+    }
     my $progress_size = $total_pkg ? 45 : 50;
 
     if ($subtype eq 'start') {
@@ -2961,6 +2971,7 @@ sub install {
 
     my $trans = $db->create_transaction($urpm->{root});
     if ($trans) {
+	sys_log("transaction on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/', scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade));
 	$urpm->{log}(N("created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/',
 		       scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade)));
     } else {
@@ -3024,19 +3035,11 @@ sub install {
 	}
 	@l = $trans->run($urpm, %options);
 
-	#- in case of error or testing, do not try to check rpmdb
-	#- for packages being upgraded or not.
-	unless (@l || $options{test}) {
-	    #- examine the local repository to delete package which have been installed.
-	    if ($options{post_clean_cache}) {
-		foreach (keys %$install, keys %$upgrade) {
-		    my $pkg = $urpm->{depslist}[$_];
-		    $db->traverse_tag('name', [ $pkg->name ], sub {
-					  my ($p) = @_;
-					  $p->fullname eq $pkg->fullname or return;
-					  unlink "$urpm->{cachedir}/rpms/" . $pkg->filename;
-				      });
-		}
+	if (!$options{test} && $options{post_clean_cache}) {
+	    #- examine the local cache to delete packages which were part of this transaction
+	    foreach (keys %$install, keys %$upgrade) {
+		my $pkg = $urpm->{depslist}[$_];
+		unlink "$urpm->{cachedir}/rpms/" . $pkg->filename;
 	    }
 	}
     }

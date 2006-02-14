@@ -2,7 +2,7 @@ package urpm::prompt;
 
 use strict;
 
-(our $VERSION) = q$Id: prompt.pm,v 1.3 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: prompt.pm,v 1.4 2006/02/08 15:16:25 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 sub new {
     my ($class, $title, $prompts, $defaults, $hidden) = @_;
@@ -16,11 +16,7 @@ sub new {
 
 sub write {
     my (undef, $msg) = @_;
-    if ($urpm::args::options{bug} || !defined fileno ::SAVEOUT) {
-	print STDOUT $msg;
-    } else {
-	print ::SAVEOUT $msg;
-    }
+    print STDOUT $msg;
 }
 
 sub prompt {
@@ -56,6 +52,6 @@ urpm::prompt - base class to prompt the user for data
 
 Copyright (C) 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 =cut

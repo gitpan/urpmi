@@ -7,7 +7,7 @@
 ##################################################################
 
 %define name	urpmi
-%define version	4.8.9
+%define version	4.8.10
 %define release	%mkrel 1
 
 %define group %(perl -e 'print "%_vendor" =~ /\\bmandr/i ? "System/Configuration/Packaging" : "System Environment/Base"')
@@ -27,15 +27,15 @@ Summary:	Command-line software installation tools
 URL:		http://search.cpan.org/dist/%{name}/
 Requires:	%{req_webfetch} eject gnupg
 Requires(pre):	perl-Locale-gettext >= 1.01-14mdk
-Requires(pre):	perl-URPM >= 1.32
-Requires:	perl-URPM >= 1.32
+Requires(pre):	perl-URPM >= 1.36
+Requires:	perl-URPM >= 1.36
 #- this one is require'd by urpmq, so it's not found [yet] by perl.req
 Requires:	perl-MDV-Packdrakeng >= 1.01
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext
 BuildRequires:	perl-File-Slurp
 BuildRequires:	perl-ldap
-BuildRequires:	perl-URPM >= 1.32
+BuildRequires:	perl-URPM >= 1.36
 BuildRequires:	perl-MDV-Packdrakeng
 BuildRequires:	perl-Locale-gettext >= 1.01-14mdk
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -96,6 +96,18 @@ Group:		%{group}
 urpmi-ldap is an extension module to urpmi to allow to specify
 urpmi configuration (notably media) in an LDAP directory.
 
+%package -n urpmi-recover
+Summary:	A tool to manage rpm repackaging and rollback
+Requires:	urpmi >= %{version}-%{release}
+Requires:	perl
+Requires:	perl-DateManip
+Group:		%{group}
+
+%description -n urpmi-recover
+urpmi-recover is a tool that enables to set up a policy to keep trace of all
+packages that are uninstalled or upgraded on an rpm-based system, and to
+perform rollbacks, that is, to revert the system back to a previous state.
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -114,10 +126,6 @@ urpmi configuration (notably media) in an LDAP directory.
 %{__rm} -rf %{buildroot}
 %{makeinstall_std}
 
-# logrotate
-install -d -m 755 %{buildroot}%{_sysconfdir}/logrotate.d
-install -m 644 %{name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-
 # bash completion
 install -d -m 755 %{buildroot}%{_sysconfdir}/bash_completion.d
 install -m 644 %{name}.bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/%{name}
@@ -127,6 +135,10 @@ install -m 644 %{name}.bash-completion %{buildroot}%{_sysconfdir}/bash_completio
 
 # Don't install READMEs twice
 rm -f %{buildroot}%{compat_perl_vendorlib}/urpm/README*
+
+# For ghost file
+mkdir -p %{buildroot}%{_sys_macros_dir}
+touch %{buildroot}%{_sys_macros_dir}/urpmi.recover.macros
 
 %if %{allow_gurpmi}
 mkdir -p %{buildroot}%{_menudir}
@@ -189,7 +201,6 @@ if (-e "/etc/urpmi/urpmi.cfg") {
 %dir /var/cache/urpmi/rpms
 %config(noreplace) /etc/urpmi/skip.list
 %config(noreplace) /etc/urpmi/inst.list
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/bash_completion.d/%{name}
 %{_bindir}/urpmi_rpm-find-leaves
 %{_bindir}/rpm-find-leaves
@@ -198,10 +209,20 @@ if (-e "/etc/urpmi/urpmi.cfg") {
 %{_sbindir}/urpmi
 %{_sbindir}/rurpmi
 %{_sbindir}/urpme
-%{_sbindir}/urpmi.*
-%{_mandir}/man?/urpm*
-%{_mandir}/man?/rurpmi*
-%{_mandir}/man?/proxy*
+%{_sbindir}/urpmi.addmedia
+%{_sbindir}/urpmi.removemedia
+%{_sbindir}/urpmi.update
+%{_mandir}/man3/urpm*
+%{_mandir}/man5/urpm*
+%{_mandir}/man5/proxy*
+%{_mandir}/man8/rurpmi*
+%{_mandir}/man8/urpme*
+%{_mandir}/man8/urpmf*
+%{_mandir}/man8/urpmq*
+%{_mandir}/man8/urpmi.8*
+%{_mandir}/man8/urpmi.addmedia*
+%{_mandir}/man8/urpmi.removemedia*
+%{_mandir}/man8/urpmi.update*
 # find_lang isn't able to find man pages yet...
 #%lang(cs) %{_mandir}/cs/man?/urpm*
 #%lang(et) %{_mandir}/et/man?/urpm*
@@ -248,7 +269,26 @@ if (-e "/etc/urpmi/urpmi.cfg") {
 %doc urpmi.schema
 %{compat_perl_vendorlib}/urpm/ldap.pm
 
+%files -n urpmi-recover
+%{_sbindir}/urpmi.recover
+%{_mandir}/man8/urpmi.recover*
+%config(noreplace) %_sys_macros_dir/urpmi.recover.macros
+%ghost %_sys_macros_dir/urpmi.recover.macros
+
 %changelog
+* Tue Feb 14 2006 Rafael Garcia-Suarez <rgarciasuarez@mandriva.com> 4.8.10-1mdk
+- New tool: urpmi.recover (in its own rpm)
+- urpmi: clean cache more aggressively (bug #17913)
+- Don't log to /var/log/urpmi.log anymore, use syslog
+- urpme and urpmi.recover use syslog too
+- New config file urpmi.recover.macros
+- Add new option --repackage to urpmi and urpme
+- Add new option --ignorearch to urpmi and urpmq
+- Fix --no-verify-rpm with gurpmi
+- Fix usage of global urpmi.cfg options in gurpmi
+- Various useability fixes in urpme
+- Doc improvements
+
 * Thu Feb 02 2006 Rafael Garcia-Suarez <rgarciasuarez@mandriva.com> 4.8.9-1mdk
 - Fix call of --limit-rate option with recent curls
 - Fix some explanations on biarch environments

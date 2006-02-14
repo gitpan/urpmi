@@ -4,10 +4,10 @@ use strict;
 no warnings;
 use Exporter;
 
-(our $VERSION) = q$Id: msg.pm,v 1.21 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: msg.pm,v 1.25 2006/02/08 17:13:10 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(N log_it to_utf8 message_input message toMb from_utf8);
+our @EXPORT = qw(N bug_log to_utf8 message_input toMb from_utf8 sys_log);
 
 #- I18N.
 use Locale::gettext;
@@ -46,10 +46,21 @@ sub N {
 my $noexpr = N("Nn");
 my $yesexpr = N("Yy");
 
-sub log_it {
-    #- if invoked as a simple user, nothing should be logged.
-    if ($::log) {
-	open my $fh, ">>$::log" or die "can't output to log file: $!\n";
+eval {
+    require Sys::Syslog;
+    Sys::Syslog->import();
+    (my $tool = $0) =~ s!.*/!!;
+    openlog($tool, '', 'user');
+    END { closelog() }
+};
+
+sub sys_log { defined &syslog and syslog("info", @_) }
+
+#- writes only to logfile, not to screen
+sub bug_log {
+    if ($::logfile) {
+	open my $fh, ">>$::logfile"
+	    or die "Can't output to log file [$::logfile]: $!\n";
 	print $fh @_;
 	close $fh;
     }
@@ -61,19 +72,15 @@ sub message_input {
     my ($msg, $default_input, %opts) = @_;
     my $input;
     while (1) {
-	if ($urpm::args::options{bug} || !defined fileno ::SAVEOUT) {
-	    print STDOUT $msg;
-	} else {
-	    print ::SAVEOUT $msg;
-	}
+	print $msg;
 	if ($default_input) {
-	    $urpm::args::options{bug} and log_it($default_input);
+	    $urpm::args::options{bug} and bug_log($default_input);
 	    return $default_input;
 	}
 	$input = <STDIN>;
 	defined $input or return undef;
 	chomp $input;
-	$urpm::args::options{bug} and log_it($input);
+	$urpm::args::options{bug} and bug_log($input);
 	if ($opts{boolean}) {
 	    $input =~ /^[$noexpr$yesexpr]?$/ and last;
 	} elsif ($opts{range}) {
@@ -82,18 +89,9 @@ sub message_input {
 	} else {
 	    last;
 	}
-	message(N("Sorry, bad choice, try again\n"));
+	print N("Sorry, bad choice, try again\n");
     }
     return $input;
-}
-
-sub message {
-    my ($msg) = @_;
-    if ($urpm::args::options{bug} || !defined fileno ::SAVEOUT) {
-	print STDOUT "$msg\n";
-    } else {
-	print ::SAVEOUT "$msg\n";
-    }
 }
 
 sub toMb {
@@ -119,6 +117,6 @@ urpm::msg - routines to prompt messages from the urpm* tools
 
 Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005, 2006 Mandriva SA
 
 =cut

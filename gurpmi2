@@ -239,7 +239,7 @@ sub do_install_3 () {
 	    },
 	);
 	my %transaction_sources_install = %{$urpm->extract_packages_to_install(\%transaction_sources, $state) || {}};
-	if (!$urpm->{options}{'verify-rpm'} || grep { $_->{'verify-rpm'} } @{$urpm->{media}}) {
+	if ($urpm->{options}{'verify-rpm'} || grep { $_->{'verify-rpm'} } @{$urpm->{media}}) {
 	    my @bad_signatures = $urpm->check_sources_signatures(\%transaction_sources_install, \%transaction_sources, translate => 1);
 	    if (@bad_signatures) {
 		ask_continue_blocking(N(
@@ -283,6 +283,13 @@ sub do_install_3 () {
 		oldpackage => $state->{oldpackage},
 		callback_inst => $callback_inst,
 		callback_trans => $callback_inst,
+		#- global options that might have been read from urpmi.cfg
+		excludepath => $urpm->{options}{excludepath},
+		excludedocs => $urpm->{options}{excludedocs},
+		repackage   => $urpm->{options}{repackage},
+		nosize => $urpm->{options}{ignoresize},
+		ignorearch => $urpm->{options}{ignorearch},
+		noscripts => $urpm->{options}{noscripts},
 	    );
 	    if (@l) {
 		$progress_label->set_label(N("Installation failed") . ":\n" . join("\n",  map { "\t$_" } @l));
