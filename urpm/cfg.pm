@@ -5,7 +5,7 @@ use warnings;
 use urpm::util;
 use urpm::msg 'N';
 
-(our $VERSION) = q$Id: cfg.pm,v 1.37 2006/02/13 11:03:47 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: cfg.pm,v 1.38 2006/02/17 11:09:08 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 =head1 NAME
 
@@ -174,6 +174,7 @@ sub load_config ($;$) {
 	    |excludedocs
 	    |compress
 	    |keep
+	    |ignoresize
 	    |auto
 	    |repackage
 	    |strict-arch

@@ -7,7 +7,7 @@ use Getopt::Long;# 2.33;
 use urpm::download;
 use urpm::msg;
 
-(our $VERSION) = q$Id: args.pm,v 1.96 2006/02/13 11:36:12 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: args.pm,v 1.97 2006/02/16 11:22:16 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 # The program that invokes us
 (my $tool = $0) =~ s!.*/!!;
@@ -321,6 +321,7 @@ my %options_spec = (
 	checkpoint => \$::do_checkpoint,
 	'rollback=s' => \$::rollback,
 	noclean => \$::noclean,
+	disable => \$::disable,
     },
 
 );

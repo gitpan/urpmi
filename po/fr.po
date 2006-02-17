@@ -4,7 +4,7 @@
 # Latest versions of po files are at http://www.mandrivalinux.com/l10n/fr.php3
 #
 # Traduction de Mandriva Linux Urpmi
-# $Id: fr.po,v 1.290 2006/02/14 14:06:36 rgarciasuarez Exp $
+# $Id: fr.po,v 1.291 2006/02/15 09:23:52 pablo Exp $
 # Copyright (C) 1999-2005 Mandriva
 #
 # Pixel <pixel@mandrakesoft.com>, 1999.
@@ -1275,7 +1275,7 @@ msgstr " (o/N) "
 #: ../urpme:125
 #, c-format
 msgid "Remove %d packages?"
-msgstr "Supprimer %s paquets ?"
+msgstr "Supprimer %d paquets ?"
 
 #. - Warning : the following message is parsed in urpm::parallel_*
 #: ../urpme:149

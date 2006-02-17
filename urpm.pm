@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.622 2006/02/14 14:40:58 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.624 2006/02/17 11:16:54 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.10';
+our $VERSION = '4.8.11';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -166,6 +166,7 @@ sub read_config {
 	    excludedocs
 	    excludepath
 	    fuzzy
+	    ignoresize
 	    keep
 	    key-ids
 	    limit-rate
