@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.624 2006/02/17 11:16:54 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.626 2006/02/28 17:15:31 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.11';
+our $VERSION = '4.8.12';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -3030,7 +3030,7 @@ sub install {
 	    for ($pkg->files) { /\bREADME(\.$trtype)?\.urpmi$/ and $readmes{$_} = $fullname }
 	    close $fh if defined $fh;
 	};
-	if (scalar keys %$install || scalar keys %$upgrade) {
+	if ($::verbose >= 0 && (scalar keys %$install || scalar keys %$upgrade)) {
 	    $options{callback_inst}  ||= \&install_logger;
 	    $options{callback_trans} ||= \&install_logger;
 	}

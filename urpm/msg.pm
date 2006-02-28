@@ -4,7 +4,7 @@ use strict;
 no warnings;
 use Exporter;
 
-(our $VERSION) = q$Id: msg.pm,v 1.25 2006/02/08 17:13:10 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: msg.pm,v 1.26 2006/02/28 13:14:58 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 our @ISA = 'Exporter';
 our @EXPORT = qw(N bug_log to_utf8 message_input toMb from_utf8 sys_log);
@@ -51,7 +51,7 @@ eval {
     Sys::Syslog->import();
     (my $tool = $0) =~ s!.*/!!;
     openlog($tool, '', 'user');
-    END { closelog() }
+    END { defined &closelog and closelog() }
 };
 
 sub sys_log { defined &syslog and syslog("info", @_) }
