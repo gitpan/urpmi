@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.626 2006/02/28 17:15:31 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.630 2006/03/03 15:59:08 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.12';
+our $VERSION = '4.8.13';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -2468,7 +2468,7 @@ sub get_source_packages {
     if ($options{clean_all}) {
 	require File::Path;
 	File::Path::rmtree(["$urpm->{cachedir}/partial"]);
-	mkdir "$urpm->{cachedir}/partial";
+	mkdir "$urpm->{cachedir}/partial", 0755;
     }
 
     foreach my $medium (@{$urpm->{media} || []}) {
@@ -2722,7 +2722,7 @@ sub copy_packages_of_removable_media {
 			#- transfer it to the rpms cache.
 			unlink "$urpm->{cachedir}/partial/$filename";
 			if (urpm::util::copy($filepath, "$urpm->{cachedir}/partial") &&
-			    URPM::verify_rpm("$urpm->{cachedir}/partial/$filename", nosignatures => 1) !~ /NOT OK/)
+			    URPM::verify_rpm("$urpm->{cachedir}/partial/$filename", nosignatures => 1))
 			{
 			    #- now we can consider the file to be fine.
 			    unlink "$urpm->{cachedir}/rpms/$filename";
@@ -2839,7 +2839,8 @@ sub download_packages_of_distant_media {
 	    foreach my $i (keys %distant_sources) {
 		my ($filename) = $distant_sources{$i} =~ m|/([^/]*\.rpm)$|;
 		if ($filename && -s "$urpm->{cachedir}/partial/$filename" &&
-		    URPM::verify_rpm("$urpm->{cachedir}/partial/$filename", nosignatures => 1) !~ /NOT OK/) {
+		    URPM::verify_rpm("$urpm->{cachedir}/partial/$filename", nosignatures => 1))
+		{
 		    #- it seems the the file has been downloaded correctly and has been checked to be valid.
 		    unlink "$urpm->{cachedir}/rpms/$filename";
 		    urpm::util::move("$urpm->{cachedir}/partial/$filename", "$urpm->{cachedir}/rpms/$filename");
@@ -3036,7 +3037,8 @@ sub install {
 	}
 	@l = $trans->run($urpm, %options);
 
-	if (!$options{test} && $options{post_clean_cache}) {
+	#- don't clear cache if transaction failed. We might want to retry.
+	if (@l == 0 && !$options{test} && $options{post_clean_cache}) {
 	    #- examine the local cache to delete packages which were part of this transaction
 	    foreach (keys %$install, keys %$upgrade) {
 		my $pkg = $urpm->{depslist}[$_];
@@ -3286,9 +3288,10 @@ sub check_sources_signatures {
     foreach my $id (keys %$sources_install, -1, keys %$sources) {
 	if ($id == -1) { $s = $sources; next }
 	my $filepath = $s->{$id};
-	my $verif = URPM::verify_rpm($filepath);
+	my $verif = URPM::verify_signature($filepath);
 
 	if ($verif =~ /NOT OK/) {
+	    $verif =~ s/\n//g;
 	    $invalid_sources{$filepath} = N("Invalid signature (%s)", $verif);
 	} else {
 	    unless ($medium &&
