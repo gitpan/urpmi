@@ -1,7 +1,7 @@
 package gurpmi;
 
 #- Copyright (C) 2005 MandrakeSoft SA
-#- Copyright (C) 2005 Mandriva SA
+#- Copyright (C) 2005, 2006 Mandriva SA
 
 #- This is needed because text printed by Gtk2 will always be encoded
 #- in UTF-8; we first check if LC_ALL is defined, because if it is,
@@ -22,7 +22,7 @@ use strict;
 use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(fatal but quit add_button_box new_label N);
-(our $VERSION) = q$Id: gurpmi.pm,v 1.11 2005/12/05 12:53:40 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: gurpmi.pm,v 1.14 2006/03/06 11:18:42 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 sub usage () {
     print <<USAGE;
@@ -30,7 +30,11 @@ gurpmi version $urpm::VERSION
 Usage :
     gurpmi <rpm> [ <rpm>... ]
 Options :
+    --auto
+    --auto-select
     --no-verify-rpm
+    --media media1,...
+    --searchmedia media1,...
 USAGE
     exit 0;
 }
@@ -56,10 +60,16 @@ sub parse_command_line {
 	    push @ARGV_expanded, $a;
 	}
     }
+    my $nextopt;
     foreach (@ARGV_expanded) {
+	if ($nextopt) { $options{$nextopt} = $_; undef $nextopt; next }
 	if (/^-/) {
-	    if ($_ eq '--no-verify-rpm') {
-		$options{'no-verify-rpm'} = 1;
+	    if (/^--(no-verify-rpm|auto-select|auto)$/) {
+		$options{$1} = 1;
+		next;
+	    }
+	    if (/^--(media|searchmedia)$/) {
+		$nextopt = $1;
 		next;
 	    }
 	    /^--?[hv?]/ and usage();
@@ -71,7 +81,8 @@ sub parse_command_line {
 	    push @all_rpms, $_;
 	}
     }
-    @all_rpms + @names or fatal(N("No packages specified"));
+    $options{'auto-select'} || @all_rpms + @names
+	or fatal(N("No packages specified"));
     return @all_rpms;
 }
 

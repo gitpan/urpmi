@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpme,v 1.64 2006/02/14 11:29:00 rgarciasuarez Exp $
+# $Id: urpme,v 1.65 2006/03/08 17:19:10 rgarciasuarez Exp $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005, 2006 Mandriva SA
@@ -27,7 +27,7 @@ use urpm::msg;
 $ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
 delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
 
-our ($root, $test, $parallel, $auto, $matches, $verbose, $usedistrib, $force, $noscripts, $repackage, @l);
+our ($root, $test, $parallel, $auto, $matches, $verbose, $usedistrib, $force, $noscripts, $repackage, @l, $bundle);
 # Translator: Add here the keys which might be pressed in the "No"-case.
 my $noexpr = N("Nn");
 # Translator: Add here the keys which might be pressed in the "Yes"-case.
@@ -86,10 +86,9 @@ $urpm->configure(
 my @toremove = $urpm->find_packages_to_remove(
     $state,
     \@l,
-    test => $test,
     matches => $matches,
-    auto => $auto,
     force => $force,
+    bundle => $bundle,
     callback_notfound => sub {
 	my $urpm = shift @_;
 	#- Warning : the following message is parsed in urpm::parallel_*

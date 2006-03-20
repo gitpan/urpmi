@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.630 2006/03/03 15:59:08 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.638 2006/03/20 15:29:51 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,12 +11,11 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.13';
+our $VERSION = '4.8.14';
 our @ISA = qw(URPM);
 
 use URPM;
 use URPM::Resolve;
-use POSIX;
 
 BEGIN {
     # this won't work in 5.10 when encoding::warnings will be lexical
@@ -85,8 +84,7 @@ sub sync_webfetch {
     }
     if ($files{ftp} || $files{http} || $files{https}) {
 	my @webfetch = qw(curl wget);
-	my @available_webfetch = grep { -x "/usr/bin/$_" } @webfetch;
-	my $preferred;
+	my @available_webfetch = grep { -x "/usr/bin/$_" || -x "/bin/$_" } @webfetch;
 	#- use user default downloader if provided and available
 	my $option_downloader = $urpm->{options}{downloader}; #- cmd-line switch
 	if (!$option_downloader && $options->{media}) { #- per-media config
@@ -96,11 +94,13 @@ sub sync_webfetch {
 	#- global config
 	!$option_downloader && exists $urpm->{global_config}{downloader}
 	    and $option_downloader = $urpm->{global_config}{downloader};
-	if ($option_downloader) {
-	    ($preferred) = grep { $_ eq $option_downloader } @available_webfetch;
-	}
+	my ($preferred) = grep { $_ eq $option_downloader } @available_webfetch;
 	#- else first downloader of @webfetch is the default one
 	$preferred ||= $available_webfetch[0];
+	if ($option_downloader ne $preferred && $option_downloader && !our $webfetch_not_available) {
+	    $urpm->{log}(N("%s is not available, falling back on %s", $option_downloader, $preferred));
+	    $webfetch_not_available = 1;
+	}
 	if ($preferred eq 'curl') {
 	    sync_curl($options, @{$files{ftp} || []}, @{$files{http} || []}, @{$files{https} || []});
 	} elsif ($preferred eq 'wget') {
@@ -2099,7 +2099,7 @@ sub register_rpms {
     foreach (@files) {
 	/\.(?:rpm|spec)$/ or $error = 1, $urpm->{error}(N("invalid rpm file name [%s]", $_)), next;
 
-	#- allow url to be given.
+	#- if that's an URL, download.
 	if (my ($basename) = m{^[^:]*:/.*/([^/]*\.(?:rpm|spec))\z}) {
 	    unlink "$urpm->{cachedir}/partial/$basename";
 	    eval {
@@ -2134,9 +2134,11 @@ sub register_rpms {
 	    $pkg->set_id($id);
 	    $urpm->{source}{$id} = $_;
 	} else {
-	    ($id, undef) = $urpm->parse_rpm($_);
+	    ($id) = $urpm->parse_rpm($_);
 	    my $pkg = defined $id && $urpm->{depslist}[$id];
 	    $pkg or $error = 1, $urpm->{error}(N("unable to register rpm file")), next;
+	    $pkg->arch eq 'src' || $pkg->is_arch_compat()
+		or $error = 1, $urpm->{error}(N("Incompatible architecture for rpm [%s]", $_)), next;
 	    $urpm->{source}{$id} = $_;
 	}
     }
@@ -3077,6 +3079,15 @@ sub parallel_install {
 }
 
 #- find packages to remove.
+#- options:
+#-	bundle
+#-	callback_base
+#-	callback_fuzzy
+#-	callback_notfound
+#-	force
+#-	matches
+#-	root
+#-	test
 sub find_packages_to_remove {
     my ($urpm, $state, $l, %options) = @_;
 
@@ -3093,50 +3104,50 @@ sub find_packages_to_remove {
 	    foreach (@$l) {
 		my ($n, $found);
 
-		#- check if name-version-release-architecture may have been given.
+		#- check if name-version-release-architecture was given.
 		if (($n) = /^(.*)-[^\-]*-[^\-]*\.[^\.\-]*$/) {
 		    $db->traverse_tag('name', [ $n ], sub {
-					  my ($p) = @_;
-					  $p->fullname eq $_ or return;
-					  $urpm->resolve_rejected($db, $state, $p, removed => 1);
-					  push @m, scalar $p->fullname;
-					  $found = 1;
-				      });
+			    my ($p) = @_;
+			    $p->fullname eq $_ or return;
+			    $urpm->resolve_rejected($db, $state, $p, removed => 1, bundle => $options{bundle});
+			    push @m, scalar $p->fullname;
+			    $found = 1;
+			});
 		    $found and next;
 		}
 
-		#- check if name-version-release may have been given.
+		#- check if name-version-release was given.
 		if (($n) = /^(.*)-[^\-]*-[^\-]*$/) {
 		    $db->traverse_tag('name', [ $n ], sub {
-					  my ($p) = @_;
-					  join('-', ($p->fullname)[0..2]) eq $_ or return;
-					  $urpm->resolve_rejected($db, $state, $p, removed => 1);
-					  push @m, scalar $p->fullname;
-					  $found = 1;
-				      });
+			    my ($p) = @_;
+			    join('-', ($p->fullname)[0..2]) eq $_ or return;
+			    $urpm->resolve_rejected($db, $state, $p, removed => 1, bundle => $options{bundle});
+			    push @m, scalar $p->fullname;
+			    $found = 1;
+			});
 		    $found and next;
 		}
 
-		#- check if name-version may have been given.
+		#- check if name-version was given.
 		if (($n) = /^(.*)-[^\-]*$/) {
 		    $db->traverse_tag('name', [ $n ], sub {
-					  my ($p) = @_;
-					  join('-', ($p->fullname)[0..1]) eq $_ or return;
-					  $urpm->resolve_rejected($db, $state, $p, removed => 1);
-					  push @m, scalar $p->fullname;
-					  $found = 1;
-				      });
+			    my ($p) = @_;
+			    join('-', ($p->fullname)[0..1]) eq $_ or return;
+			    $urpm->resolve_rejected($db, $state, $p, removed => 1, bundle => $options{bundle});
+			    push @m, scalar $p->fullname;
+			    $found = 1;
+			});
 		    $found and next;
 		}
 
-		#- check if only name may have been given.
+		#- check if only name was given.
 		$db->traverse_tag('name', [ $_ ], sub {
-				      my ($p) = @_;
-				      $p->name eq $_ or return;
-				      $urpm->resolve_rejected($db, $state, $p, removed => 1);
-				      push @m, scalar $p->fullname;
-				      $found = 1;
-				  });
+			my ($p) = @_;
+			$p->name eq $_ or return;
+			$urpm->resolve_rejected($db, $state, $p, removed => 1, bundle => $options{bundle});
+			push @m, scalar $p->fullname;
+			$found = 1;
+		    });
 		$found and next;
 
 		push @notfound, $_;
@@ -3154,14 +3165,14 @@ sub find_packages_to_remove {
 	    %$state = ();
 	    @m = ();
 
-	    #- search for package that matches, and perform closure again.
+	    #- search for packages that match, and perform closure again.
 	    $db->traverse(sub {
-		my ($p) = @_;
-		my $f = scalar $p->fullname;
-		$f =~ $qmatch or return;
-		$urpm->resolve_rejected($db, $state, $p, removed => 1);
-		push @m, $f;
-	    });
+		    my ($p) = @_;
+		    my $f = scalar $p->fullname;
+		    $f =~ $qmatch or return;
+		    $urpm->resolve_rejected($db, $state, $p, removed => 1, bundle => $options{bundle});
+		    push @m, $f;
+		});
 
 	    if (!$options{force} && @notfound) {
 		if (@m) {
@@ -3264,7 +3275,7 @@ sub translate_why_removed {
 		and $s .= N("in order to install %s", $frompkg ? scalar $frompkg->fullname : $from);
 	    /unsatisfied/ and do {
 		foreach (@$whyv) {
-		    $s and $s .= ', ';
+		    $s and $s .= ",\n  ";
 		    if (/([^\[\s]*)(?:\[\*\])?(?:\[|\s+)([^\]]*)\]?$/ && $2 ne '*') {
 			$s .= N("due to unsatisfied %s", "$1 $2");
 		    } else {
@@ -3276,7 +3287,7 @@ sub translate_why_removed {
 	    /unrequested/ and $s .= N("unrequested");
 	}
 	#- now insert the reason if available.
-	$_ . ($s ? " ($s)" : '');
+	$_ . ($s ? "\n ($s)" : '');
     } @l;
 }
 

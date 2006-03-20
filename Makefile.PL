@@ -1,6 +1,6 @@
 #!perl
 # Makefile.PL for urpmi
-# $Id: Makefile.PL,v 1.12 2006/03/03 15:59:08 rgarciasuarez Exp $
+# $Id: Makefile.PL,v 1.15 2006/03/20 16:10:40 rgarciasuarez Exp $
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -9,6 +9,7 @@ use ExtUtils::MakeMaker;
 # --without-rpm : don't use rpm to find some paths, and generate make targets
 #   to produce an rpm of this
 # --install-po : compile .po files and install locale files
+#		 also, install localized man pages
 # --install-gui : install gurpmi
 my $with_rpm = 1; $with_rpm = 0 if grep $_ eq '--without-rpm', @ARGV;
 my $with_po  = 0; $with_po  = 1 if grep $_ eq '--install-po', @ARGV;
@@ -28,6 +29,13 @@ if ($with_gui) {
 
 # And now, add some functionality to MakeMaker.
 package MY;
+
+# Don't install gurpmi.pm if we don't install gui
+sub libscan {
+    my ($self, $path) = @_;
+    if (!$with_gui && $path =~ /gurpmi/) { return '' }
+    return $path;
+}
 
 # Make proper sbin/man5/man8 dirs in blib
 sub top_targets {
@@ -67,6 +75,17 @@ sub special_targets {
     $inherited;
 }
 
+sub manifypods {
+    my $inherited = shift->SUPER::manifypods(@_);
+    #- TODO repartition of man pages in sections by pod2man is incorrect
+    #- TODO as more languages are added adapt the following quick hack
+    if ($with_po) {
+	$inherited =~ s/(INST_MAN(\d)DIR\)\/)\bfr\b/$1..\/fr\/man$2/g;
+	$inherited =~ s/\t\$/\t\$(NOECHO) \$(MKPATH) \$(INST_MAN8DIR)\/..\/fr\/man8\n$&/;
+    }
+    $inherited;
+}
+
 # Additional targets
 sub postamble {
     <<"**MM**";
@@ -74,6 +93,8 @@ sub postamble {
 
 installpo:
 	\$(MAKE) -C po install
+	\$(NOECHO) \$(MOD_INSTALL) \\
+		\$(INST_MAN8DIR)\/..\/fr \$(DESTDIR)/usr/share/man/fr
 
 installconfigfiles:
 	install -d \$(SYSCONFDIR)/urpmi
@@ -140,7 +161,7 @@ WriteMakefile(
 	    $targ =~ s/\.(\d)\.pod$//;
 	    my $section = $1 || 1;
 	    ( $_ => "\$(INST_MAN${section}DIR)/$targ.$section" );
-	} <pod/*.pod>
+	} <pod/*.pod>, $with_po ? <pod/*/*.pod> : ()
     },
     dist		=> { COMPRESS => "bzip2", SUFFIX => ".bz2" },
 );

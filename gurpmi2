@@ -72,6 +72,7 @@ $urpm->resolve_dependencies(
     $state,
     \%requested,
     callback_choices => \&ask_choice,
+    auto_select => $gurpmi::options{'auto-select'},
 );
 my @ask_unselect = $urpm->unselected_packages($state);
 @ask_unselect
@@ -100,7 +101,10 @@ sub configure_urpm {
     };
     $urpm->exlock_rpm_db;
     $urpm->shlock_urpmi_db;
-    $urpm->configure;
+    $urpm->configure(
+	media	    => $gurpmi::options{media},
+	searchmedia => $gurpmi::options{searchmedia},
+    );
     $urpm->{options}{'verify-rpm'} = 0 if $gurpmi::options{'no-verify-rpm'};
     #- default options values
     exists $urpm->{options}{$_} or $urpm->{options}{$_} = 1 foreach qw(post-clean verify-rpm split-length);
@@ -176,7 +180,7 @@ sub do_install_2 () {
 	$pkg->arch ne 'src' and push @to_install, scalar $pkg->fullname;
     }
     $urpm->{nb_install} = @to_install;
-    @to_install > 1
+    (@to_install > 1 && !$gurpmi::options{auto})
 	? ask_continue(N(
 	    "To satisfy dependencies, the following %d packages are going to be installed:\n%s\n",
 	    scalar(@to_install), join "\n", @to_install
@@ -214,6 +218,7 @@ sub do_install_3 () {
 	split_length => $urpm->{options}{'split-length'},
     );
     my ($nok, @errors);
+    my $progress_nb;
     foreach my $set (@{$state->{transaction} || []}) {
 	my (@transaction_list, %transaction_sources);
 	$urpm->prepare_transaction($set, $list, \%sources, \@transaction_list, \%transaction_sources);
@@ -258,7 +263,6 @@ sub do_install_3 () {
 	if (keys(%transaction_sources_install) || keys(%transaction_sources)) {
 	    @{$set->{remove} || []} and
 		$progress_label->set_label(N("removing %s", join(' ', @{$set->{remove} || []})));
-	    my $progress_nb;
 	    my $total_nb = scalar grep { m|^/| } values %transaction_sources_install, values %transaction_sources;
 	    my $callback_inst = sub {
 		my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
@@ -278,7 +282,7 @@ sub do_install_3 () {
 		$set->{remove} || [],
 		\%transaction_sources_install,
 		\%transaction_sources,
-		'fork' => @{$state->{transaction} || []} > 1, #- fork if multiple transaction
+		'fork' => 0, #- do not fork (even if multiple transaction) because of X11 crash
 		translate_message => 1,
 		oldpackage => $state->{oldpackage},
 		callback_inst => $callback_inst,
