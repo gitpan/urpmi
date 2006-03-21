@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: urpmi.addmedia,v 1.102 2006/02/13 14:45:56 rgarciasuarez Exp $
+# $Id: urpmi.addmedia,v 1.104 2006/03/21 14:20:51 rgarciasuarez Exp $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 #- Copyright (C) 2005, 2006 Mandriva SA
@@ -123,7 +123,14 @@ if ($options{distrib}) {
     $with || $relative_hdlist
 	and usage N("no need to give <relative path of hdlist> with --distrib");
 
-    $urpm->add_distrib_media($name, $url, virtual => $options{virtual}, update => $options{update}, probe_with => $options{probe_with});
+    $urpm->add_distrib_media(
+	$name,
+	$url,
+	virtual => $options{virtual},
+	update => $options{update},
+	probe_with => $options{probe_with},
+	nolock => $options{nolock},
+    );
     $urpm->update_media(%options, callback => \&urpm::download::sync_logger);
     remove_failed($urpm, grep { $_->{modified} } @{$urpm->{media}});
 
@@ -132,8 +139,8 @@ if ($options{distrib}) {
 
     if ($with eq "with") {
 	$relative_hdlist or usage N("<relative path of hdlist> missing\n");
-    } elsif ($type =~ /ftp|http|rsync|ssh/) {
-	$options{probe_with} || $with eq "with" or usage N("`with' missing for network media\n");
+    } elsif ($type =~ /^(ftp|https?|rsync|ssh)$/) {
+	$options{probe_with} or usage N("`with' missing for network media\n");
     }
 
     $urpm->add_medium(
@@ -142,6 +149,7 @@ if ($options{distrib}) {
 	update => $options{update},
 	no_reload_config => $options{raw},
 	ignore => $options{raw},
+	nolock => $options{nolock},
     );
     urpm::download::copy_cmd_line_proxy($name);
     if ($options{raw}) {

@@ -1,6 +1,6 @@
 #!perl
 # Makefile.PL for urpmi
-# $Id: Makefile.PL,v 1.15 2006/03/20 16:10:40 rgarciasuarez Exp $
+# $Id: Makefile.PL,v 1.17 2006/03/21 17:28:24 rgarciasuarez Exp $
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -80,8 +80,11 @@ sub manifypods {
     #- TODO repartition of man pages in sections by pod2man is incorrect
     #- TODO as more languages are added adapt the following quick hack
     if ($with_po) {
-	$inherited =~ s/(INST_MAN(\d)DIR\)\/)\bfr\b/$1..\/fr\/man$2/g;
-	$inherited =~ s/\t\$/\t\$(NOECHO) \$(MKPATH) \$(INST_MAN8DIR)\/..\/fr\/man8\n$&/;
+	my $lang = 'fr';
+	# make fr man directory
+	$inherited =~ s/\t\$/\t\$(NOECHO) \$(MKPATH) \$(INST_MAN8DIR)\/..\/$lang\/man8\n$&/;
+	# install fr manpages in correct path
+	$inherited =~ s{(INST_MAN(\d)DIR\)/)$lang(\/\S+)\.\2}{my$x="$1../$lang/man$2$3.$2";$x=~s/\.$lang//;$x}eg;
     }
     $inherited;
 }

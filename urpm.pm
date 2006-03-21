@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.638 2006/03/20 15:29:51 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.644 2006/03/21 17:32:58 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.14';
+our $VERSION = '4.8.15';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -686,6 +686,7 @@ sub add_medium {
 
     #- make sure configuration has been read.
     $urpm->{media} or $urpm->read_config;
+    $options{nolock} or $urpm->exlock_urpmi_db;
 
     #- if a medium with that name has already been found, we have to exit now
     my $medium;
@@ -755,6 +756,7 @@ sub add_medium {
 	}
     }
 
+    $options{nolock} or $urpm->unlock_urpmi_db;
     $name;
 }
 
@@ -2517,6 +2519,7 @@ sub get_source_packages {
 		# list file exists but isn't readable
 		# report error only if no result found, list files are only readable by root
 		push @list_error, N("unable to access list file of \"%s\", medium ignored", $medium->{name});
+		$< and push @list_error, "    " . N("(retry as root?)");
 		next;
 	    }
 	    if (defined $medium->{url}) {
@@ -2896,23 +2899,20 @@ sub install_logger {
     my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
     my $pkg = defined $id && $urpm->{depslist}[$id];
     my $total_pkg = $urpm->{nb_install};
-    if ($urpm->{options}{repackage} || URPM::expand('%_repackage_all_erasures')) {
-	# there are repackaging transactions too
-	$total_pkg *= 2;
-    }
-    my $progress_size = $total_pkg ? 45 : 50;
+    my $progress_size = 45;
 
     if ($subtype eq 'start') {
 	$urpm->{logger_progress} = 0;
 	if ($type eq 'trans') {
 	    $urpm->{logger_id} ||= 0;
-	    printf($total_pkg ? "%-33s" : "%-28s", N("Preparing..."));
+	    $urpm->{logger_count} ||= 0;
+	    printf("%-33s", N("Preparing..."));
 	} else {
-	    if ($total_pkg) {
-		printf "%9s: %-22s", (++$urpm->{logger_id}) . "/" . $total_pkg, ($pkg && $pkg->name);
-	    } else {
-		printf "%4d: %-22s", ++$urpm->{logger_id}, ($pkg && $pkg->name);
-	    }
+	    ++$urpm->{logger_id};
+	    my $pname = $pkg ? $pkg->name : '';
+	    ++$urpm->{logger_count} if $pname;
+	    $pname ||= N("[repackaging]");
+	    printf "%9s: %-22s", $urpm->{logger_count} . "/" . $total_pkg, $pname;
 	}
     } elsif ($subtype eq 'stop') {
 	if ($urpm->{logger_progress} < $progress_size) {
