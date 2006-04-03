@@ -1,6 +1,6 @@
 package urpm;
 
-# $Id: urpm.pm,v 1.644 2006/03/21 17:32:58 rgarciasuarez Exp $
+# $Id: urpm.pm,v 1.649 2006/04/03 09:43:21 rgarciasuarez Exp $
 
 no warnings 'utf8';
 use strict;
@@ -11,7 +11,7 @@ use urpm::util;
 use urpm::sys;
 use urpm::cfg;
 
-our $VERSION = '4.8.15';
+our $VERSION = '4.8.17';
 our @ISA = qw(URPM);
 
 use URPM;
@@ -1424,6 +1424,7 @@ this could happen if you mounted manually the directory when creating the medium
 			reduce_pathname("$medium->{url}/reconfig.urpmi"),
 		    );
 		};
+		$@ and $urpm->{error}(N("...retrieving failed: %s", $@));
 		if (-s $reconfig_urpmi && $urpm->reconfig_urpmi($reconfig_urpmi, $medium->{name})) {
 		    $media_redone{$medium->{name}} = 1, redo MEDIA unless $media_redone{$medium->{name}};
 		}
@@ -1457,6 +1458,7 @@ this could happen if you mounted manually the directory when creating the medium
 		    $urpm->{sync}($syncopts, reduce_pathname("$medium->{url}/../descriptions"));
 		};
 	    }
+	    $@ and $urpm->{error}(N("...retrieving failed: %s", $@));
 	    if (-e "$urpm->{cachedir}/partial/descriptions") {
 		urpm::util::move("$urpm->{cachedir}/partial/descriptions", "$urpm->{statedir}/descriptions.$medium->{name}");
 	    }
@@ -1488,6 +1490,7 @@ this could happen if you mounted manually the directory when creating the medium
 			);
 		    }
 		};
+		$@ and $urpm->{error}(N("...retrieving failed: %s", $@));
 		if (!$@ && -e "$urpm->{cachedir}/partial/MD5SUM" && -s _ > 32) {
 		    recompute_local_md5sum($urpm, $medium, $options{force} >= 2);
 		    if ($medium->{md5sum}) {
@@ -1552,6 +1555,7 @@ this could happen if you mounted manually the directory when creating the medium
 			    reduce_pathname("$medium->{url}/$with_hdlist"),
 			);
 		    };
+		    $@ and $urpm->{error}(N("...retrieving failed: %s", $@));
 		    if (!$@ && -e "$urpm->{cachedir}/partial/$basename" && -s _ > 32) {
 			$medium->{with_hdlist} = $with_hdlist;
 			$urpm->{log}(N("found probed hdlist (or synthesis) as %s", $medium->{with_hdlist}));
@@ -1668,7 +1672,10 @@ this could happen if you mounted manually the directory when creating the medium
 				    "$urpm->{cachedir}/partial/$local_list",
 				    "$urpm->{cachedir}/partial/list");
 			};
-			$@ and unlink "$urpm->{cachedir}/partial/list";
+			if ($@) {
+			    $urpm->{error}(N("...retrieving failed: %s", $@));
+			    unlink "$urpm->{cachedir}/partial/list";
+			}
 			-s "$urpm->{cachedir}/partial/list" and last;
 		    }
 		}
@@ -1697,7 +1704,10 @@ this could happen if you mounted manually the directory when creating the medium
 				    "$urpm->{cachedir}/partial/$local_pubkey",
 				    "$urpm->{cachedir}/partial/pubkey");
 			};
-			$@ and unlink "$urpm->{cachedir}/partial/pubkey";
+			if ($@) {
+			    $urpm->{error}(N("...retrieving failed: %s", $@));
+			    unlink "$urpm->{cachedir}/partial/pubkey";
+			}
 			-s "$urpm->{cachedir}/partial/pubkey" and last;
 		    }
 		}
@@ -2894,12 +2904,19 @@ sub extract_packages_to_install {
     \%inst;
 }
 
+my $progress_size = 45;
+eval {
+    require Term::ReadKey;
+    ($progress_size) = Term::ReadKey::GetTerminalSize();
+    $progress_size -= 35;
+    $progress_size < 5 and $progress_size = 5;
+};
+
 #- install logger (a la rpm)
 sub install_logger {
     my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
     my $pkg = defined $id && $urpm->{depslist}[$id];
     my $total_pkg = $urpm->{nb_install};
-    my $progress_size = 45;
 
     if ($subtype eq 'start') {
 	$urpm->{logger_progress} = 0;
@@ -2949,8 +2966,9 @@ sub install {
 	    my @l;
 	    while (<CHILD_RETURNS>) {
 		chomp;
-		if (/^::logger_id:(\d+)/) {
+		if (/^::logger_id:(\d+)(?::(\d+))?/) {
 		    $urpm->{logger_id} = $1;
+		    $2 and $urpm->{logger_count} = $2;
 		} else {
 		    push @l, $_;
 		}
@@ -3052,7 +3070,7 @@ sub install {
 
     #- now exit or return according to current status.
     if (defined $pid && !$pid) { #- child process
-	print ERROR_OUTPUT "::logger_id:$urpm->{logger_id}\n"; #- allow main urpmi to know transaction numbering...
+	print ERROR_OUTPUT "::logger_id:$urpm->{logger_id}:$urpm->{logger_count}\n"; #- allow main urpmi to know transaction numbering...
 	print ERROR_OUTPUT "$_\n" foreach @l;
 	close ERROR_OUTPUT;
 	#- keep safe exit now (with destructor call).

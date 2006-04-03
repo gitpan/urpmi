@@ -7,7 +7,7 @@ use Getopt::Long;# 2.33;
 use urpm::download;
 use urpm::msg;
 
-(our $VERSION) = q$Id: args.pm,v 1.98 2006/03/08 17:19:10 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: args.pm,v 1.100 2006/03/30 12:18:58 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
 
 # The program that invokes us
 (my $tool = $0) =~ s!.*/!!;
@@ -203,7 +203,7 @@ my %options_spec = (
 	'excludemedia|exclude-media=s' => \$options{excludemedia},
 	'sortmedia|sort-media=s' => \$options{sortmedia},
 	'searchmedia|search-media=s' => \$options{searchmedia},
-	'synthesis=s' => \$options{sortmedia},
+	'synthesis=s' => \$options{synthesis},
 	'auto-select' => sub {
 	    $options{deps} = $options{upgrade} = $options{auto_select} = 1;
 	},
@@ -319,6 +319,7 @@ my %options_spec = (
     'urpmi.recover' => {
 	'list=s' => \$::listdate,
 	'list-all' => sub { $::listdate = -1 },
+	'list-safe' => sub { $::listdate = 'checkpoint' },
 	checkpoint => \$::do_checkpoint,
 	'rollback=s' => \$::rollback,
 	noclean => \$::noclean,

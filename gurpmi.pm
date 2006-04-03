@@ -22,7 +22,7 @@ use strict;
 use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(fatal but quit add_button_box new_label N);
-(our $VERSION) = q$Id: gurpmi.pm,v 1.14 2006/03/06 11:18:42 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q$Id: gurpmi.pm,v 1.15 2006/03/31 17:43:49 warly Exp $ =~ /(\d+\.\d+)/;
 
 sub usage () {
     print <<USAGE;
@@ -75,11 +75,12 @@ sub parse_command_line {
 	    /^--?[hv?]/ and usage();
 	    fatal(N("Unknown option %s", $_));
 	}
-	if (/^[-a-zA-Z0-9_+]+\z/) { # is this an rpm name ?
-	    push @names, $_;
-	} else { # assume it's a filename
-	    push @all_rpms, $_;
+	if (-f) {
+	    push @all_rpms, $_
+	} else {
+	    push @names, $_
 	}
+	
     }
     $options{'auto-select'} || @all_rpms + @names
 	or fatal(N("No packages specified"));
