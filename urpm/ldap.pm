@@ -1,15 +1,18 @@
 package urpm::ldap;
 
+# $Id: ldap.pm 271299 2010-11-21 15:54:30Z peroyvind $
+
 use strict;
 use warnings;
 use urpm;
+use urpm::util;
 use urpm::msg 'N';
-use Net::LDAP;
+use urpm::media;
 
-(our $VERSION) = q$Id: ldap.pm,v 1.13 2005/12/02 15:31:36 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
 
 our $LDAP_CONFIG_FILE = '/etc/ldap.conf';
-my @per_media_opt = (@urpm::PER_MEDIA_OPT, qw(ftp-proxy http-proxy));
+my @per_media_opt = (@urpm::media::PER_MEDIA_OPT, qw(md5sum ftp-proxy http-proxy));
 
 # TODO
 # use srv dns record ?
@@ -35,7 +38,7 @@ therefore, caching is useless if server is up.
 
 Checks if the ldap medium has all required attributes.
 
-=item read_ldap_cache($urpm, %options)
+=item read_ldap_cache($urpm)
 
 Reads the cache created by the C<write_ldap_cache> function. Should be called
 if the ldap server doesn't answer (upgrade, network problem, mobile user, etc.)
@@ -44,7 +47,7 @@ if the ldap server doesn't answer (upgrade, network problem, mobile user, etc.)
 
 Cleans the ldap cache, removes all files in the directory.
 
-=item load_ldap_media($urpm, %options)
+=item load_ldap_media($urpm)
 
 Loads urpmi media configuration from ldap.
 
@@ -79,15 +82,13 @@ sub write_ldap_cache($$) {
 
 sub check_ldap_medium($) {
     my ($medium) = @_;
-    return $medium->{name} && $medium->{clear_url};
+    return $medium->{name} && $medium->{url};
 }
 
 sub get_vars_from_sh {
-    my $filename = $_[0];
+    my ($filename) = @_;
     my %l;
-    open my $fh, $filename or return ();
-    local $_;
-    while (<$fh>) {
+    foreach (cat_($filename)) {
 	s/#.*//; s/^\s*//; s/\s*$//;
 	my ($key, $val) = /^(\w+)=(.*)/ or next;
 	$val =~ s/^(["'])(.*)\1$/$2/;
@@ -96,13 +97,13 @@ sub get_vars_from_sh {
     %l;
 }
 
-sub read_ldap_cache($%) {
-    my ($urpm, %options) = @_;
+sub read_ldap_cache {
+    my ($urpm) = @_;
     foreach (glob("$urpm->{cachedir}/ldap/*")) {
 	! -f $_ and next;
 	my %medium = get_vars_from_sh($_);
 	next if !check_ldap_medium(\%medium);
-	$urpm->probe_medium(\%medium, %options) and push @{$urpm->{media}}, \%medium;
+	urpm::media::add_existing_medium($urpm, \%medium, 'nocheck');
     }
 }
 
@@ -116,12 +117,10 @@ sub get_ldap_config() {
     return get_ldap_config_file($LDAP_CONFIG_FILE);
 }
 
-sub get_ldap_config_file($) {
+sub get_ldap_config_file {
     my ($file) = @_;
     my %config;
-    # TODO more verbose error ?
-    open my $conffh, $file or return;
-    while (<$conffh>) {
+    foreach (cat_($file)) {
 	s/#.*//;
 	s/^\s*//;
 	s/\s*$//;
@@ -130,27 +129,28 @@ sub get_ldap_config_file($) {
 	/^(\S*)\s*(\S*)/ && $2 or next;
 	$config{$1} = $2;
     }
-    close($conffh);
-    return \%config;
+    return %config && \%config;
 }
 
-sub get_ldap_config_dns {
+sub get_ldap_config_dns() {
     # TODO
     die "not implemented yet\n";
 }
 
 my %ldap_changed_attributes = (
     'source-name' => 'name',
-    'url' => 'clear_url',
     'with-hdlist' => 'with_hdlist',
     'http-proxy' => 'http_proxy',
     'ftp-proxy' => 'ftp_proxy',
+    'media-info-dir' => 'media_info_dir',
 );
 
-sub load_ldap_media($%) {
-    my ($urpm, %options) = @_;
+sub load_ldap_media {
+    my ($urpm) = @_;
 
     my $config = get_ldap_config() or return;
+
+    $config->{ssl} = 'off';
 
     # try first urpmi_foo and then foo
     foreach my $opt (qw(base uri filter host ssl port binddn passwd scope)) {
@@ -167,13 +167,13 @@ sub load_ldap_media($%) {
 	    $config->{host} . ($config->{port} ? ":" . $config->{port} : "") . "/";
     }
 
-    my $priority = 100; #- too add ldap media at the end
     eval {
+        require Net::LDAP;
         my $ldap = Net::LDAP->new($config->{uri})
-            or die N("Cannot connect to ldap uri :"), $config->{uri};
+            or die N("Cannot connect to ldap uri:"), $config->{uri};
 
         $ldap->bind($config->{binddn}, $config->{password})
-            or die N("Cannot connect to ldap uri :"), $config->{uri};
+            or die N("Cannot connect to ldap uri:"), $config->{uri};
         #- base is mandatory
         my $result = $ldap->search(
             base   => $config->{base},
@@ -204,15 +204,14 @@ sub load_ldap_media($%) {
             #- TODO check if name already defined ?
             $medium->{name} = "ldap_" . $medium->{name};
             $medium->{ldap} = 1;
-	    $medium->{priority} = $priority++;
             next if !check_ldap_medium($medium);
-            $urpm->probe_medium($medium, %options) and push @{$urpm->{media}}, $medium;
-            write_ldap_cache($urpm,$medium) or $urpm->{log}(N("Could not write ldap cache : %s", $_));
+            urpm::media::add_existing_medium($urpm, $medium, 'nocheck');
+            write_ldap_cache($urpm,$medium); 
         }
     };
     if ($@) {
         $urpm->{log}($@);
-        read_ldap_cache($urpm, %options);
+        read_ldap_cache($urpm);
     }
 
 }
@@ -225,6 +224,6 @@ __END__
 
 Copyright (C) 2005 MandrakeSoft SA
 
-Copyright (C) 2005 Mandriva SA
+Copyright (C) 2005-2010 Mandriva SA
 
 =cut

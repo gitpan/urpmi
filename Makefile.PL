@@ -1,6 +1,6 @@
 #!perl
 # Makefile.PL for urpmi
-# $Id: Makefile.PL,v 1.17 2006/03/21 17:28:24 rgarciasuarez Exp $
+# $Id: Makefile.PL 271298 2010-11-21 15:39:18Z peroyvind $
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -15,13 +15,9 @@ my $with_rpm = 1; $with_rpm = 0 if grep $_ eq '--without-rpm', @ARGV;
 my $with_po  = 0; $with_po  = 1 if grep $_ eq '--install-po', @ARGV;
 my $with_gui = 0; $with_gui = 1 if grep $_ eq '--install-gui', @ARGV;
 
-# Directory where to build an rpm of this
-my $rpmtopdir = $with_rpm ? qx(rpm --eval %_topdir) : '';
-chomp $rpmtopdir;
-
 # All scripts, some of them go in /usr/sbin (see DESTINSTALLSBIN below)
 our @bin_scripts = qw(urpmq urpmf rpm-find-leaves urpmi.recover);
-our @sbin_scripts = qw(urpmi urpme urpmi.addmedia urpmi.update urpmi.removemedia rurpmi);
+our @sbin_scripts = qw(urpmi urpme urpmi.addmedia urpmi.update urpmi.removemedia rurpmi rurpme);
 if ($with_gui) {
     push @bin_scripts, qw(gurpmi);
     push @sbin_scripts, qw(gurpmi2);
@@ -79,25 +75,28 @@ sub manifypods {
     my $inherited = shift->SUPER::manifypods(@_);
     #- TODO repartition of man pages in sections by pod2man is incorrect
     #- TODO as more languages are added adapt the following quick hack
-    if ($with_po) {
-	my $lang = 'fr';
-	# make fr man directory
-	$inherited =~ s/\t\$/\t\$(NOECHO) \$(MKPATH) \$(INST_MAN8DIR)\/..\/$lang\/man8\n$&/;
-	# install fr manpages in correct path
-	$inherited =~ s{(INST_MAN(\d)DIR\)/)$lang(\/\S+)\.\2}{my$x="$1../$lang/man$2$3.$2";$x=~s/\.$lang//;$x}eg;
-    }
+    # Adjust captions to make them look less like perl packages
+    $inherited =~ s/^(POD2MAN_EXE\s*=\s*)(.+)$/$1$2 -c "Mageia Package Management" -r "Mageia Linux"/m;
     $inherited;
 }
+
+# to generate the ChangeLog depending on the checkout layout
+my $commonusername = "../common/";
+-d $commonusername or do {
+    $commonusername = "../../common/";
+    -d $commonusername or do {
+	$commonusername = "../../../common/";
+	-d $commonusername or $commonusername = "";
+    };
+};
 
 # Additional targets
 sub postamble {
     <<"**MM**";
-.PHONY: installconfigfiles installstatedir ChangeLog rpmdist srpm rpm
+.PHONY: installconfigfiles installstatedir ChangeLog TAGS
 
 installpo:
 	\$(MAKE) -C po install
-	\$(NOECHO) \$(MOD_INSTALL) \\
-		\$(INST_MAN8DIR)\/..\/fr \$(DESTDIR)/usr/share/man/fr
 
 installconfigfiles:
 	install -d \$(SYSCONFDIR)/urpmi
@@ -109,22 +108,24 @@ installstatedir:
 	install -d \$(DESTDIR)/var/cache/urpmi/headers
 	install -d \$(DESTDIR)/var/cache/urpmi/rpms
 
-installgurpmi2: pure_install
+installgurpmi2: pure_install gurpmi.desktop
 	ln -s -f consolehelper \$(DESTINSTALLSCRIPT)/gurpmi2
 
 ChangeLog:
-	cvs2cl -W 400 -I ChangeLog --accum -U ../../soft/common/username
+	svn2cl --accum --authors ${commonusername}username.xml
 	rm -f *.bak
 
-rpmdist: dist
-	cp -f urpmi.spec $rpmtopdir/SPECS
-	mv -f urpmi-*.tar.bz2 $rpmtopdir/SOURCES
+TAGS:
+	etags *.pm */*.pm
 
-srpm: rpmdist
-	rpmbuild -bs --clean --rmsource $rpmtopdir/SPECS/urpmi.spec
+testall:
+	make test
+	sudo make test TEST_FILES='t/superuser--*.t'
 
-rpm: rpmdist
-	rpmbuild -ba --clean --rmsource $rpmtopdir/SPECS/urpmi.spec
+%.desktop:   %.desktop.in
+	intltool-merge --utf8 po \$< \$@ -d -u -c intltool-merge-cache
+
+
 **MM**
 }
 
@@ -136,7 +137,7 @@ WriteMakefile(
     PREREQ_PM		=> {
 	'Locale::gettext'	=> '1.01',
 	'MDV::Packdrakeng'	=> '1.01',
-	'URPM'			=> '1.37',
+	'URPM'			=> '1.48',
     },
     VERSION_FROM	=> 'urpm.pm',
     macro		=> {
@@ -161,10 +162,10 @@ WriteMakefile(
 	map {
 	    my $targ = $_;
 	    $targ =~ s{^pod/}{};
-	    $targ =~ s/\.(\d)\.pod$//;
+	    $targ =~ s{^(\d)/(.*)\.pod$}{$2};
 	    my $section = $1 || 1;
 	    ( $_ => "\$(INST_MAN${section}DIR)/$targ.$section" );
-	} <pod/*.pod>, $with_po ? <pod/*/*.pod> : ()
+	} <pod/*/*.pod>, $with_po ? <pod/*/*.pod> : ()
     },
-    dist		=> { COMPRESS => "bzip2", SUFFIX => ".bz2" },
+    dist		=> { COMPRESS => "xz -f", SUFFIX => ".xz" },
 );

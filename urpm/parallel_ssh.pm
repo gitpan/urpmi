@@ -1,285 +1,100 @@
 package urpm::parallel_ssh;
 
+# $Id: parallel_ssh.pm 271299 2010-11-21 15:54:30Z peroyvind $
+
 #- Copyright (C) 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005 Mandriva SA
+#- Copyright (C) 2005-2010 Mandriva SA
 
 use strict;
-use Time::HiRes qw(gettimeofday);
+use urpm::util;
+use urpm::msg;
+use urpm::parallel;
 
-(our $VERSION) = q$Id: parallel_ssh.pm,v 1.47 2005/12/06 14:47:26 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+our @ISA = 'urpm::parallel';
+
+(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
 
 sub _localhost { $_[0] eq 'localhost' }
-sub _nolock    { &_localhost ? '--nolock ' : '' }
 sub _ssh       { &_localhost ? '' : "ssh $_[0] " }
 sub _host      { &_localhost ? '' : "$_[0]:" }
 
-#- parallel copy
-sub parallel_register_rpms {
-    my ($parallel, $urpm, @files) = @_;
+sub _scp {
+    my ($urpm, $host, @para) = @_;
+    my $dest = pop @para;
 
-    foreach (keys %{$parallel->{nodes}}) {
-	$urpm->{log}("parallel_ssh: scp @files $_:$urpm->{cachedir}/rpms");
-	if (_localhost($_)) {
-	    my @f = grep { ! m!^$urpm->{cachedir}/rpms! } @files;
-	    @f and system 'cp' => @f, "$urpm->{cachedir}/rpms";
-	} else {
-	    system 'scp' => @files, "$_:$urpm->{cachedir}/rpms";
-	}
-	$? == 0 or $urpm->{fatal}(1, urpm::N("scp failed on host %s (%d)", $_, $? >> 8));
-    }
-
-    #- keep trace of direct files.
-    foreach (@files) {
-	my $basename = (/^.*\/([^\/]*)$/ && $1) || $_;
-	$parallel->{line} .= "'$urpm->{cachedir}/rpms/$basename' ";
-    }
+    $urpm->{log}("parallel_ssh: scp " . join(' ', @para) . " $host:$dest");
+    system('scp', @para, _host($host) . $dest) == 0
+      or $urpm->{fatal}(1, N("scp failed on host %s (%d)", $host, $? >> 8));
 }
 
-#- parallel find_packages_to_remove
-sub parallel_find_remove {
-    my ($parallel, $urpm, $state, $l, %options) = @_;
-    my ($test, %bad_nodes, %base_to_remove, %notfound);
-    local $_;
+sub copy_to_dir {
+    my ($parallel, $urpm, @para) = @_;
+    my $dir = pop @para;
 
-    #- keep in mind if the previous selection is still active, it avoids
-    #- to re-start urpme --test on each node.
-    if ($options{find_packages_to_remove}) {
-	delete $state->{rejected};
-	delete $urpm->{error_remove};
-	$test = '--test ';
-    } else {
-	@{$urpm->{error_remove} || []} and return @{$urpm->{error_remove}};
-	#- no need to restart what has been started before.
-	$options{test} and return keys %{$state->{rejected}};
-	$test = '--force ';
-    }
-
-    #- now try an iteration of urpme.
-    foreach my $node (keys %{$parallel->{nodes}}) {
-	my $command = _ssh($node) . "urpme --no-locales --auto $test" . (join ' ', map { "'$_'" } @$l);
-        $urpm->{log}("parallel_ssh: $command");
-	open my $fh, "$command 2>&1 |"
-	    or $urpm->{fatal}(1, "Can't fork ssh: $!");
-	while (defined ($_ = <$fh>)) {
-	    chomp;
-	    /^\s*$/ and next;
-	    /Checking to remove the following packages/ and next;
-	    /To satisfy dependencies, the following packages are going to be removed/
-	      and $urpm->{fatal}(1, ("node %s has bad version of urpme, please upgrade", $node));
-	    if (/unknown packages?:? (.*)/) {
-		#- remember unknown packages from the node, because it should not be a fatal error
-		#- if other nodes have it.
-		@notfound{split /, /, $1} = ();
-	    } elsif (/The following packages contain ([^:]*): (.*)/) {
-		$options{callback_fuzzy} and $options{callback_fuzzy}->($urpm, $1, split " ", $2)
-		  or delete $state->{rejected}, last;
-	    } elsif (/removing package (.*) will break your system/) {
-		$base_to_remove{$1} = undef;
-	    } elsif (/removing \S/) {
-		#- this is log for newer urpme, so do not try to remove removing...
-	    } elsif (/Remov(?:al|ing) failed/) {
-		$bad_nodes{$node} = [];
-	    } else {
-		if (exists $bad_nodes{$node}) {
-		    /^\s+(.*)/ and push @{$bad_nodes{$node}}, $1;
-		} else {
-		    s/\s*\(.*//; #- remove reason (too complex to handle, needs to be removed)
-		    $state->{rejected}{$_}{removed} = 1;
-		    $state->{rejected}{$_}{nodes}{$node} = undef;
-		}
+    foreach my $host (keys %{$parallel->{nodes}}) {
+	if (_localhost($host)) {
+	    if (my @f = grep { dirname($_) ne $dir } @para) {
+		$urpm->{log}("parallel_ssh: cp @f $urpm->{cachedir}/rpms");
+		system('cp', @f, $dir) == 0
+		  or $urpm->{fatal}(1, N("cp failed on host %s (%d)", $host, $? >> 8));
 	    }
-	}
-	close $fh;
-    }
-
-    #- check base, which has been delayed until there.
-    $options{callback_base} and keys %base_to_remove
-	and $options{callback_base}->($urpm, keys %base_to_remove) || return ();
-
-    #- build error list contains all the error returned by each node.
-    $urpm->{error_remove} = [];
-    foreach (keys %bad_nodes) {
-	my $msg = urpm::N("on node %s", $_);
-	foreach (@{$bad_nodes{$_}}) {
-	    push @{$urpm->{error_remove}}, "$msg, $_";
+	} else {
+	    _scp($urpm, $host, @para, $dir);
 	}
     }
-
-    #- if at least one node has the package, it should be seen as unknown...
-    delete @notfound{map { /^(.*)-[^-]*-[^-]*$/ } keys %{$state->{rejected}}};
-    if (keys %notfound) {
-	$options{callback_notfound} and $options{callback_notfound}->($urpm, keys %notfound)
-	  or delete $state->{rejected};
-    }
-
-    keys %{$state->{rejected}};
 }
 
-#- parallel resolve_dependencies
-sub parallel_resolve_dependencies {
-    my ($parallel, $synthesis, $urpm, $state, $requested, %options) = @_;
-
-    #- first propagate the synthesis file to all machines
+sub propagate_file {
+    my ($parallel, $urpm, $file) = @_;
     foreach (grep { !_localhost($_) } keys %{$parallel->{nodes}}) {
-	$urpm->{ui_msg}("parallel_ssh: scp -q $synthesis $_:$synthesis", urpm::N("Propagating synthesis to %s...", $_));
-	system "scp", "-q", $synthesis, _host($_) . $synthesis;
-	$? == 0 or $urpm->{fatal}(1, urpm::N("scp failed on host %s (%d)", $_, $? >> 8));
+	_scp($urpm, $_, '-q', $file, $file);
     }
-    $parallel->{synthesis} = $synthesis;
-
-    #- compute command line of urpm? tools.
-    my $line = $parallel->{line} . ($options{auto_select} ? ' --auto-select' : '') . ($options{keep} ? ' --keep' : '');
-    foreach (keys %$requested) {
-	if (/\|/) {
-	    #- taken from URPM::Resolve to filter out choices, not complete though.
-	    my $packages = $urpm->find_candidate_packages($_);
-	    foreach (values %$packages) {
-		my ($best_requested, $best);
-		foreach (@$_) {
-		    exists $state->{selected}{$_->id} and $best_requested = $_, last;
-		    if ($best_requested) {
-			if ($best_requested && $best_requested != $_) {
-			    $_->compare_pkg($best_requested) > 0 and $best_requested = $_;
-			} else {
-			    $best_requested = $_;
-			}
-		    } elsif ($best && $best != $_) {
-			$_->compare_pkg($best) > 0 and $best = $_;
-		    } else {
-			$best = $_;
-		    }
-		}
-		$_ = $best_requested || $best;
-	    }
-	    #- simplified choice resolution.
-	    my $choice = $options{callback_choices}->($urpm, undef, $state, [ values %$packages ]);
-	    if ($choice) {
-		$urpm->{source}{$choice->id} and next; #- local packages have already been added.
-		$line .= ' ' . $choice->fullname;
-	    }
-	} else {
-	    my $pkg = $urpm->{depslist}[$_] or next;
-	    $urpm->{source}{$pkg->id} and next; #- local packages have already been added.
-	    $line .= ' '.$pkg->fullname;
-	}
-    }
-
-    #- execute urpmq to determine packages to install.
-    my ($cont, %chosen);
-    local $_;
-    do {
-	$cont = 0; #- prepare to stop iteration.
-	#- the following state should be cleaned for each iteration.
-	delete $state->{selected};
-	#- now try an iteration of urpmq.
-	foreach my $node (keys %{$parallel->{nodes}}) {
-	    my $command = _ssh($node) . "urpmq " . _nolock($node) . "--synthesis $synthesis -fduc $line " . join(' ', keys %chosen);
-	    $urpm->{ui_msg}("parallel_ssh: $command", urpm::N("Resolving dependencies on %s...", $node));
-	    open my $fh, "$command |"
-		or $urpm->{fatal}(1, "Can't fork ssh: $!");
-	    while (defined ($_ = <$fh>)) {
-		chomp;
-		if (my ($action, $what) = /^\@([^\@]*)\@(.*)/) {
-		    if ($action eq 'removing') {
-			$state->{rejected}{$what}{removed} = 1;
-			$state->{rejected}{$what}{nodes}{$node} = undef;
-		    }
-		} elsif (/\|/) {
-		    #- distant urpmq returned a choices, check if it has already been chosen
-		    #- or continue iteration to make sure no more choices are left.
-		    $cont ||= 1; #- invalid transitory state (still choices is strange here if next sentence is not executed).
-		    unless (grep { exists $chosen{$_} } split /\|/, $_) {
-			my $choice = $options{callback_choices}->($urpm, undef, $state, [ map { $urpm->search($_) } split /\|/, $_ ]);
-			if ($choice) {
-			    $chosen{scalar $choice->fullname} = $choice;
-			    #- it has not yet been chosen so need to ask user.
-			    $cont = 2;
-			} else {
-			    #- no choices resolved, so forget it (no choices means no choices at all).
-			    $cont = 0;
-			}
-		    }
-		} else {
-		    my $pkg = $urpm->search($_) or next; #TODO
-		    $state->{selected}{$pkg->id}{$node} = $_;
-		}
-	    }
-	    close $fh or $urpm->{fatal}(1, urpm::N("host %s does not have a good version of urpmi (%d)", $node, $? >> 8));
-	}
-	#- check for internal error of resolution.
-	$cont == 1 and die "internal distant urpmq error on choice not taken";
-    } while $cont;
-
-    #- keep trace of what has been chosen finally (if any).
-    $parallel->{line} = "$line " . join(' ', keys %chosen);
 }
 
-#- parallel install.
-sub parallel_install {
-    my ($parallel, $urpm, undef, $install, $upgrade, %options) = @_;
+sub _ssh_urpm {
+    my ($urpm, $node, $cmd, $para) = @_;
 
-    foreach (keys %{$parallel->{nodes}}) {
-	my @sources = (values %$install, values %$upgrade);
-	$urpm->{ui_msg}("parallel_ssh: scp @sources $_:$urpm->{cachedir}/rpms", urpm::N("Distributing files to %s...", $_));
-	if (_localhost($_)) {
-	    my @f = grep { ! m!^$urpm->{cachedir}/rpms! } @sources;
-	    @f and system 'cp' => @f, "$urpm->{cachedir}/rpms";
-	} else {
-	    system 'scp' => @sources, "$_:$urpm->{cachedir}/rpms";
-	}
-	$? == 0 or $urpm->{fatal}(1, urpm::N("scp failed on host %s (%d)", $_, $? >> 8));
-    }
+    $cmd ne 'urpme' && _localhost($node) and $para = "--nolock $para";
 
-    my %bad_nodes;
+    # it doesn't matter for urpmq, and previous version of urpmq didn't handle it:
+    $cmd ne 'urpmq' and $para = "--no-locales $para";
+
+    $urpm->{log}("parallel_ssh: $node: $cmd $para");
+    _ssh($node) . " $cmd $para";
+}
+sub _ssh_urpm_popen {
+    my ($urpm, $node, $cmd, $para) = @_;
+
+    my $command = _ssh_urpm($urpm, $node, $cmd, $para);
+    open(my $fh, "$command |") or $urpm->{fatal}(1, "Can't fork ssh: $!");
+    $fh;
+}
+
+sub urpm_popen {
+    my ($parallel, $urpm, $cmd, $para, $do) = @_;
+
+    my @errors;
+
     foreach my $node (keys %{$parallel->{nodes}}) {
-	local $_;
-	my $command = _ssh($node) . "urpmi --pre-clean --no-locales --test --no-verify-rpm --auto " . _nolock($node) . "--synthesis $parallel->{synthesis} $parallel->{line}";
-	$urpm->{ui_msg}("parallel_ssh: $command", urpm::N("Verifying if install is possible on %s...", $node));
-	open my $fh, "$command |"
-	    or $urpm->{fatal}(1, "Can't fork ssh: $!");
-	while ($_ = <$fh>) {
-	    $bad_nodes{$node} .= $_;
-	    /Installation failed/ and $bad_nodes{$node} = '';
-	    /Installation is possible/ and delete $bad_nodes{$node}, last;
-	}
-	close $fh;
-    }
-    foreach (keys %{$parallel->{nodes}}) {
-	exists $bad_nodes{$_} or next;
-	$urpm->{error}(urpm::N("Installation failed on node %s", $_) . ":\n" . $bad_nodes{$_});
-    }
-    keys %bad_nodes and return;
+	my $fh = _ssh_urpm_popen($urpm, $node, $cmd, $para);
 
-    if ($options{test}) {
-	$urpm->{error}(urpm::N("Installation is possible"));
-	1;
-    } else {
-	my $line = $parallel->{line} . ($options{excludepath} ? " --excludepath $options{excludepath}" : "");
-	#- continue installation on each node
-	foreach my $node (keys %{$parallel->{nodes}}) {
-	    my $command = _ssh($node) . "urpmi --no-locales --no-verify-rpm --auto " . _nolock($node) . "--synthesis $parallel->{synthesis} $line";
-	    $urpm->{ui_msg}("parallel_ssh: $command", urpm::N("Performing install on %s...", $node));
-	    $urpm->{ui}{progress}->(0) if ref $urpm->{ui}{progress};
-	    open my $fh, "$command |"
-		or $urpm->{fatal}(1, "Can't fork ssh: $!");
-            local $/ = \1;
-            my $log;
-            my $last_time;
-            while ($_ = <$fh>) {
-                print;
-                $log .= $_;
-                /\n/ and $log = '';
-                if (my ($msg, $progress) = $log =~ /^\s*(\S+)\s+(#+)/) {
-                    if ($urpm->{ui} && (gettimeofday() - $last_time > 0.15 || length($progress) == 45)) {
-                        $urpm->{ui_msg}->($msg =~ /\d+:(\S+)/ ? urpm::N("Installing %s on %s...", $1, $node)
-                                                               : urpm::N("Preparing install on %s...", $node));
-                        $urpm->{ui}{progress}->(length($progress)/45) if ref $urpm->{ui}{progress};
-                        $last_time = gettimeofday();
-                    }
-                }
-            }
-            close $fh;
+	while (my $s = <$fh>) {
+	    chomp $s;
+	    $urpm->{debug}("parallel_ssh: $node: received: $s") if $urpm->{debug};
+	    $do->($node, $s) and last;
 	}
+	close $fh or push @errors, N("%s failed on host %s (maybe it does not have a good version of urpmi?) (exit code: %d)", $cmd, $node, $? >> 8);
+	$urpm->{debug}("parallel_ssh: $node: $cmd finished") if $urpm->{debug};
+    }
+
+    @errors;
+}
+
+sub run_urpm_command {
+    my ($parallel, $urpm, $cmd, $para) = @_;
+
+    foreach my $node (keys %{$parallel->{nodes}}) {
+	system(_ssh_urpm($urpm, $node, $cmd, $para));
     }
 }
 
@@ -300,7 +115,6 @@ sub handle_parallel_options {
 	    nodes   => \%nodes,
 	}, "urpm::parallel_ssh";
     }
-
     return undef;
 }
 

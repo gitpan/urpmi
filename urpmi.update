@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 #- Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005, 2006 Mandriva SA
+#- Copyright (C) 2005-2010 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -21,16 +21,20 @@
 
 use strict;
 use urpm;
-use urpm::args 'options';
+use urpm::args;
 use urpm::msg;
 use urpm::download ();
+use urpm::media;
 
-sub usage {
+sub usage() {
     print N("usage: urpmi.update [options] <name> ...
 where <name> is a medium name to update.
 ") . N("  --help         - print this help message.
 ") . N("  --wget         - use wget to retrieve distant files.
 ") . N("  --curl         - use curl to retrieve distant files.
+") . N("  --prozilla     - use prozilla to retrieve distant files.
+") . N("  --aria2        - use aria2 to retrieve distant files.
+") . N("  --metalink     - generate and use a local metalink.
 ") . N("  --limit-rate   - limit the download speed.
 ") . N("  --proxy        - use specified HTTP proxy, the port number is assumed
                    to be 1080 by default (format is <proxyhost[:port]>).
@@ -39,67 +43,69 @@ where <name> is a medium name to update.
 ") . N("  --update       - update only update media.
 ") . N("  --no-md5sum    - disable MD5SUM file checking.
 ") . N("  --force-key    - force update of gpg key.
-") . N("  --norebuild    - don't try to rebuild hdlist if not readable.
 ") . N("  --ignore       - don't update, mark the media as ignored.
 ") . N("  --no-ignore    - don't update, mark the media as enabled.
-") . N("  -a             - select all non-removable media.
-") . N("  -c             - clean headers cache directory.
-") . N("  -f             - force generation of hdlist files.
+") . N("  --urpmi-root   - use another root for urpmi db & rpm installation.
+") . N("  --probe-rpms   - do not use synthesis, use rpm files directly
+") . N("  -a             - select all enabled non-removable media.
+") . N("  -f             - force updating synthesis
+") . N("  -ff            - really force updating synthesis
 ") . N("  -q             - quiet mode.
 ") . N("  -v             - verbose mode.
 ");
-    exit 0;
+    exit 1;
 }
 
-$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
+$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin";
 delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
 
-our @toupdates; #- set by urpm::args
-my $urpm = new urpm;
+our @cmdline; #- set by urpm::args
 
 $options{force} = 0;
-$options{noclean} = $options{verbose} = 1;
 
-urpm::args::parse_cmdline(urpm => $urpm) or exit(1);
-
-$options{verbose} > 0 or $urpm->{log} = sub {};
+my $urpm = urpm->new_parse_cmdline or exit(1);
 
 if ($< != 0) {
     $urpm->{fatal}(1, N("Only superuser is allowed to update media"));
 }
-$urpm->read_config;
-exists $options{limit_rate} or $options{limit_rate} = $urpm->{options}{'limit-rate'};
+my $_urpmi_lock = urpm::lock::urpmi_db($urpm, 'exclusive', wait => $options{wait_lock});
+urpm::media::read_config($urpm, 'nocheck');
 
-my @entries = map { $_->{name} } @{$urpm->{media}};
+my @chosen_media;
 
-if ($options{all} && !defined $options{ignore}) {
-    @entries == 0 and die N("nothing to update (use urpmi.addmedia to add a media)\n");
-} else {
-    if ($options{all}) { @toupdates = '' } #- select all
-    $urpm->select_media(@toupdates);
-    my $something_todo = 0;
-    foreach (@{$urpm->{media}}) {
-	$options{update} && $_->{update} and $_->{modified} = 1;
-	if ($_->{modified}) {
-	    if ($options{ignore}) {
-		$_->{ignore} = 1;
-	    } else {
-		#- force ignored media to be returned alive.
-		delete $_->{ignore};
-	    }
-	    ++$something_todo;
-	}
-    }
-
-    $something_todo or die N("the entry to update is missing\n(one of %s)\n", join(", ", @entries));
+if ($options{all} || $options{update}) {
+    $options{allow_failures} = 1;
 }
 
-if (defined $options{ignore}) {
-    my $str = join(", ", map { N("\"%s\"", $_->{name}) } grep { $_->{modified} } @{$urpm->{media}});
+if ($options{all} || $options{update}) { 
+    @chosen_media = urpm::media::all_media_to_update($urpm, $options{update});
+}
+push @chosen_media, urpm::media::select_media_by_name($urpm, \@cmdline);
+
+@chosen_media or die $options{all} ? 
+    N("nothing to update (use urpmi.addmedia to add a media)\n") 
+  : N("the entry to update is missing\n(one of %s)\n", join(", ", map { $_->{name} } @{$urpm->{media}}));
+
+if (defined $options{ignore}) {     
+    foreach (@chosen_media) {
+	if ($options{ignore}) {
+	    $_->{ignore} = 1;
+	} else {
+	    #- force ignored media to be returned alive.
+	    delete $_->{ignore};
+	}
+    }
+    my $str = join(", ", map { N("\"%s\"", $_->{name}) } @chosen_media);
     $urpm->{log}($options{ignore} ? N("ignoring media %s", $str) : N("enabling media %s", $str));
-    $urpm->write_config;
+    urpm::media::write_config($urpm);
 } else {
-    $urpm->update_media(%options, callback => \&urpm::download::sync_logger);
+    # this is unneeded afaik, keeping just in case it helps
+    $_->{modified} = 1 foreach @chosen_media;
+
+    my $ok = urpm::media::update_those_media($urpm, \@chosen_media, %options, 
+			      quiet => $options{verbose} < 0,
+			      callback => \&urpm::download::sync_logger);
     #- try to umount removable device which may have been mounted.
-    $urpm->try_umounting_removables;
+    urpm::removable::try_umounting_removables($urpm);
+    exit($ok ? 0 : 1);
 }

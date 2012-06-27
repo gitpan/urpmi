@@ -6,36 +6,40 @@
 #
 # Danny Zeng <danny@zeng.com.cn>, 2000
 # Jesse Kuang <kjx@mandrakesoft.com>
-# Shiyu Tang <shiyutang@netscape.net>, 2003
+# 汤诗语 <shiyu@mandriva.org>, 2003, 2008
 # Funda Wang <fundawang@linux.net.cn>,2002,2003,2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: urpmi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-01 16:35+0800\n"
-"PO-Revision-Date: 2006-04-01 16:41+0800\n"
-"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
+"POT-Creation-Date: 2012-06-08 19:19+0200\n"
+"PO-Revision-Date: 2008-03-30 14:22+0800\n"
+"Last-Translator: 汤诗语 <shiyu@mandriva.org>\n"
 "Language-Team: Mandriva Linux Simplified Chinese <cooker-i18n@mandrivalinux."
 "org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../gurpmi:30 ../gurpmi2:56
+#: ../gurpmi:32
+#, c-format
 msgid "RPM installation"
 msgstr "RPM 安装"
 
-#: ../gurpmi:43
+#: ../gurpmi:46
 #, c-format
 msgid "Error: unable to find file %s, will cancel operation"
-msgstr "错误：找不到文件 %s，将取消操作"
+msgstr "错误: 找不到文件 %s，将取消操作"
 
-#: ../gurpmi:44 ../gurpmi2:127 ../gurpmi2:150
+#: ../gurpmi:47 ../gurpmi2:196 ../gurpmi2:221
+#, c-format
 msgid "_Ok"
 msgstr "确定(_O)"
 
-#: ../gurpmi:64
+#: ../gurpmi:67
 #, c-format
 msgid ""
 "You have selected a source package:\n"
@@ -56,7 +60,7 @@ msgstr ""
 "\n"
 "您想要执行什么操作?"
 
-#: ../gurpmi:72 ../gurpmi:83
+#: ../gurpmi:75 ../gurpmi:86
 #, c-format
 msgid ""
 "You are about to install the following software packages on your computer:\n"
@@ -71,7 +75,7 @@ msgstr ""
 "\n"
 "继续吗?"
 
-#: ../gurpmi:78
+#: ../gurpmi:81
 #, c-format
 msgid ""
 "You are about to install the following software package on your computer:\n"
@@ -86,41 +90,154 @@ msgstr ""
 "\n"
 "您也可以选择只是保存相应的软件包。您要进行什么操作?"
 
-#. - buttons
-#: ../gurpmi:96
+#: ../gurpmi:99
+#, c-format
 msgid "_Install"
 msgstr "安装(_I)"
 
-#: ../gurpmi:97
+#: ../gurpmi:100
+#, c-format
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../gurpmi:98 ../gurpmi2:127
+#: ../gurpmi:101 ../gurpmi2:196
+#, c-format
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../gurpmi:106
+#: ../gurpmi:109
+#, c-format
 msgid "Choose location to save file"
 msgstr "选择保存文件的位置"
 
-#: ../gurpmi.pm:76
+#: ../gurpmi.pm:39 ../urpmi:66
 #, c-format
-msgid "Unknown option %s"
-msgstr "未知的选项 %s"
+msgid ""
+"urpmi version %s\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"This is free software and may be redistributed under the terms of the GNU "
+"GPL.\n"
+"\n"
+"usage:\n"
+msgstr ""
+"urpmi 版本 %s\n"
+"版权 (C) 1999-2010 Mandriva。\n"
+"这是自由软件，可以依照 GNU GPL 重新发布。\n"
+"\n"
+"用法:\n"
 
-#: ../gurpmi.pm:86
+#: ../gurpmi.pm:45
+#, c-format
+msgid "Options:"
+msgstr "选项："
+
+#: ../gurpmi.pm:46 ../urpme:46 ../urpmf:35 ../urpmi:71 ../urpmi.addmedia:55
+#: ../urpmi.recover:33 ../urpmi.removemedia:40 ../urpmi.update:32 ../urpmq:45
+#, c-format
+msgid "  --help         - print this help message.\n"
+msgstr "  --help         - 打印帮助信息。\n"
+
+#: ../gurpmi.pm:47 ../urpmi:78
+#, c-format
+msgid ""
+"  --auto         - non-interactive mode, assume default answers to "
+"questions.\n"
+msgstr "  --auto         - 非交互模式，对全部问题假定默认回答。\n"
+
+#: ../gurpmi.pm:48 ../urpmi:79 ../urpmq:52
+#, c-format
+msgid ""
+"  --auto-select  - automatically select packages to upgrade the system.\n"
+msgstr "  --auto-select  - 自动选择升级系统的软件包。\n"
+
+#: ../gurpmi.pm:49 ../urpme:50 ../urpmi:102 ../urpmq:68
+#, c-format
+msgid ""
+"  --force        - force invocation even if some packages do not exist.\n"
+msgstr "  --force        - 强制执行, 即使某些软件包并不存在。\n"
+
+#: ../gurpmi.pm:50 ../urpmi:133
+#, c-format
+msgid ""
+"  --verify-rpm   - verify rpm signature before installation\n"
+"                   (--no-verify-rpm disables it, default is enabled).\n"
+msgstr ""
+"  --verify-rpm   - 安装之前验证 rpm 签署\n"
+"                   (--no-verify-rpm 禁止它，默认是激活的)。\n"
+
+#: ../gurpmi.pm:52 ../urpmf:41 ../urpmi:72 ../urpmq:47
+#, c-format
+msgid "  --media        - use only the given media, separated by comma.\n"
+msgstr "  --media        - 只使用列出的介质，介质之间用逗号分隔。\n"
+
+#: ../gurpmi.pm:53 ../urpmi:150
+#, c-format
+msgid "  -p             - allow search in provides to find package.\n"
+msgstr "  -p             - 允许在 provides 字段中查找软件包。\n"
+
+#: ../gurpmi.pm:54 ../urpmi:151
+#, c-format
+msgid "  -P             - do not search in provides to find package.\n"
+msgstr "  -P             - 不在 provides 字段中查找软件包。\n"
+
+#: ../gurpmi.pm:55 ../urpmi:109 ../urpmq:71
+#, c-format
+msgid "  --root         - use another root for rpm installation.\n"
+msgstr "  --root         - 使用另一个 root 安装 rpm。\n"
+
+#: ../gurpmi.pm:56 ../urpmi:135
+#, c-format
+msgid ""
+"  --test         - only verify if the installation can be achieved "
+"correctly.\n"
+msgstr "  --test         - 验证安装是否可以正确进行。\n"
+
+#: ../gurpmi.pm:57 ../urpmi:75
+#, c-format
+msgid ""
+"  --searchmedia  - use only the given media to search requested packages.\n"
+msgstr "  --searchmedia  - 只使用给定介质来搜索所请求的软件包。\n"
+
+#: ../gurpmi.pm:100
+#, c-format
 msgid "No packages specified"
 msgstr "未指定软件包"
 
-#: ../gurpmi2:37
+#: ../gurpmi2:54
+#, c-format
 msgid "Please wait..."
 msgstr "请稍候..."
 
-#: ../gurpmi2:46
+#: ../gurpmi2:63
+#, c-format
 msgid "Must be root"
 msgstr "必须是 root"
 
-#: ../gurpmi2:80
+#: ../gurpmi2:70
+#, c-format
+msgid "Distribution Upgrade"
+msgstr "发行版升级"
+
+#: ../gurpmi2:70
+#, c-format
+msgid "Packages installation"
+msgstr "软件包安装"
+
+#: ../gurpmi2:97
+#, c-format
+msgid "Preparing packages installation..."
+msgstr "准备安装软件包..."
+
+#: ../gurpmi2:112 ../urpmi:509
+#, c-format
+msgid ""
+"Some requested packages cannot be installed:\n"
+"%s"
+msgstr ""
+"某些要求的软件包无法安装:\n"
+"%s"
+
+#: ../gurpmi2:120
 #, c-format
 msgid ""
 "Some requested packages cannot be installed:\n"
@@ -131,27 +248,42 @@ msgstr ""
 "%s\n"
 "仍然继续安装吗?"
 
-#: ../gurpmi2:123
+#: ../gurpmi2:155
+#, c-format
+msgid "Warning"
+msgstr "警告"
+
+#: ../gurpmi2:155
+#, c-format
+msgid "Ok"
+msgstr "确定"
+
+#: ../gurpmi2:192
+#, c-format
 msgid " (to upgrade)"
 msgstr "(升级)"
 
-#: ../gurpmi2:124
+#: ../gurpmi2:193
+#, c-format
 msgid " (to install)"
 msgstr "(安装)"
 
-#: ../gurpmi2:127
+#: ../gurpmi2:196
+#, c-format
 msgid "Package choice"
 msgstr "软件包选择"
 
-#: ../gurpmi2:128 ../urpmi:414
+#: ../gurpmi2:197
+#, c-format
 msgid "One of the following packages is needed:"
 msgstr "需要下列软件包之一:"
 
-#: ../gurpmi2:151
+#: ../gurpmi2:222
+#, c-format
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: ../gurpmi2:171
+#: ../gurpmi2:257
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
@@ -162,1023 +294,1362 @@ msgstr ""
 "%s\n"
 "仍然继续安装吗?"
 
-#: ../gurpmi2:185
+#: ../gurpmi2:276 ../urpmi:609
 #, c-format
 msgid ""
-"To satisfy dependencies, the following %d packages are going to be "
-"installed:\n"
-"%s\n"
-msgstr ""
-"为了满足依赖性要求，将另外安装以下%d个软件包:\n"
-"%s\n"
+"To satisfy dependencies, the following package is going to be installed:"
+msgstr "为了满足依赖关系，将安装下列软件包:"
 
-#: ../gurpmi2:192
-msgid "Package installation..."
-msgstr "软件包安装..."
+#: ../gurpmi2:277 ../urpmi:610
+#, c-format
+msgid ""
+"To satisfy dependencies, the following packages are going to be installed:"
+msgstr "为了满足依赖关系，将安装下列软件包:"
 
-#: ../gurpmi2:194 ../urpmi:569
+#: ../gurpmi2:279
+#, c-format
+msgid "(%d package, %d MB)"
+msgid_plural "(%d packages, %d MB)"
+msgstr[0] "(%d 个软件包，%d MB)"
+
+#: ../gurpmi2:287 ../urpm/main_loop.pm:304
+#, c-format
 msgid "unable to get source packages, aborting"
 msgstr "无法读取源软件包，中止"
 
-#: ../gurpmi2:207 ../urpmi:579
+#: ../gurpmi2:319 ../urpm/install.pm:81
 #, c-format
-msgid "Please insert the medium named \"%s\" on device [%s]"
-msgstr "请将标签为“%s”的介质插入到设备 [%s]"
-
-#: ../gurpmi2:236
-#, c-format
-msgid "Downloading package `%s'..."
-msgstr "正在下载软件包“%s”..."
-
-#: ../gurpmi2:251
-#, c-format
-msgid ""
-"The following packages have bad signatures:\n"
-"%s\n"
-"\n"
-"Do you want to continue installation ?"
-msgstr ""
-"下列软件包的签名出现问题:\n"
-"\n"
-"%s\n"
-"\n"
-"您想要继续安装吗?"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:258 ../gurpmi2:314 ../urpmi:651 ../urpmi:782
-#, c-format
-msgid ""
-"Installation failed, some files are missing:\n"
-"%s\n"
-"You may want to update your urpmi database"
-msgstr ""
-"安装失败，缺少下列文件:\n"
-"%s\n"
-"您可能需要更新您的 urpmi 数据库"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:265 ../urpme:128 ../urpmi:698
-#, c-format
-msgid "removing %s"
-msgstr "正在删除 %s"
-
-#: ../gurpmi2:272 ../urpm.pm:2916
 msgid "Preparing..."
 msgstr "正在准备..."
 
-#: ../gurpmi2:274
+#: ../gurpmi2:325
 #, c-format
 msgid "Installing package `%s' (%s/%s)..."
 msgstr "正在安装软件包“%s”(%s/%s)..."
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:300 ../urpmi:663 ../urpmi:721 ../urpmi:741 ../urpmi:759
-msgid "Installation failed"
-msgstr "安装失败"
+#: ../gurpmi2:343 ../urpmi:637
+#, c-format
+msgid "Please insert the medium named \"%s\""
+msgstr "请插入介质“%s”"
 
-#: ../gurpmi2:309
+#: ../gurpmi2:357
+#, c-format
+msgid "Downloading package `%s'..."
+msgstr "正在下载软件包“%s”..."
+
+#: ../gurpmi2:369 ../urpm.pm:338 ../urpm/download.pm:831
+#: ../urpm/get_pkgs.pm:262 ../urpm/media.pm:981 ../urpm/media.pm:1493
+#: ../urpm/media.pm:1644
+#, c-format
+msgid "...retrieving failed: %s"
+msgstr "...获取失败: %s"
+
+#: ../gurpmi2:385
+#, c-format
 msgid "_Done"
 msgstr "完成(_D)"
 
-#: ../gurpmi2:317 ../urpmi:799
+#: ../gurpmi2:402 ../urpm/main_loop.pm:69
+#, c-format
+msgid ""
+"Installation failed, some files are missing:\n"
+"%s"
+msgstr ""
+"安装失败，缺少某些文件:\n"
+"%s"
+
+#: ../gurpmi2:405
+#, fuzzy, c-format
+msgid "You may want to update your urpmi database."
+msgstr "您可能需要更新您的 urpmi 数据库。"
+
+#: ../gurpmi2:409 ../urpm/main_loop.pm:261 ../urpm/main_loop.pm:421
+#, c-format
+msgid "Installation failed:"
+msgstr "安装失败: "
+
+#: ../gurpmi2:414
+#, c-format
 msgid "The package(s) are already installed"
 msgstr "软件包已经安装"
 
-#: ../gurpmi2:319
+#: ../gurpmi2:416
+#, c-format
 msgid "Installation finished"
 msgstr "安装完成"
 
-#: ../rpm-find-leaves:14
+#: ../gurpmi2:417 ../urpme:169
+#, c-format
+msgid "removing %s"
+msgstr "正在删除 %s"
+
+#: ../gurpmi2:428 ../urpmi:695
+#, c-format
+msgid "restarting urpmi"
+msgstr "重新启动 urpmi"
+
+#: ../rpm-find-leaves:15
 #, c-format
 msgid ""
 "usage: %s [options]\n"
 "where [options] are from\n"
 msgstr ""
-"用法：%s [选项]\n"
+"用法: %s [选项]\n"
 "[选项]的格式为\n"
 
-#: ../rpm-find-leaves:16
+#: ../rpm-find-leaves:17
+#, c-format
 msgid "   -h|--help      - print this help message.\n"
 msgstr "   -h|--help      - 打印帮助信息。\n"
 
-#: ../rpm-find-leaves:17
+#: ../rpm-find-leaves:18
+#, c-format
 msgid "   --root <path>  - use the given root instead of /\n"
 msgstr "   --root <路径>  - 使用给定的根而不是 /\n"
 
-#: ../rpm-find-leaves:18
+#: ../rpm-find-leaves:19
+#, c-format
 msgid "   -g [group]     - restrict results to specified group.\n"
 msgstr "   -g [组]        - 限制结果为给定组。\n"
 
-#: ../rpm-find-leaves:19
+#: ../rpm-find-leaves:20
 #, c-format
 msgid "                    defaults to %s.\n"
 msgstr "                    默认为 %s。\n"
 
-#. - need to be root if binary rpms are to be installed
-#: ../rurpmi:11 ../urpmi:242
+#: ../rpm-find-leaves:21
+#, c-format
+msgid "   -f             - output rpm full name (NVRA)\n"
+msgstr "  -f              - 输出 rpm 的完整名称(NVRA)。\n"
+
+#: ../rurpmi:11 ../urpmi:269
+#, c-format
 msgid "Only superuser is allowed to install packages"
 msgstr "只允许超级用户安装软件包"
 
 #: ../rurpmi:18
+#, c-format
 msgid "Running urpmi in restricted mode..."
 msgstr "正在以限制模式运行 urpmi..."
 
-#: ../urpm.pm:72
+#: ../urpm.pm:23
 #, c-format
-msgid "unknown protocol defined for %s"
-msgstr "%s 中定义了未知的协议"
-
-#: ../urpm.pm:101
-#, c-format
-msgid "%s is not available, falling back on %s"
-msgstr "%s 不可用，默认回到 %s"
-
-#: ../urpm.pm:109
-#, c-format
-msgid "no webfetch found, supported webfetch are: %s\n"
-msgstr "未找到 webfetch，支持的 webfetch 是: %s\n"
-
-#: ../urpm.pm:125
-#, c-format
-msgid "unable to handle protocol: %s"
-msgstr "无法处理协议: %s"
-
-#: ../urpm.pm:222
-#, c-format
-msgid "medium \"%s\" trying to use an already used hdlist, medium ignored"
-msgstr "介质“%s”试图使用已经用过的 hdlist，介质被忽略"
-
-#: ../urpm.pm:223
-#, c-format
-msgid "medium \"%s\" trying to use an already used list, medium ignored"
-msgstr "介质“%s”试图打开已经用过的列表，介质被忽略"
-
-#: ../urpm.pm:236 ../urpm.pm:1313 ../urpm.pm:1323
-#, c-format
-msgid "unable to access hdlist file of \"%s\", medium ignored"
-msgstr "无法访问“%s”的 hdlist 文件，介质被忽略"
-
-#. list file exists but isn't readable
-#. report error only if no result found, list files are only readable by root
-#: ../urpm.pm:239 ../urpm.pm:2521
-#, c-format
-msgid "unable to access list file of \"%s\", medium ignored"
-msgstr "无法访问“%s”的列表文件，介质被忽略"
-
-#: ../urpm.pm:267
-#, c-format
-msgid "trying to override existing medium \"%s\", skipping"
-msgstr "试图覆盖已有介质“%s”，正跳过"
-
-#: ../urpm.pm:278
-#, c-format
-msgid ""
-"virtual medium \"%s\" should not have defined hdlist or list file, medium "
-"ignored"
-msgstr "虚拟介质“%s”不应在 hdlist 或列表文件中定义，介质被忽略"
-
-#: ../urpm.pm:283
-#, c-format
-msgid "virtual medium \"%s\" should have a clear url, medium ignored"
-msgstr "虚拟介质“%s”应该有清楚的 URL，介质被忽略"
-
-#: ../urpm.pm:292
-#, c-format
-msgid "unable to find hdlist file for \"%s\", medium ignored"
-msgstr "找不到“%s”的 hdlist 文件，介质被忽略"
-
-#: ../urpm.pm:299
-#, c-format
-msgid "unable to find list file for \"%s\", medium ignored"
-msgstr "找不到“%s”的列表文件，介质被忽略"
-
-#: ../urpm.pm:323
-#, c-format
-msgid "inconsistent list file for \"%s\", medium ignored"
-msgstr "“%s”的列表文件不连贯，介质被忽略"
-
-#: ../urpm.pm:333
-#, c-format
-msgid "unable to inspect list file for \"%s\", medium ignored"
-msgstr "无法检查“%s”的列表文件，介质被忽略"
-
-#. - return value is suitable for an hash.
-#: ../urpm.pm:373
-#, c-format
-msgid "too many mount points for removable medium \"%s\""
-msgstr "可移动介质“%s”的挂载点太多"
-
-#: ../urpm.pm:374
-#, c-format
-msgid "taking removable device as \"%s\""
-msgstr "将可移动设备认作“%s”"
-
-#: ../urpm.pm:377
-#, c-format
-msgid "Medium \"%s\" is an ISO image, will be mounted on-the-fly"
-msgstr "介质“%s”是一个 ISO 映像，将会被实时挂载"
-
-#: ../urpm.pm:380
-#, c-format
-msgid "using different removable device [%s] for \"%s\""
-msgstr "为“%2$s”使用不同的可移动设备[%1$s]"
-
-#: ../urpm.pm:385 ../urpm.pm:388
-#, c-format
-msgid "unable to retrieve pathname for removable medium \"%s\""
-msgstr "无法获取可移动介质“%s”的路径名称"
-
-#: ../urpm.pm:414
-#, c-format
-msgid "unable to write config file [%s]"
-msgstr "无法写入配置文件[%s]"
-
-#: ../urpm.pm:424
-#, c-format
-msgid "wrote config file [%s]"
-msgstr "写入配置文件[%s]"
-
-#: ../urpm.pm:452
-msgid "Can't use parallel mode with use-distrib mode"
-msgstr "无法与发行模式一起使用并行模式"
-
-#: ../urpm.pm:462
-#, c-format
-msgid "unable to parse \"%s\" in file [%s]"
-msgstr "无法处理文件[%2$s]中的“%1$s”"
-
-#: ../urpm.pm:474
-#, c-format
-msgid "examining parallel handler in file [%s]"
-msgstr "正在检查文件[%s]中的并行处理"
-
-#: ../urpm.pm:485
-#, c-format
-msgid "found parallel handler for nodes: %s"
-msgstr "找到结点的并行处理: %s"
-
-#: ../urpm.pm:489
-#, c-format
-msgid "using associated media for parallel mode: %s"
-msgstr "并行模式时使用关联介质: %s"
-
-#: ../urpm.pm:493
-#, c-format
-msgid "unable to use parallel option \"%s\""
-msgstr "无法使用并行选项“%s”"
-
-#: ../urpm.pm:501
-#, c-format
-msgid "there doesn't seem to be devices in the chroot in \"%s\""
-msgstr "“%s”的 chroot 中似乎没有设备"
-
-#: ../urpm.pm:507
-msgid ""
-"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
-"update or --parallel"
+msgid "While some packages may have been installed, there were failures.\n"
 msgstr ""
-"--synthesis 仅能和 --media, --excludemedia, --sortmedia, --update 或 --"
-"parallel 一起使用"
 
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - as previously done, just read synthesis file here, this is enough, but only
-#. - if synthesis exists, else it needs to be recomputed.
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - read default synthesis (we have to make sure nothing get out of depslist).
-#: ../urpm.pm:571 ../urpm.pm:597 ../urpm.pm:1085 ../urpm.pm:1096
-#: ../urpm.pm:1168 ../urpm.pm:1185 ../urpm.pm:1240 ../urpm.pm:1296
-#: ../urpm.pm:1506 ../urpm.pm:1626 ../urpm.pm:1743 ../urpm.pm:1749
-#: ../urpm.pm:1852 ../urpm.pm:1938 ../urpm.pm:1942
+#: ../urpm.pm:110
 #, c-format
-msgid "examining synthesis file [%s]"
-msgstr "正在检查综合文件 [%s]"
+msgid "fail to create directory %s"
+msgstr "创建目录 %s 失败"
 
-#: ../urpm.pm:575 ../urpm.pm:590 ../urpm.pm:603 ../urpm.pm:1088
-#: ../urpm.pm:1099 ../urpm.pm:1174 ../urpm.pm:1180 ../urpm.pm:1245
-#: ../urpm.pm:1300 ../urpm.pm:1510 ../urpm.pm:1630 ../urpm.pm:1737
-#: ../urpm.pm:1755 ../urpm.pm:1948
+#: ../urpm.pm:111
 #, c-format
-msgid "examining hdlist file [%s]"
-msgstr "正在检查 hdlist 文件 [%s]"
+msgid "invalid owner for directory %s"
+msgstr "目录 %s 的所有者无效"
 
-#: ../urpm.pm:585 ../urpm.pm:1092
+#: ../urpm.pm:135
 #, c-format
-msgid "virtual medium \"%s\" is not local, medium ignored"
-msgstr "虚拟介质“%s”不是本地的，介质被忽略"
+msgid "Can not download packages into %s"
+msgstr "无法将软件包下载到 %s"
 
-#: ../urpm.pm:615
+#: ../urpm.pm:150
 #, c-format
-msgid "Search start: %s end: %s"
-msgstr "搜索开始：%s 结束：%s"
+msgid "Environment directory %s does not exist"
+msgstr "环境目录 %s 不存在"
 
-#. - this is almost a fatal error, ignore it by default?
-#: ../urpm.pm:620 ../urpm.pm:1106 ../urpm.pm:1193 ../urpm.pm:1249
-#: ../urpm.pm:1634
+#: ../urpm.pm:151 ../urpmf:248 ../urpmq:167
 #, c-format
-msgid "problem reading hdlist or synthesis file of medium \"%s\""
-msgstr "读取介质“%s”的 hdlist 或综合文件出现问题"
+msgid "using specific environment on %s\n"
+msgstr "在 %s 使用指定环境\n"
 
-#: ../urpm.pm:627 ../urpm.pm:1890
-msgid "performing second pass to compute dependencies\n"
-msgstr "正在执行第二遍依赖关系的计算\n"
-
-#: ../urpm.pm:643
+#: ../urpm.pm:313
 #, c-format
-msgid "skipping package %s"
-msgstr "跳过软件包 %s"
-
-#: ../urpm.pm:656
-#, c-format
-msgid "would install instead of upgrade package %s"
-msgstr "将安装而非升级软件包 %s"
-
-#. - beware this can be a child process or the main process now...
-#. - open in read/write mode unless testing installation.
-#: ../urpm.pm:667 ../urpm.pm:2329 ../urpm.pm:2390 ../urpm.pm:2579
-#: ../urpm.pm:2982 ../urpm.pm:3109
 msgid "unable to open rpmdb"
 msgstr "无法打开 rpmdb"
 
-#: ../urpm.pm:708
-#, c-format
-msgid "medium \"%s\" already exists"
-msgstr "介质“%s”已存在"
-
-#: ../urpm.pm:715
-msgid "virtual medium needs to be local"
-msgstr "虚拟介质必须是本地的"
-
-#: ../urpm.pm:740
-#, c-format
-msgid "added medium %s"
-msgstr "已添加介质 %s"
-
-#: ../urpm.pm:786
-msgid "unable to access first installation medium"
-msgstr "无法访问介质的首次安装"
-
-#: ../urpm.pm:790
-msgid "copying hdlists file..."
-msgstr "正在复制 hdlists 文件..."
-
-#: ../urpm.pm:792 ../urpm.pm:1209 ../urpm.pm:1266
-msgid "...copying done"
-msgstr "...复制完成"
-
-#: ../urpm.pm:793 ../urpm.pm:1210 ../urpm.pm:1341 ../urpm.pm:1404
-#: ../urpm.pm:1572 ../urpm.pm:1579
-msgid "...copying failed"
-msgstr "...复制失败"
-
-#: ../urpm.pm:796 ../urpm.pm:821 ../urpm.pm:860
-msgid "unable to access first installation medium (no hdlists file found)"
-msgstr "无法访问首次安装介质(未发现 hdlists 文件)"
-
-#: ../urpm.pm:803
-msgid "retrieving hdlists file..."
-msgstr "正在获取 hdlists 文件..."
-
-#: ../urpm.pm:815 ../urpm.pm:1616 ../urpm.pm:2117 ../urpm.pm:2837
-msgid "...retrieving done"
-msgstr "...获取完成"
-
-#: ../urpm.pm:817 ../urpm.pm:1600 ../urpm.pm:2121 ../urpm.pm:2839
-#, c-format
-msgid "...retrieving failed: %s"
-msgstr "...获取失败: %s"
-
-#: ../urpm.pm:841
-#, c-format
-msgid "invalid hdlist description \"%s\" in hdlists file"
-msgstr "hdlists 文件中的 hdlist 描述“%s”无效"
-
-#: ../urpm.pm:897
-#, c-format
-msgid "trying to select nonexistent medium \"%s\""
-msgstr "试图选择不存在的介质“%s”"
-
-#. - several elements in found and/or foundi lists.
-#: ../urpm.pm:899
-#, c-format
-msgid "selecting multiple media: %s"
-msgstr "选择多个介质: %s"
-
-#: ../urpm.pm:915
-#, c-format
-msgid "removing medium \"%s\""
-msgstr "删除介质“%s”"
-
-#: ../urpm.pm:966
-#, c-format
-msgid "reconfiguring urpmi for media \"%s\""
-msgstr "正在从介质“%s”重新配置 urpmi"
-
-#: ../urpm.pm:995
-msgid "...reconfiguration failed"
-msgstr "...重新配置失败"
-
-#: ../urpm.pm:1002
-msgid "reconfiguration done"
-msgstr "重新配置完成"
-
-#: ../urpm.pm:1146
-#, c-format
-msgid ""
-"unable to access medium \"%s\",\n"
-"this could happen if you mounted manually the directory when creating the "
-"medium."
-msgstr ""
-"无法访问介质“%s”，\n"
-"这可能是因为您在创建介质时是手动装载的目录。"
-
-#: ../urpm.pm:1197
-#, c-format
-msgid ""
-"virtual medium \"%s\" should have valid source hdlist or synthesis, medium "
-"ignored"
-msgstr "虚拟介质“%s”应该有有效的源 hdlist 或综合文件，介质被忽略"
-
-#: ../urpm.pm:1207
-#, c-format
-msgid "copying description file of \"%s\"..."
-msgstr "正在复制“%s”的描述文件..."
-
-#: ../urpm.pm:1262
-#, c-format
-msgid "copying source hdlist (or synthesis) of \"%s\"..."
-msgstr "正在复制“%s”的源 hdlist(或综合文件)..."
-
-#: ../urpm.pm:1276
-#, c-format
-msgid "copy of [%s] failed (file is suspiciously small)"
-msgstr "复制 [%s] 失败(文件太小了)"
-
-#: ../urpm.pm:1281
-msgid "computing md5sum of copied source hdlist (or synthesis)"
-msgstr "正在计算已复制源 hdlist(或综合文件)的 md5sum..."
-
-#: ../urpm.pm:1283
-#, c-format
-msgid "copy of [%s] failed (md5sum mismatch)"
-msgstr "复制[%s]失败(md5sum 不匹配)"
-
-#: ../urpm.pm:1304 ../urpm.pm:1514 ../urpm.pm:1855
-#, c-format
-msgid "problem reading synthesis file of medium \"%s\""
-msgstr "读取介质“%s”的综合文件出现问题"
-
-#: ../urpm.pm:1362
-#, c-format
-msgid "reading rpm files from [%s]"
-msgstr "正在从[%s]读取 rpm 文件"
-
-#: ../urpm.pm:1377
-msgid "no rpms read"
-msgstr "没有读到 rpm"
-
-#: ../urpm.pm:1387
-#, c-format
-msgid "unable to read rpm files from [%s]: %s"
-msgstr "无法从[%s]读取 rpm 文件: %s"
-
-#: ../urpm.pm:1392
-#, c-format
-msgid "no rpm files found from [%s]"
-msgstr "[%s] 中未发现 rpm 文件"
-
-#. - try to probe for possible with_hdlist parameter, unless
-#. - it is already defined (and valid).
-#: ../urpm.pm:1529
-#, c-format
-msgid "retrieving source hdlist (or synthesis) of \"%s\"..."
-msgstr "正在获取“%s”的源 hdlist(或综合文件)..."
-
-#: ../urpm.pm:1557
-#, c-format
-msgid "found probed hdlist (or synthesis) as %s"
-msgstr "发现探测的 hdlist(或综合文件) 为 %s"
-
-#: ../urpm.pm:1607
-msgid "computing md5sum of retrieved source hdlist (or synthesis)"
-msgstr "正在计算所获取的源 hdlist(或综合文件)的 md5sum"
-
-#: ../urpm.pm:1609
-msgid "...retrieving failed: md5sum mismatch"
-msgstr "...获取失败: md5sum 不匹配"
-
-#: ../urpm.pm:1707
-msgid "retrieval of source hdlist (or synthesis) failed"
-msgstr "获取源 hdlist(或综合文件) 失败"
-
-#: ../urpm.pm:1714
-#, c-format
-msgid "no hdlist file found for medium \"%s\""
-msgstr "介质“%s”未发现 hdlist 文件"
-
-#: ../urpm.pm:1725 ../urpm.pm:1779
-#, c-format
-msgid "file [%s] already used in the same medium \"%s\""
-msgstr "文件[%s]已经在相同的介质“%s”中使用"
-
-#: ../urpm.pm:1765
-#, c-format
-msgid "unable to parse hdlist file of \"%s\""
-msgstr "无法处理“%s”的 hdlist 文件"
-
-#: ../urpm.pm:1804
-#, c-format
-msgid "unable to write list file of \"%s\""
-msgstr "无法写入“%s”的列表文件"
-
-#: ../urpm.pm:1812
-#, c-format
-msgid "writing list file for medium \"%s\""
-msgstr "正在写入介质“%s”的列表文件"
-
-#: ../urpm.pm:1814
-#, c-format
-msgid "nothing written in list file for \"%s\""
-msgstr "“%s”的列表文件中没有写入内容"
-
-#: ../urpm.pm:1829
-#, c-format
-msgid "examining pubkey file of \"%s\"..."
-msgstr "正在检查“%s”的公共密钥文件..."
-
-#: ../urpm.pm:1836
-#, c-format
-msgid "...imported key %s from pubkey file of \"%s\""
-msgstr "...从公钥文件“%2$s”中导入了密钥 %1$s"
-
-#: ../urpm.pm:1839
-#, c-format
-msgid "unable to import pubkey file of \"%s\""
-msgstr "无法导入“%s”的公共密钥文件"
-
-#: ../urpm.pm:1904
-#, c-format
-msgid "reading headers from medium \"%s\""
-msgstr "正在从介质“%s”读取头"
-
-#: ../urpm.pm:1909
-#, c-format
-msgid "building hdlist [%s]"
-msgstr "正在创建 hdlist [%s]"
-
-#. - XXX this happens when building a synthesis for a local media from RPMs... why ?
-#: ../urpm.pm:1924 ../urpm.pm:1960
-#, c-format
-msgid ""
-"Unable to build synthesis file for medium \"%s\". Your hdlist file may be "
-"corrupted."
-msgstr "无法创建介质“%s”的综合文件。您的 hdlist 文件可能已经损坏。"
-
-#: ../urpm.pm:1928 ../urpm.pm:1964 ../urpmi:370
-#, c-format
-msgid "built hdlist synthesis file for medium \"%s\""
-msgstr "创建介质“%s”的 hdlist 综合文件"
-
-#: ../urpm.pm:1987
-#, c-format
-msgid "found %d headers in cache"
-msgstr "缓存中找到了 %d 个头"
-
-#: ../urpm.pm:1991
-#, c-format
-msgid "removing %d obsolete headers in cache"
-msgstr "删除缓存中的 %d 个过时头"
-
-#: ../urpm.pm:2012
-#, c-format
-msgid "Error generating names file: dependency %d not found"
-msgstr "声称名称文件出错：依赖关系 %d 未找到"
-
-#: ../urpm.pm:2017
-#, c-format
-msgid "Error generating names file: Can't write to file (%s)"
-msgstr "声称名称文件失败：无法写入文件(%s)"
-
-#: ../urpm.pm:2053
-#, c-format
-msgid "mounting %s"
-msgstr "正在装载 %s"
-
-#: ../urpm.pm:2077
-#, c-format
-msgid "unmounting %s"
-msgstr "正在拆卸 %s"
-
-#: ../urpm.pm:2102
+#: ../urpm.pm:327
 #, c-format
 msgid "invalid rpm file name [%s]"
 msgstr "无效的 rpm 文件名[%s]"
 
-#: ../urpm.pm:2108
+#: ../urpm.pm:333
 #, c-format
 msgid "retrieving rpm file [%s] ..."
 msgstr "正在获取 rpm 文件[%s]..."
 
-#: ../urpm.pm:2126
+#: ../urpm.pm:335 ../urpm/get_pkgs.pm:260
+#, c-format
+msgid "...retrieving done"
+msgstr "...获取完成"
+
+#: ../urpm.pm:343
 #, c-format
 msgid "unable to access rpm file [%s]"
 msgstr "无法访问 rpm 文件[%s]"
 
-#: ../urpm.pm:2131
+#: ../urpm.pm:348
 #, c-format
 msgid "unable to parse spec file %s [%s]"
 msgstr "无法处理 spec 文件 %s [%s]"
 
-#: ../urpm.pm:2141
+#: ../urpm.pm:356
+#, c-format
 msgid "unable to register rpm file"
 msgstr "无法访问注册 rpm 文件"
 
-#: ../urpm.pm:2143
+#: ../urpm.pm:358
 #, c-format
 msgid "Incompatible architecture for rpm [%s]"
 msgstr "RPM 的架构不兼容[%s]"
 
-#: ../urpm.pm:2147
+#: ../urpm.pm:362
+#, c-format
 msgid "error registering local packages"
 msgstr "注册本地软件包出错"
 
-#: ../urpm.pm:2257
+#: ../urpm.pm:450
 #, c-format
-msgid "no package named %s"
-msgstr "没有叫做 %s 的软件包"
+msgid "This operation is forbidden while running in restricted mode"
+msgstr "运行于限制模式运行时，禁止执行此操作"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm.pm:2259 ../urpme:101
+#: ../urpm/args.pm:151 ../urpm/args.pm:160
 #, c-format
-msgid "The following packages contain %s: %s"
-msgstr "下列软件包里有 %s: %s"
+msgid "bad proxy declaration on command line\n"
+msgstr "命令行声明的代理服务器无效\n"
 
-#: ../urpm.pm:2452 ../urpm.pm:2498 ../urpm.pm:2530
+#: ../urpm/args.pm:306
 #, c-format
-msgid "there are multiple packages with the same rpm filename \"%s\""
-msgstr "有多个文件名都为“%s”的 rpm 软件包"
+msgid "urpmq: cannot read rpm file \"%s\"\n"
+msgstr "urpmq: 无法读取 rpm 文件“%s”\n"
 
-#: ../urpm.pm:2512
+#: ../urpm/args.pm:383
 #, c-format
-msgid "unable to correctly parse [%s] on value \"%s\""
-msgstr "无法正确处理[%s]为值“%s”"
+msgid "unexpected expression %s"
+msgstr "意外表达式 %s"
 
-#: ../urpm.pm:2522
-msgid "(retry as root?)"
-msgstr "(以 root 身份重试?)"
+#: ../urpm/args.pm:384
+#, c-format
+msgid "missing expression before %s"
+msgstr "%s 前缺少表达式"
 
-#: ../urpm.pm:2546
+#: ../urpm/args.pm:390
+#, c-format
+msgid "unexpected expression %s (suggestion: use -a or -o ?)"
+msgstr "意外表达式 %s(建议：使用 -a 或 -o?)"
+
+#: ../urpm/args.pm:394
+#, c-format
+msgid "no expression to close"
+msgstr "没有要关闭的表达式"
+
+#: ../urpm/args.pm:403
+#, c-format
+msgid "by default urpmf awaits a regexp. you should use option \"--literal\""
+msgstr "默认情况下，urpmf 使用正则表达式。您应该使用选项“--literal”"
+
+#: ../urpm/args.pm:477
+#, c-format
+msgid "chroot directory doesn't exist"
+msgstr "chroot 目录不存在"
+
+#: ../urpm/args.pm:500
+#, c-format
+msgid "Can't use %s without %s"
+msgstr "没有 %2$s 无法使用 %1$s"
+
+#: ../urpm/args.pm:503 ../urpm/args.pm:506 ../urpmq:159
+#, c-format
+msgid "Can't use %s with %s"
+msgstr "无法和 %2$s 一起使用 %1$s"
+
+#: ../urpm/args.pm:514
+#, c-format
+msgid "Too many arguments\n"
+msgstr "参数太多\n"
+
+#: ../urpm/bug_report.pm:55 ../urpmi:259
+#, c-format
+msgid "Copying failed"
+msgstr "复制失败"
+
+#: ../urpm/cdrom.pm:67
 #, c-format
 msgid ""
-"medium \"%s\" uses an invalid list file:\n"
-"  mirror is probably not up-to-date, trying to use alternate method"
-msgstr ""
-"介质“%s”使用了无效的列表文件:\n"
-"  介质可能不是最新，正在尝试使用其它方式"
+"You must mount CD-ROM yourself (or install perl-Hal-Cdroms to have it done "
+"automatically)"
+msgstr "您必须自行挂载 CD-ROM(或者安装 perl-Hal-Cdroms 以便让其自动挂载)"
 
-#: ../urpm.pm:2550
+#: ../urpm/cdrom.pm:69
 #, c-format
-msgid "medium \"%s\" does not define any location for rpm files"
-msgstr "介质“%s”没有定义任何 rpm 文件的位置"
+msgid "Udisks daemon (udisks-daemon) is not running or not ready"
+msgstr "Udisks 守护程序(udisks-daemon)未运行或未就绪"
 
-#: ../urpm.pm:2562
+#: ../urpm/cdrom.pm:161 ../urpm/cdrom.pm:166
 #, c-format
-msgid "package %s is not found."
-msgstr "未找到软件包 %s。"
+msgid "medium \"%s\" is not available"
+msgstr "介质“%s”不可用"
 
-#: ../urpm.pm:2613 ../urpm.pm:2627 ../urpm.pm:2647 ../urpm.pm:2661
-msgid "urpmi database locked"
-msgstr "urpmi 数据库已锁定"
-
-#: ../urpm.pm:2713 ../urpm.pm:2718 ../urpm.pm:2744
-#, c-format
-msgid "medium \"%s\" is not selected"
-msgstr "介质“%s”未选中"
-
-#. - fallback to use other method for retrieving the file later.
-#: ../urpm.pm:2740
+#: ../urpm/cdrom.pm:205
 #, c-format
 msgid "unable to read rpm file [%s] from medium \"%s\""
 msgstr "无法从介质“%2$s”读取 rpm 文件[%1$s]"
 
-#. - we have a removable device that is not removable, well...
-#: ../urpm.pm:2748
+#: ../urpm/cfg.pm:82
 #, c-format
-msgid "inconsistent medium \"%s\" marked removable but not really"
-msgstr "非连贯介质“%s”标为可移动但实际不是"
+msgid "syntax error in config file at line %s"
+msgstr "配置文件第 %s 行语法有错"
 
-#: ../urpm.pm:2760
+#: ../urpm/cfg.pm:115
 #, c-format
-msgid "unable to access medium \"%s\""
-msgstr "无法访问介质“%s”"
+msgid "unable to read config file [%s]"
+msgstr "无法读取配置文件[%s]"
 
-#: ../urpm.pm:2815
+#: ../urpm/cfg.pm:141
 #, c-format
-msgid "malformed URL: [%s]"
-msgstr "URL 格式错误: [%s]"
+msgid "medium `%s' is defined twice, aborting"
+msgstr "介质“%s”定义了两次，正在退出"
 
-#: ../urpm.pm:2822
+#: ../urpm/cfg.pm:254 ../urpm/media.pm:541
+#, c-format
+msgid "unable to write config file [%s]"
+msgstr "无法写入配置文件[%s]"
+
+#: ../urpm/download.pm:83
+#, c-format
+msgid "%s is not available, falling back on %s"
+msgstr "%s 不可用，默认回到 %s"
+
+#: ../urpm/download.pm:166
+#, c-format
+msgid "can not read proxy settings (not enough rights to read %s)"
+msgstr "无法读取代理服务器设置(没有足够的权限读取 %s)"
+
+#: ../urpm/download.pm:191
+#, c-format
+msgid "Please enter your credentials for accessing proxy\n"
+msgstr "请输入访问代理服务器所需的认证信息\n"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "User name:"
+msgstr "用户名:"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "Password:"
+msgstr "密码:"
+
+#: ../urpm/download.pm:268
+#, c-format
+msgid "Unknown webfetch `%s' !!!\n"
+msgstr "未知的 webfetch“%s”!!!\n"
+
+#: ../urpm/download.pm:276
+#, c-format
+msgid "%s failed: exited with signal %d"
+msgstr "%s 失败: 退出信号为 %d"
+
+#: ../urpm/download.pm:277
+#, c-format
+msgid "%s failed: exited with %d"
+msgstr "%s 失败: 退出代码为 %d"
+
+#: ../urpm/download.pm:311
+#, c-format
+msgid "copy failed"
+msgstr "复制失败"
+
+#: ../urpm/download.pm:317
+#, c-format
+msgid "wget is missing\n"
+msgstr "缺少 wget\n"
+
+#: ../urpm/download.pm:384
+#, c-format
+msgid "curl is missing\n"
+msgstr "缺少 curl\n"
+
+#: ../urpm/download.pm:520
+#, c-format
+msgid "curl failed: upload canceled\n"
+msgstr "curl 失败: 上传已取消\n"
+
+#: ../urpm/download.pm:521
+#, c-format
+msgid "curl failed: download canceled\n"
+msgstr "curl 失败: 下载已取消\n"
+
+#: ../urpm/download.pm:556
+#, c-format
+msgid "rsync is missing\n"
+msgstr "缺少 rsync\n"
+
+#: ../urpm/download.pm:624
+#, c-format
+msgid "ssh is missing\n"
+msgstr "缺少 ssh\n"
+
+#: ../urpm/download.pm:643
+#, c-format
+msgid "prozilla is missing\n"
+msgstr "缺少 prozilla\n"
+
+#: ../urpm/download.pm:659
+#, c-format
+msgid "Couldn't execute prozilla\n"
+msgstr "无法执行 prozilla\n"
+
+#: ../urpm/download.pm:669
+#, c-format
+msgid "aria2 is missing\n"
+msgstr "缺少 aria2\n"
+
+#: ../urpm/download.pm:713
+#, c-format
+msgid "Failed to download %s"
+msgstr "下载 %s 失败"
+
+#: ../urpm/download.pm:808
+#, c-format
+msgid "        %s%% of %s completed, ETA = %s, speed = %s"
+msgstr "        已完成 %s%%，共 %s，预计剩余时间 %s，速度为 %s"
+
+#: ../urpm/download.pm:809
+#, c-format
+msgid "        %s%% completed, speed = %s"
+msgstr "        %s%% 已完成，速度为 %s"
+
+#: ../urpm/download.pm:883
+#, c-format
+msgid "retrieving %s"
+msgstr "正在获取 %s"
+
+#: ../urpm/download.pm:894
+#, c-format
+msgid "retrieved %s"
+msgstr "已获取 %s"
+
+#: ../urpm/download.pm:958
+#, c-format
+msgid "unknown protocol defined for %s"
+msgstr "%s 中定义了未知的协议"
+
+#: ../urpm/download.pm:972
+#, c-format
+msgid "no webfetch found, supported webfetch are: %s\n"
+msgstr "未找到 webfetch，支持的 webfetch 是: %s\n"
+
+#: ../urpm/download.pm:987
+#, c-format
+msgid "unable to handle protocol: %s"
+msgstr "无法处理协议: %s"
+
+#: ../urpm/get_pkgs.pm:16
+#, c-format
+msgid "cleaning %s and %s"
+msgstr "清除 %s 和 %s"
+
+#: ../urpm/get_pkgs.pm:128
+#, c-format
+msgid "package %s is not found."
+msgstr "未找到软件包 %s。"
+
+#: ../urpm/get_pkgs.pm:253
 #, c-format
 msgid "retrieving rpm files from medium \"%s\"..."
 msgstr "正在从介质“%s”上获取 rpm 文件..."
 
-#: ../urpm.pm:2921
+#: ../urpm/install.pm:87
+#, c-format
 msgid "[repackaging]"
 msgstr "[重新打包]"
 
-#: ../urpm.pm:2954
-#, c-format
-msgid "using process %d for executing transaction"
-msgstr "使用进程 %d 执行交易"
-
-#: ../urpm.pm:2987
+#: ../urpm/install.pm:168
 #, c-format
 msgid ""
 "created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
 msgstr "已创建在 %s 上安装的交易(删除=%d，安装=%d，升级=%d)"
 
-#: ../urpm.pm:2990
+#: ../urpm/install.pm:171
+#, c-format
 msgid "unable to create transaction"
 msgstr "无法创建交易"
 
-#: ../urpm.pm:2998
-#, c-format
-msgid "removing package %s"
-msgstr "无法删除软件包 %s"
-
-#: ../urpm.pm:3000
-#, c-format
-msgid "unable to remove package %s"
-msgstr "无法删除软件包 %s"
-
-#: ../urpm.pm:3012
+#: ../urpm/install.pm:196
 #, c-format
 msgid "unable to extract rpm from delta-rpm package %s"
 msgstr "无法从 delta-rpm 软件包 %s 中提取 rpm"
 
-#: ../urpm.pm:3018
-#, c-format
-msgid "adding package %s (id=%d, eid=%d, update=%d, file=%s)"
-msgstr "添加软件包 %s (id=%d, eid=%d, 更新=%d, 文件=%s)"
-
-#: ../urpm.pm:3021
+#: ../urpm/install.pm:209
 #, c-format
 msgid "unable to install package %s"
 msgstr "无法安装软件包 %s"
 
-#: ../urpm.pm:3071
+#: ../urpm/install.pm:212
+#, c-format
+msgid "removing bad rpm (%s) from %s"
+msgstr "正在从 %2$s 删除错误的 rpm(%1$s)"
+
+#: ../urpm/install.pm:213 ../urpm/install.pm:278
+#, c-format
+msgid "removing %s failed: %s"
+msgstr "删除 %s 失败: %s"
+
+#: ../urpm/install.pm:259
+#, c-format
+msgid "Removing package %s"
+msgstr "删除软件包 %s"
+
+#: ../urpm/install.pm:260
+#, c-format
+msgid "removing package %s"
+msgstr "删除软件包 %s"
+
+#: ../urpm/install.pm:276
+#, c-format
+msgid "removing installed rpms (%s) from %s"
+msgstr "正在从 %2$s 删除已安装的 rpm(%1$s)"
+
+#: ../urpm/install.pm:285
 #, c-format
 msgid "More information on package %s"
 msgstr "关于软件包 %s 的更多信息"
 
-#: ../urpm.pm:3252 ../urpm.pm:3290
+#: ../urpm/ldap.pm:71
 #, c-format
-msgid "due to missing %s"
-msgstr "原因是丢失 %s"
+msgid "Cannot create ldap cache directory"
+msgstr "无法创建 ldap 缓存目录"
 
-#: ../urpm.pm:3253 ../urpm.pm:3288
+#: ../urpm/ldap.pm:73
 #, c-format
-msgid "due to unsatisfied %s"
-msgstr "原因是不满足 %s"
+msgid "Cannot write cache file for ldap\n"
+msgstr "无法写入 ldap 的缓存文件\n"
 
-#: ../urpm.pm:3259
+#: ../urpm/ldap.pm:162
 #, c-format
-msgid "trying to promote %s"
-msgstr "正在试图推广 %s"
+msgid "No server defined, missing uri or host"
+msgstr "未定义服务器，缺少 uri 或 主机"
 
-#: ../urpm.pm:3260
+#: ../urpm/ldap.pm:163
 #, c-format
-msgid "in order to keep %s"
-msgstr "为了保留 %s"
+msgid "No base defined"
+msgstr "未定义基础"
 
-#: ../urpm.pm:3283
+#: ../urpm/ldap.pm:173 ../urpm/ldap.pm:176
 #, c-format
-msgid "in order to install %s"
-msgstr "为了安装 %s"
+msgid "Cannot connect to ldap uri:"
+msgstr "无法连接到 ldap uri:"
 
-#: ../urpm.pm:3294
+#: ../urpm/lock.pm:68
 #, c-format
-msgid "due to conflicts with %s"
-msgstr "原因是与 %s 冲突"
+msgid "%s database is locked, process %d is already using it"
+msgstr "%s 数据库已锁定，进程 %d 正在使用它"
 
-#: ../urpm.pm:3295
-msgid "unrequested"
-msgstr "未请求"
-
-#: ../urpm.pm:3314
+#: ../urpm/lock.pm:70
 #, c-format
-msgid "Invalid signature (%s)"
-msgstr "无效的签名(%s)"
+msgid "%s database is locked (another program is already using it)"
+msgstr "%s 数据库已锁定(其它程序正在使用它)"
 
-#: ../urpm.pm:3347
+#: ../urpm/lock.pm:84
 #, c-format
-msgid "Invalid Key ID (%s)"
-msgstr "无效的密钥 ID(%s)"
+msgid "%s database is locked. Waiting..."
+msgstr "%s 数据库已锁定。等候中..."
 
-#: ../urpm.pm:3349
+#: ../urpm/lock.pm:85
 #, c-format
-msgid "Missing signature (%s)"
-msgstr "缺少签名(%s)"
+msgid "aborting"
+msgstr "中止"
 
-#: ../urpm.pm:3408
-msgid "examining MD5SUM file"
-msgstr "正在检查 MD5SUM 文件"
+#: ../urpm/main_loop.pm:45
+#, c-format
+msgid "Retry?"
+msgstr "重试一次吗?"
 
-#: ../urpm.pm:3418
+#: ../urpm/main_loop.pm:72
+#, c-format
+msgid "You may need to update your urpmi database."
+msgstr "您可能需要更新您的 urpmi 数据库。"
+
+#: ../urpm/main_loop.pm:75
+#, c-format
+msgid ""
+"Installation failed, bad rpms:\n"
+"%s"
+msgstr ""
+"安装失败，rpm 有问题:\n"
+"%s"
+
+#: ../urpm/main_loop.pm:94
+#, c-format
+msgid ""
+"There is not enough space on your filesystem to download all packages (%s "
+"needed, %s available).\n"
+"Are you sure you want to continue?"
+msgstr ""
+"您的文件系统中没有足够空间可用来下载全部软件包(需要 %s，但只有 %s)。\n"
+"您确定想要继续吗?"
+
+#: ../urpm/main_loop.pm:124
+#, c-format
+msgid "The following package has bad signature"
+msgstr "下列软件包的签名有错误"
+
+#: ../urpm/main_loop.pm:125
+#, c-format
+msgid "The following packages have bad signatures"
+msgstr "下列软件包的签名有错误"
+
+#: ../urpm/main_loop.pm:126
+#, c-format
+msgid "Do you want to continue installation ?"
+msgstr "您想继续安装吗?"
+
+#: ../urpm/main_loop.pm:140 ../urpm/main_loop.pm:159 ../urpm/main_loop.pm:263
+#: ../urpm/main_loop.pm:271
+#, c-format
+msgid "Installation failed"
+msgstr "安装失败"
+
+#: ../urpm/main_loop.pm:144
+#, c-format
+msgid "removing installed rpms (%s)"
+msgstr "删除已安装的 rpm(%s)"
+
+#: ../urpm/main_loop.pm:160
+#, c-format
+msgid "Try to continue anyway?"
+msgstr "仍然继续吗? "
+
+#: ../urpm/main_loop.pm:209
+#, c-format
+msgid "installing %s from %s"
+msgstr "正在从 %2$s 安装 %1$s"
+
+#: ../urpm/main_loop.pm:211
+#, c-format
+msgid "installing %s"
+msgstr "正在安装 %s"
+
+#: ../urpm/main_loop.pm:218
+#, c-format
+msgid "distributing %s"
+msgstr "正在分发 %s"
+
+#: ../urpm/main_loop.pm:264
+#, c-format
+msgid "Try installation without checking dependencies?"
+msgstr "尝试忽略相关性检查而安装吗?"
+
+#: ../urpm/main_loop.pm:272
+#, c-format
+msgid "Try harder to install (--force)?"
+msgstr "尝试强制安装吗(使用 --force)?"
+
+#: ../urpm/main_loop.pm:431
+#, c-format
+msgid "Packages are up to date"
+msgstr "软件包已为最新"
+
+#: ../urpm/main_loop.pm:442 ../urpm/parallel.pm:299
+#, c-format
+msgid "Installation is possible"
+msgstr "可以安装"
+
+#: ../urpm/md5sum.pm:26
 #, c-format
 msgid "warning: md5sum for %s unavailable in MD5SUM file"
-msgstr "警告：%s 的 md5 校验和未在 MD5SUM 文件中找到"
+msgstr "警告: %s 的 md5 校验和未在 MD5SUM 文件中找到"
 
-#: ../urpm.pm:3429
-msgid "computing md5sum of existing source hdlist (or synthesis)"
-msgstr "正在计算已有源 hdlist(或综合文件)的 md5sum"
-
-#: ../urpm.pm:3459
-msgid "This operation is forbidden while running in restricted mode"
-msgstr "运行于限制模式运行时，禁止执行此操作"
-
-#: ../urpm/args.pm:106 ../urpm/args.pm:115
-msgid "bad proxy declaration on command line\n"
-msgstr "命令的代理声明无效\n"
-
-#: ../urpm/args.pm:230
-msgid "You need to be root to use --use-distrib"
-msgstr "你必须是 root 才能使用 --use-distrib 命令"
-
-#: ../urpm/args.pm:262
+#: ../urpm/media.pm:258
 #, c-format
-msgid "urpmq: cannot read rpm file \"%s\"\n"
-msgstr "urpmq: 无法读取 rpm 文件“%s”\n"
+msgid "virtual medium \"%s\" should have a clear url, medium ignored"
+msgstr "虚拟介质“%s”应该有清楚的 URL，介质被忽略"
 
-#. Translator: Add here the keys which might be pressed in the "No"-case.
-#: ../urpm/msg.pm:46 ../urpme:32 ../urpmi:452 ../urpmi:470 ../urpmi:508
-#: ../urpmi:558 ../urpmi:641 ../urpmi:727
+#: ../urpm/media.pm:260
+#, c-format
+msgid "unable to access list file of \"%s\", medium ignored"
+msgstr "无法访问“%s”的列表文件，介质被忽略"
+
+#: ../urpm/media.pm:263
+#, c-format
+msgid "unable to access synthesis file of \"%s\", medium ignored"
+msgstr "无法访问“%s”的综合文件，介质被忽略"
+
+#: ../urpm/media.pm:289
+#, c-format
+msgid "trying to override existing medium \"%s\", skipping"
+msgstr "试图覆盖已有介质“%s”，正跳过"
+
+#: ../urpm/media.pm:505
+#, c-format
+msgid "failed to migrate removable device, ignoring media"
+msgstr "迁移可移动设备失败，忽略介质"
+
+#: ../urpm/media.pm:543
+#, c-format
+msgid "wrote config file [%s]"
+msgstr "写入配置文件[%s]"
+
+#: ../urpm/media.pm:586
+#, c-format
+msgid "Can't use parallel mode with use-distrib mode"
+msgstr "无法与发行模式一起使用并行模式"
+
+#: ../urpm/media.pm:594
+#, c-format
+msgid "using associated media for parallel mode: %s"
+msgstr "并行模式时使用关联介质: %s"
+
+#: ../urpm/media.pm:610
+#, c-format
+msgid ""
+"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
+"update, --use-distrib or --parallel"
+msgstr ""
+"--synthesis 仅能和 --media, --excludemedia, --sortmedia, --update, --use-"
+"distrib 或 --parallel 一起使用"
+
+#: ../urpm/media.pm:719
+#, c-format
+msgid "Search start: %s end: %s"
+msgstr "搜索开始: %s 结束: %s"
+
+#: ../urpm/media.pm:736
+#, c-format
+msgid "skipping package %s"
+msgstr "跳过软件包 %s"
+
+#: ../urpm/media.pm:752
+#, c-format
+msgid "would install instead of upgrade package %s"
+msgstr "将安装而非升级软件包 %s"
+
+#: ../urpm/media.pm:828
+#, c-format
+msgid "medium \"%s\" already exists"
+msgstr "介质“%s”已存在"
+
+#: ../urpm/media.pm:869
+#, c-format
+msgid "(ignored by default)"
+msgstr "(默认忽略)"
+
+#: ../urpm/media.pm:875
+#, c-format
+msgid "adding medium \"%s\" before remote medium \"%s\""
+msgstr "在远程介质“%2$s”之前添加介质“%1$s”"
+
+#: ../urpm/media.pm:881
+#, c-format
+msgid "adding medium \"%s\""
+msgstr "添加介质“%s”"
+
+#: ../urpm/media.pm:905
+#, c-format
+msgid "failed to copy media.cfg to %s (%d)"
+msgstr "将 media.cfg 复制到 %s 失败 (%d)"
+
+#: ../urpm/media.pm:947
+#, c-format
+msgid "directory %s does not exist"
+msgstr "目录 %s 不存在"
+
+#: ../urpm/media.pm:955
+#, c-format
+msgid "this location doesn't seem to contain any distribution"
+msgstr "此位置似乎不包含任何发行版"
+
+#: ../urpm/media.pm:979
+#, c-format
+msgid "unable to parse media.cfg"
+msgstr "无法分析 media.cfg"
+
+#: ../urpm/media.pm:982
+#, c-format
+msgid "unable to access the distribution medium (no media.cfg file found)"
+msgstr "无法访问发行版介质(未发现 media.cfg 文件)"
+
+#: ../urpm/media.pm:1003
+#, c-format
+msgid "skipping non compatible media `%s' (for %s)"
+msgstr "跳过不兼容的介质“%s”(原因是 %s)"
+
+#: ../urpm/media.pm:1018
+#, fuzzy, c-format
+msgid "ignoring non-free medium `%s'"
+msgstr "忽略介质 %s"
+
+#: ../urpm/media.pm:1061
+#, c-format
+msgid "retrieving media.cfg file..."
+msgstr "正在获取 media.cfg 文件..."
+
+#: ../urpm/media.pm:1104
+#, c-format
+msgid "trying to select nonexistent medium \"%s\""
+msgstr "试图选择不存在的介质“%s”"
+
+#: ../urpm/media.pm:1107
+#, c-format
+msgid "selecting multiple media: %s"
+msgstr "选择多个介质: %s"
+
+#: ../urpm/media.pm:1166
+#, c-format
+msgid "removing medium \"%s\""
+msgstr "删除介质“%s”"
+
+#: ../urpm/media.pm:1249
+#, c-format
+msgid "reconfiguring urpmi for media \"%s\""
+msgstr "正在从介质“%s”重新配置 urpmi"
+
+#: ../urpm/media.pm:1283
+#, c-format
+msgid "...reconfiguration failed"
+msgstr "...重新配置失败"
+
+#: ../urpm/media.pm:1289
+#, c-format
+msgid "reconfiguration done"
+msgstr "重新配置完成"
+
+#: ../urpm/media.pm:1305
+#, c-format
+msgid "Error generating names file: dependency %d not found"
+msgstr "生成命名文件出错：依赖关系 %d 未找到"
+
+#: ../urpm/media.pm:1326
+#, c-format
+msgid "medium \"%s\" is up-to-date"
+msgstr "介质“%s”已为最新"
+
+#: ../urpm/media.pm:1337
+#, c-format
+msgid "examining synthesis file [%s]"
+msgstr "正在检查综合文件 [%s]"
+
+#: ../urpm/media.pm:1357
+#, c-format
+msgid "problem reading synthesis file of medium \"%s\""
+msgstr "读取介质“%s”的综合文件出现问题"
+
+#: ../urpm/media.pm:1370 ../urpm/media.pm:1465
+#, c-format
+msgid "copying [%s] for medium \"%s\"..."
+msgstr "正在复制介质“%2$s”的 [%1$s]..."
+
+#: ../urpm/media.pm:1372 ../urpm/media.pm:1442 ../urpm/media.pm:1695
+#, c-format
+msgid "...copying failed"
+msgstr "...复制失败"
+
+#: ../urpm/media.pm:1438
+#, c-format
+msgid "copying description file of \"%s\"..."
+msgstr "正在复制“%s”的描述文件..."
+
+#: ../urpm/media.pm:1440 ../urpm/media.pm:1469
+#, c-format
+msgid "...copying done"
+msgstr "...复制完成"
+
+#: ../urpm/media.pm:1471
+#, c-format
+msgid "copy of [%s] failed (file is suspiciously small)"
+msgstr "复制 [%s] 失败(文件太小了)"
+
+#: ../urpm/media.pm:1519
+#, c-format
+msgid "computing md5sum of retrieved source synthesis"
+msgstr "正在计算所获取的源综合文件的 md5sum"
+
+#: ../urpm/media.pm:1521 ../urpm/media.pm:1961
+#, c-format
+msgid "retrieval of [%s] failed (md5sum mismatch)"
+msgstr "获取[%s]失败(md5sum 不匹配)"
+
+#: ../urpm/media.pm:1536
+#, c-format
+msgid "genhdlist2 failed on %s"
+msgstr "在 %s 上 genhdlist2 失败"
+
+#: ../urpm/media.pm:1546
+#, c-format
+msgid "comparing %s and %s"
+msgstr "比较 %s 和 %s"
+
+#: ../urpm/media.pm:1576
+#, c-format
+msgid "invalid hdlist file %s for medium \"%s\""
+msgstr "介质“%2$s”的 hdlist 文件 %1$s 无效"
+
+#: ../urpm/media.pm:1602
+#, c-format
+msgid "copying MD5SUM file of \"%s\"..."
+msgstr "正在复制“%s”的 MD5SUM..."
+
+#: ../urpm/media.pm:1642
+#, c-format
+msgid "invalid MD5SUM file (downloaded from %s)"
+msgstr "无效的 MD5SUM 文件(从 %s 下载)"
+
+#: ../urpm/media.pm:1645
+#, c-format
+msgid "no metadata found for medium \"%s\""
+msgstr "介质“%s”未发现元数据"
+
+#: ../urpm/media.pm:1677
+#, c-format
+msgid "retrieving source synthesis of \"%s\"..."
+msgstr "正在获取“%s”的源综合文件..."
+
+#: ../urpm/media.pm:1743
+#, c-format
+msgid "examining pubkey file of \"%s\"..."
+msgstr "正在检查“%s”的公共密钥文件..."
+
+#: ../urpm/media.pm:1755
+#, c-format
+msgid "...imported key %s from pubkey file of \"%s\""
+msgstr "...从公钥文件“%2$s”中导入了密钥 %1$s"
+
+#: ../urpm/media.pm:1759
+#, c-format
+msgid "unable to import pubkey file of \"%s\""
+msgstr "无法导入“%s”的公共密钥文件"
+
+#: ../urpm/media.pm:1800
+#, c-format
+msgid "no synthesis file found for medium \"%s\""
+msgstr "介质“%s”未发现综合文件"
+
+#: ../urpm/media.pm:1833
+#, c-format
+msgid "updated medium \"%s\""
+msgstr "已更新介质“%s”"
+
+#: ../urpm/media.pm:1955
+#, c-format
+msgid "retrieval of [%s] failed"
+msgstr "获取[%s]失败"
+
+#: ../urpm/mirrors.pm:19 ../urpm/mirrors.pm:40
+#, c-format
+msgid "trying again with mirror %s"
+msgstr "正在重试连接镜像 %s"
+
+#: ../urpm/mirrors.pm:92
+#, c-format
+msgid "Could not find a mirror from mirrorlist %s"
+msgstr "无法从镜像列表 %s 里找到一个镜像"
+
+#: ../urpm/mirrors.pm:240
+#, c-format
+msgid "found geolocalisation %s %.2f %.2f from timezone %s"
+msgstr "找到地理位置较近的 %s %.2f %.2f，从时区 %s"
+
+#: ../urpm/mirrors.pm:285
+#, c-format
+msgid "getting mirror list from %s"
+msgstr "从 %s 中获得镜像列表"
+
+#: ../urpm/msg.pm:76 ../urpmi:495 ../urpmi:513 ../urpmi:629
+#, c-format
 msgid "Nn"
 msgstr "nN否"
 
-#. Translator: Add here the keys which might be pressed in the "Yes"-case.
-#: ../urpm/msg.pm:47 ../urpme:34 ../urpmi:453 ../urpmi:471 ../urpmi:509
-#: ../urpmi:559 ../urpmi:642 ../urpmi:728
+#. -PO: Add here the keys which might be pressed in the "Yes"-case.
+#: ../urpm/msg.pm:77 ../urpme:38 ../urpmi.addmedia:133
+#, c-format
 msgid "Yy"
 msgstr "yY是"
 
-#: ../urpm/msg.pm:92
+#: ../urpm/msg.pm:107 ../urpme:163 ../urpmi.addmedia:136
+#, c-format
+msgid " (y/N) "
+msgstr "(是(y)/否(N))[否]"
+
+#: ../urpm/msg.pm:139
+#, c-format
 msgid "Sorry, bad choice, try again\n"
 msgstr "对不起，选择无效，请再试一次\n"
 
-#: ../urpm/parallel_ka_run.pm:27 ../urpm/parallel_ka_run.pm:121
-#: ../urpm/parallel_ka_run.pm:215
-msgid "mput failed, maybe a node is unreacheable"
-msgstr "mput 失败，可能节点无法连接"
-
-#: ../urpm/parallel_ka_run.pm:64
+#: ../urpm/msg.pm:170
 #, c-format
-msgid "node %s has an old version of urpme, please upgrade"
-msgstr "节点 %s 的 urpme 版本太旧，请升级"
+msgid "Package"
+msgstr "软件包"
 
-#: ../urpm/parallel_ka_run.pm:88 ../urpm/parallel_ka_run.pm:200
-#: ../urpm/parallel_ka_run.pm:230
-msgid "rshp failed, maybe a node is unreacheable"
-msgstr "rshp 失败，可能节点无法连接"
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Version"
+msgstr "版本"
 
-#: ../urpm/parallel_ka_run.pm:97 ../urpm/parallel_ssh.pm:102
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Release"
+msgstr "释放"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Arch"
+msgstr "架构"
+
+#: ../urpm/msg.pm:179
+#, c-format
+msgid "(suggested)"
+msgstr "(建议安装)"
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "medium \"%s\""
+msgstr "介质“%s”"
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "command line"
+msgstr "命令行"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "B"
+msgstr "B"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "KB"
+msgstr "KB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "MB"
+msgstr "MB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "GB"
+msgstr "GB"
+
+#: ../urpm/msg.pm:208 ../urpm/msg.pm:217
+#, c-format
+msgid "TB"
+msgstr "TB"
+
+#: ../urpm/orphans.pm:51
+#, c-format
+msgid "Marking %s as manually installed, it won't be auto-orphaned"
+msgstr "将 %s 标记为手动安装，该软件包不会被标为自动孤立"
+
+#: ../urpm/orphans.pm:448
+#, fuzzy, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned."
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned."
+msgstr[0] "需要下列软件包之一:"
+
+#: ../urpm/orphans.pm:451
+#, fuzzy, c-format
+msgid "You may wish to remove it."
+msgid_plural "You may wish to remove them."
+msgstr[0] "没有可删除的孤立软件包"
+
+#: ../urpm/orphans.pm:460
+#, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned, if you wish to remove it, you can use \"urpme --auto-orphans"
+"\""
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned, if you wish to remove them, you can use \"urpme --auto-"
+"orphans\""
+msgstr[0] ""
+"下列软件包:\n"
+"%s\n"
+"现在是孤立的了，请使用“urpme --auto-orphans”删除它们。"
+
+#: ../urpm/parallel.pm:15
+#, c-format
+msgid "unable to parse \"%s\" in file [%s]"
+msgstr "无法处理文件[%2$s]中的“%1$s”"
+
+#: ../urpm/parallel.pm:24
+#, c-format
+msgid "examining parallel handler in file [%s]"
+msgstr "正在检查文件[%s]中的并行处理"
+
+#: ../urpm/parallel.pm:35
+#, c-format
+msgid "found parallel handler for nodes: %s"
+msgstr "找到结点的并行处理: %s"
+
+#: ../urpm/parallel.pm:39
+#, c-format
+msgid "unable to use parallel option \"%s\""
+msgstr "无法使用并行选项“%s”"
+
+#: ../urpm/parallel.pm:94
 #, c-format
 msgid "on node %s"
 msgstr "于节点 %s"
 
-#. - first propagate the synthesis file to all machine.
-#: ../urpm/parallel_ka_run.pm:119
-msgid "Propagating synthesis to nodes..."
-msgstr "正在将综合文件传播到节点..."
-
-#. - now try an iteration of urpmq.
-#: ../urpm/parallel_ka_run.pm:170
-msgid "Resolving dependencies on nodes..."
-msgstr "正在解决节点上的依赖关系..."
-
-#: ../urpm/parallel_ka_run.pm:213
-msgid "Distributing files to nodes..."
-msgstr "正在将文件分发到节点..."
-
-#: ../urpm/parallel_ka_run.pm:220
-msgid "Verifying if install is possible on nodes..."
-msgstr "正在验证安装是否可以在节点上进行..."
-
-#: ../urpm/parallel_ka_run.pm:234 ../urpm/parallel_ssh.pm:249
+#: ../urpm/parallel.pm:294
 #, c-format
 msgid "Installation failed on node %s"
 msgstr "节点 %s 安装失败"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm/parallel_ka_run.pm:239 ../urpm/parallel_ssh.pm:254 ../urpmi:796
-msgid "Installation is possible"
-msgstr "可以安装"
+#: ../urpm/parallel_ka_run.pm:58
+#, c-format
+msgid "rshp failed, maybe a node is unreacheable"
+msgstr "rshp 失败，可能节点无法连接"
 
-#. - continue installation.
-#: ../urpm/parallel_ka_run.pm:244
-msgid "Installing packages on nodes..."
-msgstr "正在节点上安装软件包..."
+#: ../urpm/parallel_ka_run.pm:80
+#, c-format
+msgid "mput failed, maybe a node is unreacheable"
+msgstr "mput 失败，可能节点无法连接"
 
-#: ../urpm/parallel_ssh.pm:28 ../urpm/parallel_ssh.pm:126
-#: ../urpm/parallel_ssh.pm:230
+#: ../urpm/parallel_ssh.pm:27
 #, c-format
 msgid "scp failed on host %s (%d)"
-msgstr "主机 %s scp 失败(%d)"
+msgstr "主机 %s scp 失败 (%d)"
 
-#: ../urpm/parallel_ssh.pm:124
+#: ../urpm/parallel_ssh.pm:39
 #, c-format
-msgid "Propagating synthesis to %s..."
-msgstr "正在将综合文件传播到 %s..."
+msgid "cp failed on host %s (%d)"
+msgstr "主机 %s cp 失败 (%d)"
 
-#: ../urpm/parallel_ssh.pm:177
+#: ../urpm/parallel_ssh.pm:86
 #, c-format
-msgid "Resolving dependencies on %s..."
-msgstr "正在解决 %s 上的依赖关系..."
+msgid ""
+"%s failed on host %s (maybe it does not have a good version of urpmi?) (exit "
+"code: %d)"
+msgstr "主机 %2$s %1$s 失败(可能 urpmi 版本不对?)(退出码: %3$d)"
 
-#: ../urpm/parallel_ssh.pm:207
+#: ../urpm/removable.pm:33
 #, c-format
-msgid "host %s does not have a good version of urpmi (%d)"
-msgstr "主机 %s 上的 urpmi 版本不对(%d)"
+msgid "unable to access medium \"%s\"."
+msgstr "无法访问介质“%s”。"
 
-#: ../urpm/parallel_ssh.pm:223
+#: ../urpm/removable.pm:73 ../urpm/removable.pm:91
 #, c-format
-msgid "Distributing files to %s..."
-msgstr "正在将文件分发给 %s..."
+msgid "mounting %s"
+msgstr "正在装载 %s"
 
-#: ../urpm/parallel_ssh.pm:237
+#: ../urpm/removable.pm:104
 #, c-format
-msgid "Verifying if install is possible on %s..."
-msgstr "正在验证安装是否可以在 %s 上进行..."
+msgid "unmounting %s"
+msgstr "正在拆卸 %s"
 
-#: ../urpm/parallel_ssh.pm:261
+#: ../urpm/select.pm:31
 #, c-format
-msgid "Performing install on %s..."
-msgstr "正在 %s 上执行安装..."
+msgid "urpmi was restarted, and the list of priority packages did not change"
+msgstr "urpmi 已经重新启动，而优先的软件包列表未更新"
 
-#: ../urpm/parallel_ssh.pm:274
+#: ../urpm/select.pm:33
 #, c-format
-msgid "Installing %s on %s..."
-msgstr "正在 %2$s 上安装 %1$s..."
+msgid ""
+"urpmi was restarted, and the list of priority packages did change: %s vs %s"
+msgstr "urpmi 已经重新启动，优先的软件包列表进行了如下更改：%s vs %s"
 
-#: ../urpm/parallel_ssh.pm:275
+#: ../urpm/select.pm:186
 #, c-format
-msgid "Preparing install on %s..."
-msgstr "正在准备在 %s 上安装..."
+msgid "No package named %s"
+msgstr "没有叫做 %s 的软件包"
 
-#: ../urpme:37
+#: ../urpm/select.pm:188 ../urpme:117
+#, c-format
+msgid "The following packages contain %s: %s"
+msgstr "下列软件包里有 %s: %s"
+
+#: ../urpm/select.pm:190
+#, c-format
+msgid "You should use \"-a\" to use all of them"
+msgstr "您应该使用“-a”来全部使用"
+
+#: ../urpm/select.pm:308
+#, c-format
+msgid "found package(s) %s in urpmi db, but none are installed"
+msgstr "在 urpmi 数据库中找到软件包 %s，但全部都未安装"
+
+#: ../urpm/select.pm:554
+#, c-format
+msgid "Package %s is already installed"
+msgstr "软件包 %s 已经安装"
+
+#: ../urpm/select.pm:555
+#, c-format
+msgid "Packages %s are already installed"
+msgstr "软件包 %s 已经安装"
+
+#: ../urpm/select.pm:572 ../urpm/select.pm:659
+#, c-format
+msgid "due to conflicts with %s"
+msgstr "原因是与 %s 冲突"
+
+#: ../urpm/select.pm:573 ../urpm/select.pm:653
+#, c-format
+msgid "due to unsatisfied %s"
+msgstr "原因是不满足 %s"
+
+#: ../urpm/select.pm:579
+#, c-format
+msgid "trying to promote %s"
+msgstr "正在试图推广 %s"
+
+#: ../urpm/select.pm:580
+#, c-format
+msgid "in order to keep %s"
+msgstr "为了保留 %s"
+
+#: ../urpm/select.pm:621
+#, c-format
+msgid ""
+"The following package has to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"要升级其它软件包，需要先删除下列软件包:\n"
+"%s"
+
+#: ../urpm/select.pm:622
+#, c-format
+msgid ""
+"The following packages have to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"要升级其它软件包，需要先删除下列软件包:\n"
+"%s"
+
+#: ../urpm/select.pm:649
+#, c-format
+msgid "in order to install %s"
+msgstr "为了安装 %s"
+
+#: ../urpm/select.pm:655
+#, c-format
+msgid "due to missing %s"
+msgstr "原因是丢失 %s"
+
+#: ../urpm/signature.pm:33
+#, c-format
+msgid "Invalid signature (%s)"
+msgstr "无效的签名(%s)"
+
+#: ../urpm/signature.pm:64
+#, c-format
+msgid "Invalid Key ID (%s)"
+msgstr "无效的密钥 ID(%s)"
+
+#: ../urpm/signature.pm:66
+#, c-format
+msgid "Missing signature (%s)"
+msgstr "缺少签名(%s)"
+
+#: ../urpm/sys.pm:186
+#, c-format
+msgid "system"
+msgstr "系统"
+
+#: ../urpm/sys.pm:223
+#, c-format
+msgid "You should restart your computer for %s"
+msgstr "为了 %s，您应该重新启动您的计算机"
+
+#: ../urpm/sys.pm:225
+#, c-format
+msgid "You should restart your session for %s"
+msgstr "为了 %s，您应该重新启动您的会话"
+
+#: ../urpm/sys.pm:227
+#, c-format
+msgid "You should restart %s for %s"
+msgstr "为了 %2$s，您应该重新启动 %1$s"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't write file"
+msgstr "无法写入文件"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't open file"
+msgstr "无法打开文件"
+
+#: ../urpm/sys.pm:365
+#, c-format
+msgid "Can't move file %s to %s"
+msgstr "无法将文件 %s 移动到 %s"
+
+#: ../urpme:41
 #, c-format
 msgid ""
 "urpme version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
 "usage:\n"
 msgstr ""
 "urpmf 版本 %s\n"
-"版权 (C) 1999-2006 Mandriva。\n"
+"版权 (C) 1999-2010 Mandriva。\n"
 "这是自由软件，可以依照 GNU GPL 重新发布。\n"
 "\n"
 "用法:\n"
 
-#: ../urpme:42 ../urpmf:34 ../urpmi:80 ../urpmi.addmedia:44
-#: ../urpmi.recover:33 ../urpmi.removemedia:54 ../urpmi.update:31 ../urpmq:44
-msgid "  --help         - print this help message.\n"
-msgstr "  --help         - 打印帮助信息。\n"
-
-#: ../urpme:43
+#: ../urpme:47
+#, c-format
 msgid "  --auto         - automatically select a package in choices.\n"
 msgstr "  --auto         - 自动选中软件包。\n"
 
-#: ../urpme:44
+#: ../urpme:48
+#, c-format
+msgid "  --auto-orphans - remove orphans\n"
+msgstr "  --auto-orphans - 删除孤立软件包\n"
+
+#: ../urpme:49
+#, c-format
 msgid "  --test         - verify if the removal can be achieved correctly.\n"
 msgstr "  --test         - 验证删除是否可以正确进行。\n"
 
-#: ../urpme:45 ../urpmi:102 ../urpmq:63
-msgid ""
-"  --force        - force invocation even if some packages do not exist.\n"
-msgstr "  --force        - 强制执行, 即使某些软件包并不存在。\n"
-
-#: ../urpme:46 ../urpmi:107 ../urpmq:65
+#: ../urpme:51 ../urpmi:108 ../urpmq:70
+#, c-format
 msgid "  --parallel     - distributed urpmi across machines of alias.\n"
 msgstr "  --parallel     - 在多个机器上分布的运行 urpmi。\n"
 
-#: ../urpme:47 ../urpmi:134
+#: ../urpme:52 ../urpmi:142
+#, c-format
 msgid "  --repackage    - Re-package the files before erasing\n"
 msgstr "  --repackage    - 在删除之前重新对文件打包\n"
 
-#: ../urpme:48
+#: ../urpme:53
+#, c-format
 msgid "  --root         - use another root for rpm removal.\n"
 msgstr "  --root         - 使用另一个 root 删除 rpm。\n"
 
-#: ../urpme:49
+#: ../urpme:54 ../urpmf:40 ../urpmi:110 ../urpmi.addmedia:73
+#: ../urpmi.recover:36 ../urpmi.removemedia:45 ../urpmi.update:48 ../urpmq:72
+#, c-format
+msgid "  --urpmi-root   - use another root for urpmi db & rpm installation.\n"
+msgstr "  --urpmi-root   - 使用另一个 root 来存储 urpmi db 和安装 rpm。\n"
+
+#: ../urpme:55 ../urpmi:100
+#, c-format
+msgid "  --justdb       - update only the rpm db, not the filesystem.\n"
+msgstr "  --justdb       - 只使用 rpm 数据库，不更新文件系统。\n"
+
+#: ../urpme:56
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s).\n"
 msgstr "  --noscripts    - 不执行软件包脚本。\n"
 
-#: ../urpme:50
+#: ../urpme:57
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpme on the fly from a distrib tree, useful\n"
 "                   to (un)install a chroot with --root option.\n"
@@ -1186,68 +1657,86 @@ msgstr ""
 "  --use-distrib  - 从发行版树中实时配置 urpme，特别用于在 --root 选项\n"
 "                   下安装/卸载 chroot。\n"
 
-#: ../urpme:52 ../urpmi:145 ../urpmi.addmedia:70 ../urpmi.removemedia:59
-#: ../urpmi.update:49 ../urpmq:91
-msgid "  -v             - verbose mode.\n"
-msgstr "  -v             - 详细的提示。\n"
+#: ../urpme:59 ../urpmi:153 ../urpmq:91
+#, c-format
+msgid "  --verbose, -v  - verbose mode.\n"
+msgstr "  --verbose, -v  - 详细提示。\n"
 
-#: ../urpme:53
+#: ../urpme:60
+#, c-format
 msgid "  -a             - select all packages matching expression.\n"
 msgstr "  -a             - 在命令行选择匹配表达式的所有包。\n"
 
-#: ../urpme:70
+#: ../urpme:75
+#, c-format
 msgid "Only superuser is allowed to remove packages"
 msgstr "只允许超级用户删除软件包"
 
-#: ../urpme:95
-msgid "unknown package"
-msgstr "未知的软件包"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:95
+#: ../urpme:108
+#, c-format
 msgid "unknown packages"
 msgstr "未知的软件包"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:107 ../urpmi:488
+#: ../urpme:108
 #, c-format
-msgid "removing package %s will break your system"
-msgstr "如果删除软件包 %s 会破坏您的系统"
+msgid "unknown package"
+msgstr "未知的软件包"
 
-#: ../urpme:110
+#: ../urpme:123
+#, c-format
+msgid "Removing the following package will break your system:"
+msgid_plural "Removing the following packages will break your system:"
+msgstr[0] "删除下列软件包将会破坏您的系统:"
+
+#: ../urpme:128
+#, c-format
 msgid "Nothing to remove"
 msgstr "不需要删除任何东西。"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:115
-msgid "Checking to remove the following packages"
-msgstr "检查删除下列软件包"
-
-#: ../urpme:122
+#: ../urpme:145
 #, c-format
-msgid ""
-"To satisfy dependencies, the following %d packages will be removed (%d MB)"
-msgstr "为满足相关性要求，需要删除下列%d个软件包(%d MB)"
+msgid "No orphans to remove"
+msgstr "没有可删除的孤立软件包"
 
-#: ../urpme:124 ../urpmi:510 ../urpmi:643
-msgid " (y/N) "
-msgstr "(是(y)/否(N))[否]"
-
-#: ../urpme:124
+#: ../urpme:151
 #, c-format
-msgid "Remove %d packages?"
-msgstr "删除 %d 个软件包吗?"
+msgid "To satisfy dependencies, the following package will be removed"
+msgid_plural ""
+"To satisfy dependencies, the following %d packages will be removed"
+msgstr[0] "为满足相关性要求，需要删除下列%d个软件包"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:148
+#: ../urpme:156
+#, c-format
+msgid "(orphan package)"
+msgid_plural "(orphan packages)"
+msgstr[0] "(孤立的软件包)"
+
+#: ../urpme:163
+#, c-format
+msgid "Remove %d package?"
+msgid_plural "Remove %d packages?"
+msgstr[0] "删除 %d 个软件包吗?"
+
+#: ../urpme:168
+#, c-format
+msgid "testing removal of %s"
+msgstr "测试删除 %s"
+
+#: ../urpme:185
+#, c-format
 msgid "Removal failed"
 msgstr "删除失败"
 
-#: ../urpmf:28
+#: ../urpme:187
 #, c-format
+msgid "Removal is possible"
+msgstr "可以删除"
+
+#: ../urpmf:29
+#, fuzzy, c-format
 msgid ""
 "urpmf version %s\n"
-"Copyright (C) 2002-2006 Mandriva.\n"
+"Copyright (C) 2002-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -1259,258 +1748,319 @@ msgstr ""
 "\n"
 "用法:\n"
 
-#: ../urpmf:35
+#: ../urpmf:36
+#, c-format
 msgid "  --version      - print this tool's version number.\n"
 msgstr "  --version      - 打印此工具的版本号。\n"
 
-#: ../urpmf:36 ../urpmi:125 ../urpmq:74
+#: ../urpmf:37 ../urpmi:132 ../urpmq:82
+#, c-format
 msgid "  --env          - use specific environment (typically a bug report).\n"
 msgstr "  --env          - 使用指定的环境(特别是进行故障报告时)。\n"
 
-#: ../urpmf:37 ../urpmi:82 ../urpmq:48
+#: ../urpmf:38 ../urpmi:73 ../urpmq:49
+#, c-format
 msgid "  --excludemedia - do not use the given media, separated by comma.\n"
 msgstr "  --excludemedia - 不使用给定介质，介质之间用逗号分隔。\n"
 
-#: ../urpmf:38
+#: ../urpmf:39
+#, c-format
 msgid ""
 "  --literal, -l  - don't match patterns, use argument as a literal string.\n"
 msgstr "  --literal, -l  - 不匹配模式，参数为字面字符串。\n"
 
-#: ../urpmf:39 ../urpmi:81 ../urpmq:46
-msgid "  --media        - use only the given media, separated by comma.\n"
-msgstr "  --media        - 只使用列出的介质，介质之间用逗号分隔。\n"
-
-#: ../urpmf:40 ../urpmi:85 ../urpmq:49
+#: ../urpmf:42 ../urpmi:76 ../urpmq:50
+#, c-format
 msgid ""
 "  --sortmedia    - sort media according to substrings separated by comma.\n"
 msgstr "  --sortmedia    - 根据用逗号分隔的子字符串排序介质。\n"
 
-#: ../urpmf:41 ../urpmi:86 ../urpmq:50
+#: ../urpmf:43
+#, c-format
+msgid "  --use-distrib  - use the given path to access media\n"
+msgstr "  --use-distrib  - 使用给定的路径访问介质\n"
+
+#: ../urpmf:44 ../urpmi:77 ../urpmq:51
+#, c-format
 msgid "  --synthesis    - use the given synthesis instead of urpmi db.\n"
 msgstr "  --synthesis    - 使用指定的综合文件而不是 urpmi db。\n"
 
-#: ../urpmf:42
+#: ../urpmf:45
+#, c-format
 msgid "  --uniq         - do not print identical lines twice.\n"
 msgstr "  --uniq         - 不打印相同行。\n"
 
-#: ../urpmf:43 ../urpmi:83 ../urpmq:45
+#: ../urpmf:46 ../urpmi:74 ../urpmq:46
+#, c-format
 msgid "  --update       - use only update media.\n"
 msgstr "  --update       - 只使用升级介质。\n"
 
-#: ../urpmf:44
+#: ../urpmf:47
+#, c-format
 msgid "  --verbose      - verbose mode.\n"
 msgstr "  --verbose      - 详细提示。\n"
 
-#: ../urpmf:45
+#: ../urpmf:48
+#, c-format
 msgid "  -i             - ignore case distinctions in patterns.\n"
 msgstr "  -i             - 忽略各种情况下的冲突。\n"
 
-#: ../urpmf:46
+#: ../urpmf:49
+#, c-format
+msgid "  -I             - honor case distinctions in patterns (default).\n"
+msgstr "  -I             - 在模式中遵从大小写(默认值)。\n"
+
+#: ../urpmf:50
+#, c-format
 msgid "  -F<str>        - change field separator (defaults to ':').\n"
 msgstr "  -F<字符串>     - 更改字段分隔符(默认为“:”)。\n"
 
-#: ../urpmf:47
+#: ../urpmf:51
+#, c-format
 msgid "Pattern expressions:\n"
-msgstr "模式表达式：\n"
+msgstr "模式表达式: \n"
 
-#: ../urpmf:48
+#: ../urpmf:52
+#, c-format
 msgid "  text           - any text is parsed as a regexp, unless -l is used.\n"
 msgstr "  文本           - 任何文本都将被处理为正则表达式，除非使用了 -l。\n"
 
-#: ../urpmf:49
+#: ../urpmf:53
+#, c-format
 msgid "  -e             - include perl code directly as perl -e.\n"
 msgstr "  -e             - 直接保留 perl 代码，就像 perl -e。\n"
 
-#: ../urpmf:50
+#: ../urpmf:54
+#, c-format
 msgid "  -a             - binary AND operator.\n"
 msgstr "  -a             - 二元 AND 操作符。\n"
 
-#: ../urpmf:51
+#: ../urpmf:55
+#, c-format
 msgid "  -o             - binary OR operator.\n"
 msgstr "  -o             - 二元 OR 操作符。\n"
 
-#: ../urpmf:52
+#: ../urpmf:56
+#, c-format
 msgid "  !              - unary NOT.\n"
 msgstr "  !              - 一元 NOT。\n"
 
-#: ../urpmf:53
+#: ../urpmf:57
+#, c-format
 msgid "  ( )            - left and right parentheses.\n"
 msgstr "  ( )            - 左右括号。\n"
 
-#: ../urpmf:54
+#: ../urpmf:58
+#, c-format
 msgid "List of tags:\n"
 msgstr "标记清单:\n"
 
-#: ../urpmf:55
+#: ../urpmf:59
+#, c-format
 msgid "  --qf           - specify a printf-like output format\n"
 msgstr "  --qf           - 指定类似 printf 的输出格式\n"
 
-#: ../urpmf:56
+#: ../urpmf:60
 #, c-format
 msgid "                   example: '%%name:%%files'\n"
 msgstr "                   例如:“%%name:%%files”\n"
 
-#: ../urpmf:57
+#: ../urpmf:61
+#, c-format
 msgid "  --arch         - architecture\n"
 msgstr "  --arch         - 体系\n"
 
-#: ../urpmf:58
+#: ../urpmf:62
+#, c-format
 msgid "  --buildhost    - build host\n"
 msgstr "  --buildhost    - 编译主机\n"
 
-#: ../urpmf:59
+#: ../urpmf:63
+#, c-format
 msgid "  --buildtime    - build time\n"
 msgstr "  --buildtime    - 编译时间\n"
 
-#: ../urpmf:60
+#: ../urpmf:64
+#, c-format
 msgid "  --conffiles    - configuration files\n"
 msgstr "  --conffiles    - 配置文件\n"
 
-#: ../urpmf:61
+#: ../urpmf:65
+#, c-format
 msgid "  --conflicts    - conflict tags\n"
 msgstr "  --conflicts    - conflict 标签\n"
 
-#: ../urpmf:62
+#: ../urpmf:66
+#, c-format
 msgid "  --description  - package description\n"
 msgstr "  --description  - 软件包描述\n"
 
-#: ../urpmf:63
+#: ../urpmf:67
+#, c-format
 msgid "  --distribution - distribution\n"
 msgstr "  --distribution - 发行版\n"
 
-#: ../urpmf:64
+#: ../urpmf:68
+#, c-format
 msgid "  --epoch        - epoch\n"
 msgstr "  --epoch        - 周期\n"
 
-#: ../urpmf:65
+#: ../urpmf:69
+#, c-format
 msgid "  --filename     - filename of the package\n"
 msgstr "  --fiename      - 软件包文件名\n"
 
-#: ../urpmf:66
+#: ../urpmf:70
+#, c-format
 msgid "  --files        - list of files contained in the package\n"
 msgstr "  --files        - 列出软件包中包含的文件\n"
 
-#: ../urpmf:67
+#: ../urpmf:71
+#, c-format
 msgid "  --group        - group\n"
 msgstr "  --group        - 分组\n"
 
-#: ../urpmf:68
+#: ../urpmf:72
+#, c-format
+msgid "  --license      - license\n"
+msgstr "  --license      - 许可协议\n"
+
+#: ../urpmf:73
+#, c-format
 msgid "  --name         - package name\n"
 msgstr "  --name         - 软件包名称\n"
 
-#: ../urpmf:69
+#: ../urpmf:74
+#, c-format
 msgid "  --obsoletes    - obsoletes tags\n"
 msgstr "  --obsoletes    - obsolets 标签\n"
 
-#: ../urpmf:70
+#: ../urpmf:75
+#, c-format
 msgid "  --packager     - packager\n"
 msgstr "  --packager     - 打包者\n"
 
-#: ../urpmf:71
+#: ../urpmf:76
+#, c-format
 msgid "  --provides     - provides tags\n"
 msgstr "  --provides     - provides 标签\n"
 
-#: ../urpmf:72
+#: ../urpmf:77
+#, c-format
 msgid "  --requires     - requires tags\n"
 msgstr "  --requires     - requires 标签\n"
 
-#: ../urpmf:73
+#: ../urpmf:78
+#, c-format
 msgid "  --size         - installed size\n"
 msgstr "  --size         - 安装大小\n"
 
-#: ../urpmf:74
+#: ../urpmf:79
+#, c-format
 msgid "  --sourcerpm    - source rpm name\n"
 msgstr "  --sourcerpm    - 源 rpm 名称\n"
 
-#: ../urpmf:75
+#: ../urpmf:80
+#, c-format
+msgid "  --suggests     - suggests tags\n"
+msgstr "  --suggests     - suggests 标签\n"
+
+#: ../urpmf:81
+#, c-format
 msgid "  --summary      - summary\n"
 msgstr "  --summary      - 摘要\n"
 
-#: ../urpmf:76
+#: ../urpmf:82
+#, c-format
 msgid "  --url          - url\n"
 msgstr "  --url          - url\n"
 
-#: ../urpmf:77
+#: ../urpmf:83
+#, c-format
 msgid "  --vendor       - vendor\n"
 msgstr "  --vendor       - 提供者\n"
 
-#: ../urpmf:78
+#: ../urpmf:84
+#, c-format
 msgid "  -m             - the media in which the package was found\n"
 msgstr "  -m             - 软件包所在介质\n"
 
-#: ../urpmf:79 ../urpmq:80
+#: ../urpmf:85 ../urpmq:101
+#, c-format
 msgid "  -f             - print version, release and arch with name.\n"
 msgstr "  -f             - 和名称一起打印版本、发行号和平台。\n"
 
-#: ../urpmf:131
+#: ../urpmf:153
+#, c-format
+msgid "unterminated expression (%s)"
+msgstr "未终止的表达式(%s)"
+
+#: ../urpmf:198
+#, c-format
 msgid "Incorrect format: you may use only one multi-valued tag"
-msgstr "格式不对：您只能使用一个多值标签"
+msgstr "格式不对: 您只能使用一个多值标签"
 
-#: ../urpmf:173 ../urpmi:231 ../urpmq:126
+#: ../urpmf:291
 #, c-format
-msgid "using specific environment on %s\n"
-msgstr "在 %s 使用指定环境\n"
+msgid "no hdlist available for medium \"%s\""
+msgstr "介质“%s”的 hdlist 不可用"
 
-#: ../urpmf:219
-msgid ""
-"Note: since no media searched uses hdlists, urpmf was unable to return any "
-"result\n"
-msgstr "注意：由于没有介质使用 hdlists 搜索，urpmf 无法返回任何结果\n"
-
-#: ../urpmf:220
-msgid "You may want to use --name to search for package names.\n"
-msgstr "您可能想要使用 --name 来搜索软件包名称。\n"
-
-#: ../urpmi:75
+#: ../urpmf:298
 #, c-format
-msgid ""
-"urpmi version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"This is free software and may be redistributed under the terms of the GNU "
-"GPL.\n"
-"\n"
-"usage:\n"
-msgstr ""
-"urpmi 版本 %s\n"
-"版权 (C) 1999-2006 Mandriva。\n"
-"这是自由软件，可以依照 GNU GPL 重新发布。\n"
-"\n"
-"用法:\n"
+msgid "no synthesis available for medium \"%s\""
+msgstr "介质“%s”的综合文件不可用"
 
-#: ../urpmi:84
-msgid ""
-"  --searchmedia  - use only the given media to search requested packages.\n"
-msgstr "  --searchmedia  - 只使用给定介质来搜索所请求的软件包。\n"
+#: ../urpmf:307
+#, c-format
+msgid "no xml-info available for medium \"%s\""
+msgstr "介质“%s”没有可用的 xml-info"
 
-#: ../urpmi:87
-msgid ""
-"  --auto         - non-interactive mode, assume default answers to "
-"questions.\n"
-msgstr "  --auto         - 非交互模式，对全部问题假定默认回答。\n"
+#: ../urpmi:80
+#, c-format
+msgid "  --auto-update  - update media then upgrade the system.\n"
+msgstr "  --auto-update  - 更新介质后再升级系统。\n"
 
-#: ../urpmi:88 ../urpmq:51
-msgid ""
-"  --auto-select  - automatically select packages to upgrade the system.\n"
-msgstr "  --auto-select  - 自动选择升级系统的软件包。\n"
+#: ../urpmi:81
+#, c-format
+msgid "    --no-md5sum    - disable MD5SUM file checking.\n"
+msgstr "    --no-md5sum    - 禁用 MD5SUM 文件检查。\n"
 
-#: ../urpmi:89
+#: ../urpmi:82
+#, c-format
+msgid "    --force-key    - force update of gpg key.\n"
+msgstr "    --force-key    - 强制更新 gpg 密钥。\n"
+
+#: ../urpmi:83
+#, c-format
+msgid "  --auto-orphans - remove orphans without asking\n"
+msgstr "  --auto-orphans - 不询问直接删除孤立软件包\n"
+
+#: ../urpmi:84 ../urpmq:56
+#, c-format
+msgid "  --no-suggests  - do not auto select \"suggested\" packages.\n"
+msgstr "  --no-suggests  - 不自动选择“推荐的”软件包。\n"
+
+#: ../urpmi:85
+#, c-format
 msgid ""
 "  --no-uninstall - never ask to uninstall a package, abort the "
 "installation.\n"
 msgstr "  --no-uninstall - 从不询问卸载软件包，直接中断安装。\n"
 
-#: ../urpmi:90
+#: ../urpmi:86
+#, c-format
 msgid "  --no-install   - don't install packages (only download)\n"
 msgstr "  --no-install   - 不安装软件包(只下载)。\n"
 
-#: ../urpmi:91 ../urpmq:53
+#: ../urpmi:87 ../urpmq:58
+#, c-format
 msgid ""
 "  --keep         - keep existing packages if possible, reject requested\n"
 "                   packages that lead to removals.\n"
 msgstr ""
 "  --keep         - 如果有可能就保留已有软件包，拒绝导致删除的软件包。\n"
 
-#: ../urpmi:93
+#: ../urpmi:89
 #, c-format
 msgid ""
 "  --split-level  - split in small transaction if more than given packages\n"
@@ -1520,48 +2070,63 @@ msgstr ""
 "  --split-level  - 如果将要安装或升级的软件包多于给定的软件包，就拆分为\n"
 "                   较小的交易。默认为 %d。\n"
 
-#: ../urpmi:96
+#: ../urpmi:93
 #, c-format
 msgid "  --split-length - small transaction length, default is %d.\n"
 msgstr "  --split-length - 小交易长度，默认为 %d。\n"
 
-#: ../urpmi:97
+#: ../urpmi:95
+#, c-format
 msgid "  --fuzzy, -y    - impose fuzzy search.\n"
 msgstr "  --fuzzy, -y    - 利用模糊查询。\n"
 
-#: ../urpmi:98
-msgid "  --src, -s      - next package is a source package.\n"
-msgstr "  --src, -s       - 下一个软件包是源程序包。\n"
+#: ../urpmi:96
+#, c-format
+msgid "  --buildrequires - install the buildrequires of the packages\n"
+msgstr "  --buildrequires - 安装软件包构建需求\n"
 
-#: ../urpmi:99
+#: ../urpmi:97
+#, c-format
 msgid "  --install-src  - install only source package (no binaries).\n"
 msgstr "  --install-src  - 只安装源代码包(无二进制文件)。\n"
 
-#: ../urpmi:100
+#: ../urpmi:98
+#, c-format
 msgid "  --clean        - remove rpm from cache before anything else.\n"
 msgstr "   --clean       - 首先删除缓存中的 rpm。\n"
 
-#: ../urpmi:101
+#: ../urpmi:99
+#, c-format
 msgid "  --noclean      - don't clean rpms from cache.\n"
 msgstr "  --noclean      - 不从缓存中清除 rpm。\n"
 
+#: ../urpmi:101
+#, c-format
+msgid ""
+"  --replacepkgs  - force installing packages which are already installed.\n"
+msgstr "  --replacepkgs  - 强制安装已经安装过的软件包。\n"
+
 #: ../urpmi:103
+#, c-format
 msgid ""
 "  --allow-nodeps - allow asking user to install packages without\n"
 "                   dependencies checking.\n"
 msgstr "  --allow-nodeps - 允许要求用户不经过依赖性检验就安装软件包。\n"
 
 #: ../urpmi:105
+#, c-format
 msgid ""
 "  --allow-force  - allow asking user to install packages without\n"
 "                   dependencies checking and integrity.\n"
 msgstr "  --allow-force  - 允许提示用户安装软件包而不检查依赖性和完整性。\n"
 
-#: ../urpmi:108
-msgid "  --root         - use another root for rpm installation.\n"
-msgstr "  --root         - 使用另一个 root 安装 rpm。\n"
+#: ../urpmi:107
+#, c-format
+msgid "  --allow-suggests - auto select \"suggested\" packages.\n"
+msgstr "  --allow-suggests - 自动选择“推荐的”软件包。\n"
 
-#: ../urpmi:109
+#: ../urpmi:111
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree, useful\n"
 "                   to install a chroot with --root option.\n"
@@ -1569,31 +2134,59 @@ msgstr ""
 "  --use-distrib  - 从发行版树中实时配置 urpmi，特别用于在 --root 选项\n"
 "                   下安装 chroot。\n"
 
-#: ../urpmi:111 ../urpmi.addmedia:45 ../urpmi.update:32 ../urpmq:68
-msgid "  --wget         - use wget to retrieve distant files.\n"
-msgstr "  --wget         - 用 wget 取远程文件。\n"
+#: ../urpmi:113 ../urpmi.addmedia:60 ../urpmi.update:37
+#, c-format
+msgid "  --metalink     - generate and use a local metalink.\n"
+msgstr "  --metalink     - 生成并使用本地 metallink。\n"
 
-#: ../urpmi:112 ../urpmi.addmedia:46 ../urpmi.update:33 ../urpmq:69
-msgid "  --curl         - use curl to retrieve distant files.\n"
-msgstr "  --curl         - 用 crul 取远程文件。\n"
+#: ../urpmi:114
+#, c-format
+msgid ""
+"  --download-all - download all needed packages before trying to install "
+"them\n"
+msgstr "  --download-all - 在试图安装之前下载所需的全部软件包\n"
 
-#: ../urpmi:113
+#: ../urpmi:115
+#, c-format
+msgid ""
+"  --downloader   - program to use to retrieve distant files. \n"
+"                   known programs: %s\n"
+msgstr ""
+"  --downloader   - 用于重新获取远程文件的程序。\n"
+"                   已知程序：%s\n"
+
+#: ../urpmi:118
+#, c-format
 msgid "  --curl-options - additional options to pass to curl\n"
 msgstr "  --curl-options - 给 curl 传递额外的选项\n"
 
-#: ../urpmi:114
+#: ../urpmi:119
+#, c-format
 msgid "  --rsync-options- additional options to pass to rsync\n"
 msgstr "  --rsync-options- 给 rsync 传递额外的选项\n"
 
-#: ../urpmi:115
+#: ../urpmi:120
+#, c-format
 msgid "  --wget-options - additional options to pass to wget\n"
 msgstr "  --wget-options - 给 wget 传递额外的选项\n"
 
-#: ../urpmi:116 ../urpmi.addmedia:47 ../urpmi.update:34
+#: ../urpmi:121
+#, c-format
+msgid "  --prozilla-options - additional options to pass to prozilla\n"
+msgstr "  --prozilla-options - 给 prozilla 传递额外的选项\n"
+
+#: ../urpmi:122
+#, c-format
+msgid "  --aria2-options - additional options to pass to aria2\n"
+msgstr "  --aria2-options - 给 aria2 传递额外的选项\n"
+
+#: ../urpmi:123 ../urpmi.addmedia:61 ../urpmi.update:38
+#, c-format
 msgid "  --limit-rate   - limit the download speed.\n"
 msgstr "  --limit-rate   - 降低下载速度。\n"
 
-#: ../urpmi:117
+#: ../urpmi:124
+#, c-format
 msgid ""
 "  --resume       - resume transfer of partially-downloaded files\n"
 "                   (--no-resume disables it, default is disabled).\n"
@@ -1601,7 +2194,8 @@ msgstr ""
 "  --resume       - 续传未下载完成的文件\n"
 "                   (--no-resume 禁用它，默认是禁用的)。\n"
 
-#: ../urpmi:119 ../urpmi.addmedia:48 ../urpmi.update:35 ../urpmq:70
+#: ../urpmi:126 ../urpmi.addmedia:62 ../urpmi.update:39 ../urpmq:78
+#, c-format
 msgid ""
 "  --proxy        - use specified HTTP proxy, the port number is assumed\n"
 "                   to be 1080 by default (format is <proxyhost[:port]>).\n"
@@ -1609,7 +2203,8 @@ msgstr ""
 "  --proxy        - 使用指定的 HTTP 代理，默认的端口号是\n"
 "                   1080(格式如 <proxyhost[:port]>)。\n"
 
-#: ../urpmi:121 ../urpmi.addmedia:50 ../urpmi.update:37 ../urpmq:72
+#: ../urpmi:128 ../urpmi.addmedia:64 ../urpmi.update:41 ../urpmq:80
+#, c-format
 msgid ""
 "  --proxy-user   - specify user and password to use for proxy\n"
 "                   authentication (format is <user:password>).\n"
@@ -1617,7 +2212,8 @@ msgstr ""
 "  --proxy-user   - 指定用于代理认证的用户和\n"
 "                   密码(格式如 <用户: 密码>)。\n"
 
-#: ../urpmi:123
+#: ../urpmi:130
+#, c-format
 msgid ""
 "  --bug          - output a bug report in directory indicated by\n"
 "                   next arg.\n"
@@ -1625,139 +2221,196 @@ msgstr ""
 "  --bug          - 输出故障报告\n"
 "                   下一个参数指定输出目录。\n"
 
-#: ../urpmi:126
-msgid ""
-"  --verify-rpm   - verify rpm signature before installation\n"
-"                   (--no-verify-rpm disables it, default is enabled).\n"
-msgstr ""
-"  --verify-rpm   - 安装之前验证 rpm 签署\n"
-"                   (--no-verify-rpm 禁止它，默认是激活的)。\n"
-
-#: ../urpmi:128
-msgid ""
-"  --test         - only verify if the installation can be achieved "
-"correctly.\n"
-msgstr "  --test         - 验证安装是否可以正确进行。\n"
-
-#: ../urpmi:129
+#: ../urpmi:136
+#, c-format
 msgid "  --excludepath  - exclude path separated by comma.\n"
 msgstr "  --excludepath  - 排除按逗号分隔的路径。\n"
 
-#: ../urpmi:130
+#: ../urpmi:137
+#, c-format
 msgid "  --excludedocs  - exclude doc files.\n"
 msgstr "  --excludedocs  - 排除文档文件。\n"
 
-#: ../urpmi:131
+#: ../urpmi:138
+#, c-format
 msgid "  --ignoresize   - don't verify disk space before installation.\n"
 msgstr "  --ignoresize   - 安装前不检查磁盘空间。\n"
 
-#: ../urpmi:132
+#: ../urpmi:139
+#, c-format
 msgid "  --ignorearch   - allow to install rpms for unmatched architectures.\n"
 msgstr "  --ignorearch   - 允许安装体系不匹配的 RPM。\n"
 
-#: ../urpmi:133
+#: ../urpmi:140
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s)\n"
 msgstr "  --noscripts    - 不执行软件包脚本。\n"
 
-#: ../urpmi:135
+#: ../urpmi:141
+#, c-format
+msgid "  --replacefiles - ignore file conflicts\n"
+msgstr "  --replacefiles - 忽略文件冲突\n"
+
+#: ../urpmi:143
+#, c-format
 msgid "  --skip         - packages which installation should be skipped\n"
 msgstr "  --skip         - 安装要跳过的软件包。\n"
 
-#: ../urpmi:136
+#: ../urpmi:144
+#, c-format
+msgid "  --prefer       - packages which should be preferred\n"
+msgstr "  --prefer       - 首选的软件包\n"
+
+#: ../urpmi:145
+#, c-format
 msgid ""
 "  --more-choices - when several packages are found, propose more choices\n"
 "                   than the default.\n"
 msgstr ""
 "  --more-choices - 如果找到了多个软件包，则提供多个选择而不是默认选择。\n"
 
-#: ../urpmi:138 ../urpmi.addmedia:64 ../urpmi.update:42
-msgid "  --norebuild    - don't try to rebuild hdlist if not readable.\n"
-msgstr "  --norebuild    - 如果 hdlist 不可读的话，不尝试重新创建。\n"
-
-#: ../urpmi:139
+#: ../urpmi:147
+#, c-format
 msgid "  --nolock       - don't lock rpm db.\n"
 msgstr "  --nolock       - 不锁定 rpm 数据库。\n"
 
-#: ../urpmi:140
+#: ../urpmi:148
+#, c-format
 msgid "  --strict-arch  - upgrade only packages with the same architecture.\n"
 msgstr "  --strict-arch  - 更新只限于相同体系的软件包。\n"
 
-#: ../urpmi:141 ../urpmq:77
+#: ../urpmi:149 ../urpmq:99
+#, c-format
 msgid "  -a             - select all matches on command line.\n"
 msgstr "  -a             - 在命令行选择所有匹配。\n"
 
-#: ../urpmi:142
-msgid "  -p             - allow search in provides to find package.\n"
-msgstr "  -p             - 允许在 provides 字段中查找软件包。\n"
+#: ../urpmi:152
+#, c-format
+msgid "  --quiet, -q    - quiet mode.\n"
+msgstr "  --quiet, -q    - 安静模式。\n"
 
-#: ../urpmi:143
-msgid "  -P             - do not search in provides to find package.\n"
-msgstr "  -P             - 不在 provides 字段中查找软件包。\n"
+#: ../urpmi:154
+#, c-format
+msgid "  --debug        - very verbose mode.\n"
+msgstr "  --debug        - 非常详细模式。\n"
 
-#: ../urpmi:144 ../urpmi.addmedia:69 ../urpmi.removemedia:58
-#: ../urpmi.update:48
-msgid "  -q             - quiet mode.\n"
-msgstr "  -q             - 安静模式。\n"
-
-#: ../urpmi:146
+#: ../urpmi:155
+#, c-format
 msgid "  names or rpm files given on command line will be installed.\n"
 msgstr "  命令行给出的软件包名或 rpm 文件将会被安装。\n"
 
-#: ../urpmi:197
+#: ../urpmi:183
+#, c-format
+msgid "Error: can't use --auto-select along with package list.\n"
+msgstr "错误: 无法在使用软件包列表时使用 --auto-select。\n"
+
+#: ../urpmi:190
+#, c-format
+msgid ""
+"Error: To generate a bug report, specify the usual command-line arguments\n"
+"along with --bug.\n"
+msgstr "错误: 要生成错误报告，请在指定命令行参数时多加 --bug。\n"
+
+#: ../urpmi:220
+#, c-format
 msgid "You can't install binary rpm files when using --install-src"
 msgstr "您无法使用 --install-src 安装二进制 RPM 文件"
 
-#: ../urpmi:220
+#: ../urpmi:221
+#, c-format
+msgid "You can't install spec files"
+msgstr "您不能安装 spec 文件"
+
+#: ../urpmi:228
+#, c-format
+msgid "defaulting to --buildrequires"
+msgstr "正在设置默认为 --buildrequires"
+
+#: ../urpmi:233
+#, c-format
+msgid ""
+"please use --buildrequires or --install-src, defaulting to --buildrequires"
+msgstr "请使用 --buildrequires 或 --install-src，默认为 --buildrequires"
+
+#: ../urpmi:253
 #, c-format
 msgid ""
 "Directory [%s] already exists, please use another directory for bug report "
 "or delete it"
 msgstr "目录 [%s] 已存在，请使用另外一个目录进行错误报告或者删除该目录"
 
-#: ../urpmi:221
+#: ../urpmi:254
 #, c-format
 msgid "Unable to create directory [%s] for bug report"
 msgstr "无法创建故障报告的目录 [%s]"
 
-#: ../urpmi:224 ../urpmi:380
-msgid "Copying failed"
-msgstr "复制失败"
-
-#: ../urpmi:230
-#, c-format
-msgid "Environment directory %s does not exist"
-msgstr "环境目录 %s 不存在"
-
-#: ../urpmi:248
+#: ../urpmi:275
 #, c-format
 msgid ""
 "Error: %s appears to be mounted read-only.\n"
 "Use --allow-force to force operation."
 msgstr ""
-"错误：%s 似乎是以只读方式挂载的。\n"
+"错误: %s 似乎是以只读方式挂载的。\n"
 "请使用 --allow-force 强制操作。"
 
-#. - For translators : there are several media here
-#: ../urpmi:332
-msgid "Updating media...\n"
-msgstr "正在更新介质...\n"
+#. -PO: here format is "<package_name>: <summary> (to upgrade)"
+#: ../urpmi:429
+#, c-format
+msgid "%s: %s (to upgrade)"
+msgstr "%s: %s (即将升级)"
 
-#: ../urpmi:417
+#. -PO: here format is "<package_name> (to upgrade)"
+#: ../urpmi:431
+#, c-format
+msgid "%s (to upgrade)"
+msgstr "%s (即将升级)"
+
+#. -PO: here format is "<package_name>: <summary> (to install)"
+#: ../urpmi:435
+#, c-format
+msgid "%s: %s (to install)"
+msgstr "%s: %s (即将安装)"
+
+#. -PO: here format is "<package_name> (to install)"
+#: ../urpmi:437
+#, c-format
+msgid "%s (to install)"
+msgstr "%s (即将安装)"
+
+#: ../urpmi:443
+#, c-format
+msgid ""
+"In order to satisfy the '%s' dependency, one of the following packages is "
+"needed:"
+msgstr "为满足“%s”的依赖关系，需要安装下列软件包之一："
+
+#: ../urpmi:446
 #, c-format
 msgid "What is your choice? (1-%d) "
 msgstr "请输入您的选择:(1-%d)"
 
-#: ../urpmi:447
+#: ../urpmi:488
+#, c-format
+msgid ""
+"The following package cannot be installed because it depends on packages\n"
+"that are older than the installed ones:\n"
+"%s"
+msgstr ""
+"下列软件包无法安装，因为它们所依赖的软件包版本低于目前所安装的版本: \n"
+"%s"
+
+#: ../urpmi:490
 #, c-format
 msgid ""
 "The following packages can't be installed because they depend on packages\n"
 "that are older than the installed ones:\n"
 "%s"
 msgstr ""
-"下列软件包无法安装，因为它们所依赖的软件包版本低于目前所安装的版本：\n"
+"下列软件包无法安装，因为它们所依赖的软件包版本低于目前所安装的版本: \n"
 "%s"
 
-#: ../urpmi:455 ../urpmi:473
+#: ../urpmi:496 ../urpmi:514
+#, c-format
 msgid ""
 "\n"
 "Continue installation anyway?"
@@ -1765,20 +2418,36 @@ msgstr ""
 "\n"
 "仍然继续安装吗?"
 
-#: ../urpmi:455 ../urpmi:473 ../urpmi:560
+#: ../urpmi:497 ../urpmi:515 ../urpmi:630 ../urpmi.addmedia:136
+#, c-format
 msgid " (Y/n) "
 msgstr "(是(Y)/否(n))[是]"
 
-#: ../urpmi:466
+#: ../urpmi:508
 #, c-format
 msgid ""
-"Some requested packages cannot be installed:\n"
+"A requested package cannot be installed:\n"
 "%s"
 msgstr ""
 "某些要求的软件包无法安装:\n"
 "%s"
 
-#: ../urpmi:496
+#: ../urpmi:529
+#, c-format
+msgid "removing package %s will break your system"
+msgstr "如果删除软件包 %s 会破坏您的系统"
+
+#: ../urpmi:537
+#, c-format
+msgid ""
+"The installation cannot continue because the following package\n"
+"has to be removed for others to be upgraded:\n"
+"%s\n"
+msgstr ""
+"安装无法继续，原因是要升级其它软件包，需要先删除下列软件包:\n"
+"%s\n"
+
+#: ../urpmi:539
 #, c-format
 msgid ""
 "The installation cannot continue because the following packages\n"
@@ -1788,384 +2457,433 @@ msgstr ""
 "安装无法继续，原因是要升级其它软件包，需要先删除下列软件包:\n"
 "%s\n"
 
-#: ../urpmi:501
+#: ../urpmi:547
 #, c-format
-msgid ""
-"The following packages have to be removed for others to be upgraded:\n"
-"%s"
-msgstr ""
-"要升级其它软件包，需要先删除下列软件包:\n"
-"%s"
-
-#: ../urpmi:503
 msgid "(test only, removal will not be actually done)"
 msgstr "(只是测试，删除将不会实际发生)"
 
-#: ../urpmi:539 ../urpmi:551
-msgid ""
-"To satisfy dependencies, the following packages are going to be installed"
-msgstr "为了满足依赖性要求，将另外安装以下软件包"
-
-#: ../urpmi:540 ../urpmi:552
-msgid "To satisfy dependencies, the following package is going to be installed"
-msgstr "为了满足依赖关系，将安装下列软件包"
-
-#: ../urpmi:541
-#, c-format
-msgid "(%d packages, %d MB)"
-msgstr "(%d 个软件包，%d MB)"
-
-#: ../urpmi:547
+#: ../urpmi:566
 #, c-format
 msgid ""
-"You need to be root to install the following dependencies:\n"
+"You must first call urpmi with --buildrequires to install the following "
+"dependencies:\n"
 "%s\n"
 msgstr ""
-"您必须以 root 身份安装下列满足依赖性需要的软件包:\n"
+"您必须首先用 --buildrequires 调用 urpmi，以便安装下列依赖关系：\n"
 "%s\n"
 
-#: ../urpmi:554
+#: ../urpmi:576
+#, c-format
+msgid "The following orphan package will be removed."
+msgid_plural "The following orphan packages will be removed."
+msgstr[0] "下列孤立软件包将被删除。"
+
+#: ../urpmi:600
+#, c-format
+msgid "WARNING: %s option is in use. Some strange problems may happen"
+msgstr ""
+
+#: ../urpmi:612
+#, c-format
 msgid "(test only, installation will not be actually done)"
 msgstr "(只是测试，安装将不会实际发生)"
 
-#: ../urpmi:556
+#: ../urpmi:618
 #, c-format
-msgid "Proceed with the installation of the %d packages? (%d MB)"
-msgstr "继续安装 %d 个软件包吗？(%d MB)"
+msgid "%s of additional disk space will be used."
+msgstr "将会使用 %s 的额外磁盘空间。"
 
-#: ../urpmi:580
-msgid "Press Enter when ready..."
-msgstr "准备好后按 Enter 键..."
-
-#: ../urpmi:586
-msgid "Cancel"
-msgstr "取消"
-
-#: ../urpmi:586
-msgid "Ok"
-msgstr "确定"
-
-#: ../urpmi:633
-msgid "The following packages have bad signatures"
-msgstr "下列软件包的签名有错误"
-
-#: ../urpmi:634
-msgid "Do you want to continue installation ?"
-msgstr "您想继续安装吗?"
-
-#: ../urpmi:682
+#: ../urpmi:619
 #, c-format
-msgid "distributing %s"
-msgstr "正在分发 %s"
+msgid "%s of disk space will be freed."
+msgstr "将会释放 %s 的磁盘空间。"
 
-#. - there's a common prefix, simplify message
-#: ../urpmi:693
+#: ../urpmi:620
 #, c-format
-msgid "installing %s from %s"
-msgstr "正在从 %2$s 安装 %1$s"
+msgid "%s of packages will be retrieved."
+msgstr "将会获取 %s 的软件包。"
 
-#: ../urpmi:695
+#: ../urpmi:621
 #, c-format
-msgid "installing %s"
-msgstr "正在安装 %s"
+msgid "Proceed with the installation of one package?"
+msgid_plural "Proceed with the installation of the %d packages?"
+msgstr[0] "继续安装 %d 个软件包吗？"
 
-#: ../urpmi:729
-msgid "Try installation without checking dependencies? (y/N) "
-msgstr "尝试忽略相关性检查而安装吗?(是(y)/否(N))[否]"
-
-#: ../urpmi:747
-msgid "Try harder to install (--force)? (y/N) "
-msgstr "尝试强制安装吗(使用 --force)(是(y)/否(N))[否]?"
-
-#: ../urpmi:787
+#: ../urpmi:643
 #, c-format
-msgid "%d installation transactions failed"
-msgstr "%d 安装交易失败"
+msgid "Press Enter when mounted..."
+msgstr "挂载后按 Enter..."
 
-#: ../urpmi:803
-#, c-format
-msgid "The following package names were assumed: %s"
-msgstr "假定下列软件包名称: %s"
-
-#: ../urpmi:820
-msgid "restarting urpmi"
-msgstr "重新启动 urpmi"
-
-#. Translator: The URI types strings 'file:', 'ftp:', 'http:',
-#. Translator: and 'removable:' must not be translated!
-#. Translator: neither the ``with''.
-#. Translator: only what is between <brackets> can be translated.
-#: ../urpmi.addmedia:35
+#. -PO: The URI types strings 'file:', 'ftp:', 'http:', and 'cdrom:' must not be translated!
+#. -PO: neither the ``with''.  Only what is between <brackets> can be translated.
+#: ../urpmi.addmedia:36
+#, fuzzy, c-format
 msgid ""
-"usage: urpmi.addmedia [options] <name> <url> [with <relative_path>]\n"
+"usage: urpmi.addmedia [options] <name> <url>\n"
 "where <url> is one of\n"
-"       [file:/]/<path> with <relative filename of hdlist>\n"
-"       ftp://<login>:<password>@<host>/<path> with <relative filename of "
-"hdlist>\n"
-"       ftp://<host>/<path> with <relative filename of hdlist>\n"
-"       http://<host>/<path> with <relative filename of hdlist>\n"
-"       removable://<path>\n"
+"       [file:/]/<path>\n"
+"       ftp://<login>:<password>@<host>/<path>\n"
+"       ftp://<host>/<path>\n"
+"       http://<host>/<path>\n"
+"       cdrom://<path>\n"
+"\n"
+"usage: urpmi.addmedia [options] --distrib --mirrorlist <url>\n"
+"usage: urpmi.addmedia [options] --mirrorlist <url> <name> <relative path>\n"
+"\n"
+"examples:\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"  urpmi.addmedia --distrib --zeroconf\n"
+"\n"
 "\n"
 "and [options] are from\n"
 msgstr ""
-"用法: urpmi.addmedia [选项] <名称> <url> [with <相对路径>]\n"
+"用法: urpmi.addmedia [选项] <名称> <url>\n"
 "  <url> 为以下之一\n"
-"       [file:/]/<路径> with <hdlist 的相对路径文件名>\n"
-"       ftp://<登录名>:<密码>@<主机>/<路径> with <hdlist 的相对路径文件名>\n"
-"       ftp://<主机>/<路径> with <hdlist 的相对路径文件名>\n"
-"       http://<主机>/<路径> with <hdlist 的相对路径文件名>\n"
+"       [file:/]/<路径>\n"
+"       ftp://<登录名>:<密码>@<主机>/<路径>\n"
+"       ftp://<主机>/<路径>\n"
+"       http://<主机>/<路径>\n"
 "       removable://<路径>\n"
 "\n"
-"而 [options] 可以来自\n"
+"用法：urpmi.addmedia [选项] --distrib --mirrorlist <url>\n"
+"用法：urpmi.addmedia [选项] --mirrorlist <url> <名称> <相对路径>\n"
+"\n"
+"例：\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"\n"
+"\n"
+"而 [选项] 可以来自\n"
 
-#: ../urpmi.addmedia:52
-msgid "  --update       - create an update medium.\n"
-msgstr "  --update       - 创建一个更新介质。\n"
+#: ../urpmi.addmedia:56 ../urpmi.update:33 ../urpmq:75
+#, c-format
+msgid "  --wget         - use wget to retrieve distant files.\n"
+msgstr "  --wget         - 用 wget 取远程文件。\n"
 
-#: ../urpmi.addmedia:53
-msgid "  --probe-synthesis - try to find and use synthesis file.\n"
-msgstr "  --probe-synthesis - 试图查找并使用综合文件。\n"
+#: ../urpmi.addmedia:57 ../urpmi.update:34 ../urpmq:76
+#, c-format
+msgid "  --curl         - use curl to retrieve distant files.\n"
+msgstr "  --curl         - 用 crul 取远程文件。\n"
 
-#: ../urpmi.addmedia:54
-msgid "  --probe-hdlist - try to find and use hdlist file.\n"
-msgstr "  --probe-hdlist - 试图查找并使用 hdlist 文件。\n"
+#: ../urpmi.addmedia:58 ../urpmi.update:35 ../urpmq:77
+#, c-format
+msgid "  --prozilla     - use prozilla to retrieve distant files.\n"
+msgstr "  --prizlla      - 用 prozilla 取远程文件。\n"
 
-#: ../urpmi.addmedia:55
+#: ../urpmi.addmedia:59 ../urpmi.update:36
+#, c-format
+msgid "  --aria2        - use aria2 to retrieve distant files.\n"
+msgstr "  --aria2         - 用 aria2 取远程文件。\n"
+
+#: ../urpmi.addmedia:66
+#, c-format
 msgid ""
-"  --no-probe     - do not try to find any synthesis or\n"
-"                   hdlist file.\n"
-msgstr "  --no-probe     - 不试图查找任何综合文件或 hdlist 文件。\n"
+"  --update       - create an update medium, \n"
+"                   or discard non-update media (when used with --distrib)\n"
+msgstr ""
+"  --update       - 创建更新介质，\n"
+"                   或忽略非更新介质(如果和 --distrib 一起使用)\n"
 
-#: ../urpmi.addmedia:57
+#: ../urpmi.addmedia:68
+#, c-format
+msgid ""
+"  --xml-info     - use the specific policy for downloading xml info files\n"
+"                   one of: never, on-demand, update-only, always. cf urpmi."
+"cfg(5)\n"
+msgstr ""
+"  --xml-info     - 使用特殊的策略以下载 xml 信息文件\n"
+"                   以下中的一个: never, on-demand, update-only, always. cf "
+"urpmi.cfg(5)\n"
+
+#: ../urpmi.addmedia:70
+#, c-format
+msgid "  --probe-synthesis - use synthesis file.\n"
+msgstr "  --probe-synthesis - 使用综合文件。\n"
+
+#: ../urpmi.addmedia:71
+#, c-format
+msgid "  --probe-rpms   - use rpm files (instead of synthesis).\n"
+msgstr "  --probe-rpms   - 使用 rpm 文件(而不是综合文件)。\n"
+
+#: ../urpmi.addmedia:72
+#, c-format
+msgid "  --no-probe     - do not try to find any synthesis file.\n"
+msgstr "  --no-probe     - 不试图查找任何综合文件文件。\n"
+
+#: ../urpmi.addmedia:74
+#, c-format
 msgid ""
 "  --distrib      - automatically create all media from an installation\n"
 "                   medium.\n"
 msgstr "  --distrib      - 自动从安装介质创建全部介质。\n"
 
-#: ../urpmi.addmedia:59
+#: ../urpmi.addmedia:76
 #, c-format
-msgid ""
-"  --from         - use specified url for list of mirrors, the default is\n"
-"                   %s\n"
-msgstr "  --from         - 使用指定的 URL 列出镜像，默认为 %s。\n"
+msgid "  --interactive  - with --distrib, ask confirmation for each media\n"
+msgstr "  --interactive  - 对于 --distrib，请求每个介质的确认\n"
 
-#: ../urpmi.addmedia:61
-msgid ""
-"  --virtual      - create virtual media wich are always up-to-date,\n"
-"                   only file:// protocol is allowed.\n"
-msgstr "  --virtual      - 创建常为最新的虚拟介质，只允许 file:// 协议。\n"
+#: ../urpmi.addmedia:77
+#, c-format
+msgid "  --all-media    - with --distrib, add every listed media\n"
+msgstr "  --all-media    - 对于 --distrib，添加列出的每个介质\n"
 
-#: ../urpmi.addmedia:63 ../urpmi.update:40
+#: ../urpmi.addmedia:78
+#, c-format
+msgid "  --virtual      - create virtual media wich are always up-to-date.\n"
+msgstr "  --virtual      - 创建常为最新的虚拟介质。\n"
+
+#: ../urpmi.addmedia:79 ../urpmi.update:44
+#, c-format
 msgid "  --no-md5sum    - disable MD5SUM file checking.\n"
 msgstr "  --no-md5sum    - 禁用 MD5SUM 文件检查。\n"
 
-#: ../urpmi.addmedia:65
+#: ../urpmi.addmedia:80
+#, c-format
 msgid "  --nopubkey     - don't import pubkey of added media\n"
 msgstr "  --nopubkey     - 不导入所添加介质的密钥\n"
 
-#: ../urpmi.addmedia:66
+#: ../urpmi.addmedia:81
+#, c-format
 msgid "  --raw          - add the media in config, but don't update it.\n"
 msgstr "  --raw          - 在配置中添加介质，但不进行更新。\n"
 
-#: ../urpmi.addmedia:67 ../urpmi.removemedia:56 ../urpmi.update:46
-msgid "  -c             - clean headers cache directory.\n"
-msgstr "  -c             - 直接清除软件包头缓存。\n"
-
-#: ../urpmi.addmedia:68 ../urpmi.update:47
-msgid "  -f             - force generation of hdlist files.\n"
-msgstr "  -f             - 强迫生成 hdlist 文件。\n"
-
-#: ../urpmi.addmedia:80
+#: ../urpmi.addmedia:82 ../urpmi.removemedia:43 ../urpmi.update:53
 #, c-format
-msgid "unable to update medium \"%s\"\n"
-msgstr "无法更新介质“%s”\n"
+msgid "  -q             - quiet mode.\n"
+msgstr "  -q             - 安静模式。\n"
 
-#: ../urpmi.addmedia:113
-msgid "Only superuser is allowed to add media"
-msgstr "只允许超级用户添加介质"
+#: ../urpmi.addmedia:83 ../urpmi.removemedia:44 ../urpmi.update:54
+#, c-format
+msgid "  -v             - verbose mode.\n"
+msgstr "  -v             - 详细的提示。\n"
+
+#: ../urpmi.addmedia:96
+#, c-format
+msgid "known xml-info policies are %s"
+msgstr "已知的 xml-info 策略是 %s"
+
+#: ../urpmi.addmedia:107
+#, c-format
+msgid "no argument needed for --distrib --mirrorlist <url>"
+msgstr "没有参数需要于 --distrib --mirrorlist <url>"
+
+#: ../urpmi.addmedia:112
+#, c-format
+msgid "bad <url> (for local directory, the path must be absolute)"
+msgstr "无效的 <url> (如果是本地目录，必须是绝对路径)"
 
 #: ../urpmi.addmedia:116
 #, c-format
-msgid "Will create config file [%s]"
-msgstr "将创建配置文件[%s]"
+msgid "Only superuser is allowed to add media"
+msgstr "只允许超级用户添加介质"
 
-#: ../urpmi.addmedia:117
+#: ../urpmi.addmedia:119
+#, c-format
+msgid "creating config file [%s]"
+msgstr "创建配置文件[%s]"
+
+#: ../urpmi.addmedia:120
 #, c-format
 msgid "Can't create config file [%s]"
 msgstr "无法创建配置文件[%s]"
 
-#: ../urpmi.addmedia:124
-msgid "no need to give <relative path of hdlist> with --distrib"
-msgstr "使用 --distrib 不需要提供 <hdlist 的相对路径>"
-
-#: ../urpmi.addmedia:145
-msgid "<relative path of hdlist> missing\n"
-msgstr "<hdlist 相对路径>找不到\n"
-
-#: ../urpmi.addmedia:147
-msgid "`with' missing for network media\n"
-msgstr "“with”找不到网络介质\n"
-
-#: ../urpmi.addmedia:169
+#: ../urpmi.addmedia:128
 #, c-format
-msgid "unable to create medium \"%s\"\n"
-msgstr "无法创建介质“%s”\n"
+msgid "no need to give <relative path of synthesis> with --distrib"
+msgstr "使用 --distrib 不需要提供 <综合文件的相对路径>"
 
-#: ../urpmi.recover:28
+#: ../urpmi.addmedia:136
 #, c-format
 msgid ""
+"\n"
+"Do you want to add media '%s'?"
+msgstr ""
+"\n"
+"您是否想要添加介质“%s”?"
+
+#: ../urpmi.addmedia:155 ../urpmi.addmedia:179
+#, c-format
+msgid "unable to add medium"
+msgstr "无法添加介质"
+
+#: ../urpmi.addmedia:163
+#, c-format
+msgid "<relative path of synthesis> missing\n"
+msgstr "<综合文件的相对路径>找不到\n"
+
+#: ../urpmi.addmedia:166
+#, c-format
+msgid "Can't use %s with remote medium"
+msgstr "远程介质无法使用 %s"
+
+#: ../urpmi.recover:28
+#, fuzzy, c-format
+msgid ""
 "urpmi.recover version %s\n"
-"Copyright (C) 2006 Mandriva.\n"
+"Copyright (C) 2006-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
 "usage:\n"
 msgstr ""
-"urpmi.recover 版本 %s\n"
-"版权 (C) 2006 Mandriva。\n"
+"urpmq 版本 %s\n"
+"版权 (C) 2000-2006 Mandriva。\n"
 "这是自由软件，可以依照 GNU GPL 重新发布。\n"
 "\n"
 "用法:\n"
 
 #: ../urpmi.recover:34
+#, c-format
 msgid "  --checkpoint   - set repackaging start now\n"
 msgstr "  --checkpoint   - 设定重新打包立即开始\n"
 
 #: ../urpmi.recover:35
+#, fuzzy, c-format
 msgid "  --noclean      - don't clean repackage directory on checkpoint\n"
-msgstr "  --noclean      - 不在检查点上清除重新打包目录\n"
+msgstr "  --noclean      - 不从缓存中清除 rpm。\n"
 
-#: ../urpmi.recover:36
+#: ../urpmi.recover:37
+#, c-format
 msgid ""
 "  --list         - list transactions since provided date/duration argument\n"
 msgstr "  --list         - 列出自所提供日期/时长参数之后的交易\n"
 
-#: ../urpmi.recover:37
-msgid "  --list-all     - list all transactions in rpmdb (long)\n"
-msgstr "  --list-all     - 列出 rpmdb 中的全部交易(较长)\n"
-
 #: ../urpmi.recover:38
+#, fuzzy, c-format
+msgid "  --list-all     - list all transactions in rpmdb (long)\n"
+msgstr "  --list-url     - 列出可用的介质及其 URL。\n"
+
+#: ../urpmi.recover:39
+#, c-format
 msgid "  --list-safe    - list transactions since checkpoint\n"
 msgstr "  --list-safe    - 列出自检查点之后的交易\n"
 
-#: ../urpmi.recover:39
+#: ../urpmi.recover:40
+#, c-format
 msgid ""
 "  --rollback     - rollback until specified date,\n"
 "                   or rollback the specified number of transactions\n"
 msgstr "  --rollback     - 回滚到指定的日期或回滚指定数量的交易\n"
 
-#: ../urpmi.recover:41
+#: ../urpmi.recover:42
+#, fuzzy, c-format
 msgid "  --disable      - turn off repackaging\n"
-msgstr "  --disable      - 关闭软件包重新打包\n"
+msgstr "  --fiename      - 软件包文件名\n"
 
-#: ../urpmi.recover:56
-#, c-format
+#: ../urpmi.recover:57
+#, fuzzy, c-format
 msgid "Invalid date or duration [%s]\n"
-msgstr "无效的日期或时长 [%s]\n"
+msgstr "目录 %s 的所有者无效"
 
-#: ../urpmi.recover:64
+#: ../urpmi.recover:65
+#, fuzzy, c-format
 msgid "Repackage directory not defined\n"
-msgstr "重新打包目录未定义\n"
+msgstr "未找到软件包 %s。"
 
-#: ../urpmi.recover:67
-#, c-format
+#: ../urpmi.recover:68
+#, fuzzy, c-format
 msgid "Can't write to repackage directory [%s]\n"
-msgstr "无法写入重新打包目录 [%s]\n"
+msgstr "创建目录 %s 失败"
 
-#: ../urpmi.recover:69
-#, c-format
+#: ../urpmi.recover:70
+#, fuzzy, c-format
 msgid "Cleaning up repackage directory [%s]...\n"
-msgstr "正在清理重新打包目录 [%s]...\n"
+msgstr "创建目录 %s 失败"
 
-#: ../urpmi.recover:71
+#: ../urpmi.recover:72
 #, c-format
-msgid "%d files removed\n"
-msgstr "删除了 %d 个文件\n"
+msgid "%d file removed\n"
+msgid_plural "%d files removed\n"
+msgstr[0] "删除了 %d 个文件\n"
 
-#: ../urpmi.recover:81
+#: ../urpmi.recover:82
 #, c-format
 msgid "Spurious command-line arguments [%s]\n"
-msgstr ""
+msgstr "冲突的命令行参数[%s]\n"
 
-#: ../urpmi.recover:83
+#: ../urpmi.recover:84
+#, c-format
 msgid "You can't specify --checkpoint and --rollback at the same time\n"
 msgstr "您不能同时指定 --checkpoint 和 --rollback\n"
 
-#: ../urpmi.recover:85
+#: ../urpmi.recover:86
+#, c-format
 msgid "You can't specify --checkpoint and --list at the same time\n"
 msgstr "您不能同时指定 --checkpoint 和 --list\n"
 
-#: ../urpmi.recover:87
+#: ../urpmi.recover:88
+#, c-format
 msgid "You can't specify --rollback and --list at the same time\n"
 msgstr "您不能同时指定 --rollback 和 --list\n"
 
-#: ../urpmi.recover:89
+#: ../urpmi.recover:90
+#, c-format
 msgid "You can't specify --disable along with another option"
 msgstr "您不能将 --disable 与其它选项一起使用"
 
-#: ../urpmi.recover:114
+#: ../urpmi.recover:115
 #, c-format
 msgid "No transaction found since %s\n"
 msgstr "自 %s 后无交易\n"
 
-#. - check we're running as root
-#: ../urpmi.recover:129
+#: ../urpmi.recover:130
+#, c-format
 msgid "You must be superuser to do this"
 msgstr "您必须是超级用户才能执行此操作"
 
-#. - write rpm config file
-#: ../urpmi.recover:142 ../urpmi.recover:208
-#, c-format
+#: ../urpmi.recover:143 ../urpmi.recover:209
+#, fuzzy, c-format
 msgid "Writing rpm macros file [%s]...\n"
-msgstr "正在写入 rpm 宏文件[%s]...\n"
+msgstr "正在获取 rpm 文件[%s]..."
 
-#: ../urpmi.recover:184
+#: ../urpmi.recover:185
+#, fuzzy, c-format
 msgid "No rollback date found\n"
-msgstr "未找到回滚日期\n"
+msgstr "没有找到更新日志\n"
 
-#: ../urpmi.recover:187
+#: ../urpmi.recover:188
 #, c-format
 msgid "Rollback until %s...\n"
 msgstr "回滚至 %s...\n"
 
-#: ../urpmi.recover:194
+#: ../urpmi.recover:195
+#, fuzzy, c-format
 msgid "Disabling repackaging\n"
-msgstr "禁止重新打包\n"
+msgstr "[重新打包]"
 
-#: ../urpmi.removemedia:52
+#: ../urpmi.removemedia:38
+#, c-format
 msgid ""
-"usage: urpmi.removemedia [-a] <name> ...\n"
+"usage: urpmi.removemedia (-a | <name> ...)\n"
 "where <name> is a medium name to remove.\n"
 msgstr ""
-"用法: urpmi.removemedia [-a] <名称> ...\n"
+"用法: urpmi.removemedia (-a | <名称> ...)\n"
 "其中 <名称> 是要删除的介质名。\n"
 
-#: ../urpmi.removemedia:55
+#: ../urpmi.removemedia:41
+#, c-format
 msgid "  -a             - select all media.\n"
 msgstr "  -a             - 选择所有介质。\n"
 
-#: ../urpmi.removemedia:57
+#: ../urpmi.removemedia:42
+#, c-format
 msgid "  -y             - fuzzy match on media names.\n"
 msgstr "  -y             - 介质名称使用模糊匹配。\n"
 
-#: ../urpmi.removemedia:60
+#: ../urpmi.removemedia:59
 #, c-format
-msgid ""
-"\n"
-"unknown options '%s'\n"
-msgstr ""
-"\n"
-"未知的选项“%s”\n"
-
-#: ../urpmi.removemedia:70
 msgid "Only superuser is allowed to remove media"
 msgstr "只允许超级用户删除介质"
 
-#: ../urpmi.removemedia:81
+#: ../urpmi.removemedia:71
+#, c-format
 msgid "nothing to remove (use urpmi.addmedia to add a media)\n"
 msgstr "没有可删除的(用 urpmi.addmedia 增加介质)\n"
 
-#: ../urpmi.removemedia:83
+#: ../urpmi.removemedia:77
 #, c-format
 msgid ""
 "the entry to remove is missing\n"
@@ -2174,7 +2892,8 @@ msgstr ""
 "找不到要删除的项\n"
 "(%s中的一个)\n"
 
-#: ../urpmi.update:29
+#: ../urpmi.update:30
+#, c-format
 msgid ""
 "usage: urpmi.update [options] <name> ...\n"
 "where <name> is a medium name to update.\n"
@@ -2182,35 +2901,57 @@ msgstr ""
 "用法: urpmi.update [选项] <名称> ...\n"
 "其中 <名称> 是要删除的介质名...\n"
 
-#: ../urpmi.update:39
+#: ../urpmi.update:43
+#, c-format
 msgid "  --update       - update only update media.\n"
 msgstr "  --update       - 只使用更新介质。\n"
 
-#: ../urpmi.update:41
+#: ../urpmi.update:45
+#, c-format
 msgid "  --force-key    - force update of gpg key.\n"
 msgstr "  --force-key    - 强制更新 gpg 密钥。\n"
 
-#: ../urpmi.update:43
+#: ../urpmi.update:46
+#, c-format
 msgid "  --ignore       - don't update, mark the media as ignored.\n"
 msgstr "  --ignore       - 不更新，将介质标为忽略。\n"
 
-#: ../urpmi.update:44
+#: ../urpmi.update:47
+#, c-format
 msgid "  --no-ignore    - don't update, mark the media as enabled.\n"
 msgstr "  --no-ignore    - 不更新，将介质标为启用。\n"
 
-#: ../urpmi.update:45
-msgid "  -a             - select all non-removable media.\n"
+#: ../urpmi.update:49
+#, c-format
+msgid "  --probe-rpms   - do not use synthesis, use rpm files directly\n"
+msgstr "  --probe-rpms   - 不使用综合文件，直接使用 rpm 文件\n"
+
+#: ../urpmi.update:50
+#, fuzzy, c-format
+msgid "  -a             - select all enabled non-removable media.\n"
 msgstr "  -a             - 选择所有不可移动的介质。\n"
 
-#: ../urpmi.update:68
+#: ../urpmi.update:51
+#, c-format
+msgid "  -f             - force updating synthesis\n"
+msgstr "  -f             - 强迫更新综合文件。\n"
+
+#: ../urpmi.update:52
+#, c-format
+msgid "  -ff            - really force updating synthesis\n"
+msgstr "  -ff            - 强迫更新综合文件。\n"
+
+#: ../urpmi.update:69
+#, c-format
 msgid "Only superuser is allowed to update media"
 msgstr "只允许超级用户更新介质"
 
-#: ../urpmi.update:76
+#: ../urpmi.update:86
+#, c-format
 msgid "nothing to update (use urpmi.addmedia to add a media)\n"
 msgstr "没有要升级的软件(用 urpmi.addmedia 添加介质)\n"
 
-#: ../urpmi.update:94
+#: ../urpmi.update:87
 #, c-format
 msgid ""
 "the entry to update is missing\n"
@@ -2226,19 +2967,19 @@ msgstr "“%s”"
 
 #: ../urpmi.update:99
 #, c-format
-msgid "enabling media %s"
-msgstr "启用介质 %s"
-
-#: ../urpmi.update:99
-#, c-format
 msgid "ignoring media %s"
 msgstr "忽略介质 %s"
 
-#: ../urpmq:39
+#: ../urpmi.update:99
 #, c-format
+msgid "enabling media %s"
+msgstr "启用介质 %s"
+
+#: ../urpmq:40
+#, fuzzy, c-format
 msgid ""
 "urpmq version %s\n"
-"Copyright (C) 2000-2006 Mandriva.\n"
+"Copyright (C) 2000-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -2250,145 +2991,343 @@ msgstr ""
 "\n"
 "用法:\n"
 
-#: ../urpmq:47
+#: ../urpmq:48
+#, c-format
 msgid ""
 "  --searchmedia  - use only the given media to search requested (or updated) "
 "packages.\n"
 msgstr "  --searchmedia  - 只使用给定介质来搜索请求(或更新的)的软件包。\n"
 
-#: ../urpmq:52
+#: ../urpmq:53
+#, c-format
+msgid "  --auto-orphans - list orphans\n"
+msgstr "  --auto-orphans - 列出孤立软件包\n"
+
+#: ../urpmq:54
+#, c-format
+msgid ""
+"  --not-available\n"
+"                 - list installed packages not available on any media.\n"
+msgstr ""
+"  --not-available\n"
+"                 - 列出已安装但却不在任何介质中的软件包。\n"
+
+#: ../urpmq:57
+#, c-format
 msgid "  --fuzzy        - impose fuzzy search (same as -y).\n"
 msgstr "  --fuzzy        - 利用模糊查询(和 -y 一样)。\n"
 
-#: ../urpmq:55
+#: ../urpmq:60
+#, c-format
 msgid "  --list         - list available packages.\n"
 msgstr "  --list         - 列出可用的软件包。\n"
 
-#: ../urpmq:56
+#: ../urpmq:61
+#, c-format
 msgid "  --list-media   - list available media.\n"
 msgstr "  --list-media   - 列出可用的介质。\n"
 
-#: ../urpmq:57
+#: ../urpmq:62
+#, c-format
 msgid "  --list-url     - list available media and their url.\n"
 msgstr "  --list-url     - 列出可用的介质及其 URL。\n"
 
-#: ../urpmq:58
+#: ../urpmq:63
+#, c-format
 msgid "  --list-nodes   - list available nodes when using --parallel.\n"
 msgstr "  --list-nodes   - 如果使用了 --parallel，列出所有可用的节点。\n"
 
-#: ../urpmq:59
+#: ../urpmq:64
+#, c-format
 msgid "  --list-aliases - list available parallel aliases.\n"
 msgstr "  --list-aliases - 列出可用的并行处理别名。\n"
 
-#: ../urpmq:60
+#: ../urpmq:65
+#, c-format
 msgid ""
 "  --dump-config  - dump the config in form of urpmi.addmedia argument.\n"
 msgstr "  --dump-config  - 以 urpmi.addmedia 参数的格式导出配置。\n"
 
-#: ../urpmq:61
+#: ../urpmq:66
+#, c-format
 msgid "  --src          - next package is a source package (same as -s).\n"
 msgstr "  --src          - 下一个软件包是源程序包(和 -s 一样)。\n"
 
-#: ../urpmq:62
-msgid ""
-"  --sources      - give all source packages before downloading (root only).\n"
-msgstr "  --sources      - 下载前给出所有的源文件包(root 专用)。\n"
+#: ../urpmq:67
+#, fuzzy, c-format
+msgid "  --sources      - print source URLs of selected packages\n"
+msgstr "  --sourcerpm    - 打印源 rpm 名称。\n"
 
-#: ../urpmq:64
+#: ../urpmq:69
+#, c-format
 msgid "  --ignorearch   - allow to query rpms for unmatched architectures.\n"
 msgstr "  --ignorearch   - 允许查询架构不匹配的 RPM。\n"
 
-#: ../urpmq:66
+#: ../urpmq:73
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree.\n"
 "                   This permit to querying a distro.\n"
 msgstr "  --use-distrib  - 从发行版树中实时配置 urpmi。这将允许查询发行版。\n"
 
-#: ../urpmq:75
+#: ../urpmq:83
+#, c-format
 msgid "  --changelog    - print changelog.\n"
 msgstr "  --changelog    - 打印更新日志。\n"
 
-#: ../urpmq:76
+#: ../urpmq:84
+#, c-format
+msgid "  --conflicts    - print conflicts.\n"
+msgstr "  --conflicts    - 打印 conflict 标签。\n"
+
+#: ../urpmq:85
+#, c-format
+msgid "  --obsoletes    - print obsoletes.\n"
+msgstr "  --obsoletes    - 打印 obsolets 标签。\n"
+
+#: ../urpmq:86
+#, c-format
+msgid "  --provides     - print provides.\n"
+msgstr "  --provides     - 打印 provides。\n"
+
+#: ../urpmq:87
+#, c-format
+msgid "  --requires     - print requires.\n"
+msgstr "  --requires     - 打印 requires 标签。\n"
+
+#: ../urpmq:88
+#, c-format
+msgid "  --suggests     - print suggests.\n"
+msgstr "  --suggests     - 打印 suggests 标签。\n"
+
+#: ../urpmq:89
+#, c-format
+msgid "  --sourcerpm    - print sourcerpm.\n"
+msgstr "  --sourcerpm    - 打印源 rpm 名称。\n"
+
+#: ../urpmq:90
+#, c-format
 msgid "  --summary, -S  - print summary.\n"
 msgstr "  --summary, -S  - 打印摘要。\n"
 
-#: ../urpmq:78
+#: ../urpmq:92
+#, c-format
+msgid ""
+"  --requires-recursive, -d\n"
+"                   - query package dependencies.\n"
+msgstr ""
+"  --requires-recursive, -d\n"
+"                   - 查询软件包依赖关系。\n"
+
+#: ../urpmq:94
+#, c-format
+msgid "  --whatrequires - reverse search to what requires package.\n"
+msgstr "  --whatrequires - 逆序搜索需要软件包的软件包。\n"
+
+#: ../urpmq:95
+#, c-format
+msgid ""
+"  --whatrequires-recursive\n"
+"                   - extended reverse search (includes virtual packages).\n"
+msgstr ""
+"  --whatrequires-recursive\n"
+"                   - 扩展逆序搜索(包括虚拟软件包)。\n"
+
+#: ../urpmq:97
+#, c-format
+msgid ""
+"  --whatprovides, -p\n"
+"                   - search in provides to find package.\n"
+msgstr ""
+"  --whatprovides, -p\n"
+"                   - 允许在 provides 中寻找软件包。\n"
+
+#: ../urpmq:100
+#, c-format
 msgid "  -c             - complete output with package to be removed.\n"
 msgstr "  -c             - 要删除的软件包的完整输出。\n"
 
-#: ../urpmq:79
-msgid "  -d             - extend query to package dependencies.\n"
-msgstr "  -d             - 扩展软件包依赖性查询。\n"
-
-#: ../urpmq:81
+#: ../urpmq:102
+#, c-format
 msgid "  -g             - print groups with name also.\n"
 msgstr "  -g             - 打印组名。\n"
 
-#: ../urpmq:82
+#: ../urpmq:103
+#, c-format
 msgid "  -i             - print useful information in human readable form.\n"
 msgstr "  -i             - 以人类可读的格式打印有用信息。\n"
 
-#: ../urpmq:83
+#: ../urpmq:104
+#, c-format
 msgid "  -l             - list files in package.\n"
 msgstr "  -l             - 列出软件包中的文件。\n"
 
-#: ../urpmq:84
-msgid ""
-"  -P             - do not search in provides to find package (default).\n"
-msgstr "  -P             - 不搜索提供中的软件包(默认)。\n"
+#: ../urpmq:105
+#, c-format
+msgid "  -m             - equivalent to -du\n"
+msgstr "  -m             - 与 -du 等价。\n"
 
-#: ../urpmq:85
-msgid "  -p             - search in provides to find package.\n"
-msgstr "  -p             - 允许在提供的项目中寻找软件包。\n"
-
-#: ../urpmq:86
+#: ../urpmq:106
+#, c-format
 msgid "  -r             - print version and release with name also.\n"
 msgstr "  -r             - 和名称一起打印版本和发行号。\n"
 
-#: ../urpmq:87
-msgid "  -R             - reverse search to what requires package.\n"
-msgstr "  -R             - 逆序搜索需要软件包的软件包。\n"
-
-#: ../urpmq:88
-msgid ""
-"  -RR            - extended reverse search (includes virtual packages).\n"
-msgstr "  -RR            - 扩展逆序搜索(包括虚拟软件包)。\n"
-
-#: ../urpmq:89
+#: ../urpmq:107
+#, c-format
 msgid "  -s             - next package is a source package (same as --src).\n"
 msgstr "  -s             - 下一个软件包是源程序包(和 --src 一样)。\n"
 
-#: ../urpmq:90
+#: ../urpmq:108
+#, c-format
 msgid ""
 "  -u             - remove package if a more recent version is already "
 "installed.\n"
 msgstr "  -u             - 如果更新的版本已经安装，就删除软件包。\n"
 
-#: ../urpmq:92
+#: ../urpmq:109
+#, c-format
 msgid "  -y             - impose fuzzy search (same as --fuzzy).\n"
 msgstr "  -y             - 利用模糊查询(和 --fuzzy 一样)。\n"
 
-#: ../urpmq:93
+#: ../urpmq:110
+#, c-format
 msgid "  -Y             - like -y, but forces to match case-insensitively.\n"
 msgstr "  -Y             - 类似于 -y，但强制不区分大小写匹配。\n"
 
-#: ../urpmq:94
+#: ../urpmq:111
+#, c-format
 msgid "  names or rpm files given on command line are queried.\n"
 msgstr "  需要在命令行给出名称或 rpm 文件。\n"
 
-#: ../urpmq:170
+#: ../urpmq:158
+#, c-format
+msgid "usage: \"urpmq --auto-orphans\" with no argument"
+msgstr "用法:“urpmq --auto-orphans”不带参数"
+
+#: ../urpmq:211
+#, c-format
 msgid "--list-nodes can only be used with --parallel"
 msgstr "--list-nodes 仅能和 --parallel 一起使用"
 
-#: ../urpmq:327
+#: ../urpmq:235
 #, c-format
-msgid "skipping media %s: no hdlist"
-msgstr "跳过介质 %s：无 hdlist"
+msgid "use -l to list files"
+msgstr "使用 -l 可列出文件"
 
-#: ../urpmq:401
-msgid "No filelist found\n"
-msgstr "没有找到文件列表\n"
+#: ../urpmq:420
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for package %s"
+msgstr "由于介质“%s”没有 xml 信息，软件包 %s 只返回部分结果"
 
-#: ../urpmq:413
+#: ../urpmq:421
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for packages %s"
+msgstr "由于介质“%s”没有 xml 信息，软件包 %s 只返回部分结果"
+
+#: ../urpmq:424
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for package %s"
+msgstr "由于介质“%s”没有 xml 信息，软件包 %s 无法返回任何结果"
+
+#: ../urpmq:425
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for packages %s"
+msgstr "由于介质“%s”没有 xml 信息，软件包 %s 无法返回任何结果"
+
+#: ../urpmq:492
+#, c-format
 msgid "No changelog found\n"
 msgstr "没有找到更新日志\n"
+
+#: ../gurpmi.desktop.in.h:1
+msgid "Software Installer"
+msgstr "软件安装程序"
+
+#: ../gurpmi.desktop.in.h:2
+msgid "Graphical front end to install RPM files"
+msgstr "图形化安装 RPM 软件包"
+
+#~ msgid ""
+#~ "Installation failed, some files are missing:\n"
+#~ "%s\n"
+#~ "You may want to update your urpmi database"
+#~ msgstr ""
+#~ "安装失败，缺少下列文件:\n"
+#~ "%s\n"
+#~ "您可能需要更新您的 urpmi 数据库"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"
+
+#, fuzzy
+#~ msgid ""
+#~ "# Here are logs of your DUDF uploads.\n"
+#~ "# Line format is : <date time of generation> <uid>\n"
+#~ "# You can use uids to see the content of your uploads at this url :\n"
+#~ "# %s"
+#~ msgstr ""
+#~ "# 这是您 DUDF 上传的日志。\n"
+#~ "# 每一行的格式都是: <生成的时间> <uid>\n"
+#~ "# 您可以在下面的网站使用 uid 查看您上传的内容:\n"
+#~ "# http://dudf.forge.mandriva.com/"
+
+#~ msgid "curl is missing, cannot upload DUDF file.\n"
+#~ msgstr "缺少 curl，无法上传 DUDF 文件。\n"
+
+#~ msgid "Compressing DUDF data... "
+#~ msgstr "正在压缩 DUDF 数据..."
+
+#~ msgid "NOT OK\n"
+#~ msgstr "不正常\n"
+
+#~ msgid "OK\n"
+#~ msgstr "正常\n"
+
+#~ msgid "Uploading DUDF data:\n"
+#~ msgstr "上传 DUDF 数据:\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "You can see your DUDF report at the following URL :\n"
+#~ "\t"
+#~ msgstr ""
+#~ "\n"
+#~ "您可以在下列 URL 查看您的 DUDF 报告:\n"
+#~ "\t"
+
+#~ msgid ""
+#~ "You can access a log of your uploads in\n"
+#~ "\t"
+#~ msgstr ""
+#~ "您可以在下面的地址查看您的上传日志\n"
+#~ "\t"
+
+#~ msgid ""
+#~ "A problem has been encountered. You can help Mandriva to improve package\n"
+#~ "installation by uploading a DUDF report file.\n"
+#~ "This is a part of the Mancoosi european research project.\n"
+#~ "More at http://www.mancoosi.org\n"
+#~ msgstr ""
+#~ "发生了问题。要帮助 Mandriva 改进软件包安装，您可以上传 DUDF 报告文件。\n"
+#~ "这是 Mancoosi 欧洲研究计划的一部分。\n"
+#~ "更多内容请看 http://www.mancoosi.org\n"
+
+#~ msgid "Do you want to upload a DUDF report to Mandriva?"
+#~ msgstr "您是否想要将 DUDF 报告上传到 Mandriva 吗?"
+
+#~ msgid ""
+#~ "\n"
+#~ "Generating DUDF... "
+#~ msgstr ""
+#~ "\n"
+#~ "正在生成 DUDF..."
+
+#~ msgid "Cannot write DUDF file.\n"
+#~ msgstr "无法写入 DUDF 文件。\n"
+
+#~ msgid ""
+#~ "  --sources      - give all source packages before downloading (root "
+#~ "only).\n"
+#~ msgstr "  --sources      - 下载前给出所有的源文件包(root 专用)。\n"

@@ -6,35 +6,37 @@
 # Copyright (c) 1999 Mandriva
 # Taisuke Yamada <tai@imasy.or.jp>, 1999.
 # UTUMI Hirosi <utuhiro@mx12.freecom.ne.jp>, 2003
-# BANDO Yukiko <ybando@k6.dion.ne.jp>, 2004, 2005, 2006.
-#
-# ｙ
+# Yukiko Bando <ybando@k6.dion.ne.jp>, 2004-2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: urpmi\n"
+"Project-Id-Version: urpmi-ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-01 16:35+0800\n"
-"PO-Revision-Date: 2006-03-17 23:00+0900\n"
-"Last-Translator: BANDO Yukiko <ybando@k6.dion.ne.jp>\n"
-"Language-Team: Japanese\n"
+"POT-Creation-Date: 2012-06-08 19:19+0200\n"
+"PO-Revision-Date: 2009-03-22 20:56+0900\n"
+"Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
+"Language-Team: Japanese <cooker-i18n@mandrivalinux.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../gurpmi:30 ../gurpmi2:56
+#: ../gurpmi:32
+#, c-format
 msgid "RPM installation"
-msgstr "RPMのインストール"
+msgstr "RPM のインストール"
 
-#: ../gurpmi:43
+#: ../gurpmi:46
 #, c-format
 msgid "Error: unable to find file %s, will cancel operation"
 msgstr "エラー: ファイル %s が見つかりません。操作をキャンセルします。"
 
-#: ../gurpmi:44 ../gurpmi2:127 ../gurpmi2:150
+#: ../gurpmi:47 ../gurpmi2:196 ../gurpmi2:221
+#, c-format
 msgid "_Ok"
 msgstr "_OK"
 
-#: ../gurpmi:64
+#: ../gurpmi:67
 #, c-format
 msgid ""
 "You have selected a source package:\n"
@@ -46,7 +48,7 @@ msgid ""
 "\n"
 "What would you like to do?"
 msgstr ""
-"ソースパッケージを選択されました:\n"
+"ソースパッケージを選択しました:\n"
 "\n"
 "%s\n"
 "\n"
@@ -55,7 +57,7 @@ msgstr ""
 "\n"
 "どうしますか？"
 
-#: ../gurpmi:72 ../gurpmi:83
+#: ../gurpmi:75 ../gurpmi:86
 #, c-format
 msgid ""
 "You are about to install the following software packages on your computer:\n"
@@ -64,13 +66,13 @@ msgid ""
 "\n"
 "Proceed?"
 msgstr ""
-"これから次のパッケージをシステムにインストールします:\n"
+"以下のパッケージをシステムにインストールしようとしています:\n"
 "\n"
 "%s\n"
 "\n"
-"続行しますか？"
+"続けますか？"
 
-#: ../gurpmi:78
+#: ../gurpmi:81
 #, c-format
 msgid ""
 "You are about to install the following software package on your computer:\n"
@@ -79,47 +81,161 @@ msgid ""
 "\n"
 "You may prefer to just save it. What is your choice?"
 msgstr ""
-"これから次のパッケージをインストールします:\n"
+"以下のパッケージをシステムにインストールしようとしています:\n"
 "\n"
 "%s\n"
 "\n"
 "インストールせずに保存することもできます。どうしますか？"
 
-#. - buttons
-#: ../gurpmi:96
+#: ../gurpmi:99
+#, c-format
 msgid "_Install"
 msgstr "インストール(_I)"
 
-#: ../gurpmi:97
+#: ../gurpmi:100
+#, c-format
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../gurpmi:98 ../gurpmi2:127
+#: ../gurpmi:101 ../gurpmi2:196
+#, c-format
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../gurpmi:106
+#: ../gurpmi:109
+#, c-format
 msgid "Choose location to save file"
 msgstr "ファイルを保存する場所を選んでください"
 
-#: ../gurpmi.pm:76
+#: ../gurpmi.pm:39 ../urpmi:66
 #, c-format
-msgid "Unknown option %s"
-msgstr "不明なオプション %s"
+msgid ""
+"urpmi version %s\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"This is free software and may be redistributed under the terms of the GNU "
+"GPL.\n"
+"\n"
+"usage:\n"
+msgstr ""
+"urpmi version %s\n"
+"Copyright (C) 1999-2010  Mandriva.\n"
+"これはフリーソフトウェアであり、GNU GPL の条件のもとで再配布できます。\n"
+"\n"
+"使い方:\n"
 
-#: ../gurpmi.pm:86
+#: ../gurpmi.pm:45
+#, c-format
+msgid "Options:"
+msgstr "オプション:"
+
+#: ../gurpmi.pm:46 ../urpme:46 ../urpmf:35 ../urpmi:71 ../urpmi.addmedia:55
+#: ../urpmi.recover:33 ../urpmi.removemedia:40 ../urpmi.update:32 ../urpmq:45
+#, c-format
+msgid "  --help         - print this help message.\n"
+msgstr "  --help         - このヘルプを表示\n"
+
+#: ../gurpmi.pm:47 ../urpmi:78
+#, c-format
+msgid ""
+"  --auto         - non-interactive mode, assume default answers to "
+"questions.\n"
+msgstr "  --auto\t  - 非対話モード、質問に対する答えはデフォルトとみなす\n"
+
+#: ../gurpmi.pm:48 ../urpmi:79 ../urpmq:52
+#, c-format
+msgid ""
+"  --auto-select  - automatically select packages to upgrade the system.\n"
+msgstr "  --auto-select  - 自動的にパッケージを選択してシステムを更新\n"
+
+#: ../gurpmi.pm:49 ../urpme:50 ../urpmi:102 ../urpmq:68
+#, c-format
+msgid ""
+"  --force        - force invocation even if some packages do not exist.\n"
+msgstr "  --force        - 足りないパッケージがあっても強制的に実行する\n"
+
+#: ../gurpmi.pm:50 ../urpmi:133
+#, c-format
+msgid ""
+"  --verify-rpm   - verify rpm signature before installation\n"
+"                   (--no-verify-rpm disables it, default is enabled).\n"
+msgstr ""
+"  --verify-rpm   - インストールする前に RPM の署名を確認する\n"
+"                   (デフォルトで有効。--no-verify-rpm で無効)\n"
+
+#: ../gurpmi.pm:52 ../urpmf:41 ../urpmi:72 ../urpmq:47
+#, c-format
+msgid "  --media        - use only the given media, separated by comma.\n"
+msgstr "  --media        - 指定したメディアのみを使う (コンマで区切る)\n"
+
+#: ../gurpmi.pm:53 ../urpmi:150
+#, c-format
+msgid "  -p             - allow search in provides to find package.\n"
+msgstr "  -p             - provide (提供) タグも検索対象に含める\n"
+
+#: ../gurpmi.pm:54 ../urpmi:151
+#, c-format
+msgid "  -P             - do not search in provides to find package.\n"
+msgstr "  -P             - provide (提供) タグは検索の対象にしない\n"
+
+#: ../gurpmi.pm:55 ../urpmi:109 ../urpmq:71
+#, c-format
+msgid "  --root         - use another root for rpm installation.\n"
+msgstr "  --root         - RPM のインストールに他のルートを使う\n"
+
+#: ../gurpmi.pm:56 ../urpmi:135
+#, c-format
+msgid ""
+"  --test         - only verify if the installation can be achieved "
+"correctly.\n"
+msgstr "  --test         - 正しくインストールされるかどうかテストする\n"
+
+#: ../gurpmi.pm:57 ../urpmi:75
+#, c-format
+msgid ""
+"  --searchmedia  - use only the given media to search requested packages.\n"
+msgstr ""
+"  --searchmedia   - 指定したメディアのみを要求したパッケージの検索に使う\n"
+
+#: ../gurpmi.pm:100
+#, c-format
 msgid "No packages specified"
 msgstr "パッケージが指定されていません"
 
-#: ../gurpmi2:37
+#: ../gurpmi2:54
+#, c-format
 msgid "Please wait..."
 msgstr "お待ちください..."
 
-#: ../gurpmi2:46
+#: ../gurpmi2:63
+#, c-format
 msgid "Must be root"
-msgstr "root権限が必要です"
+msgstr "root 権限が必要です"
 
-#: ../gurpmi2:80
+#: ../gurpmi2:70
+#, c-format
+msgid "Distribution Upgrade"
+msgstr "ディストリビューションのアップグレード"
+
+#: ../gurpmi2:70
+#, c-format
+msgid "Packages installation"
+msgstr "パッケージのインストール"
+
+#: ../gurpmi2:97
+#, c-format
+msgid "Preparing packages installation..."
+msgstr "パッケージのインストールを準備..."
+
+#: ../gurpmi2:112 ../urpmi:509
+#, c-format
+msgid ""
+"Some requested packages cannot be installed:\n"
+"%s"
+msgstr ""
+"インストールできないパッケージがあります:\n"
+"%s"
+
+#: ../gurpmi2:120
 #, c-format
 msgid ""
 "Some requested packages cannot be installed:\n"
@@ -130,27 +246,42 @@ msgstr ""
 "%s\n"
 "このままインストールを続けますか？"
 
-#: ../gurpmi2:123
+#: ../gurpmi2:155
+#, c-format
+msgid "Warning"
+msgstr "警告"
+
+#: ../gurpmi2:155
+#, c-format
+msgid "Ok"
+msgstr "OK"
+
+#: ../gurpmi2:192
+#, c-format
 msgid " (to upgrade)"
 msgstr " (アップグレードするため)"
 
-#: ../gurpmi2:124
+#: ../gurpmi2:193
+#, c-format
 msgid " (to install)"
 msgstr " (インストールするため)"
 
-#: ../gurpmi2:127
+#: ../gurpmi2:196
+#, c-format
 msgid "Package choice"
 msgstr "パッケージの選択"
 
-#: ../gurpmi2:128 ../urpmi:414
+#: ../gurpmi2:197
+#, c-format
 msgid "One of the following packages is needed:"
-msgstr "次のパッケージのいずれかが必要です:"
+msgstr "以下のパッケージのいずれかが必要です:"
 
-#: ../gurpmi2:151
+#: ../gurpmi2:222
+#, c-format
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: ../gurpmi2:171
+#: ../gurpmi2:257
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
@@ -161,749 +292,483 @@ msgstr ""
 "%s\n"
 "このままインストールを続けますか？"
 
-#: ../gurpmi2:185
+#: ../gurpmi2:276 ../urpmi:609
 #, c-format
 msgid ""
-"To satisfy dependencies, the following %d packages are going to be "
-"installed:\n"
-"%s\n"
-msgstr ""
-"依存を満たすために以下の %d 個のパッケージをインストールします:\n"
-"%s\n"
+"To satisfy dependencies, the following package is going to be installed:"
+msgstr "依存を満たすために以下のパッケージをインストールします:"
 
-#: ../gurpmi2:192
-msgid "Package installation..."
-msgstr "パッケージをインストール.."
+#: ../gurpmi2:277 ../urpmi:610
+#, c-format
+msgid ""
+"To satisfy dependencies, the following packages are going to be installed:"
+msgstr "依存を満たすために以下のパッケージをインストールします:"
 
-#: ../gurpmi2:194 ../urpmi:569
+#: ../gurpmi2:279
+#, c-format
+msgid "(%d package, %d MB)"
+msgid_plural "(%d packages, %d MB)"
+msgstr[0] "(%d 個のパッケージ, %d MB)"
+
+#: ../gurpmi2:287 ../urpm/main_loop.pm:304
+#, c-format
 msgid "unable to get source packages, aborting"
 msgstr "ソースパッケージを取得できませんでした。中止します。"
 
-#: ../gurpmi2:207 ../urpmi:579
+#: ../gurpmi2:319 ../urpm/install.pm:81
 #, c-format
-msgid "Please insert the medium named \"%s\" on device [%s]"
-msgstr "メディア %s を デバイス %s に挿入して下さい"
+msgid "Preparing..."
+msgstr "準備中..."
 
-#: ../gurpmi2:236
+#: ../gurpmi2:325
+#, c-format
+msgid "Installing package `%s' (%s/%s)..."
+msgstr "パッケージ %s (%s/%s) をインストール..."
+
+#: ../gurpmi2:343 ../urpmi:637
+#, c-format
+msgid "Please insert the medium named \"%s\""
+msgstr "%s という名前のメディアを挿入してください"
+
+#: ../gurpmi2:357
 #, c-format
 msgid "Downloading package `%s'..."
-msgstr "パッケージ %s をダウンロード.."
+msgstr "パッケージ %s をダウンロード..."
 
-#: ../gurpmi2:251
+#: ../gurpmi2:369 ../urpm.pm:338 ../urpm/download.pm:831
+#: ../urpm/get_pkgs.pm:262 ../urpm/media.pm:981 ../urpm/media.pm:1493
+#: ../urpm/media.pm:1644
 #, c-format
-msgid ""
-"The following packages have bad signatures:\n"
-"%s\n"
-"\n"
-"Do you want to continue installation ?"
-msgstr ""
-"以下のパッケージの署名は間違っています:\n"
-"%s\n"
-"\n"
-"インストールを続けますか？"
+msgid "...retrieving failed: %s"
+msgstr "...取得に失敗: %s"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:258 ../gurpmi2:314 ../urpmi:651 ../urpmi:782
+#: ../gurpmi2:385
 #, c-format
+msgid "_Done"
+msgstr "完了(_D)"
+
+#: ../gurpmi2:402 ../urpm/main_loop.pm:69
+#, fuzzy, c-format
 msgid ""
 "Installation failed, some files are missing:\n"
-"%s\n"
-"You may want to update your urpmi database"
+"%s"
 msgstr ""
-"インストールに失敗。次のファイルがありません:\n"
-"%s\n"
-"urpmiデータベースを更新してください"
+"インストール失敗。不正な RPM です:\n"
+"%s"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:265 ../urpme:128 ../urpmi:698
+#: ../gurpmi2:405
+#, fuzzy, c-format
+msgid "You may want to update your urpmi database."
+msgstr ""
+"インストールに失敗。以下のファイルがありません:\n"
+"%s\n"
+"urpmi データベースを更新してください。"
+
+#: ../gurpmi2:409 ../urpm/main_loop.pm:261 ../urpm/main_loop.pm:421
+#, c-format
+msgid "Installation failed:"
+msgstr "インストール失敗:"
+
+#: ../gurpmi2:414
+#, c-format
+msgid "The package(s) are already installed"
+msgstr "パッケージは既にインストールされています"
+
+#: ../gurpmi2:416
+#, c-format
+msgid "Installation finished"
+msgstr "インストールが完了しました"
+
+#: ../gurpmi2:417 ../urpme:169
 #, c-format
 msgid "removing %s"
 msgstr "%s を削除"
 
-#: ../gurpmi2:272 ../urpm.pm:2916
-msgid "Preparing..."
-msgstr "準備中.."
-
-#: ../gurpmi2:274
+#: ../gurpmi2:428 ../urpmi:695
 #, c-format
-msgid "Installing package `%s' (%s/%s)..."
-msgstr "パッケージ %s (%s/%s)をインストール.."
+msgid "restarting urpmi"
+msgstr "urpmi を再スタートします"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:300 ../urpmi:663 ../urpmi:721 ../urpmi:741 ../urpmi:759
-msgid "Installation failed"
-msgstr "インストールに失敗"
-
-#: ../gurpmi2:309
-msgid "_Done"
-msgstr "完了(_D)"
-
-#: ../gurpmi2:317 ../urpmi:799
-msgid "The package(s) are already installed"
-msgstr "パッケージは既にインストールされています"
-
-#: ../gurpmi2:319
-msgid "Installation finished"
-msgstr "インストールが完了しました"
-
-#: ../rpm-find-leaves:14
+#: ../rpm-find-leaves:15
 #, c-format
 msgid ""
 "usage: %s [options]\n"
 "where [options] are from\n"
 msgstr ""
 "使い方: %s [オプション]\n"
-"[オプション]は以下を選択\n"
+"[オプション] には以下を選択\n"
 
-#: ../rpm-find-leaves:16
+#: ../rpm-find-leaves:17
+#, c-format
 msgid "   -h|--help      - print this help message.\n"
 msgstr "   -h|--help      - このヘルプを表示\n"
 
-#: ../rpm-find-leaves:17
+#: ../rpm-find-leaves:18
+#, c-format
 msgid "   --root <path>  - use the given root instead of /\n"
 msgstr "   --root <パス>  - / の代わりに指定したルートディレクトリを使う\n"
 
-#: ../rpm-find-leaves:18
+#: ../rpm-find-leaves:19
+#, c-format
 msgid "   -g [group]     - restrict results to specified group.\n"
 msgstr "   -g [グループ名]     - 指定したグループの検索結果だけを表示\n"
 
-#: ../rpm-find-leaves:19
+#: ../rpm-find-leaves:20
 #, c-format
 msgid "                    defaults to %s.\n"
 msgstr "                    デフォルトは %s\n"
 
-#. - need to be root if binary rpms are to be installed
-#: ../rurpmi:11 ../urpmi:242
+#: ../rpm-find-leaves:21
+#, c-format
+msgid "   -f             - output rpm full name (NVRA)\n"
+msgstr "  -f             - RPM の完全な名前を表示 (NVRA)\n"
+
+#: ../rurpmi:11 ../urpmi:269
+#, c-format
 msgid "Only superuser is allowed to install packages"
 msgstr "パッケージのインストールはスーパーユーザにしかできません"
 
 #: ../rurpmi:18
+#, c-format
 msgid "Running urpmi in restricted mode..."
-msgstr "urpmiを制限モードで実行中.."
+msgstr "urpmi を制限モードで実行中..."
 
-#: ../urpm.pm:72
+#: ../urpm.pm:23
 #, c-format
-msgid "unknown protocol defined for %s"
-msgstr "%s に不明なプロトコルが定義されています"
-
-#: ../urpm.pm:101
-#, c-format
-msgid "%s is not available, falling back on %s"
+msgid "While some packages may have been installed, there were failures.\n"
 msgstr ""
 
-#: ../urpm.pm:109
+#: ../urpm.pm:110
 #, c-format
-msgid "no webfetch found, supported webfetch are: %s\n"
-msgstr "webfetchが見つかりません。利用可能なwebfetch: %s\n"
+msgid "fail to create directory %s"
+msgstr "ディレクトリ %s を作成できません"
 
-#: ../urpm.pm:125
+#: ../urpm.pm:111
 #, c-format
-msgid "unable to handle protocol: %s"
-msgstr "プロトコルを処理できません: %s"
+msgid "invalid owner for directory %s"
+msgstr "ディレクトリ %s の所有者が無効です"
 
-#: ../urpm.pm:222
+#: ../urpm.pm:135
 #, c-format
-msgid "medium \"%s\" trying to use an already used hdlist, medium ignored"
-msgstr ""
-"メディア %s はすでに使われたhdlistを使おうとしています。このメディアを無視し"
-"ます"
+msgid "Can not download packages into %s"
+msgstr "パッケージを %s にダウンロードできません"
 
-#: ../urpm.pm:223
+#: ../urpm.pm:150
 #, c-format
-msgid "medium \"%s\" trying to use an already used list, medium ignored"
-msgstr ""
-"メディア %s はすでに使われたリストを使おうとしています。このメディアを無視し"
-"ます"
+msgid "Environment directory %s does not exist"
+msgstr "環境ディレクトリ %s が存在しません"
 
-#: ../urpm.pm:236 ../urpm.pm:1313 ../urpm.pm:1323
+#: ../urpm.pm:151 ../urpmf:248 ../urpmq:167
 #, c-format
-msgid "unable to access hdlist file of \"%s\", medium ignored"
-msgstr "%s のhdlistファイルにアクセスできません。メディアを無視します"
+msgid "using specific environment on %s\n"
+msgstr "%s に特定の環境を使用\n"
 
-#. list file exists but isn't readable
-#. report error only if no result found, list files are only readable by root
-#: ../urpm.pm:239 ../urpm.pm:2521
+#: ../urpm.pm:313
 #, c-format
-msgid "unable to access list file of \"%s\", medium ignored"
-msgstr "%s のリストファイルにアクセスできません。メディアを無視します"
+msgid "unable to open rpmdb"
+msgstr "rpmdb を開けません"
 
-#: ../urpm.pm:267
+#: ../urpm.pm:327
 #, c-format
-msgid "trying to override existing medium \"%s\", skipping"
-msgstr "既存のメディア %s を上書きしようとしています。スキップします。"
-
-#: ../urpm.pm:278
-#, c-format
-msgid ""
-"virtual medium \"%s\" should not have defined hdlist or list file, medium "
-"ignored"
-msgstr ""
-"仮想メディア %s にhdlistまたはリストファイルが指定されています。メディアを無"
-"視します"
-
-#: ../urpm.pm:283
-#, c-format
-msgid "virtual medium \"%s\" should have a clear url, medium ignored"
-msgstr "仮想メディア %s に正しいURLが指定されていません。メディアを無視します"
-
-#: ../urpm.pm:292
-#, c-format
-msgid "unable to find hdlist file for \"%s\", medium ignored"
-msgstr "%s のhdlistファイルが見つかりません。メディアを無視します"
-
-#: ../urpm.pm:299
-#, c-format
-msgid "unable to find list file for \"%s\", medium ignored"
-msgstr "%s のリストファイルが見つかりません。メディアを無視します"
-
-#: ../urpm.pm:323
-#, c-format
-msgid "inconsistent list file for \"%s\", medium ignored"
-msgstr "%s のリストファイルが矛盾しています。メディアを無視します"
+msgid "invalid rpm file name [%s]"
+msgstr "RPM ファイル名 [%s] が無効です"
 
 #: ../urpm.pm:333
 #, c-format
-msgid "unable to inspect list file for \"%s\", medium ignored"
-msgstr "%s のリストファイルを調査できません。メディアを無視します"
-
-#. - return value is suitable for an hash.
-#: ../urpm.pm:373
-#, c-format
-msgid "too many mount points for removable medium \"%s\""
-msgstr "リムーバブルメディア %s にはマウントポイントが多過ぎます"
-
-#: ../urpm.pm:374
-#, c-format
-msgid "taking removable device as \"%s\""
-msgstr "リムーバブルデバイスを %s と認識します"
-
-#: ../urpm.pm:377
-#, c-format
-msgid "Medium \"%s\" is an ISO image, will be mounted on-the-fly"
-msgstr "メディア %s はISOイメージです。オンザフライでマウントされます。"
-
-#: ../urpm.pm:380
-#, c-format
-msgid "using different removable device [%s] for \"%s\""
-msgstr "%2$s に他のリムーバブルデバイス[%1$s]を使います"
-
-#: ../urpm.pm:385 ../urpm.pm:388
-#, c-format
-msgid "unable to retrieve pathname for removable medium \"%s\""
-msgstr "リムーバブルメディア %s のパスを読み出せません"
-
-#: ../urpm.pm:414
-#, c-format
-msgid "unable to write config file [%s]"
-msgstr "設定ファイル[%s]を作成できません"
-
-#: ../urpm.pm:424
-#, c-format
-msgid "wrote config file [%s]"
-msgstr "設定ファイル[%s]を作成"
-
-#: ../urpm.pm:452
-msgid "Can't use parallel mode with use-distrib mode"
-msgstr "パラレルモードは[--use-distrib]と一緒には使えません"
-
-#: ../urpm.pm:462
-#, c-format
-msgid "unable to parse \"%s\" in file [%s]"
-msgstr "ファイル[%2$s]の %1$s を分析できません"
-
-#: ../urpm.pm:474
-#, c-format
-msgid "examining parallel handler in file [%s]"
-msgstr "ファイル[%s]のパラレルハンドラを調査中"
-
-#: ../urpm.pm:485
-#, c-format
-msgid "found parallel handler for nodes: %s"
-msgstr "ノードのパラレルハンドラを検出しました: %s"
-
-#: ../urpm.pm:489
-#, c-format
-msgid "using associated media for parallel mode: %s"
-msgstr "パラレルモードに担当メディアを使用: %s"
-
-#: ../urpm.pm:493
-#, c-format
-msgid "unable to use parallel option \"%s\""
-msgstr "パラレルオプション %s は使用できません"
-
-#: ../urpm.pm:501
-#, c-format
-msgid "there doesn't seem to be devices in the chroot in \"%s\""
-msgstr "%s のchrootにデバイスがないようです"
-
-#: ../urpm.pm:507
-msgid ""
-"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
-"update or --parallel"
-msgstr ""
-"[--synthesis]は[--media, --excludemedia, --sortmedia, --update, --parallel]オ"
-"プションと一緒には使えません"
-
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - as previously done, just read synthesis file here, this is enough, but only
-#. - if synthesis exists, else it needs to be recomputed.
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - read default synthesis (we have to make sure nothing get out of depslist).
-#: ../urpm.pm:571 ../urpm.pm:597 ../urpm.pm:1085 ../urpm.pm:1096
-#: ../urpm.pm:1168 ../urpm.pm:1185 ../urpm.pm:1240 ../urpm.pm:1296
-#: ../urpm.pm:1506 ../urpm.pm:1626 ../urpm.pm:1743 ../urpm.pm:1749
-#: ../urpm.pm:1852 ../urpm.pm:1938 ../urpm.pm:1942
-#, c-format
-msgid "examining synthesis file [%s]"
-msgstr "synthesisファイル[%s]を調査中"
-
-#: ../urpm.pm:575 ../urpm.pm:590 ../urpm.pm:603 ../urpm.pm:1088
-#: ../urpm.pm:1099 ../urpm.pm:1174 ../urpm.pm:1180 ../urpm.pm:1245
-#: ../urpm.pm:1300 ../urpm.pm:1510 ../urpm.pm:1630 ../urpm.pm:1737
-#: ../urpm.pm:1755 ../urpm.pm:1948
-#, c-format
-msgid "examining hdlist file [%s]"
-msgstr "hdlistファイル[%s]を調査中"
-
-#: ../urpm.pm:585 ../urpm.pm:1092
-#, c-format
-msgid "virtual medium \"%s\" is not local, medium ignored"
-msgstr "仮想メディア %s はローカルではありません。メディアを無視します"
-
-#: ../urpm.pm:615
-#, c-format
-msgid "Search start: %s end: %s"
-msgstr "検索開始: %s 終了: %s"
-
-#. - this is almost a fatal error, ignore it by default?
-#: ../urpm.pm:620 ../urpm.pm:1106 ../urpm.pm:1193 ../urpm.pm:1249
-#: ../urpm.pm:1634
-#, c-format
-msgid "problem reading hdlist or synthesis file of medium \"%s\""
-msgstr "メディア %s のhdlist(またはsynthesis)ファイルの読込中に問題が発生"
-
-#: ../urpm.pm:627 ../urpm.pm:1890
-msgid "performing second pass to compute dependencies\n"
-msgstr "セカンドステージ実行中(依存を計算)\n"
-
-#: ../urpm.pm:643
-#, c-format
-msgid "skipping package %s"
-msgstr "パッケージ %s をスキップ"
-
-#: ../urpm.pm:656
-#, c-format
-msgid "would install instead of upgrade package %s"
-msgstr "パッケージ %s を更新ではなくインストールする"
-
-#. - beware this can be a child process or the main process now...
-#. - open in read/write mode unless testing installation.
-#: ../urpm.pm:667 ../urpm.pm:2329 ../urpm.pm:2390 ../urpm.pm:2579
-#: ../urpm.pm:2982 ../urpm.pm:3109
-msgid "unable to open rpmdb"
-msgstr "rpmdbを開けません"
-
-#: ../urpm.pm:708
-#, c-format
-msgid "medium \"%s\" already exists"
-msgstr "メディア %s は既に存在します"
-
-#: ../urpm.pm:715
-msgid "virtual medium needs to be local"
-msgstr "仮想メディアはローカルでなければいけません"
-
-#: ../urpm.pm:740
-#, c-format
-msgid "added medium %s"
-msgstr "メディア %s を追加"
-
-#: ../urpm.pm:786
-msgid "unable to access first installation medium"
-msgstr "最初のインストールメディアにアクセスできません"
-
-#: ../urpm.pm:790
-msgid "copying hdlists file..."
-msgstr "hdlistファイルをコピー.."
-
-#: ../urpm.pm:792 ../urpm.pm:1209 ../urpm.pm:1266
-msgid "...copying done"
-msgstr "..コピー完了"
-
-#: ../urpm.pm:793 ../urpm.pm:1210 ../urpm.pm:1341 ../urpm.pm:1404
-#: ../urpm.pm:1572 ../urpm.pm:1579
-msgid "...copying failed"
-msgstr "..コピーに失敗"
-
-#: ../urpm.pm:796 ../urpm.pm:821 ../urpm.pm:860
-msgid "unable to access first installation medium (no hdlists file found)"
-msgstr "最初のインストールメディアにアクセスできません(hdlistがありません)"
-
-#: ../urpm.pm:803
-msgid "retrieving hdlists file..."
-msgstr "hdlistファイルを取得.."
-
-#: ../urpm.pm:815 ../urpm.pm:1616 ../urpm.pm:2117 ../urpm.pm:2837
-msgid "...retrieving done"
-msgstr "..取得完了"
-
-#: ../urpm.pm:817 ../urpm.pm:1600 ../urpm.pm:2121 ../urpm.pm:2839
-#, c-format
-msgid "...retrieving failed: %s"
-msgstr "取得に失敗: %s"
-
-#: ../urpm.pm:841
-#, c-format
-msgid "invalid hdlist description \"%s\" in hdlists file"
-msgstr "hdlistファイルの説明 %s は無効です"
-
-#: ../urpm.pm:897
-#, c-format
-msgid "trying to select nonexistent medium \"%s\""
-msgstr "%s というメディアは存在しません"
-
-#. - several elements in found and/or foundi lists.
-#: ../urpm.pm:899
-#, c-format
-msgid "selecting multiple media: %s"
-msgstr "複数のメディアを選択: %s"
-
-#: ../urpm.pm:915
-#, c-format
-msgid "removing medium \"%s\""
-msgstr "メディア %s を削除"
-
-#: ../urpm.pm:966
-#, c-format
-msgid "reconfiguring urpmi for media \"%s\""
-msgstr "メディア %s についてurpmiを再設定"
-
-#: ../urpm.pm:995
-msgid "...reconfiguration failed"
-msgstr "..再設定に失敗"
-
-#: ../urpm.pm:1002
-msgid "reconfiguration done"
-msgstr "再設定完了"
-
-#: ../urpm.pm:1146
-#, c-format
-msgid ""
-"unable to access medium \"%s\",\n"
-"this could happen if you mounted manually the directory when creating the "
-"medium."
-msgstr ""
-"メディア %s にアクセスできません。\n"
-"この現象は、メディアを追加するときに手動でディレクトリをマウントすると起こる"
-"ことがあります。"
-
-#: ../urpm.pm:1197
-#, c-format
-msgid ""
-"virtual medium \"%s\" should have valid source hdlist or synthesis, medium "
-"ignored"
-msgstr ""
-"仮想メディア %s に有効なsource hdlist(またはsynthesis)がありません。メディア"
-"を無視します"
-
-#: ../urpm.pm:1207
-#, c-format
-msgid "copying description file of \"%s\"..."
-msgstr "%s の説明ファイルをコピー.."
-
-#: ../urpm.pm:1262
-#, c-format
-msgid "copying source hdlist (or synthesis) of \"%s\"..."
-msgstr "%s のsource hdlist(またはsynthesis)をコピー.."
-
-#: ../urpm.pm:1276
-#, c-format
-msgid "copy of [%s] failed (file is suspiciously small)"
-msgstr "[%s]のコピーに失敗(ファイルが異常に小さ過ぎます)"
-
-#: ../urpm.pm:1281
-msgid "computing md5sum of copied source hdlist (or synthesis)"
-msgstr "コピーしたsource hdlist(またはsynthesis)のmd5sumを計算"
-
-#: ../urpm.pm:1283
-#, c-format
-msgid "copy of [%s] failed (md5sum mismatch)"
-msgstr "[%s]のコピーに失敗 (md5sum不一致)"
-
-#: ../urpm.pm:1304 ../urpm.pm:1514 ../urpm.pm:1855
-#, c-format
-msgid "problem reading synthesis file of medium \"%s\""
-msgstr "メディア %s のsynthesisファイルの読込中に問題が発生"
-
-#: ../urpm.pm:1362
-#, c-format
-msgid "reading rpm files from [%s]"
-msgstr "[%s]からRPMファイルを読込中"
-
-#: ../urpm.pm:1377
-msgid "no rpms read"
-msgstr "RPMを読めませんでした"
-
-#: ../urpm.pm:1387
-#, c-format
-msgid "unable to read rpm files from [%s]: %s"
-msgstr "[%s]からRPMファイルを読み込めません: %s"
-
-#: ../urpm.pm:1392
-#, c-format
-msgid "no rpm files found from [%s]"
-msgstr "%s にはRPMファイルがありません"
-
-#. - try to probe for possible with_hdlist parameter, unless
-#. - it is already defined (and valid).
-#: ../urpm.pm:1529
-#, c-format
-msgid "retrieving source hdlist (or synthesis) of \"%s\"..."
-msgstr "%s のsource hdlist(またはsynthesis)を取得.."
-
-#: ../urpm.pm:1557
-#, c-format
-msgid "found probed hdlist (or synthesis) as %s"
-msgstr "検出したhdlist(またはsynthesis)を %s と認識しました"
-
-#: ../urpm.pm:1607
-msgid "computing md5sum of retrieved source hdlist (or synthesis)"
-msgstr "取得したhdlist(またはsynthesis)のmd5sumを計算"
-
-#: ../urpm.pm:1609
-msgid "...retrieving failed: md5sum mismatch"
-msgstr "取得に失敗: md5sum不一致"
-
-#: ../urpm.pm:1707
-msgid "retrieval of source hdlist (or synthesis) failed"
-msgstr "source hdlist(またはsynthesis)の取得に失敗"
-
-#: ../urpm.pm:1714
-#, c-format
-msgid "no hdlist file found for medium \"%s\""
-msgstr "メディア %s にはhdlistファイルがありません"
-
-#: ../urpm.pm:1725 ../urpm.pm:1779
-#, c-format
-msgid "file [%s] already used in the same medium \"%s\""
-msgstr "ファイル[%s]は同じメディア %s で既に使われています"
-
-#: ../urpm.pm:1765
-#, c-format
-msgid "unable to parse hdlist file of \"%s\""
-msgstr "%s のhdlistを分析できません"
-
-#: ../urpm.pm:1804
-#, c-format
-msgid "unable to write list file of \"%s\""
-msgstr "%s のリストファイルを作成できません"
-
-#: ../urpm.pm:1812
-#, c-format
-msgid "writing list file for medium \"%s\""
-msgstr "メディア %s のリストファイルを作成"
-
-#: ../urpm.pm:1814
-#, c-format
-msgid "nothing written in list file for \"%s\""
-msgstr "%s のリストファイルには何も書かれていません"
-
-#: ../urpm.pm:1829
-#, c-format
-msgid "examining pubkey file of \"%s\"..."
-msgstr "%s の公開鍵ファイルを調査中..."
-
-#: ../urpm.pm:1836
-#, c-format
-msgid "...imported key %s from pubkey file of \"%s\""
-msgstr "..%2$s の公開鍵ファイルからキー %1$sを取り込みました"
-
-#: ../urpm.pm:1839
-#, c-format
-msgid "unable to import pubkey file of \"%s\""
-msgstr "%s の公開鍵ファイルを取り込めません"
-
-#: ../urpm.pm:1904
-#, c-format
-msgid "reading headers from medium \"%s\""
-msgstr "メディア %s のヘッダを読込中"
-
-#: ../urpm.pm:1909
-#, c-format
-msgid "building hdlist [%s]"
-msgstr "hdlist[%s]を作成"
-
-#. - XXX this happens when building a synthesis for a local media from RPMs... why ?
-#: ../urpm.pm:1924 ../urpm.pm:1960
-#, c-format
-msgid ""
-"Unable to build synthesis file for medium \"%s\". Your hdlist file may be "
-"corrupted."
-msgstr ""
-"メディア %s のsynthesisファイルをビルドできません。hdlistファイルが壊れている"
-"可能性があります。"
-
-#: ../urpm.pm:1928 ../urpm.pm:1964 ../urpmi:370
-#, c-format
-msgid "built hdlist synthesis file for medium \"%s\""
-msgstr "メディア %s のhdlist synthesisファイルを作成しました"
-
-#: ../urpm.pm:1987
-#, c-format
-msgid "found %d headers in cache"
-msgstr "%d 個のヘッダをキャッシュから検出しました"
-
-#: ../urpm.pm:1991
-#, c-format
-msgid "removing %d obsolete headers in cache"
-msgstr "%d 個の古いヘッダをキャッシュから削除"
-
-#: ../urpm.pm:2012
-#, c-format
-msgid "Error generating names file: dependency %d not found"
-msgstr "名前ファイルの生成エラー: 依存 %d が見つかりません"
-
-#: ../urpm.pm:2017
-#, c-format
-msgid "Error generating names file: Can't write to file (%s)"
-msgstr "名前ファイルの生成エラー: ファイルに書き込めません (%s)"
-
-#: ../urpm.pm:2053
-#, c-format
-msgid "mounting %s"
-msgstr "%s をマウント"
-
-#: ../urpm.pm:2077
-#, c-format
-msgid "unmounting %s"
-msgstr "%s をアンマウント"
-
-#: ../urpm.pm:2102
-#, c-format
-msgid "invalid rpm file name [%s]"
-msgstr "RPMファイル名[%s]が無効です"
-
-#: ../urpm.pm:2108
-#, c-format
 msgid "retrieving rpm file [%s] ..."
-msgstr "RPMファイル[%s]を検索.."
+msgstr "RPM ファイル [%s] を取得..."
 
-#: ../urpm.pm:2126
+#: ../urpm.pm:335 ../urpm/get_pkgs.pm:260
+#, c-format
+msgid "...retrieving done"
+msgstr "...取得完了"
+
+#: ../urpm.pm:343
 #, c-format
 msgid "unable to access rpm file [%s]"
-msgstr "RPMファイル[%s]にアクセスできません"
+msgstr "RPM ファイル [%s] にアクセスできません"
 
-#: ../urpm.pm:2131
+#: ../urpm.pm:348
 #, c-format
 msgid "unable to parse spec file %s [%s]"
 msgstr "スペックファイル %s [%s] を分析できません"
 
-#: ../urpm.pm:2141
+#: ../urpm.pm:356
+#, c-format
 msgid "unable to register rpm file"
-msgstr "RPMファイルを登録できません"
+msgstr "RPM ファイルを登録できません"
 
-#: ../urpm.pm:2143
+#: ../urpm.pm:358
 #, c-format
 msgid "Incompatible architecture for rpm [%s]"
-msgstr ""
+msgstr "RPM とアーキテクチャが一致していません [%s]"
 
-#: ../urpm.pm:2147
+#: ../urpm.pm:362
+#, c-format
 msgid "error registering local packages"
 msgstr "ローカルパッケージの登録中にエラーが発生"
 
-#: ../urpm.pm:2257
+#: ../urpm.pm:450
 #, c-format
-msgid "no package named %s"
-msgstr "%s というパッケージはありません"
+msgid "This operation is forbidden while running in restricted mode"
+msgstr "この操作は制限モードでは禁止されています"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm.pm:2259 ../urpme:101
+#: ../urpm/args.pm:151 ../urpm/args.pm:160
 #, c-format
-msgid "The following packages contain %s: %s"
-msgstr "次のパッケージが %s を含んでいます: %s"
+msgid "bad proxy declaration on command line\n"
+msgstr "コマンドラインのプロキシ宣言が間違っています\n"
 
-#: ../urpm.pm:2452 ../urpm.pm:2498 ../urpm.pm:2530
+#: ../urpm/args.pm:306
 #, c-format
-msgid "there are multiple packages with the same rpm filename \"%s\""
-msgstr "%s という名のRPMファイルが複数あります"
+msgid "urpmq: cannot read rpm file \"%s\"\n"
+msgstr "urpmq: RPM ファイル %s を読み込めません\n"
 
-#: ../urpm.pm:2512
+#: ../urpm/args.pm:383
 #, c-format
-msgid "unable to correctly parse [%s] on value \"%s\""
-msgstr "値 %2$s で %1$s を正しく分析できません"
+msgid "unexpected expression %s"
+msgstr "予期しない表現: %s"
 
-#: ../urpm.pm:2522
-msgid "(retry as root?)"
+#: ../urpm/args.pm:384
+#, c-format
+msgid "missing expression before %s"
+msgstr "%s の前に表現がありません"
+
+#: ../urpm/args.pm:390
+#, c-format
+msgid "unexpected expression %s (suggestion: use -a or -o ?)"
+msgstr "予期しない表現 %s (提案: -a または -o を使用)"
+
+#: ../urpm/args.pm:394
+#, c-format
+msgid "no expression to close"
+msgstr "閉じる表現がありません"
+
+#: ../urpm/args.pm:403
+#, c-format
+msgid "by default urpmf awaits a regexp. you should use option \"--literal\""
 msgstr ""
+"urpmf はデフォルトで正規表現を期待します。\"--literal\" を使ってください。"
 
-#: ../urpm.pm:2546
+#: ../urpm/args.pm:477
+#, c-format
+msgid "chroot directory doesn't exist"
+msgstr "chroot ディレクトリが存在しません"
+
+#: ../urpm/args.pm:500
+#, c-format
+msgid "Can't use %s without %s"
+msgstr "%2$s なしで %1$s は使えません"
+
+#: ../urpm/args.pm:503 ../urpm/args.pm:506 ../urpmq:159
+#, c-format
+msgid "Can't use %s with %s"
+msgstr "%s は %s と一緒には使えません"
+
+#: ../urpm/args.pm:514
+#, c-format
+msgid "Too many arguments\n"
+msgstr "引数が多すぎます\n"
+
+#: ../urpm/bug_report.pm:55 ../urpmi:259
+#, c-format
+msgid "Copying failed"
+msgstr "コピーに失敗"
+
+#: ../urpm/cdrom.pm:67
 #, c-format
 msgid ""
-"medium \"%s\" uses an invalid list file:\n"
-"  mirror is probably not up-to-date, trying to use alternate method"
+"You must mount CD-ROM yourself (or install perl-Hal-Cdroms to have it done "
+"automatically)"
 msgstr ""
-"メディア %s のリストファイルが無効です:\n"
-"  恐らくミラーが最新状態に更新されていません。別の方法を試みます"
+"CD-ROM を手動でマウントしてください (perl-Hal-Cdroms をインストールすると自動"
+"的にマウントできます)"
 
-#: ../urpm.pm:2550
+#: ../urpm/cdrom.pm:69
 #, c-format
-msgid "medium \"%s\" does not define any location for rpm files"
-msgstr "メディア %s にはRPMファイルの所在が定義されていません"
+msgid "Udisks daemon (udisks-daemon) is not running or not ready"
+msgstr "Udisks デーモン (udisks-daemon) が起動していないか準備ができていません"
 
-#: ../urpm.pm:2562
+#: ../urpm/cdrom.pm:161 ../urpm/cdrom.pm:166
+#, c-format
+msgid "medium \"%s\" is not available"
+msgstr "メディア %s は利用できません"
+
+#: ../urpm/cdrom.pm:205
+#, c-format
+msgid "unable to read rpm file [%s] from medium \"%s\""
+msgstr "RPM ファイル [%s] をメディア %s から読み込めません"
+
+#: ../urpm/cfg.pm:82
+#, c-format
+msgid "syntax error in config file at line %s"
+msgstr "設定ファイルの %s 行目にシンタックスエラー"
+
+#: ../urpm/cfg.pm:115
+#, c-format
+msgid "unable to read config file [%s]"
+msgstr "設定ファイル [%s] を読めません"
+
+#: ../urpm/cfg.pm:141
+#, c-format
+msgid "medium `%s' is defined twice, aborting"
+msgstr "メディア %s が二度定義されています。中止します。"
+
+#: ../urpm/cfg.pm:254 ../urpm/media.pm:541
+#, c-format
+msgid "unable to write config file [%s]"
+msgstr "設定ファイル [%s] を書き込めません"
+
+#: ../urpm/download.pm:83
+#, c-format
+msgid "%s is not available, falling back on %s"
+msgstr "%s は利用できません。%s にフォールバックします。"
+
+#: ../urpm/download.pm:166
+#, c-format
+msgid "can not read proxy settings (not enough rights to read %s)"
+msgstr "プロキシ設定を読めません (%s を読む権限がありません)"
+
+#: ../urpm/download.pm:191
+#, c-format
+msgid "Please enter your credentials for accessing proxy\n"
+msgstr "プロキシにアクセスするための資格証明を入力してください\n"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "User name:"
+msgstr "ユーザ名:"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "Password:"
+msgstr "パスワード:"
+
+#: ../urpm/download.pm:268
+#, c-format
+msgid "Unknown webfetch `%s' !!!\n"
+msgstr "不明な webfetch `%s' !!!\n"
+
+#: ../urpm/download.pm:276
+#, c-format
+msgid "%s failed: exited with signal %d"
+msgstr "%s 失敗: シグナル %d で終了"
+
+#: ../urpm/download.pm:277
+#, c-format
+msgid "%s failed: exited with %d"
+msgstr "%s 失敗: %d で終了"
+
+#: ../urpm/download.pm:311
+#, c-format
+msgid "copy failed"
+msgstr "コピーに失敗"
+
+#: ../urpm/download.pm:317
+#, c-format
+msgid "wget is missing\n"
+msgstr "wget がありません\n"
+
+#: ../urpm/download.pm:384
+#, c-format
+msgid "curl is missing\n"
+msgstr "curl がありません\n"
+
+#: ../urpm/download.pm:520
+#, fuzzy, c-format
+msgid "curl failed: upload canceled\n"
+msgstr "curl 失敗: ダウンロードをキャンセルしました\n"
+
+#: ../urpm/download.pm:521
+#, c-format
+msgid "curl failed: download canceled\n"
+msgstr "curl 失敗: ダウンロードをキャンセルしました\n"
+
+#: ../urpm/download.pm:556
+#, c-format
+msgid "rsync is missing\n"
+msgstr "rsync がありません\n"
+
+#: ../urpm/download.pm:624
+#, c-format
+msgid "ssh is missing\n"
+msgstr "ssh がありません\n"
+
+#: ../urpm/download.pm:643
+#, c-format
+msgid "prozilla is missing\n"
+msgstr "prozilla がありません\n"
+
+#: ../urpm/download.pm:659
+#, c-format
+msgid "Couldn't execute prozilla\n"
+msgstr "prozilla を実行できませんでした\n"
+
+#: ../urpm/download.pm:669
+#, c-format
+msgid "aria2 is missing\n"
+msgstr "aria2 がありません\n"
+
+#: ../urpm/download.pm:713
+#, c-format
+msgid "Failed to download %s"
+msgstr "%s のダウンロードに失敗しました"
+
+#: ../urpm/download.pm:808
+#, c-format
+msgid "        %s%% of %s completed, ETA = %s, speed = %s"
+msgstr "        %s%% / %s 完了, ETA = %s, 速度 = %s"
+
+#: ../urpm/download.pm:809
+#, c-format
+msgid "        %s%% completed, speed = %s"
+msgstr "        %s%% 完了, 速度 = %s"
+
+#: ../urpm/download.pm:883
+#, c-format
+msgid "retrieving %s"
+msgstr "%s を取得"
+
+#: ../urpm/download.pm:894
+#, c-format
+msgid "retrieved %s"
+msgstr "%s を取得しました"
+
+#: ../urpm/download.pm:958
+#, c-format
+msgid "unknown protocol defined for %s"
+msgstr "%s に不明なプロトコルが定義されています"
+
+#: ../urpm/download.pm:972
+#, c-format
+msgid "no webfetch found, supported webfetch are: %s\n"
+msgstr "webfetch が見つかりません。利用可能な webfetch: %s\n"
+
+#: ../urpm/download.pm:987
+#, c-format
+msgid "unable to handle protocol: %s"
+msgstr "プロトコルを処理できません: %s"
+
+#: ../urpm/get_pkgs.pm:16
+#, c-format
+msgid "cleaning %s and %s"
+msgstr "%s と %s をキャッシュから削除"
+
+#: ../urpm/get_pkgs.pm:128
 #, c-format
 msgid "package %s is not found."
 msgstr "パッケージ %s は見つかりません"
 
-#: ../urpm.pm:2613 ../urpm.pm:2627 ../urpm.pm:2647 ../urpm.pm:2661
-msgid "urpmi database locked"
-msgstr "urpmiのデータベースがロックされています"
-
-#: ../urpm.pm:2713 ../urpm.pm:2718 ../urpm.pm:2744
-#, c-format
-msgid "medium \"%s\" is not selected"
-msgstr "メディア %s は選択されていません"
-
-#. - fallback to use other method for retrieving the file later.
-#: ../urpm.pm:2740
-#, c-format
-msgid "unable to read rpm file [%s] from medium \"%s\""
-msgstr "RPMファイル[%s]をメディア %s から読み込めません"
-
-#. - we have a removable device that is not removable, well...
-#: ../urpm.pm:2748
-#, c-format
-msgid "inconsistent medium \"%s\" marked removable but not really"
-msgstr "メディア %s はリムーバブルだと判断しましたが、不確実です"
-
-#: ../urpm.pm:2760
-#, c-format
-msgid "unable to access medium \"%s\""
-msgstr "メディア %s にアクセスできません"
-
-#: ../urpm.pm:2815
-#, c-format
-msgid "malformed URL: [%s]"
-msgstr "不正な形式のURL: [%s]"
-
-#: ../urpm.pm:2822
+#: ../urpm/get_pkgs.pm:253
 #, c-format
 msgid "retrieving rpm files from medium \"%s\"..."
-msgstr "メディア %s からRPMファイルを検索.."
+msgstr "メディア %s から RPM ファイルを取得..."
 
-#: ../urpm.pm:2921
-msgid "[repackaging]"
-msgstr ""
-
-#: ../urpm.pm:2954
+#: ../urpm/install.pm:87
 #, c-format
-msgid "using process %d for executing transaction"
-msgstr "トランザクションの実行にプロセス %d を使用"
+msgid "[repackaging]"
+msgstr "[repackaging 再パッケージ化]"
 
-#: ../urpm.pm:2987
+#: ../urpm/install.pm:168
 #, c-format
 msgid ""
 "created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
@@ -911,355 +776,982 @@ msgstr ""
 "%s にインストールするためのトランザクションを作成しました\n"
 "(remove=%d, install=%d, upgrade-%d)"
 
-#: ../urpm.pm:2990
+#: ../urpm/install.pm:171
+#, c-format
 msgid "unable to create transaction"
 msgstr "トランザクションを作成できません"
 
-#: ../urpm.pm:2998
-#, c-format
-msgid "removing package %s"
-msgstr "%s を削除"
-
-#: ../urpm.pm:3000
-#, c-format
-msgid "unable to remove package %s"
-msgstr "%s を削除できません"
-
-#: ../urpm.pm:3012
+#: ../urpm/install.pm:196
 #, c-format
 msgid "unable to extract rpm from delta-rpm package %s"
-msgstr "delta-rpmパッケージ %s からrpmを抽出できません"
+msgstr "delta-rpm パッケージ %s から RPM を抽出できません"
 
-#: ../urpm.pm:3018
-#, c-format
-msgid "adding package %s (id=%d, eid=%d, update=%d, file=%s)"
-msgstr "パッケージ %s を追加 (id=%d, eid=%d, update=%d, file=%s)"
-
-#: ../urpm.pm:3021
+#: ../urpm/install.pm:209
 #, c-format
 msgid "unable to install package %s"
 msgstr "%s をインストールできません"
 
-#: ../urpm.pm:3071
+#: ../urpm/install.pm:212
+#, c-format
+msgid "removing bad rpm (%s) from %s"
+msgstr "不正な RPM (%s) を %s から削除"
+
+#: ../urpm/install.pm:213 ../urpm/install.pm:278
+#, c-format
+msgid "removing %s failed: %s"
+msgstr "%s の削除に失敗: %s"
+
+#: ../urpm/install.pm:259
+#, c-format
+msgid "Removing package %s"
+msgstr "%s を削除"
+
+#: ../urpm/install.pm:260
+#, c-format
+msgid "removing package %s"
+msgstr "%s を削除"
+
+#: ../urpm/install.pm:276
+#, c-format
+msgid "removing installed rpms (%s) from %s"
+msgstr "インストールされている RPM (%s) を %s から削除"
+
+#: ../urpm/install.pm:285
 #, c-format
 msgid "More information on package %s"
 msgstr "パッケージ %s の詳細情報"
 
-#: ../urpm.pm:3252 ../urpm.pm:3290
+#: ../urpm/ldap.pm:71
 #, c-format
-msgid "due to missing %s"
-msgstr "%s がないために"
+msgid "Cannot create ldap cache directory"
+msgstr "LDAP キャッシュディレクトリを作成できません"
 
-#: ../urpm.pm:3253 ../urpm.pm:3288
+#: ../urpm/ldap.pm:73
 #, c-format
-msgid "due to unsatisfied %s"
-msgstr "%s が依存を満たしていないために"
+msgid "Cannot write cache file for ldap\n"
+msgstr "LDAP のキャッシュファイルを書き込めません\n"
 
-#: ../urpm.pm:3259
+#: ../urpm/ldap.pm:162
 #, c-format
-msgid "trying to promote %s"
-msgstr "%s をアップグレードするために"
+msgid "No server defined, missing uri or host"
+msgstr "サーバが指定されていないか、URI またはホストがありません"
 
-#: ../urpm.pm:3260
+#: ../urpm/ldap.pm:163
 #, c-format
-msgid "in order to keep %s"
-msgstr "%s を維持するために"
+msgid "No base defined"
+msgstr "ベースが指定されていません"
 
-#: ../urpm.pm:3283
+#: ../urpm/ldap.pm:173 ../urpm/ldap.pm:176
 #, c-format
-msgid "in order to install %s"
-msgstr "%s をインストールするために"
+msgid "Cannot connect to ldap uri:"
+msgstr "LDAP の URI に接続できません:"
 
-#: ../urpm.pm:3294
+#: ../urpm/lock.pm:68
+#, fuzzy, c-format
+msgid "%s database is locked, process %d is already using it"
+msgstr "%s データベースがロックされています (他のプログラムが使用中です)"
+
+#: ../urpm/lock.pm:70
 #, c-format
-msgid "due to conflicts with %s"
-msgstr "%s と衝突するために"
+msgid "%s database is locked (another program is already using it)"
+msgstr "%s データベースがロックされています (他のプログラムが使用中です)"
 
-#: ../urpm.pm:3295
-msgid "unrequested"
-msgstr "要求されていません"
-
-#: ../urpm.pm:3314
+#: ../urpm/lock.pm:84
 #, c-format
-msgid "Invalid signature (%s)"
-msgstr "無効な署名 (%s)"
+msgid "%s database is locked. Waiting..."
+msgstr "%s データベースがロックされています。待機します..."
 
-#: ../urpm.pm:3347
+#: ../urpm/lock.pm:85
 #, c-format
-msgid "Invalid Key ID (%s)"
-msgstr "無効なキーID (%s)"
+msgid "aborting"
+msgstr "中止します"
 
-#: ../urpm.pm:3349
+#: ../urpm/main_loop.pm:45
 #, c-format
-msgid "Missing signature (%s)"
-msgstr "署名がありません (%s)"
+msgid "Retry?"
+msgstr "やり直しますか？"
 
-#: ../urpm.pm:3408
-msgid "examining MD5SUM file"
-msgstr "MD5SUMファイルを検査"
+#: ../urpm/main_loop.pm:72
+#, fuzzy, c-format
+msgid "You may need to update your urpmi database."
+msgstr ""
+"インストールに失敗。以下のファイルがありません:\n"
+"%s\n"
+"urpmi データベースを更新してください。"
 
-#: ../urpm.pm:3418
+#: ../urpm/main_loop.pm:75
+#, c-format
+msgid ""
+"Installation failed, bad rpms:\n"
+"%s"
+msgstr ""
+"インストール失敗。不正な RPM です:\n"
+"%s"
+
+#: ../urpm/main_loop.pm:94
+#, c-format
+msgid ""
+"There is not enough space on your filesystem to download all packages (%s "
+"needed, %s available).\n"
+"Are you sure you want to continue?"
+msgstr ""
+
+#: ../urpm/main_loop.pm:124
+#, c-format
+msgid "The following package has bad signature"
+msgstr "以下のパッケージは署名が間違っています"
+
+#: ../urpm/main_loop.pm:125
+#, c-format
+msgid "The following packages have bad signatures"
+msgstr "以下のパッケージは署名が間違っています"
+
+#: ../urpm/main_loop.pm:126
+#, c-format
+msgid "Do you want to continue installation ?"
+msgstr "インストールを続けますか？"
+
+#: ../urpm/main_loop.pm:140 ../urpm/main_loop.pm:159 ../urpm/main_loop.pm:263
+#: ../urpm/main_loop.pm:271
+#, c-format
+msgid "Installation failed"
+msgstr "インストールに失敗"
+
+#: ../urpm/main_loop.pm:144
+#, c-format
+msgid "removing installed rpms (%s)"
+msgstr "インストールされている RPM (%s) を削除"
+
+#: ../urpm/main_loop.pm:160
+#, c-format
+msgid "Try to continue anyway?"
+msgstr "このまま続けますか？"
+
+#: ../urpm/main_loop.pm:209
+#, c-format
+msgid "installing %s from %s"
+msgstr "%s を %s からインストール"
+
+#: ../urpm/main_loop.pm:211
+#, c-format
+msgid "installing %s"
+msgstr "%s をインストール"
+
+#: ../urpm/main_loop.pm:218
+#, c-format
+msgid "distributing %s"
+msgstr "%s を配信"
+
+#: ../urpm/main_loop.pm:264
+#, c-format
+msgid "Try installation without checking dependencies?"
+msgstr "依存を確認せずにインストールを試みますか？"
+
+#: ../urpm/main_loop.pm:272
+#, c-format
+msgid "Try harder to install (--force)?"
+msgstr "インストールを強行 (--force) してみますか？"
+
+#: ../urpm/main_loop.pm:431
+#, c-format
+msgid "Packages are up to date"
+msgstr "パッケージは最新です"
+
+#: ../urpm/main_loop.pm:442 ../urpm/parallel.pm:299
+#, c-format
+msgid "Installation is possible"
+msgstr "インストール可能です"
+
+#: ../urpm/md5sum.pm:26
 #, c-format
 msgid "warning: md5sum for %s unavailable in MD5SUM file"
-msgstr "警告: MD5SUMファイルに %s のmd5sumがありません"
+msgstr "警告: MD5SUM ファイルに %s の md5sum がありません"
 
-#: ../urpm.pm:3429
-msgid "computing md5sum of existing source hdlist (or synthesis)"
-msgstr "既存のsource hdlist(またはsynthesis)のmd5sumを計算"
-
-#: ../urpm.pm:3459
-msgid "This operation is forbidden while running in restricted mode"
-msgstr "この操作は制限モードでは禁止されています"
-
-#: ../urpm/args.pm:106 ../urpm/args.pm:115
-msgid "bad proxy declaration on command line\n"
-msgstr "コマンドラインのプロキシ宣言が間違っています\n"
-
-#: ../urpm/args.pm:230
-msgid "You need to be root to use --use-distrib"
-msgstr "--use-distrib を使用するにはroot権限が必要です。"
-
-#: ../urpm/args.pm:262
+#: ../urpm/media.pm:258
 #, c-format
-msgid "urpmq: cannot read rpm file \"%s\"\n"
-msgstr "urpmq: RPMファイル %s を読み込めません\n"
+msgid "virtual medium \"%s\" should have a clear url, medium ignored"
+msgstr ""
+"仮想メディア %s に正しい URL が指定されていません。メディアを無視します。"
 
-#. Translator: Add here the keys which might be pressed in the "No"-case.
-#: ../urpm/msg.pm:46 ../urpme:32 ../urpmi:452 ../urpmi:470 ../urpmi:508
-#: ../urpmi:558 ../urpmi:641 ../urpmi:727
+#: ../urpm/media.pm:260
+#, c-format
+msgid "unable to access list file of \"%s\", medium ignored"
+msgstr "%s のリストファイルにアクセスできません。メディアを無視します。"
+
+#: ../urpm/media.pm:263
+#, c-format
+msgid "unable to access synthesis file of \"%s\", medium ignored"
+msgstr "%s の synthesis ファイルにアクセスできません。メディアを無視します。"
+
+#: ../urpm/media.pm:289
+#, c-format
+msgid "trying to override existing medium \"%s\", skipping"
+msgstr "既存のメディア %s を上書きしようとしています。スキップします。"
+
+#: ../urpm/media.pm:505
+#, c-format
+msgid "failed to migrate removable device, ignoring media"
+msgstr "リムーバブルデバイスを移行できませんでした。メディアを無視します。"
+
+#: ../urpm/media.pm:543
+#, c-format
+msgid "wrote config file [%s]"
+msgstr "設定ファイル [%s] を書き込みました"
+
+#: ../urpm/media.pm:586
+#, c-format
+msgid "Can't use parallel mode with use-distrib mode"
+msgstr "パラレルモードは [--use-distrib] と一緒には使えません"
+
+#: ../urpm/media.pm:594
+#, c-format
+msgid "using associated media for parallel mode: %s"
+msgstr "パラレルモードに担当メディアを使用: %s"
+
+#: ../urpm/media.pm:610
+#, c-format
+msgid ""
+"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
+"update, --use-distrib or --parallel"
+msgstr ""
+"--synthesis は --media, --excludemedia, --sortmedia, --update, --use-"
+"distrib, --parallel と一緒には使えません"
+
+#: ../urpm/media.pm:719
+#, c-format
+msgid "Search start: %s end: %s"
+msgstr "検索開始: %s 終了: %s"
+
+#: ../urpm/media.pm:736
+#, c-format
+msgid "skipping package %s"
+msgstr "パッケージ %s をスキップ"
+
+#: ../urpm/media.pm:752
+#, c-format
+msgid "would install instead of upgrade package %s"
+msgstr "パッケージ %s を更新ではなくインストールする"
+
+#: ../urpm/media.pm:828
+#, c-format
+msgid "medium \"%s\" already exists"
+msgstr "メディア %s は既に存在します"
+
+#: ../urpm/media.pm:869
+#, c-format
+msgid "(ignored by default)"
+msgstr "(デフォルトで無視)"
+
+#: ../urpm/media.pm:875
+#, c-format
+msgid "adding medium \"%s\" before remote medium \"%s\""
+msgstr "メディア %s をリモートメディア %s の前に追加"
+
+#: ../urpm/media.pm:881
+#, c-format
+msgid "adding medium \"%s\""
+msgstr "メディア %s を追加"
+
+#: ../urpm/media.pm:905
+#, fuzzy, c-format
+msgid "failed to copy media.cfg to %s (%d)"
+msgstr "ホスト %s (%d) で cp に失敗"
+
+#: ../urpm/media.pm:947
+#, c-format
+msgid "directory %s does not exist"
+msgstr "ディレクトリ %s が存在しません"
+
+#: ../urpm/media.pm:955
+#, c-format
+msgid "this location doesn't seem to contain any distribution"
+msgstr "この場所にはディストリビューションが含まれていないようです"
+
+#: ../urpm/media.pm:979
+#, c-format
+msgid "unable to parse media.cfg"
+msgstr "media.cfg を分析できません"
+
+#: ../urpm/media.pm:982
+#, c-format
+msgid "unable to access the distribution medium (no media.cfg file found)"
+msgstr ""
+"ディストリビューションのメディアにアクセスできません (media.cfg ファイルがあ"
+"りません)"
+
+#: ../urpm/media.pm:1003
+#, c-format
+msgid "skipping non compatible media `%s' (for %s)"
+msgstr "互換性のないメディア %s をスキップします (%s)"
+
+#: ../urpm/media.pm:1018
+#, fuzzy, c-format
+msgid "ignoring non-free medium `%s'"
+msgstr "メディア %s を無視しています"
+
+#: ../urpm/media.pm:1061
+#, c-format
+msgid "retrieving media.cfg file..."
+msgstr "media.cfg ファイルを取得..."
+
+#: ../urpm/media.pm:1104
+#, c-format
+msgid "trying to select nonexistent medium \"%s\""
+msgstr "%s というメディアは存在しません"
+
+#: ../urpm/media.pm:1107
+#, c-format
+msgid "selecting multiple media: %s"
+msgstr "複数のメディアを選択: %s"
+
+#: ../urpm/media.pm:1166
+#, c-format
+msgid "removing medium \"%s\""
+msgstr "メディア %s を削除"
+
+#: ../urpm/media.pm:1249
+#, c-format
+msgid "reconfiguring urpmi for media \"%s\""
+msgstr "メディア %s について urpmi を再設定"
+
+#: ../urpm/media.pm:1283
+#, c-format
+msgid "...reconfiguration failed"
+msgstr "...再設定に失敗"
+
+#: ../urpm/media.pm:1289
+#, c-format
+msgid "reconfiguration done"
+msgstr "再設定完了"
+
+#: ../urpm/media.pm:1305
+#, c-format
+msgid "Error generating names file: dependency %d not found"
+msgstr "名前ファイルの生成エラー: 依存 %d が見つかりません"
+
+#: ../urpm/media.pm:1326
+#, c-format
+msgid "medium \"%s\" is up-to-date"
+msgstr "メディア %s は最新です"
+
+#: ../urpm/media.pm:1337
+#, c-format
+msgid "examining synthesis file [%s]"
+msgstr "synthesis ファイル [%s] を検査"
+
+#: ../urpm/media.pm:1357
+#, c-format
+msgid "problem reading synthesis file of medium \"%s\""
+msgstr "メディア %s の synthesis ファイルの読み込み中に問題が発生"
+
+#: ../urpm/media.pm:1370 ../urpm/media.pm:1465
+#, c-format
+msgid "copying [%s] for medium \"%s\"..."
+msgstr "メディア %2$s のために [%1$s] をコピー..."
+
+#: ../urpm/media.pm:1372 ../urpm/media.pm:1442 ../urpm/media.pm:1695
+#, c-format
+msgid "...copying failed"
+msgstr "...コピーに失敗"
+
+#: ../urpm/media.pm:1438
+#, c-format
+msgid "copying description file of \"%s\"..."
+msgstr "%s の説明ファイルをコピー..."
+
+#: ../urpm/media.pm:1440 ../urpm/media.pm:1469
+#, c-format
+msgid "...copying done"
+msgstr "...コピー完了"
+
+#: ../urpm/media.pm:1471
+#, c-format
+msgid "copy of [%s] failed (file is suspiciously small)"
+msgstr "[%s] のコピーに失敗 (ファイルが異常に小さすぎます)"
+
+#: ../urpm/media.pm:1519
+#, c-format
+msgid "computing md5sum of retrieved source synthesis"
+msgstr "取得した source synthesis の md5sum を計算"
+
+#: ../urpm/media.pm:1521 ../urpm/media.pm:1961
+#, c-format
+msgid "retrieval of [%s] failed (md5sum mismatch)"
+msgstr "[%s] の取得に失敗 (md5sum 不一致)"
+
+#: ../urpm/media.pm:1536
+#, c-format
+msgid "genhdlist2 failed on %s"
+msgstr "genhdlist2 が %s で失敗しました"
+
+#: ../urpm/media.pm:1546
+#, c-format
+msgid "comparing %s and %s"
+msgstr "%s と %s を比較"
+
+#: ../urpm/media.pm:1576
+#, c-format
+msgid "invalid hdlist file %s for medium \"%s\""
+msgstr "メディア %2$s の hdlist ファイル %1$s が無効"
+
+#: ../urpm/media.pm:1602
+#, c-format
+msgid "copying MD5SUM file of \"%s\"..."
+msgstr "%s の MD5SUM ファイルをコピー..."
+
+#: ../urpm/media.pm:1642
+#, c-format
+msgid "invalid MD5SUM file (downloaded from %s)"
+msgstr "無効な MD5SUM ファイル (ダウンロード元: %s)"
+
+#: ../urpm/media.pm:1645
+#, c-format
+msgid "no metadata found for medium \"%s\""
+msgstr "メディア %s のメタデータが見つかりません"
+
+#: ../urpm/media.pm:1677
+#, c-format
+msgid "retrieving source synthesis of \"%s\"..."
+msgstr "%s の source synthesis を取得..."
+
+#: ../urpm/media.pm:1743
+#, c-format
+msgid "examining pubkey file of \"%s\"..."
+msgstr "%s の公開鍵ファイルを検査..."
+
+#: ../urpm/media.pm:1755
+#, c-format
+msgid "...imported key %s from pubkey file of \"%s\""
+msgstr "...%2$s の公開鍵ファイルから鍵 %1$s を取り込みました"
+
+#: ../urpm/media.pm:1759
+#, c-format
+msgid "unable to import pubkey file of \"%s\""
+msgstr "%s の公開鍵ファイルを取り込めません"
+
+#: ../urpm/media.pm:1800
+#, c-format
+msgid "no synthesis file found for medium \"%s\""
+msgstr "メディア %s に synthesis ファイルが見つかりません"
+
+#: ../urpm/media.pm:1833
+#, c-format
+msgid "updated medium \"%s\""
+msgstr "メディア %s を更新しました"
+
+#: ../urpm/media.pm:1955
+#, c-format
+msgid "retrieval of [%s] failed"
+msgstr "[%s] の取得に失敗しました"
+
+#: ../urpm/mirrors.pm:19 ../urpm/mirrors.pm:40
+#, c-format
+msgid "trying again with mirror %s"
+msgstr "ミラー %s で再試行"
+
+#: ../urpm/mirrors.pm:92
+#, c-format
+msgid "Could not find a mirror from mirrorlist %s"
+msgstr "ミラーリスト %s にミラーが見つかりませんでした"
+
+#: ../urpm/mirrors.pm:240
+#, c-format
+msgid "found geolocalisation %s %.2f %.2f from timezone %s"
+msgstr "ジオロケーション %s %.2f %.2f (タイムゾーン: %s) が見つかりました"
+
+#: ../urpm/mirrors.pm:285
+#, c-format
+msgid "getting mirror list from %s"
+msgstr "%s からミラーリストを取得"
+
+#: ../urpm/msg.pm:76 ../urpmi:495 ../urpmi:513 ../urpmi:629
+#, c-format
 msgid "Nn"
 msgstr "NnＮｎいイ"
 
-#. Translator: Add here the keys which might be pressed in the "Yes"-case.
-#: ../urpm/msg.pm:47 ../urpme:34 ../urpmi:453 ../urpmi:471 ../urpmi:509
-#: ../urpmi:559 ../urpmi:642 ../urpmi:728
+#. -PO: Add here the keys which might be pressed in the "Yes"-case.
+#: ../urpm/msg.pm:77 ../urpme:38 ../urpmi.addmedia:133
+#, c-format
 msgid "Yy"
 msgstr "YyＹｙはハ"
 
-#: ../urpm/msg.pm:92
-msgid "Sorry, bad choice, try again\n"
-msgstr "有効な選択ではありません。やり直してください\n"
-
-#: ../urpm/parallel_ka_run.pm:27 ../urpm/parallel_ka_run.pm:121
-#: ../urpm/parallel_ka_run.pm:215
-msgid "mput failed, maybe a node is unreacheable"
-msgstr "mput失敗。恐らくノードが接続不可能です。"
-
-#: ../urpm/parallel_ka_run.pm:64
+#: ../urpm/msg.pm:107 ../urpme:163 ../urpmi.addmedia:136
 #, c-format
-msgid "node %s has an old version of urpme, please upgrade"
-msgstr "ノード %s のurpmeのバージョンが古いのでアップグレードしてください。"
+msgid " (y/N) "
+msgstr " (y/N)[デフォルトはN] "
 
-#: ../urpm/parallel_ka_run.pm:88 ../urpm/parallel_ka_run.pm:200
-#: ../urpm/parallel_ka_run.pm:230
-msgid "rshp failed, maybe a node is unreacheable"
-msgstr "rshp失敗。恐らくノードが接続不可能です。"
+#: ../urpm/msg.pm:139
+#, c-format
+msgid "Sorry, bad choice, try again\n"
+msgstr "有効な選択ではありません。やり直してください。\n"
 
-#: ../urpm/parallel_ka_run.pm:97 ../urpm/parallel_ssh.pm:102
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Version"
+msgstr "バージョン"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Release"
+msgstr "リリース"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Arch"
+msgstr "アーキテクチャ"
+
+#: ../urpm/msg.pm:179
+#, c-format
+msgid "(suggested)"
+msgstr "(提案)"
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "medium \"%s\""
+msgstr "メディア %s"
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "command line"
+msgstr "コマンドライン"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "B"
+msgstr "B"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "KB"
+msgstr "KB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "MB"
+msgstr "MB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "GB"
+msgstr "GB"
+
+#: ../urpm/msg.pm:208 ../urpm/msg.pm:217
+#, c-format
+msgid "TB"
+msgstr "TB"
+
+#: ../urpm/orphans.pm:51
+#, c-format
+msgid "Marking %s as manually installed, it won't be auto-orphaned"
+msgstr ""
+
+#: ../urpm/orphans.pm:448
+#, fuzzy, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned."
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned."
+msgstr[0] "以下のパッケージのいずれかが必要です:"
+
+#: ../urpm/orphans.pm:451
+#, fuzzy, c-format
+msgid "You may wish to remove it."
+msgid_plural "You may wish to remove them."
+msgstr[0] "削除するオーファンはありません"
+
+#: ../urpm/orphans.pm:460
+#, fuzzy, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned, if you wish to remove it, you can use \"urpme --auto-orphans"
+"\""
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned, if you wish to remove them, you can use \"urpme --auto-"
+"orphans\""
+msgstr[0] ""
+"以下のパッケージがオーファンになりました。削除するには \"urpme --auto-orphans"
+"\" を使ってください。"
+
+#: ../urpm/parallel.pm:15
+#, c-format
+msgid "unable to parse \"%s\" in file [%s]"
+msgstr "ファイル [%2$s] の %1$s を分析できません"
+
+#: ../urpm/parallel.pm:24
+#, c-format
+msgid "examining parallel handler in file [%s]"
+msgstr "ファイル [%s] のパラレルハンドラを検査"
+
+#: ../urpm/parallel.pm:35
+#, c-format
+msgid "found parallel handler for nodes: %s"
+msgstr "ノードのパラレルハンドラを検出しました: %s"
+
+#: ../urpm/parallel.pm:39
+#, c-format
+msgid "unable to use parallel option \"%s\""
+msgstr "パラレルオプション %s は使えません"
+
+#: ../urpm/parallel.pm:94
 #, c-format
 msgid "on node %s"
 msgstr "ノード %s で"
 
-#. - first propagate the synthesis file to all machine.
-#: ../urpm/parallel_ka_run.pm:119
-msgid "Propagating synthesis to nodes..."
-msgstr "ノードにsynthesisを伝送中..."
-
-#. - now try an iteration of urpmq.
-#: ../urpm/parallel_ka_run.pm:170
-msgid "Resolving dependencies on nodes..."
-msgstr "ノードで依存を解決中..."
-
-#: ../urpm/parallel_ka_run.pm:213
-msgid "Distributing files to nodes..."
-msgstr "ノードにファイルを配信中..."
-
-#: ../urpm/parallel_ka_run.pm:220
-msgid "Verifying if install is possible on nodes..."
-msgstr "ノードでインストール可能かどうかを確認中..."
-
-#: ../urpm/parallel_ka_run.pm:234 ../urpm/parallel_ssh.pm:249
+#: ../urpm/parallel.pm:294
 #, c-format
 msgid "Installation failed on node %s"
 msgstr "ノード %s でインストールに失敗"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm/parallel_ka_run.pm:239 ../urpm/parallel_ssh.pm:254 ../urpmi:796
-msgid "Installation is possible"
-msgstr "インストール可能です"
+#: ../urpm/parallel_ka_run.pm:58
+#, c-format
+msgid "rshp failed, maybe a node is unreacheable"
+msgstr "rshp に失敗、おそらくノードが到達不可"
 
-#. - continue installation.
-#: ../urpm/parallel_ka_run.pm:244
-msgid "Installing packages on nodes..."
-msgstr "ノードでパッケージをインストール中..."
+#: ../urpm/parallel_ka_run.pm:80
+#, c-format
+msgid "mput failed, maybe a node is unreacheable"
+msgstr "mput に失敗、おそらくノードが到達不可"
 
-#: ../urpm/parallel_ssh.pm:28 ../urpm/parallel_ssh.pm:126
-#: ../urpm/parallel_ssh.pm:230
+#: ../urpm/parallel_ssh.pm:27
 #, c-format
 msgid "scp failed on host %s (%d)"
-msgstr "ホスト %s でscp失敗 (%d)"
+msgstr "ホスト %s (%d) で scp に失敗"
 
-#: ../urpm/parallel_ssh.pm:124
+#: ../urpm/parallel_ssh.pm:39
 #, c-format
-msgid "Propagating synthesis to %s..."
-msgstr "synthesisを %s に伝送中..."
+msgid "cp failed on host %s (%d)"
+msgstr "ホスト %s (%d) で cp に失敗"
 
-#: ../urpm/parallel_ssh.pm:177
+#: ../urpm/parallel_ssh.pm:86
 #, c-format
-msgid "Resolving dependencies on %s..."
-msgstr "%s で依存を解決中..."
+msgid ""
+"%s failed on host %s (maybe it does not have a good version of urpmi?) (exit "
+"code: %d)"
+msgstr ""
+"ホスト %2$s で %1$s に失敗 (おそらく適切なバージョンの urpmi がないため) (終"
+"了コード: %3$d)"
 
-#: ../urpm/parallel_ssh.pm:207
+#: ../urpm/removable.pm:33
 #, c-format
-msgid "host %s does not have a good version of urpmi (%d)"
-msgstr "ホスト %s のurpmiのバージョンが不正です (%d)"
+msgid "unable to access medium \"%s\"."
+msgstr "メディア %s にアクセスできません"
 
-#: ../urpm/parallel_ssh.pm:223
+#: ../urpm/removable.pm:73 ../urpm/removable.pm:91
 #, c-format
-msgid "Distributing files to %s..."
-msgstr "%s にファイルを配信中..."
+msgid "mounting %s"
+msgstr "%s をマウント"
 
-#: ../urpm/parallel_ssh.pm:237
+#: ../urpm/removable.pm:104
 #, c-format
-msgid "Verifying if install is possible on %s..."
-msgstr "%s でインストール可能かどうか確認中..."
+msgid "unmounting %s"
+msgstr "%s をアンマウント"
 
-#: ../urpm/parallel_ssh.pm:261
+#: ../urpm/select.pm:31
 #, c-format
-msgid "Performing install on %s..."
-msgstr "%s でインストールを実行中..."
+msgid "urpmi was restarted, and the list of priority packages did not change"
+msgstr "urpmi を再スタート、優先パッケージのリストに変更はありません"
 
-#: ../urpm/parallel_ssh.pm:274
+#: ../urpm/select.pm:33
 #, c-format
-msgid "Installing %s on %s..."
-msgstr "%s を %s にインストール中..."
+msgid ""
+"urpmi was restarted, and the list of priority packages did change: %s vs %s"
+msgstr "urpmi を再スタート、優先パッケージのリストに変更がありました: %s vs %s"
 
-#: ../urpm/parallel_ssh.pm:275
+#: ../urpm/select.pm:186
 #, c-format
-msgid "Preparing install on %s..."
-msgstr "%s でインストール準備中..."
+msgid "No package named %s"
+msgstr "%s という名前のパッケージはありません"
 
-#: ../urpme:37
+#: ../urpm/select.pm:188 ../urpme:117
+#, c-format
+msgid "The following packages contain %s: %s"
+msgstr "以下のパッケージが %s を含んでいます: %s"
+
+#: ../urpm/select.pm:190
+#, c-format
+msgid "You should use \"-a\" to use all of them"
+msgstr "これらすべてを使うには \"-a\" を使います"
+
+#: ../urpm/select.pm:308
+#, c-format
+msgid "found package(s) %s in urpmi db, but none are installed"
+msgstr ""
+"パッケージ %s が urpmi データベースに見つかりましたが、どれもインストールされ"
+"ていません"
+
+#: ../urpm/select.pm:554
+#, c-format
+msgid "Package %s is already installed"
+msgstr "パッケージ %s は既にインストールされています"
+
+#: ../urpm/select.pm:555
+#, c-format
+msgid "Packages %s are already installed"
+msgstr "パッケージ %s は既にインストールされています"
+
+#: ../urpm/select.pm:572 ../urpm/select.pm:659
+#, c-format
+msgid "due to conflicts with %s"
+msgstr "%s と衝突するために"
+
+#: ../urpm/select.pm:573 ../urpm/select.pm:653
+#, c-format
+msgid "due to unsatisfied %s"
+msgstr "%s が依存を満たしていないために"
+
+#: ../urpm/select.pm:579
+#, c-format
+msgid "trying to promote %s"
+msgstr "%s をアップグレードするために"
+
+#: ../urpm/select.pm:580
+#, c-format
+msgid "in order to keep %s"
+msgstr "%s を維持するために"
+
+#: ../urpm/select.pm:621
+#, c-format
+msgid ""
+"The following package has to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"更新するには以下のパッケージを削除しなければなりません:\n"
+"%s"
+
+#: ../urpm/select.pm:622
+#, c-format
+msgid ""
+"The following packages have to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"更新するには以下のパッケージを削除しなければなりません:\n"
+"%s"
+
+#: ../urpm/select.pm:649
+#, c-format
+msgid "in order to install %s"
+msgstr "%s をインストールするために"
+
+#: ../urpm/select.pm:655
+#, c-format
+msgid "due to missing %s"
+msgstr "%s がないために"
+
+#: ../urpm/signature.pm:33
+#, c-format
+msgid "Invalid signature (%s)"
+msgstr "無効な署名 (%s)"
+
+#: ../urpm/signature.pm:64
+#, c-format
+msgid "Invalid Key ID (%s)"
+msgstr "無効な鍵 ID (%s)"
+
+#: ../urpm/signature.pm:66
+#, c-format
+msgid "Missing signature (%s)"
+msgstr "署名がありません (%s)"
+
+#: ../urpm/sys.pm:186
+#, c-format
+msgid "system"
+msgstr "システム"
+
+#: ../urpm/sys.pm:223
+#, fuzzy, c-format
+msgid "You should restart your computer for %s"
+msgstr "%2$s のために %1$s を再スタートしてください"
+
+#: ../urpm/sys.pm:225
+#, fuzzy, c-format
+msgid "You should restart your session for %s"
+msgstr "%2$s のために %1$s を再スタートしてください"
+
+#: ../urpm/sys.pm:227
+#, c-format
+msgid "You should restart %s for %s"
+msgstr "%2$s のために %1$s を再スタートしてください"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't write file"
+msgstr "ファイルを書き込めません"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't open file"
+msgstr "ファイルを開けません"
+
+#: ../urpm/sys.pm:365
+#, c-format
+msgid "Can't move file %s to %s"
+msgstr "ファイル %s を %s に移動できません"
+
+#: ../urpme:41
 #, c-format
 msgid ""
 "urpme version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
 "usage:\n"
 msgstr ""
 "urpme version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"これはフリーソフトウェアであり、GNU GPL の条件のもとで再配布できます。\n"
 "\n"
 "使い方:\n"
 
-#: ../urpme:42 ../urpmf:34 ../urpmi:80 ../urpmi.addmedia:44
-#: ../urpmi.recover:33 ../urpmi.removemedia:54 ../urpmi.update:31 ../urpmq:44
-msgid "  --help         - print this help message.\n"
-msgstr "  --help         - このヘルプを表示\n"
-
-#: ../urpme:43
+#: ../urpme:47
+#, c-format
 msgid "  --auto         - automatically select a package in choices.\n"
 msgstr "  --auto         - 複数の選択肢から自動的にパッケージを選択\n"
 
-#: ../urpme:44
+#: ../urpme:48
+#, c-format
+msgid "  --auto-orphans - remove orphans\n"
+msgstr "  --auto-orphans - オーファンを削除\n"
+
+#: ../urpme:49
+#, c-format
 msgid "  --test         - verify if the removal can be achieved correctly.\n"
 msgstr "  --test         - 問題なく削除できるかどうかテストする\n"
 
-#: ../urpme:45 ../urpmi:102 ../urpmq:63
-msgid ""
-"  --force        - force invocation even if some packages do not exist.\n"
-msgstr "  --force        - 足りないパッケージがあっても強制的に実行する\n"
-
-#: ../urpme:46 ../urpmi:107 ../urpmq:65
+#: ../urpme:51 ../urpmi:108 ../urpmq:70
+#, c-format
 msgid "  --parallel     - distributed urpmi across machines of alias.\n"
-msgstr "  --parallel     - urpmiをエイリアスの複数のマシンに使う\n"
+msgstr "  --parallel     - urpmi をエイリアスの複数のマシンに使う\n"
 
-#: ../urpme:47 ../urpmi:134
+#: ../urpme:52 ../urpmi:142
+#, c-format
 msgid "  --repackage    - Re-package the files before erasing\n"
-msgstr ""
+msgstr "  --repackage    - ファイルを削除する前に再パッケージ化する\n"
 
-#: ../urpme:48
+#: ../urpme:53
+#, c-format
 msgid "  --root         - use another root for rpm removal.\n"
-msgstr "  --root         - RPMの削除に他のルートを使う\n"
+msgstr "  --root         - RPM の削除に他のルートを使う\n"
 
-#: ../urpme:49
+#: ../urpme:54 ../urpmf:40 ../urpmi:110 ../urpmi.addmedia:73
+#: ../urpmi.recover:36 ../urpmi.removemedia:45 ../urpmi.update:48 ../urpmq:72
+#, c-format
+msgid "  --urpmi-root   - use another root for urpmi db & rpm installation.\n"
+msgstr "  --urpmi-root   - urpmi db と RPM のインストールに他のルートを使う\n"
+
+#: ../urpme:55 ../urpmi:100
+#, c-format
+msgid "  --justdb       - update only the rpm db, not the filesystem.\n"
+msgstr ""
+"  --justdb       - RPM データベースのみを更新、ファイルシステムは更新しない\n"
+
+#: ../urpme:56
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s).\n"
 msgstr "  --noscripts    - パッケージのスクリプトを実行しない\n"
 
-#: ../urpme:50
+#: ../urpme:57
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpme on the fly from a distrib tree, useful\n"
 "                   to (un)install a chroot with --root option.\n"
 msgstr ""
-"  --use-distrib  - ディストリビューションのツリーからurpmeをオンザフライで\n"
-"                   設定。chrootを'--root'オプション付きで(アン)インストール\n"
-"                   する際に使用。\n"
+"  --use-distrib  - ディストリビューションのツリーから urpme をオンザフライ\n"
+"                   で設定。chroot を --root オプション付きでインストール/\n"
+"                   アンインストールする際に使用。\n"
 
-#: ../urpme:52 ../urpmi:145 ../urpmi.addmedia:70 ../urpmi.removemedia:59
-#: ../urpmi.update:49 ../urpmq:91
-msgid "  -v             - verbose mode.\n"
-msgstr "  -v             - 詳細モード。\n"
+#: ../urpme:59 ../urpmi:153 ../urpmq:91
+#, c-format
+msgid "  --verbose, -v  - verbose mode.\n"
+msgstr "  --verbose, -v  - 詳細モード\n"
 
-#: ../urpme:53
+#: ../urpme:60
+#, c-format
 msgid "  -a             - select all packages matching expression.\n"
 msgstr "  -a             - 指定した表現を含むすべてのパッケージを選択\n"
 
-#: ../urpme:70
+#: ../urpme:75
+#, c-format
 msgid "Only superuser is allowed to remove packages"
 msgstr "パッケージの削除はスーパーユーザにしかできません"
 
-#: ../urpme:95
-msgid "unknown package"
-msgstr "不明なパッケージ"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:95
+#: ../urpme:108
+#, c-format
 msgid "unknown packages"
 msgstr "不明なパッケージ"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:107 ../urpmi:488
+#: ../urpme:108
 #, c-format
-msgid "removing package %s will break your system"
-msgstr "%s を削除するとシステムが壊れます"
+msgid "unknown package"
+msgstr "不明なパッケージ"
 
-#: ../urpme:110
+#: ../urpme:123
+#, c-format
+msgid "Removing the following package will break your system:"
+msgid_plural "Removing the following packages will break your system:"
+msgstr[0] "以下のパッケージを削除するとシステムが壊れます:"
+
+#: ../urpme:128
+#, c-format
 msgid "Nothing to remove"
 msgstr "削除するものはありません"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:115
-msgid "Checking to remove the following packages"
-msgstr "以下のパッケージを削除するために調査しています"
-
-#: ../urpme:122
+#: ../urpme:145
 #, c-format
-msgid ""
-"To satisfy dependencies, the following %d packages will be removed (%d MB)"
-msgstr "依存を満たすために以下の %d 個のパッケージを削除します(%d MB)"
+msgid "No orphans to remove"
+msgstr "削除するオーファンはありません"
 
-#: ../urpme:124 ../urpmi:510 ../urpmi:643
-msgid " (y/N) "
-msgstr " (y/N)[デフォルトはN] "
-
-#: ../urpme:124
+#: ../urpme:151
 #, c-format
-msgid "Remove %d packages?"
-msgstr "%d パッケージを削除しますか？"
+msgid "To satisfy dependencies, the following package will be removed"
+msgid_plural ""
+"To satisfy dependencies, the following %d packages will be removed"
+msgstr[0] "依存を満たすために以下の %d 個のパッケージを削除します"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:148
+#: ../urpme:156
+#, c-format
+msgid "(orphan package)"
+msgid_plural "(orphan packages)"
+msgstr[0] "(オーファン)"
+
+#: ../urpme:163
+#, c-format
+msgid "Remove %d package?"
+msgid_plural "Remove %d packages?"
+msgstr[0] "%d 個のパッケージを削除しますか？"
+
+#: ../urpme:168
+#, c-format
+msgid "testing removal of %s"
+msgstr "%s の削除をテスト"
+
+#: ../urpme:185
+#, c-format
 msgid "Removal failed"
 msgstr "削除に失敗"
 
-#: ../urpmf:28
+#: ../urpme:187
 #, c-format
+msgid "Removal is possible"
+msgstr "削除できます"
+
+#: ../urpmf:29
+#, fuzzy, c-format
 msgid ""
 "urpmf version %s\n"
-"Copyright (C) 2002-2006 Mandriva.\n"
+"Copyright (C) 2002-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -1267,250 +1759,306 @@ msgid ""
 msgstr ""
 "urpmf version %s\n"
 "Copyright (C) 2002-2006 Mandriva.\n"
-"これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
+"これはフリーソフトウェアであり、GNU GPL の条件のもとで再配布できます。\n"
 "\n"
 "使い方: urpmf [オプション] パターン表現\n"
 
-#: ../urpmf:35
+#: ../urpmf:36
+#, c-format
 msgid "  --version      - print this tool's version number.\n"
 msgstr "  --version      - このツールのバージョンを表示\n"
 
-#: ../urpmf:36 ../urpmi:125 ../urpmq:74
+#: ../urpmf:37 ../urpmi:132 ../urpmq:82
+#, c-format
 msgid "  --env          - use specific environment (typically a bug report).\n"
 msgstr "  --env          - 特定の環境を使う (バグレポートなどのため)\n"
 
-#: ../urpmf:37 ../urpmi:82 ../urpmq:48
+#: ../urpmf:38 ../urpmi:73 ../urpmq:49
+#, c-format
 msgid "  --excludemedia - do not use the given media, separated by comma.\n"
-msgstr "  --excludemedia - 指定したメディアは使わない(コンマで区切る)\n"
+msgstr "  --excludemedia - 指定したメディアは使わない (コンマで区切る)\n"
 
-#: ../urpmf:38
+#: ../urpmf:39
+#, c-format
 msgid ""
 "  --literal, -l  - don't match patterns, use argument as a literal string.\n"
 msgstr "  --literal, -l  - パターンで検索せずに引数を普通の文字列とみなす\n"
 
-#: ../urpmf:39 ../urpmi:81 ../urpmq:46
-msgid "  --media        - use only the given media, separated by comma.\n"
-msgstr "  --media        - 指定したメディアのみを使う(コンマで区切る)\n"
-
-#: ../urpmf:40 ../urpmi:85 ../urpmq:49
+#: ../urpmf:42 ../urpmi:76 ../urpmq:50
+#, c-format
 msgid ""
 "  --sortmedia    - sort media according to substrings separated by comma.\n"
 msgstr "  --sortmedia    - カンマ区切りで指定したメディアごとにソートする\n"
 
-#: ../urpmf:41 ../urpmi:86 ../urpmq:50
+#: ../urpmf:43
+#, c-format
+msgid "  --use-distrib  - use the given path to access media\n"
+msgstr "  --use-distrib    - メディアへのアクセスに指定したパスを使う\n"
+
+#: ../urpmf:44 ../urpmi:77 ../urpmq:51
+#, c-format
 msgid "  --synthesis    - use the given synthesis instead of urpmi db.\n"
 msgstr ""
-"  --synthesis    - urpmiのデータベースではなく指定したsynthesisを使う\n"
+"  --synthesis    - urpmi のデータベースではなく指定した synthesis を使う\n"
 
-#: ../urpmf:42
+#: ../urpmf:45
+#, c-format
 msgid "  --uniq         - do not print identical lines twice.\n"
 msgstr "  --uniq         - 全く同じ行は表示しない\n"
 
-#: ../urpmf:43 ../urpmi:83 ../urpmq:45
+#: ../urpmf:46 ../urpmi:74 ../urpmq:46
+#, c-format
 msgid "  --update       - use only update media.\n"
 msgstr "  --update       - 更新メディアのみを使う\n"
 
-#: ../urpmf:44
+#: ../urpmf:47
+#, c-format
 msgid "  --verbose      - verbose mode.\n"
 msgstr "  --verbose      - 詳細モード\n"
 
-#: ../urpmf:45
+#: ../urpmf:48
+#, c-format
 msgid "  -i             - ignore case distinctions in patterns.\n"
 msgstr "  -i             - パターンの大文字小文字を区別しない\n"
 
-#: ../urpmf:46
-msgid "  -F<str>        - change field separator (defaults to ':').\n"
-msgstr "  -F<str>        - 区切り文字を<str>に変更 (デフォルトは ':')\n"
+#: ../urpmf:49
+#, c-format
+msgid "  -I             - honor case distinctions in patterns (default).\n"
+msgstr "  -I             - パターンの大文字小文字を区別する (デフォルト)\n"
 
-#: ../urpmf:47
+#: ../urpmf:50
+#, c-format
+msgid "  -F<str>        - change field separator (defaults to ':').\n"
+msgstr "  -F<str>        - 区切り文字を <str> に変更 (デフォルトは ':')\n"
+
+#: ../urpmf:51
+#, c-format
 msgid "Pattern expressions:\n"
 msgstr "パターン表現:\n"
 
-#: ../urpmf:48
+#: ../urpmf:52
+#, c-format
 msgid "  text           - any text is parsed as a regexp, unless -l is used.\n"
 msgstr ""
-"  text           - テキストを正規表現とみなす(-l が使われていない限り)\n"
+"  text           - テキストを正規表現とみなす (-l が使われていない限り)\n"
 
-#: ../urpmf:49
+#: ../urpmf:53
+#, c-format
 msgid "  -e             - include perl code directly as perl -e.\n"
-msgstr "  -e             - Perlコードをそのまま表示\n"
+msgstr "  -e             - Perl コードをそのまま表示\n"
 
-#: ../urpmf:50
+#: ../urpmf:54
+#, c-format
 msgid "  -a             - binary AND operator.\n"
 msgstr "  -a             - binary AND operator\n"
 
-#: ../urpmf:51
+#: ../urpmf:55
+#, c-format
 msgid "  -o             - binary OR operator.\n"
 msgstr "  -o             - binary OR operator\n"
 
-#: ../urpmf:52
+#: ../urpmf:56
+#, c-format
 msgid "  !              - unary NOT.\n"
 msgstr " !               - unary NOT\n"
 
-#: ../urpmf:53
+#: ../urpmf:57
+#, c-format
 msgid "  ( )            - left and right parentheses.\n"
 msgstr "  ( )            - 左右括弧\n"
 
-#: ../urpmf:54
+#: ../urpmf:58
+#, c-format
 msgid "List of tags:\n"
 msgstr "タグのリスト:\n"
 
-#: ../urpmf:55
+#: ../urpmf:59
+#, c-format
 msgid "  --qf           - specify a printf-like output format\n"
-msgstr "  --qf            - printf風の出力形式を指定\n"
+msgstr "  --qf            - printf 風の出力形式を指定\n"
 
-#: ../urpmf:56
+#: ../urpmf:60
 #, c-format
 msgid "                   example: '%%name:%%files'\n"
 msgstr "                   例: '%%name:%%files'\n"
 
-#: ../urpmf:57
+#: ../urpmf:61
+#, c-format
 msgid "  --arch         - architecture\n"
 msgstr "  --arch         - アーキテクチャ\n"
 
-#: ../urpmf:58
+#: ../urpmf:62
+#, c-format
 msgid "  --buildhost    - build host\n"
 msgstr "  --buildhost    - ビルドホスト\n"
 
-#: ../urpmf:59
+#: ../urpmf:63
+#, c-format
 msgid "  --buildtime    - build time\n"
 msgstr "  --buildtime    - ビルド日時\n"
 
-#: ../urpmf:60
+#: ../urpmf:64
+#, c-format
 msgid "  --conffiles    - configuration files\n"
 msgstr "  --conffiles    - 設定ファイル\n"
 
-#: ../urpmf:61
+#: ../urpmf:65
+#, c-format
 msgid "  --conflicts    - conflict tags\n"
-msgstr "  --conflicts    - conflict(衝突)タグ\n"
+msgstr "  --conflicts    - conflict (衝突) タグ\n"
 
-#: ../urpmf:62
+#: ../urpmf:66
+#, c-format
 msgid "  --description  - package description\n"
 msgstr "  --description  - パッケージの説明\n"
 
-#: ../urpmf:63
+#: ../urpmf:67
+#, c-format
 msgid "  --distribution - distribution\n"
 msgstr "  --distribution - ディストリビューション\n"
 
-#: ../urpmf:64
+#: ../urpmf:68
+#, c-format
 msgid "  --epoch        - epoch\n"
 msgstr "  --epoch        - エポック\n"
 
-#: ../urpmf:65
+#: ../urpmf:69
+#, c-format
 msgid "  --filename     - filename of the package\n"
 msgstr "  --filename     - パッケージのファイル名\n"
 
-#: ../urpmf:66
+#: ../urpmf:70
+#, c-format
 msgid "  --files        - list of files contained in the package\n"
 msgstr "  --files        - パッケージに含まれるファイルのリスト\n"
 
-#: ../urpmf:67
+#: ../urpmf:71
+#, c-format
 msgid "  --group        - group\n"
 msgstr "  --group        - グループ\n"
 
-#: ../urpmf:68
+#: ../urpmf:72
+#, c-format
+msgid "  --license      - license\n"
+msgstr "  --license      - ライセンス\n"
+
+#: ../urpmf:73
+#, c-format
 msgid "  --name         - package name\n"
 msgstr "  --name         - パッケージ名\n"
 
-#: ../urpmf:69
+#: ../urpmf:74
+#, c-format
 msgid "  --obsoletes    - obsoletes tags\n"
-msgstr "  --obsoletes    - obsolete(廃止)タグ\n"
+msgstr "  --obsoletes    - obsolete (廃止) タグ\n"
 
-#: ../urpmf:70
+#: ../urpmf:75
+#, c-format
 msgid "  --packager     - packager\n"
 msgstr "  --packager     - パッケージ作成者\n"
 
-#: ../urpmf:71
+#: ../urpmf:76
+#, c-format
 msgid "  --provides     - provides tags\n"
-msgstr "  --provides     - provide(提供)タグ\n"
+msgstr "  --provides     - provide (提供) タグ\n"
 
-#: ../urpmf:72
+#: ../urpmf:77
+#, c-format
 msgid "  --requires     - requires tags\n"
-msgstr "  --requires     - require(要求)タグ\n"
+msgstr "  --requires     - require (要求) タグ\n"
 
-#: ../urpmf:73
+#: ../urpmf:78
+#, c-format
 msgid "  --size         - installed size\n"
 msgstr "  --size         - インストール後のサイズ\n"
 
-#: ../urpmf:74
+#: ../urpmf:79
+#, c-format
 msgid "  --sourcerpm    - source rpm name\n"
-msgstr "  --sourcerpm    - ソースRPMの名前\n"
+msgstr "  --sourcerpm    - ソース RPM の名前\n"
 
-#: ../urpmf:75
+#: ../urpmf:80
+#, c-format
+msgid "  --suggests     - suggests tags\n"
+msgstr "  --suggests     - suggest (提案) タグ\n"
+
+#: ../urpmf:81
+#, c-format
 msgid "  --summary      - summary\n"
 msgstr "  --summary      - 要約\n"
 
-#: ../urpmf:76
+#: ../urpmf:82
+#, c-format
 msgid "  --url          - url\n"
 msgstr "  --url          - URL\n"
 
-#: ../urpmf:77
+#: ../urpmf:83
+#, c-format
 msgid "  --vendor       - vendor\n"
 msgstr "  --vendor       - ベンダー\n"
 
-#: ../urpmf:78
+#: ../urpmf:84
+#, c-format
 msgid "  -m             - the media in which the package was found\n"
 msgstr "  -m             - パッケージのあるメディア\n"
 
-#: ../urpmf:79 ../urpmq:80
+#: ../urpmf:85 ../urpmq:101
+#, c-format
 msgid "  -f             - print version, release and arch with name.\n"
 msgstr "  -f             - バージョン, リリース番号, アーキテクチャを表示\n"
 
-#: ../urpmf:131
+#: ../urpmf:153
+#, c-format
+msgid "unterminated expression (%s)"
+msgstr "終端のない表現 (%s)"
+
+#: ../urpmf:198
+#, c-format
 msgid "Incorrect format: you may use only one multi-valued tag"
-msgstr "不正な形式: 多値タグはひとつしか使えません"
+msgstr "不正な形式: 多値タグは一つしか使えません"
 
-#: ../urpmf:173 ../urpmi:231 ../urpmq:126
+#: ../urpmf:291
 #, c-format
-msgid "using specific environment on %s\n"
-msgstr "%s に特定の環境を使用\n"
+msgid "no hdlist available for medium \"%s\""
+msgstr "メディア %s には hdlist がありません"
 
-#: ../urpmf:219
-msgid ""
-"Note: since no media searched uses hdlists, urpmf was unable to return any "
-"result\n"
-msgstr ""
-"注: どのメディアにもhdlistがないのでurpmfは検索結果を返すことができませんでし"
-"た\n"
-
-#: ../urpmf:220
-msgid "You may want to use --name to search for package names.\n"
-msgstr "パッケージ名を探すには[--name]オプションを使うと便利です\n"
-
-#: ../urpmi:75
+#: ../urpmf:298
 #, c-format
-msgid ""
-"urpmi version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"This is free software and may be redistributed under the terms of the GNU "
-"GPL.\n"
-"\n"
-"usage:\n"
-msgstr ""
-"urpmi version %s\n"
-"Copyright (C) 1999-2006  Mandriva.\n"
-"これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
-"\n"
-"使い方:\n"
+msgid "no synthesis available for medium \"%s\""
+msgstr "メディア %s には synthesis がありません"
 
-#: ../urpmi:84
-msgid ""
-"  --searchmedia  - use only the given media to search requested packages.\n"
-msgstr ""
-"  --searchmedia   - 指定したメディアのみを要求したパッケージの検索に使う\n"
+#: ../urpmf:307
+#, c-format
+msgid "no xml-info available for medium \"%s\""
+msgstr "メディア %s には XML 情報がありません"
 
-#: ../urpmi:87
-msgid ""
-"  --auto         - non-interactive mode, assume default answers to "
-"questions.\n"
-msgstr "  --auto\t  - 非対話モード、質問に対する答えはデフォルトとみなす\n"
+#: ../urpmi:80
+#, c-format
+msgid "  --auto-update  - update media then upgrade the system.\n"
+msgstr "  --auto-update  - メディアを更新し、その後システムを更新\n"
 
-#: ../urpmi:88 ../urpmq:51
-msgid ""
-"  --auto-select  - automatically select packages to upgrade the system.\n"
-msgstr "  --auto-select  - 自動的にパッケージを選択してシステムを更新\n"
+#: ../urpmi:81
+#, c-format
+msgid "    --no-md5sum    - disable MD5SUM file checking.\n"
+msgstr "    --no-md5sum    - MD5SUM ファイルをチェックしない\n"
 
-#: ../urpmi:89
+#: ../urpmi:82
+#, c-format
+msgid "    --force-key    - force update of gpg key.\n"
+msgstr "    --force-key    - gpg 鍵の更新を強制する\n"
+
+#: ../urpmi:83
+#, c-format
+msgid "  --auto-orphans - remove orphans without asking\n"
+msgstr "  --auto-orphans - 確認せずにオーファンを削除\n"
+
+#: ../urpmi:84 ../urpmq:56
+#, c-format
+msgid "  --no-suggests  - do not auto select \"suggested\" packages.\n"
+msgstr "  --no-suggests  - 提案されたパッケージを自動的に選択しない\n"
+
+#: ../urpmi:85
+#, c-format
 msgid ""
 "  --no-uninstall - never ask to uninstall a package, abort the "
 "installation.\n"
@@ -1518,17 +2066,19 @@ msgstr ""
 "  --no-uninstall - パッケージを削除する必要があるときは自動的にインストールを"
 "中止\n"
 
-#: ../urpmi:90
+#: ../urpmi:86
+#, c-format
 msgid "  --no-install   - don't install packages (only download)\n"
-msgstr "  --no-install  - パッケージをインストールしない(ダウンロードのみ)\n"
+msgstr "  --no-install  - パッケージをインストールしない (ダウンロードのみ)\n"
 
-#: ../urpmi:91 ../urpmq:53
+#: ../urpmi:87 ../urpmq:58
+#, c-format
 msgid ""
 "  --keep         - keep existing packages if possible, reject requested\n"
 "                   packages that lead to removals.\n"
 msgstr "  --keep         - 既存のパッケージを維持し、削除要求は拒否する\n"
 
-#: ../urpmi:93
+#: ../urpmi:89
 #, c-format
 msgid ""
 "  --split-level  - split in small transaction if more than given packages\n"
@@ -1538,101 +2088,147 @@ msgstr ""
 "  --split-level  - 一定数以上のパッケージがインストールまたは更新される\n"
 "                    ときは分割して行う。デフォルトは %d\n"
 
-#: ../urpmi:96
+#: ../urpmi:93
 #, c-format
 msgid "  --split-length - small transaction length, default is %d.\n"
 msgstr "  --split-length - 分割する最低パッケージ数。デフォルトは %d\n"
 
-#: ../urpmi:97
+#: ../urpmi:95
+#, c-format
 msgid "  --fuzzy, -y    - impose fuzzy search.\n"
 msgstr "  --fuzzy, -y    - ファジー検索\n"
 
+#: ../urpmi:96
+#, c-format
+msgid "  --buildrequires - install the buildrequires of the packages\n"
+msgstr "  --buildrequires - パッケージの buildrequires をインストール\n"
+
+#: ../urpmi:97
+#, c-format
+msgid "  --install-src  - install only source package (no binaries).\n"
+msgstr "  --install-src  - ソースのみをインストール (バイナリなし)\n"
+
 #: ../urpmi:98
-msgid "  --src, -s      - next package is a source package.\n"
-msgstr "  --src, -s      - ソースパッケージを指定\n"
+#, c-format
+msgid "  --clean        - remove rpm from cache before anything else.\n"
+msgstr "  --clean        - 最初にキャッシュから RPM を削除する\n"
 
 #: ../urpmi:99
-msgid "  --install-src  - install only source package (no binaries).\n"
-msgstr "  --install-src  - ソースのみをインストール(バイナリなし)\n"
-
-#: ../urpmi:100
-msgid "  --clean        - remove rpm from cache before anything else.\n"
-msgstr "  --clean        - 最初にキャッシュからRPMを削除する\n"
+#, c-format
+msgid "  --noclean      - don't clean rpms from cache.\n"
+msgstr "  --noclean      - RPM をキャッシュに残す\n"
 
 #: ../urpmi:101
-msgid "  --noclean      - don't clean rpms from cache.\n"
-msgstr "  --noclean      - RPMをキャッシュに残す\n"
+#, c-format
+msgid ""
+"  --replacepkgs  - force installing packages which are already installed.\n"
+msgstr ""
+"  --replacepkgs  - インストール済みのパッケージを強制的にインストール\n"
 
 #: ../urpmi:103
+#, c-format
 msgid ""
 "  --allow-nodeps - allow asking user to install packages without\n"
 "                   dependencies checking.\n"
 msgstr ""
-"  --allow-nodeps - 依存関係に問題が発生した時に、自動的に終了せずに\n"
-"                   [--nodeps]でインストールするかどうか質問する\n"
+"  --allow-nodeps - 依存関係に問題が発生したときに、自動的に終了せずに\n"
+"                   --nodeps でインストールするかどうか質問する\n"
 
 #: ../urpmi:105
+#, c-format
 msgid ""
 "  --allow-force  - allow asking user to install packages without\n"
 "                   dependencies checking and integrity.\n"
 msgstr ""
-"  --allow-force  - 依存関係に問題が発生した時に、自動的に終了せずに\n"
-"                   [--force]でインストールするかどうか質問する\n"
+"  --allow-force  - 依存関係に問題が発生したときに、自動的に終了せずに\n"
+"                   --force でインストールするかどうか質問する\n"
 
-#: ../urpmi:108
-msgid "  --root         - use another root for rpm installation.\n"
-msgstr "  --root         - RPMのインストールに他のルートを使う\n"
+#: ../urpmi:107
+#, c-format
+msgid "  --allow-suggests - auto select \"suggested\" packages.\n"
+msgstr "  --allow-suggests  - 提案されたパッケージを自動的に選択\n"
 
-#: ../urpmi:109
+#: ../urpmi:111
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree, useful\n"
 "                   to install a chroot with --root option.\n"
 msgstr ""
-"  --use-distrib  - ディストリビューションのツリーからurpmiをオンザフライで\n"
-"                   設定。chrootを'--root'オプション付きで(アン)インストール\n"
-"                   する際に使用。\n"
+"  --use-distrib  - ディストリビューションのツリーから urpmi をオンザフライ\n"
+"                   で設定。chroot を --root オプション付きでインストール/\n"
+"                   アンインストールする際に使用。\n"
 
-#: ../urpmi:111 ../urpmi.addmedia:45 ../urpmi.update:32 ../urpmq:68
-msgid "  --wget         - use wget to retrieve distant files.\n"
-msgstr "  --wget         - リモートファイルの取得にwgetを使う\n"
-
-#: ../urpmi:112 ../urpmi.addmedia:46 ../urpmi.update:33 ../urpmq:69
-msgid "  --curl         - use curl to retrieve distant files.\n"
-msgstr "  --curl         - リモートファイルの取得にcurlを使う\n"
-
-#: ../urpmi:113
-msgid "  --curl-options - additional options to pass to curl\n"
-msgstr "  --curl-options - curlに送る追加オプション\n"
+#: ../urpmi:113 ../urpmi.addmedia:60 ../urpmi.update:37
+#, c-format
+msgid "  --metalink     - generate and use a local metalink.\n"
+msgstr "  --metalink     - ローカルのメタルリンクを生成して使用\n"
 
 #: ../urpmi:114
-msgid "  --rsync-options- additional options to pass to rsync\n"
-msgstr "  --rsync-options - rsyncに送る追加オプション\n"
+#, c-format
+msgid ""
+"  --download-all - download all needed packages before trying to install "
+"them\n"
+msgstr ""
 
 #: ../urpmi:115
-msgid "  --wget-options - additional options to pass to wget\n"
-msgstr "  --wget-options - wgetに送る追加オプション\n"
+#, c-format
+msgid ""
+"  --downloader   - program to use to retrieve distant files. \n"
+"                   known programs: %s\n"
+msgstr ""
+"  --downloader   - リモートからファイルを取得するプログラム\n"
+"                   認識されたプログラム: %s\n"
 
-#: ../urpmi:116 ../urpmi.addmedia:47 ../urpmi.update:34
+#: ../urpmi:118
+#, c-format
+msgid "  --curl-options - additional options to pass to curl\n"
+msgstr "  --curl-options - curl に渡す追加オプション\n"
+
+#: ../urpmi:119
+#, c-format
+msgid "  --rsync-options- additional options to pass to rsync\n"
+msgstr "  --rsync-options - rsync に渡す追加オプション\n"
+
+#: ../urpmi:120
+#, c-format
+msgid "  --wget-options - additional options to pass to wget\n"
+msgstr "  --wget-options - wget に渡す追加オプション\n"
+
+#: ../urpmi:121
+#, c-format
+msgid "  --prozilla-options - additional options to pass to prozilla\n"
+msgstr "  --prozilla-options - prozilla に渡す追加オプション\n"
+
+#: ../urpmi:122
+#, c-format
+msgid "  --aria2-options - additional options to pass to aria2\n"
+msgstr "  --aria2-options - aria2 に渡す追加オプション\n"
+
+#: ../urpmi:123 ../urpmi.addmedia:61 ../urpmi.update:38
+#, c-format
 msgid "  --limit-rate   - limit the download speed.\n"
 msgstr "  --limit-rate   - ダウンロード速度を制限\n"
 
-#: ../urpmi:117
+#: ../urpmi:124
+#, c-format
 msgid ""
 "  --resume       - resume transfer of partially-downloaded files\n"
 "                   (--no-resume disables it, default is disabled).\n"
 msgstr ""
 "  --resume       - 不完全なファイルのダウンロードを再開する\n"
-"                   ([--no-resume]で無効化、デフォルトで無効)\n"
+"                   (--no-resume で無効化、デフォルトで無効)\n"
 
-#: ../urpmi:119 ../urpmi.addmedia:48 ../urpmi.update:35 ../urpmq:70
+#: ../urpmi:126 ../urpmi.addmedia:62 ../urpmi.update:39 ../urpmq:78
+#, c-format
 msgid ""
 "  --proxy        - use specified HTTP proxy, the port number is assumed\n"
 "                   to be 1080 by default (format is <proxyhost[:port]>).\n"
 msgstr ""
-"  --proxy        - 指定したHTTPプロキシを使う。デフォルトのポート番号は\n"
+"  --proxy        - 指定した HTTP プロキシを使う。デフォルトのポート番号は\n"
 "                   1080。(形式: <proxyhost[:port]>)\n"
 
-#: ../urpmi:121 ../urpmi.addmedia:50 ../urpmi.update:37 ../urpmq:72
+#: ../urpmi:128 ../urpmi.addmedia:64 ../urpmi.update:41 ../urpmq:80
+#, c-format
 msgid ""
 "  --proxy-user   - specify user and password to use for proxy\n"
 "                   authentication (format is <user:password>).\n"
@@ -1640,51 +2236,55 @@ msgstr ""
 "  --proxy-user   - プロキシ認証に使うユーザ名とパスワードを\n"
 "                   指定する。(形式: <user:password>)\n"
 
-#: ../urpmi:123
+#: ../urpmi:130
+#, c-format
 msgid ""
 "  --bug          - output a bug report in directory indicated by\n"
 "                   next arg.\n"
 msgstr "  --bug          - 指定したディレクトリにバグレポートを出力\n"
 
-#: ../urpmi:126
-msgid ""
-"  --verify-rpm   - verify rpm signature before installation\n"
-"                   (--no-verify-rpm disables it, default is enabled).\n"
-msgstr ""
-"  --verify-rpm   - インストールする前にRPMの署名を確認する\n"
-"                   (=デフォルト。[--no-verify-rpm]で無効)\n"
-
-#: ../urpmi:128
-msgid ""
-"  --test         - only verify if the installation can be achieved "
-"correctly.\n"
-msgstr "  --test         - 正しくインストールされるかどうかテストする\n"
-
-#: ../urpmi:129
+#: ../urpmi:136
+#, c-format
 msgid "  --excludepath  - exclude path separated by comma.\n"
-msgstr "  --excludepath  - 除外するパスを指定(カンマで区切る)\n"
+msgstr "  --excludepath  - 除外するパスを指定 (カンマで区切る)\n"
 
-#: ../urpmi:130
+#: ../urpmi:137
+#, c-format
 msgid "  --excludedocs  - exclude doc files.\n"
-msgstr "  --excludedocs  - docファイルを除外する\n"
+msgstr "  --excludedocs  - doc ファイルを除外する\n"
 
-#: ../urpmi:131
+#: ../urpmi:138
+#, c-format
 msgid "  --ignoresize   - don't verify disk space before installation.\n"
 msgstr "  --ignoresize   - インストールする前にディスク容量を確認しない\n"
 
-#: ../urpmi:132
+#: ../urpmi:139
+#, c-format
 msgid "  --ignorearch   - allow to install rpms for unmatched architectures.\n"
-msgstr "  --ignorearch   - 別のアーキテクチャのRPMのインストールを許可する\n"
+msgstr "  --ignorearch   - 別のアーキテクチャの RPM のインストールを許可する\n"
 
-#: ../urpmi:133
+#: ../urpmi:140
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s)\n"
 msgstr "  --noscripts    - パッケージのスクリプトを実行しない\n"
 
-#: ../urpmi:135
+#: ../urpmi:141
+#, c-format
+msgid "  --replacefiles - ignore file conflicts\n"
+msgstr "  --replacefiles - ファイルの衝突を無視\n"
+
+#: ../urpmi:143
+#, c-format
 msgid "  --skip         - packages which installation should be skipped\n"
 msgstr "  --skip         - インストールをスキップするパッケージ\n"
 
-#: ../urpmi:136
+#: ../urpmi:144
+#, c-format
+msgid "  --prefer       - packages which should be preferred\n"
+msgstr "  --prefer       - 優先すべきパッケージ\n"
+
+#: ../urpmi:145
+#, c-format
 msgid ""
 "  --more-choices - when several packages are found, propose more choices\n"
 "                   than the default.\n"
@@ -1692,68 +2292,90 @@ msgstr ""
 "  --more-choices - 複数のパッケージがある場合に、デフォルト以外の選択肢を\n"
 "                   表示する\n"
 
-#: ../urpmi:138 ../urpmi.addmedia:64 ../urpmi.update:42
-msgid "  --norebuild    - don't try to rebuild hdlist if not readable.\n"
-msgstr "  --norebuild    - 読み込み不可ならhdlistをリビルドしない\n"
-
-#: ../urpmi:139
+#: ../urpmi:147
+#, c-format
 msgid "  --nolock       - don't lock rpm db.\n"
-msgstr "  --nolock       - RPMデータベースをロックしない\n"
+msgstr "  --nolock       - RPM データベースをロックしない\n"
 
-#: ../urpmi:140
+#: ../urpmi:148
+#, c-format
 msgid "  --strict-arch  - upgrade only packages with the same architecture.\n"
 msgstr "  --strict-arch  - 同じアーキテクチャのパッケージのみを更新\n"
 
-#: ../urpmi:141 ../urpmq:77
+#: ../urpmi:149 ../urpmq:99
+#, c-format
 msgid "  -a             - select all matches on command line.\n"
 msgstr "  -a             - 指定した表現を含むすべてのパッケージを選択する\n"
 
-#: ../urpmi:142
-msgid "  -p             - allow search in provides to find package.\n"
-msgstr "  -p             - provide(提供)タグも検索対象に含める\n"
+#: ../urpmi:152
+#, c-format
+msgid "  --quiet, -q    - quiet mode.\n"
+msgstr "  --quiet, -q   - 詳細を表示しない\n"
 
-#: ../urpmi:143
-msgid "  -P             - do not search in provides to find package.\n"
-msgstr "  -P             - provide(提供)タグは検索の対象にしない\n"
+#: ../urpmi:154
+#, c-format
+msgid "  --debug        - very verbose mode.\n"
+msgstr "  --debug      - 非常に詳細なモード\n"
 
-#: ../urpmi:144 ../urpmi.addmedia:69 ../urpmi.removemedia:58
-#: ../urpmi.update:48
-msgid "  -q             - quiet mode.\n"
-msgstr "  -q             - 詳細を表示しない\n"
-
-#: ../urpmi:146
+#: ../urpmi:155
+#, c-format
 msgid "  names or rpm files given on command line will be installed.\n"
 msgstr ""
-"  コマンドラインで指定したパッケージ名/RPMファイルをインストールします\n"
+"  コマンドラインで指定したパッケージ名/RPM ファイルをインストールします\n"
 
-#: ../urpmi:197
-msgid "You can't install binary rpm files when using --install-src"
-msgstr "バイナリRPMは[--install-src]オプション使用時にはインストールできません"
+#: ../urpmi:183
+#, c-format
+msgid "Error: can't use --auto-select along with package list.\n"
+msgstr "エラー: --auto-select はパッケージリストと一緒には使えません。\n"
+
+#: ../urpmi:190
+#, c-format
+msgid ""
+"Error: To generate a bug report, specify the usual command-line arguments\n"
+"along with --bug.\n"
+msgstr ""
+"エラー: バグレポートを生成するには、通常のコマンドライン引数に加えて\n"
+"--bug を指定してください。\n"
 
 #: ../urpmi:220
+#, c-format
+msgid "You can't install binary rpm files when using --install-src"
+msgstr ""
+"バイナリ RPM は --install-src オプション使用時にはインストールできません"
+
+#: ../urpmi:221
+#, c-format
+msgid "You can't install spec files"
+msgstr "スペックファイルはインストールできません"
+
+#: ../urpmi:228
+#, c-format
+msgid "defaulting to --buildrequires"
+msgstr "デフォルトの --buildrequires を使用"
+
+#: ../urpmi:233
+#, c-format
+msgid ""
+"please use --buildrequires or --install-src, defaulting to --buildrequires"
+msgstr ""
+"--buildrequires または --install-src を使ってください。デフォルトは --"
+"buildrequires"
+
+#: ../urpmi:253
 #, c-format
 msgid ""
 "Directory [%s] already exists, please use another directory for bug report "
 "or delete it"
 msgstr ""
-"ディレクトリ[%s]はすでに存在します。バグレポートには他のディレクトリを使うか"
-"既存のディレクトリを削除してください"
+"ディレクトリ [%s] は既に存在します。バグレポートには他のディレクトリを使う"
+"か、既存のディレクトリを削除してください。"
 
-#: ../urpmi:221
+#: ../urpmi:254
 #, c-format
 msgid "Unable to create directory [%s] for bug report"
-msgstr "バグレポート用のディレクトリ[%s]を作成できません"
+msgstr "バグレポート用のディレクトリ [%s] を作成できません"
 
-#: ../urpmi:224 ../urpmi:380
-msgid "Copying failed"
-msgstr "コピーに失敗"
-
-#: ../urpmi:230
-#, c-format
-msgid "Environment directory %s does not exist"
-msgstr ""
-
-#: ../urpmi:248
+#: ../urpmi:275
 #, c-format
 msgid ""
 "Error: %s appears to be mounted read-only.\n"
@@ -1762,28 +2384,66 @@ msgstr ""
 "エラー: %s は読み取り専用でマウントされているようです。\n"
 "操作を強制するには --allow-force を使ってください。"
 
-#. - For translators : there are several media here
-#: ../urpmi:332
-msgid "Updating media...\n"
-msgstr "メディアを更新...\n"
+#. -PO: here format is "<package_name>: <summary> (to upgrade)"
+#: ../urpmi:429
+#, c-format
+msgid "%s: %s (to upgrade)"
+msgstr "%s: %s (アップグレードするため)"
 
-#: ../urpmi:417
+#. -PO: here format is "<package_name> (to upgrade)"
+#: ../urpmi:431
+#, c-format
+msgid "%s (to upgrade)"
+msgstr "%s (アップグレードするため)"
+
+#. -PO: here format is "<package_name>: <summary> (to install)"
+#: ../urpmi:435
+#, c-format
+msgid "%s: %s (to install)"
+msgstr "%s: %s (インストールするため)"
+
+#. -PO: here format is "<package_name> (to install)"
+#: ../urpmi:437
+#, c-format
+msgid "%s (to install)"
+msgstr "%s (インストールするため)"
+
+#: ../urpmi:443
+#, c-format
+msgid ""
+"In order to satisfy the '%s' dependency, one of the following packages is "
+"needed:"
+msgstr "'%s' の依存を満たすために以下のパッケージのいずれかが必要です:"
+
+#: ../urpmi:446
 #, c-format
 msgid "What is your choice? (1-%d) "
-msgstr "どれを選びますか？(1-%d) "
+msgstr "どれを選びますか？ (1-%d) "
 
-#: ../urpmi:447
+#: ../urpmi:488
+#, c-format
+msgid ""
+"The following package cannot be installed because it depends on packages\n"
+"that are older than the installed ones:\n"
+"%s"
+msgstr ""
+"以下のパッケージは既にインストールされているものよりも古いバージョンの\n"
+"パッケージに依存しているため、インストールできません:\n"
+"%s"
+
+#: ../urpmi:490
 #, c-format
 msgid ""
 "The following packages can't be installed because they depend on packages\n"
 "that are older than the installed ones:\n"
 "%s"
 msgstr ""
-"次のパッケージは既にインストールされているものよりも古いバージョンの\n"
+"以下のパッケージは既にインストールされているものよりも古いバージョンの\n"
 "パッケージに依存しているため、インストールできません:\n"
 "%s"
 
-#: ../urpmi:455 ../urpmi:473
+#: ../urpmi:496 ../urpmi:514
+#, c-format
 msgid ""
 "\n"
 "Continue installation anyway?"
@@ -1791,180 +2451,209 @@ msgstr ""
 "\n"
 "このままインストールを続けますか？"
 
-#: ../urpmi:455 ../urpmi:473 ../urpmi:560
+#: ../urpmi:497 ../urpmi:515 ../urpmi:630 ../urpmi.addmedia:136
+#, c-format
 msgid " (Y/n) "
 msgstr " (Y/n)[デフォルトはY] "
 
-#: ../urpmi:466
+#: ../urpmi:508
 #, c-format
 msgid ""
-"Some requested packages cannot be installed:\n"
+"A requested package cannot be installed:\n"
 "%s"
 msgstr ""
 "インストールできないパッケージがあります:\n"
 "%s"
 
-#: ../urpmi:496
+#: ../urpmi:529
+#, c-format
+msgid "removing package %s will break your system"
+msgstr "%s を削除するとシステムが壊れます"
+
+#: ../urpmi:537
+#, c-format
+msgid ""
+"The installation cannot continue because the following package\n"
+"has to be removed for others to be upgraded:\n"
+"%s\n"
+msgstr ""
+"インストールを続けられません。\n"
+"更新するには以下のパッケージを削除しなければなりません:\n"
+"%s\n"
+
+#: ../urpmi:539
 #, c-format
 msgid ""
 "The installation cannot continue because the following packages\n"
 "have to be removed for others to be upgraded:\n"
 "%s\n"
 msgstr ""
-"インストールを続けられません。更新するには以下のパッケージを\n"
-"削除しなければなりません:\n"
-"%s\n"
-
-#: ../urpmi:501
-#, c-format
-msgid ""
-"The following packages have to be removed for others to be upgraded:\n"
-"%s"
-msgstr ""
+"インストールを続けられません。\n"
 "更新するには以下のパッケージを削除しなければなりません:\n"
-"%s"
-
-#: ../urpmi:503
-msgid "(test only, removal will not be actually done)"
-msgstr "(テストのみ、実際には削除されません)"
-
-#: ../urpmi:539 ../urpmi:551
-msgid ""
-"To satisfy dependencies, the following packages are going to be installed"
-msgstr "依存を満たすために次のパッケージをインストールします"
-
-#: ../urpmi:540 ../urpmi:552
-msgid "To satisfy dependencies, the following package is going to be installed"
-msgstr "依存を満たすために次のパッケージをインストールします"
-
-#: ../urpmi:541
-#, c-format
-msgid "(%d packages, %d MB)"
-msgstr "(%d 個のパッケージ %d MB)"
+"%s\n"
 
 #: ../urpmi:547
 #, c-format
+msgid "(test only, removal will not be actually done)"
+msgstr "(テストのみ、実際には削除されません)"
+
+#: ../urpmi:566
+#, c-format
 msgid ""
-"You need to be root to install the following dependencies:\n"
+"You must first call urpmi with --buildrequires to install the following "
+"dependencies:\n"
 "%s\n"
 msgstr ""
-"次の依存パッケージをインストールするにはroot権限が必要です:\n"
+"以下の依存パッケージをインストールするには、まず --buildrequires で urpmi を"
+"呼び出さなければなりません:\n"
 "%s\n"
 
-#: ../urpmi:554
+#: ../urpmi:576
+#, c-format
+msgid "The following orphan package will be removed."
+msgid_plural "The following orphan packages will be removed."
+msgstr[0] "以下のオーファンを削除します"
+
+#: ../urpmi:600
+#, c-format
+msgid "WARNING: %s option is in use. Some strange problems may happen"
+msgstr ""
+
+#: ../urpmi:612
+#, c-format
 msgid "(test only, installation will not be actually done)"
 msgstr "(テストのみ、実際にはインストールされません)"
 
-#: ../urpmi:556
+#: ../urpmi:618
 #, c-format
-msgid "Proceed with the installation of the %d packages? (%d MB)"
-msgstr "%d 個のパッケージ(%d MB)のインストールを開始しますか？"
+msgid "%s of additional disk space will be used."
+msgstr "ディスク容量を %s 使います。"
 
-#: ../urpmi:580
-msgid "Press Enter when ready..."
-msgstr "準備ができたらEnterを押してください"
-
-#: ../urpmi:586
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: ../urpmi:586
-msgid "Ok"
-msgstr "OK"
-
-#: ../urpmi:633
-msgid "The following packages have bad signatures"
-msgstr "以下のパッケージは署名が間違っています"
-
-#: ../urpmi:634
-msgid "Do you want to continue installation ?"
-msgstr "インストールを続けますか？"
-
-#: ../urpmi:682
+#: ../urpmi:619
 #, c-format
-msgid "distributing %s"
-msgstr "%s を配信中"
+msgid "%s of disk space will be freed."
+msgstr "ディスク容量が %s 空きます。"
 
-#. - there's a common prefix, simplify message
-#: ../urpmi:693
+#: ../urpmi:620
 #, c-format
-msgid "installing %s from %s"
-msgstr "%s を %s からインストール"
+msgid "%s of packages will be retrieved."
+msgstr "%s のパッケージを取得します。"
 
-#: ../urpmi:695
+#: ../urpmi:621
 #, c-format
-msgid "installing %s"
-msgstr "%s をインストール"
+msgid "Proceed with the installation of one package?"
+msgid_plural "Proceed with the installation of the %d packages?"
+msgstr[0] "%d 個のパッケージのインストールを開始しますか？"
 
-#: ../urpmi:729
-msgid "Try installation without checking dependencies? (y/N) "
-msgstr "依存を確認せずにインストールしますか？ (y/N)[デフォルトはN] "
-
-#: ../urpmi:747
-msgid "Try harder to install (--force)? (y/N) "
-msgstr "インストールを強行(--force)してみますか？(y/N)[デフォルトはN]"
-
-#: ../urpmi:787
+#: ../urpmi:643
 #, c-format
-msgid "%d installation transactions failed"
-msgstr "%d 件のインストールトランザクションが失敗しました"
+msgid "Press Enter when mounted..."
+msgstr "マウントされたら Enter を押してください"
 
-#: ../urpmi:803
-#, c-format
-msgid "The following package names were assumed: %s"
-msgstr "次のパッケージ名を推測しました: %s"
-
-#: ../urpmi:820
-msgid "restarting urpmi"
-msgstr "urpmiを再スタートします"
-
-#. Translator: The URI types strings 'file:', 'ftp:', 'http:',
-#. Translator: and 'removable:' must not be translated!
-#. Translator: neither the ``with''.
-#. Translator: only what is between <brackets> can be translated.
-#: ../urpmi.addmedia:35
+#. -PO: The URI types strings 'file:', 'ftp:', 'http:', and 'cdrom:' must not be translated!
+#. -PO: neither the ``with''.  Only what is between <brackets> can be translated.
+#: ../urpmi.addmedia:36
+#, fuzzy, c-format
 msgid ""
-"usage: urpmi.addmedia [options] <name> <url> [with <relative_path>]\n"
+"usage: urpmi.addmedia [options] <name> <url>\n"
 "where <url> is one of\n"
-"       [file:/]/<path> with <relative filename of hdlist>\n"
-"       ftp://<login>:<password>@<host>/<path> with <relative filename of "
-"hdlist>\n"
-"       ftp://<host>/<path> with <relative filename of hdlist>\n"
-"       http://<host>/<path> with <relative filename of hdlist>\n"
-"       removable://<path>\n"
+"       [file:/]/<path>\n"
+"       ftp://<login>:<password>@<host>/<path>\n"
+"       ftp://<host>/<path>\n"
+"       http://<host>/<path>\n"
+"       cdrom://<path>\n"
+"\n"
+"usage: urpmi.addmedia [options] --distrib --mirrorlist <url>\n"
+"usage: urpmi.addmedia [options] --mirrorlist <url> <name> <relative path>\n"
+"\n"
+"examples:\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"  urpmi.addmedia --distrib --zeroconf\n"
+"\n"
 "\n"
 "and [options] are from\n"
 msgstr ""
-"使いかた: urpmi.addmedia [オプション] <メディア名> <url> [with <相対パス>]\n"
-"<url>は以下を選択\n"
-"       [file:/]/<パス> with <hdlistの相対的ファイル名>\n"
-"       ftp://<login>:<password>@<ホスト>/<パス> with <hdlistの相対的ファイル"
-"名>\n"
-"       ftp://<ホスト>/<パス> with <hdlistの相対的ファイル名>\n"
-"       http://<ホスト>/<パス> with <hdlistの相対的ファイル名>\n"
-"       removable://<パス>\n"
+"使い方: urpmi.addmedia [オプション] <メディア名> <url>\n"
+"<url> には以下を選択\n"
+"       [file:/]/<パス>\n"
+"       ftp://<ログイン>:<パスワード>@<ホスト>/<パス>\n"
+"       ftp://<ホスト>/<パス>\n"
+"       http://<ホスト>/<パス>\n"
+"       cdrom://<パス>\n"
 "\n"
-"[オプション]は以下を選択\n"
+"使い方: urpmi.addmedia [オプション] --distrib --mirrorlist <url>\n"
+"使い方: urpmi.addmedia [オプション] --mirrorlist <url> <メディア名> <相対パス"
+">\n"
+"\n"
+"例:\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"\n"
+"\n"
+"[オプション] は以下を選択\n"
 
-#: ../urpmi.addmedia:52
-msgid "  --update       - create an update medium.\n"
-msgstr "  --update       - 更新メディアを作成\n"
+#: ../urpmi.addmedia:56 ../urpmi.update:33 ../urpmq:75
+#, c-format
+msgid "  --wget         - use wget to retrieve distant files.\n"
+msgstr "  --wget         - リモートファイルの取得に wget を使う\n"
 
-#: ../urpmi.addmedia:53
-msgid "  --probe-synthesis - try to find and use synthesis file.\n"
-msgstr "  --probe-synthesis - 既存のsynthesisファイルを使う\n"
+#: ../urpmi.addmedia:57 ../urpmi.update:34 ../urpmq:76
+#, c-format
+msgid "  --curl         - use curl to retrieve distant files.\n"
+msgstr "  --curl         - リモートファイルの取得に curl を使う\n"
 
-#: ../urpmi.addmedia:54
-msgid "  --probe-hdlist - try to find and use hdlist file.\n"
-msgstr "  --probe-hdlist - 既存のhdlistファイルを使う\n"
+#: ../urpmi.addmedia:58 ../urpmi.update:35 ../urpmq:77
+#, c-format
+msgid "  --prozilla     - use prozilla to retrieve distant files.\n"
+msgstr "  --prozilla     - リモートファイルの取得に prozilla を使う\n"
 
-#: ../urpmi.addmedia:55
+#: ../urpmi.addmedia:59 ../urpmi.update:36
+#, c-format
+msgid "  --aria2        - use aria2 to retrieve distant files.\n"
+msgstr "  --aria2         - リモートファイルの取得に aria2 を使う\n"
+
+#: ../urpmi.addmedia:66
+#, c-format
 msgid ""
-"  --no-probe     - do not try to find any synthesis or\n"
-"                   hdlist file.\n"
-msgstr "  --no-probe     - 既存のsynthesis/hdlistファイルを使わない\n"
+"  --update       - create an update medium, \n"
+"                   or discard non-update media (when used with --distrib)\n"
+msgstr ""
+"  --update       - 更新メディアを作成\n"
+"                   (--distrib と使用した場合は、更新メディアでないメディアを"
+"破棄)\n"
 
-#: ../urpmi.addmedia:57
+#: ../urpmi.addmedia:68
+#, c-format
+msgid ""
+"  --xml-info     - use the specific policy for downloading xml info files\n"
+"                   one of: never, on-demand, update-only, always. cf urpmi."
+"cfg(5)\n"
+msgstr ""
+"  --xml-info     - XML 情報ファイルのダウンロードに次のいずれかのポリシーを使"
+"う:\n"
+"                   never, on-demand, update-only, always\n"
+"                   cf urpmi.cfg(5)\n"
+
+#: ../urpmi.addmedia:70
+#, c-format
+msgid "  --probe-synthesis - use synthesis file.\n"
+msgstr "  --probe-synthesis - synthesis ファイルを使う\n"
+
+#: ../urpmi.addmedia:71
+#, c-format
+msgid "  --probe-rpms   - use rpm files (instead of synthesis).\n"
+msgstr "  --probe-rpms   - RPM ファイルを使う (synthesis の代わりに)\n"
+
+#: ../urpmi.addmedia:72
+#, c-format
+msgid "  --no-probe     - do not try to find any synthesis file.\n"
+msgstr "  --no-probe     - synthesis ファイルの検出を試みない\n"
+
+#: ../urpmi.addmedia:74
+#, c-format
 msgid ""
 "  --distrib      - automatically create all media from an installation\n"
 "                   medium.\n"
@@ -1972,120 +2661,153 @@ msgstr ""
 "  --distrib      - インストールに使用したすべてのメディアを自動的に追加\n"
 "                    する\n"
 
-#: ../urpmi.addmedia:59
+#: ../urpmi.addmedia:76
 #, c-format
-msgid ""
-"  --from         - use specified url for list of mirrors, the default is\n"
-"                   %s\n"
+msgid "  --interactive  - with --distrib, ask confirmation for each media\n"
 msgstr ""
-"  --from         - ミラーリストの取得に指定したURLを使う。デフォルトは\n"
-"                   %s\n"
+"  --interactive -  --distrib と併用して、各メディアについて確認を求める\n"
 
-#: ../urpmi.addmedia:61
-msgid ""
-"  --virtual      - create virtual media wich are always up-to-date,\n"
-"                   only file:// protocol is allowed.\n"
+#: ../urpmi.addmedia:77
+#, c-format
+msgid "  --all-media    - with --distrib, add every listed media\n"
 msgstr ""
-"  --virtual      - 常に最新状態に更新されている仮想メディアを作成\n"
-"                   'file://'プロトコルのみ使用可\n"
+"  --all-media   - --distrib と併用して、リストのすべてのメディアを追加\n"
 
-#: ../urpmi.addmedia:63 ../urpmi.update:40
+#: ../urpmi.addmedia:78
+#, c-format
+msgid "  --virtual      - create virtual media wich are always up-to-date.\n"
+msgstr "  --virtual      - 常に最新状態に更新されている仮想メディアを作成\n"
+
+#: ../urpmi.addmedia:79 ../urpmi.update:44
+#, c-format
 msgid "  --no-md5sum    - disable MD5SUM file checking.\n"
-msgstr "  --no-md5sum    - MD5SUMファイルを確認しない\n"
-
-#: ../urpmi.addmedia:65
-msgid "  --nopubkey     - don't import pubkey of added media\n"
-msgstr "  --nopubkey     - 追加したメディアの公開鍵をインポートしない\n"
-
-#: ../urpmi.addmedia:66
-msgid "  --raw          - add the media in config, but don't update it.\n"
-msgstr "  --raw          - 設定ファイルにメディアを追加、更新はしない\n"
-
-#: ../urpmi.addmedia:67 ../urpmi.removemedia:56 ../urpmi.update:46
-msgid "  -c             - clean headers cache directory.\n"
-msgstr "  -c             - キャッシュディレクトリのヘッダを削除\n"
-
-#: ../urpmi.addmedia:68 ../urpmi.update:47
-msgid "  -f             - force generation of hdlist files.\n"
-msgstr "  -f             - hdlistファイルを強制的に生成\n"
+msgstr "  --no-md5sum    - MD5SUM ファイルをチェックしない\n"
 
 #: ../urpmi.addmedia:80
 #, c-format
-msgid "unable to update medium \"%s\"\n"
-msgstr "メディア %s を更新できません\n"
+msgid "  --nopubkey     - don't import pubkey of added media\n"
+msgstr "  --nopubkey     - 追加したメディアの公開鍵をインポートしない\n"
 
-#: ../urpmi.addmedia:113
-msgid "Only superuser is allowed to add media"
-msgstr "メディアの追加はスーパーユーザにしかできません"
+#: ../urpmi.addmedia:81
+#, c-format
+msgid "  --raw          - add the media in config, but don't update it.\n"
+msgstr "  --raw          - 設定ファイルにメディアを追加、更新はしない\n"
+
+#: ../urpmi.addmedia:82 ../urpmi.removemedia:43 ../urpmi.update:53
+#, c-format
+msgid "  -q             - quiet mode.\n"
+msgstr "  -q             - 詳細を表示しない\n"
+
+#: ../urpmi.addmedia:83 ../urpmi.removemedia:44 ../urpmi.update:54
+#, c-format
+msgid "  -v             - verbose mode.\n"
+msgstr "  -v             - 詳細モード。\n"
+
+#: ../urpmi.addmedia:96
+#, c-format
+msgid "known xml-info policies are %s"
+msgstr "xml-info の既知のポリシーは %s"
+
+#: ../urpmi.addmedia:107
+#, c-format
+msgid "no argument needed for --distrib --mirrorlist <url>"
+msgstr "--distrib --mirrorlist <url> には引数は必要ありません"
+
+#: ../urpmi.addmedia:112
+#, c-format
+msgid "bad <url> (for local directory, the path must be absolute)"
+msgstr "不正な <url> (ローカルディレクトリの場合は絶対パスが必要です)"
 
 #: ../urpmi.addmedia:116
 #, c-format
-msgid "Will create config file [%s]"
-msgstr "設定ファイル[%s]を作成します"
+msgid "Only superuser is allowed to add media"
+msgstr "メディアの追加はスーパーユーザにしかできません"
 
-#: ../urpmi.addmedia:117
+#: ../urpmi.addmedia:119
+#, c-format
+msgid "creating config file [%s]"
+msgstr "設定ファイル [%s] を作成"
+
+#: ../urpmi.addmedia:120
 #, c-format
 msgid "Can't create config file [%s]"
-msgstr "設定ファイル[%s]を作成できません"
+msgstr "設定ファイル [%s] を作成できません"
 
-#: ../urpmi.addmedia:124
-msgid "no need to give <relative path of hdlist> with --distrib"
-msgstr "[--distrib]に <hdlistの相対パス> は必要ありません"
-
-#: ../urpmi.addmedia:145
-msgid "<relative path of hdlist> missing\n"
-msgstr "<hdlistの相対パス>の指定がありません\n"
-
-#: ../urpmi.addmedia:147
-msgid "`with' missing for network media\n"
-msgstr "ネットワークメディアの'with'以下がありません\n"
-
-#: ../urpmi.addmedia:169
+#: ../urpmi.addmedia:128
 #, c-format
-msgid "unable to create medium \"%s\"\n"
-msgstr "メディア %s を作成できません\n"
+msgid "no need to give <relative path of synthesis> with --distrib"
+msgstr "--distrib には <synthesis の相対パス> は必要ありません"
 
-#: ../urpmi.recover:28
+#: ../urpmi.addmedia:136
 #, c-format
 msgid ""
+"\n"
+"Do you want to add media '%s'?"
+msgstr ""
+"\n"
+"メディア '%s' を追加しますか？"
+
+#: ../urpmi.addmedia:155 ../urpmi.addmedia:179
+#, c-format
+msgid "unable to add medium"
+msgstr "メディアを追加できません"
+
+#: ../urpmi.addmedia:163
+#, c-format
+msgid "<relative path of synthesis> missing\n"
+msgstr "<synthesis の相対パス> の指定がありません\n"
+
+#: ../urpmi.addmedia:166
+#, c-format
+msgid "Can't use %s with remote medium"
+msgstr "%s はリモートメディアには使えません"
+
+#: ../urpmi.recover:28
+#, fuzzy, c-format
+msgid ""
 "urpmi.recover version %s\n"
-"Copyright (C) 2006 Mandriva.\n"
+"Copyright (C) 2006-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
 "usage:\n"
 msgstr ""
 "urpmi.recover version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"これはフリーソフトウェアであり、GNU GPL の条件のもとで再配布できます。\n"
 "\n"
 "使い方:\n"
 
 #: ../urpmi.recover:34
+#, c-format
 msgid "  --checkpoint   - set repackaging start now\n"
-msgstr ""
+msgstr "  --checkpoint   - repackaging の開始を設定\n"
 
 #: ../urpmi.recover:35
-#, fuzzy
+#, c-format
 msgid "  --noclean      - don't clean repackage directory on checkpoint\n"
-msgstr "  --noclean      - RPMをキャッシュに残す\n"
+msgstr ""
+"  --noclean      - checkpoint で repackage ディレクトリをクリアしない\n"
 
-#: ../urpmi.recover:36
+#: ../urpmi.recover:37
+#, c-format
 msgid ""
 "  --list         - list transactions since provided date/duration argument\n"
 msgstr ""
 "  --list         - 指定した日付以降または期間のトランザクションを表示\n"
 
-#: ../urpmi.recover:37
-msgid "  --list-all     - list all transactions in rpmdb (long)\n"
-msgstr "  --list-all     - rpmdbの全てのトランザクションを表示 (長い)\n"
-
 #: ../urpmi.recover:38
-#, fuzzy
-msgid "  --list-safe    - list transactions since checkpoint\n"
-msgstr "  --list-all     - rpmdbの全てのトランザクションを表示 (長い)\n"
+#, c-format
+msgid "  --list-all     - list all transactions in rpmdb (long)\n"
+msgstr "  --list-all     - rpmdb のすべてのトランザクションを表示 (長い)\n"
 
 #: ../urpmi.recover:39
+#, c-format
+msgid "  --list-safe    - list transactions since checkpoint\n"
+msgstr "  --list-safe     - checkpoint 以降のトランザクションを表示\n"
+
+#: ../urpmi.recover:40
+#, c-format
 msgid ""
 "  --rollback     - rollback until specified date,\n"
 "                   or rollback the specified number of transactions\n"
@@ -2093,120 +2815,122 @@ msgstr ""
 "  --rollback     - 指定した日付まで、または\n"
 "                   指定した数のトランザクションをロールバック\n"
 
-#: ../urpmi.recover:41
-#, fuzzy
+#: ../urpmi.recover:42
+#, c-format
 msgid "  --disable      - turn off repackaging\n"
-msgstr "  --filename     - パッケージのファイル名\n"
+msgstr "  --disable      - repackaging を無効にする\n"
 
-#: ../urpmi.recover:56
+#: ../urpmi.recover:57
 #, c-format
 msgid "Invalid date or duration [%s]\n"
 msgstr "無効な日付または期間 [%s]\n"
 
-#: ../urpmi.recover:64
-#, fuzzy
+#: ../urpmi.recover:65
+#, c-format
 msgid "Repackage directory not defined\n"
-msgstr "パッケージ %s は見つかりません"
+msgstr "repackage ディレクトリが指定されていません\n"
 
-#: ../urpmi.recover:67
+#: ../urpmi.recover:68
 #, c-format
 msgid "Can't write to repackage directory [%s]\n"
-msgstr ""
+msgstr "repackage ディレクトリに書き込めません [%s]\n"
 
-#: ../urpmi.recover:69
+#: ../urpmi.recover:70
 #, c-format
 msgid "Cleaning up repackage directory [%s]...\n"
-msgstr ""
+msgstr "repackage ディレクトリをクリーンアップ [%s]...\n"
 
-#: ../urpmi.recover:71
+#: ../urpmi.recover:72
 #, c-format
-msgid "%d files removed\n"
-msgstr "%d 個のファイルを削除しました\n"
+msgid "%d file removed\n"
+msgid_plural "%d files removed\n"
+msgstr[0] "%d 個のファイルを削除しました\n"
 
-#: ../urpmi.recover:81
+#: ../urpmi.recover:82
 #, c-format
 msgid "Spurious command-line arguments [%s]\n"
-msgstr ""
+msgstr "コマンドラインの引数が誤っています [%s]\n"
 
-#: ../urpmi.recover:83
+#: ../urpmi.recover:84
+#, c-format
 msgid "You can't specify --checkpoint and --rollback at the same time\n"
 msgstr "--checkpoint と --rollback は同時に指定できません\n"
 
-#: ../urpmi.recover:85
+#: ../urpmi.recover:86
+#, c-format
 msgid "You can't specify --checkpoint and --list at the same time\n"
 msgstr "--checkpoint と --list は同時に指定できません\n"
 
-#: ../urpmi.recover:87
+#: ../urpmi.recover:88
+#, c-format
 msgid "You can't specify --rollback and --list at the same time\n"
 msgstr "--rollback と --list は同時に指定できません\n"
 
-#: ../urpmi.recover:89
+#: ../urpmi.recover:90
+#, c-format
 msgid "You can't specify --disable along with another option"
 msgstr "--disable は他のオプションと同時に指定できません"
 
-#: ../urpmi.recover:114
+#: ../urpmi.recover:115
 #, c-format
 msgid "No transaction found since %s\n"
 msgstr "%s 以降のトランザクションはありません\n"
 
-#. - check we're running as root
-#: ../urpmi.recover:129
+#: ../urpmi.recover:130
+#, c-format
 msgid "You must be superuser to do this"
 msgstr "これはスーパーユーザにしかできません"
 
-#. - write rpm config file
-#: ../urpmi.recover:142 ../urpmi.recover:208
+#: ../urpmi.recover:143 ../urpmi.recover:209
 #, c-format
 msgid "Writing rpm macros file [%s]...\n"
-msgstr "RPMマクロファイルを書き込み [%s]...\n"
+msgstr "RPM マクロファイルを書き込み [%s]...\n"
 
-#: ../urpmi.recover:184
+#: ../urpmi.recover:185
+#, c-format
 msgid "No rollback date found\n"
 msgstr "ロールバックの日付が見つかりません\n"
 
-#: ../urpmi.recover:187
+#: ../urpmi.recover:188
 #, c-format
 msgid "Rollback until %s...\n"
 msgstr "%s までロールバック...\n"
 
-#: ../urpmi.recover:194
+#: ../urpmi.recover:195
+#, c-format
 msgid "Disabling repackaging\n"
-msgstr ""
+msgstr "repackaging を無効にします\n"
 
-#: ../urpmi.removemedia:52
+#: ../urpmi.removemedia:38
+#, c-format
 msgid ""
-"usage: urpmi.removemedia [-a] <name> ...\n"
+"usage: urpmi.removemedia (-a | <name> ...)\n"
 "where <name> is a medium name to remove.\n"
 msgstr ""
-"使いかた: urpmi.removemedia [-a] <メディア名> ...\n"
+"使い方: urpmi.removemedia (-a | <メディア名> ...)\n"
 "<メディア名>は削除するメディア名\n"
 
-#: ../urpmi.removemedia:55
+#: ../urpmi.removemedia:41
+#, c-format
 msgid "  -a             - select all media.\n"
 msgstr "  -a             - 全メディアを選択\n"
 
-#: ../urpmi.removemedia:57
+#: ../urpmi.removemedia:42
+#, c-format
 msgid "  -y             - fuzzy match on media names.\n"
 msgstr "  -y             - メディア名をファジー検索\n"
 
-#: ../urpmi.removemedia:60
+#: ../urpmi.removemedia:59
 #, c-format
-msgid ""
-"\n"
-"unknown options '%s'\n"
-msgstr ""
-"\n"
-"不明なオプション '%s'\n"
-
-#: ../urpmi.removemedia:70
 msgid "Only superuser is allowed to remove media"
 msgstr "メディアの削除はスーパーユーザにしかできません"
 
-#: ../urpmi.removemedia:81
+#: ../urpmi.removemedia:71
+#, c-format
 msgid "nothing to remove (use urpmi.addmedia to add a media)\n"
-msgstr "削除するものがありません(urpmi.addmediaでメディアを追加できます)\n"
+msgstr "削除するものがありません (urpmi.addmedia でメディアを追加できます)\n"
 
-#: ../urpmi.removemedia:83
+#: ../urpmi.removemedia:77
 #, c-format
 msgid ""
 "the entry to remove is missing\n"
@@ -2215,49 +2939,72 @@ msgstr ""
 "削除対象が見つかりません\n"
 "(%s の中のいずれか)\n"
 
-#: ../urpmi.update:29
+#: ../urpmi.update:30
+#, c-format
 msgid ""
 "usage: urpmi.update [options] <name> ...\n"
 "where <name> is a medium name to update.\n"
 msgstr ""
-"使いかた: urpmi.update [オプション] <メディア名> ...\n"
-"<メディア名>は更新するメディア名\n"
-
-#: ../urpmi.update:39
-msgid "  --update       - update only update media.\n"
-msgstr "  --update       - 更新メディアのみアップデートする\n"
-
-#: ../urpmi.update:41
-msgid "  --force-key    - force update of gpg key.\n"
-msgstr "  --force-key    - gpgキーの更新を強制する\n"
+"使い方: urpmi.update [オプション] <メディア名> ...\n"
+"<メディア名> は更新するメディア名\n"
 
 #: ../urpmi.update:43
-msgid "  --ignore       - don't update, mark the media as ignored.\n"
-msgstr "  --ignore       - アップデートせずにメディアを無視する\n"
-
-#: ../urpmi.update:44
-msgid "  --no-ignore    - don't update, mark the media as enabled.\n"
-msgstr "  --no-ignore    - アップデートせずにメディアを有効とする\n"
+#, c-format
+msgid "  --update       - update only update media.\n"
+msgstr "  --update       - 更新メディアのみ更新する\n"
 
 #: ../urpmi.update:45
-msgid "  -a             - select all non-removable media.\n"
+#, c-format
+msgid "  --force-key    - force update of gpg key.\n"
+msgstr "  --force-key    - gpg 鍵の更新を強制する\n"
+
+#: ../urpmi.update:46
+#, c-format
+msgid "  --ignore       - don't update, mark the media as ignored.\n"
+msgstr "  --ignore       - 更新せずにメディアを無効とする\n"
+
+#: ../urpmi.update:47
+#, c-format
+msgid "  --no-ignore    - don't update, mark the media as enabled.\n"
+msgstr "  --no-ignore    - 更新せずにメディアを有効とする\n"
+
+#: ../urpmi.update:49
+#, c-format
+msgid "  --probe-rpms   - do not use synthesis, use rpm files directly\n"
+msgstr "  --probe-rpms     - synthesis を使わずに直接 RPM ファイルを使う\n"
+
+#: ../urpmi.update:50
+#, fuzzy, c-format
+msgid "  -a             - select all enabled non-removable media.\n"
 msgstr "  -a             - リムーバブルメディア以外のすべてを選択\n"
 
-#: ../urpmi.update:68
+#: ../urpmi.update:51
+#, c-format
+msgid "  -f             - force updating synthesis\n"
+msgstr "  -f             - synthesis を強制的に更新\n"
+
+#: ../urpmi.update:52
+#, c-format
+msgid "  -ff            - really force updating synthesis\n"
+msgstr "  -ff             - synthesis を更に強制的に更新\n"
+
+#: ../urpmi.update:69
+#, c-format
 msgid "Only superuser is allowed to update media"
 msgstr "メディアの更新はスーパーユーザにしかできません"
 
-#: ../urpmi.update:76
+#: ../urpmi.update:86
+#, c-format
 msgid "nothing to update (use urpmi.addmedia to add a media)\n"
-msgstr "更新するものがありません(urpmi.addmediaでメディアを追加できます)\n"
+msgstr "更新するものがありません (urpmi.addmedia でメディアを追加できます)\n"
 
-#: ../urpmi.update:94
+#: ../urpmi.update:87
 #, c-format
 msgid ""
 "the entry to update is missing\n"
 "(one of %s)\n"
 msgstr ""
-"アップデート対象が見つかりません\n"
+"更新対象が見つかりません\n"
 "(%s の中のいずれか)\n"
 
 #: ../urpmi.update:98
@@ -2267,19 +3014,19 @@ msgstr "「%s」"
 
 #: ../urpmi.update:99
 #, c-format
-msgid "enabling media %s"
-msgstr "メディア %s を有効にしています"
-
-#: ../urpmi.update:99
-#, c-format
 msgid "ignoring media %s"
 msgstr "メディア %s を無視しています"
 
-#: ../urpmq:39
+#: ../urpmi.update:99
 #, c-format
+msgid "enabling media %s"
+msgstr "メディア %s を有効にしています"
+
+#: ../urpmq:40
+#, fuzzy, c-format
 msgid ""
 "urpmq version %s\n"
-"Copyright (C) 2000-2006 Mandriva.\n"
+"Copyright (C) 2000-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -2287,354 +3034,518 @@ msgid ""
 msgstr ""
 "urpmq version %s\n"
 "Copyright (C) 2002-2006 Mandriva.\n"
-"これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
+"これはフリーソフトウェアであり、GNU GPL の条件のもとで再配布できます。\n"
 "\n"
 "使い方:\n"
 
-#: ../urpmq:47
+#: ../urpmq:48
+#, c-format
 msgid ""
 "  --searchmedia  - use only the given media to search requested (or updated) "
 "packages.\n"
 msgstr ""
-"  --searchmedia   - 指定したメディアのみを要求した(または更新された)パッケー"
-"ジの検索に使う\n"
+"  --searchmedia   - 指定したメディアのみを要求した (または更新された) パッ"
+"ケージの検索に使う\n"
 
-#: ../urpmq:52
+#: ../urpmq:53
+#, c-format
+msgid "  --auto-orphans - list orphans\n"
+msgstr "  --auto-orphans - オーファンを一覧表示\n"
+
+#: ../urpmq:54
+#, c-format
+msgid ""
+"  --not-available\n"
+"                 - list installed packages not available on any media.\n"
+msgstr ""
+
+#: ../urpmq:57
+#, c-format
 msgid "  --fuzzy        - impose fuzzy search (same as -y).\n"
-msgstr "  --fuzzy        - ファジー検索(-yと同じ)\n"
+msgstr "  --fuzzy        - ファジー検索 (-y と同じ)\n"
 
-#: ../urpmq:55
+#: ../urpmq:60
+#, c-format
 msgid "  --list         - list available packages.\n"
 msgstr "  --list         - 利用できるパッケージを表示\n"
 
-#: ../urpmq:56
+#: ../urpmq:61
+#, c-format
 msgid "  --list-media   - list available media.\n"
 msgstr "  --list-media   - 利用できるメディアを表示\n"
 
-#: ../urpmq:57
+#: ../urpmq:62
+#, c-format
 msgid "  --list-url     - list available media and their url.\n"
-msgstr "  --list-url     - 利用できるメディアとURLを表示\n"
+msgstr "  --list-url     - 利用できるメディアと URL を表示\n"
 
-#: ../urpmq:58
+#: ../urpmq:63
+#, c-format
 msgid "  --list-nodes   - list available nodes when using --parallel.\n"
-msgstr "  --list-nodes   - [--parallel]に利用できるノードを表示\n"
+msgstr "  --list-nodes   - --parallel に利用できるノードを表示\n"
 
-#: ../urpmq:59
+#: ../urpmq:64
+#, c-format
 msgid "  --list-aliases - list available parallel aliases.\n"
 msgstr "  --list-aliases - 利用できるパラレルエイリアスを表示\n"
 
-#: ../urpmq:60
+#: ../urpmq:65
+#, c-format
 msgid ""
 "  --dump-config  - dump the config in form of urpmi.addmedia argument.\n"
-msgstr "  --dump-config  - メディアの設定をurpmi.addmediaの引数の形式で表示\n"
-
-#: ../urpmq:61
-msgid "  --src          - next package is a source package (same as -s).\n"
-msgstr "  --src          - ソースパッケージを指定(-s と同じ)\n"
-
-#: ../urpmq:62
-msgid ""
-"  --sources      - give all source packages before downloading (root only).\n"
 msgstr ""
-"  --sources      - ダウンロードする前にすべてのソースパッケージを表示(rootの"
-"み)\n"
-
-#: ../urpmq:64
-msgid "  --ignorearch   - allow to query rpms for unmatched architectures.\n"
-msgstr "  --ignorearch   - 別のアーキテクチャのRPMも検索に含める\n"
+"  --dump-config  - メディアの設定を urpmi.addmedia の引数の形式で表示\n"
 
 #: ../urpmq:66
+#, c-format
+msgid "  --src          - next package is a source package (same as -s).\n"
+msgstr "  --src          - ソースパッケージを指定 (-s と同じ)\n"
+
+#: ../urpmq:67
+#, fuzzy, c-format
+msgid "  --sources      - print source URLs of selected packages\n"
+msgstr "  --src, -s      - ソースパッケージを指定\n"
+
+#: ../urpmq:69
+#, c-format
+msgid "  --ignorearch   - allow to query rpms for unmatched architectures.\n"
+msgstr "  --ignorearch   - 別のアーキテクチャの RPM も検索に含める\n"
+
+#: ../urpmq:73
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree.\n"
 "                   This permit to querying a distro.\n"
 msgstr ""
-"  --use-distrib  - ディストリビューションのツリーからurpmiをオンザフライで\n"
-"                   設定。ディストリビューションの検索を可能にする。\n"
+"  --use-distrib  - ディストリビューションのツリーから urpmi をオンザフライ\n"
+"                   で設定。ディストリビューションの検索を可能にする。\n"
 
-#: ../urpmq:75
+#: ../urpmq:83
+#, c-format
 msgid "  --changelog    - print changelog.\n"
-msgstr "  --changelog    - チェンジログを表示\n"
+msgstr "  --changelog    - 変更ログを表示\n"
 
-#: ../urpmq:76
+#: ../urpmq:84
+#, c-format
+msgid "  --conflicts    - print conflicts.\n"
+msgstr "  --conflicts    - conflict (衝突) を表示\n"
+
+#: ../urpmq:85
+#, c-format
+msgid "  --obsoletes    - print obsoletes.\n"
+msgstr "  --obsoletes    - obsolete (廃止) タグを表示\n"
+
+#: ../urpmq:86
+#, c-format
+msgid "  --provides     - print provides.\n"
+msgstr "  --provides     - provide (提供) を表示\n"
+
+#: ../urpmq:87
+#, c-format
+msgid "  --requires     - print requires.\n"
+msgstr "  --requires     - require (要求) を表示\n"
+
+#: ../urpmq:88
+#, c-format
+msgid "  --suggests     - print suggests.\n"
+msgstr "  --suggests     - suggest (提案) タグを表示\n"
+
+#: ../urpmq:89
+#, c-format
+msgid "  --sourcerpm    - print sourcerpm.\n"
+msgstr "  --sourcerpm    - ソース RPM を表示\n"
+
+#: ../urpmq:90
+#, c-format
 msgid "  --summary, -S  - print summary.\n"
 msgstr "  --summary, -S  - 要約を表示\n"
 
-#: ../urpmq:78
+#: ../urpmq:92
+#, c-format
+msgid ""
+"  --requires-recursive, -d\n"
+"                   - query package dependencies.\n"
+msgstr ""
+"  --requires-recursive, -d\n"
+"                   - パッケージの依存関係を問い合わせ\n"
+
+#: ../urpmq:94
+#, c-format
+msgid "  --whatrequires - reverse search to what requires package.\n"
+msgstr "  --whatrequires - 指定したパッケージに依存するパッケージを逆検索\n"
+
+#: ../urpmq:95
+#, c-format
+msgid ""
+"  --whatrequires-recursive\n"
+"                   - extended reverse search (includes virtual packages).\n"
+msgstr ""
+"  --whatrequires-recursive\n"
+"                   - 拡張逆検索 (仮想パッケージを含める)\n"
+
+#: ../urpmq:97
+#, c-format
+msgid ""
+"  --whatprovides, -p\n"
+"                   - search in provides to find package.\n"
+msgstr ""
+"  --whatprovides, -p\n"
+"                   - パッケージを探すために provide (提供) タグを検索\n"
+
+#: ../urpmq:100
+#, c-format
 msgid "  -c             - complete output with package to be removed.\n"
 msgstr "  -c             - 削除されるパッケージを表示\n"
 
-#: ../urpmq:79
-msgid "  -d             - extend query to package dependencies.\n"
-msgstr "  -d             - 依存するパッケージも検索して表示\n"
-
-#: ../urpmq:81
+#: ../urpmq:102
+#, c-format
 msgid "  -g             - print groups with name also.\n"
 msgstr "  -g             - グループと名前を表示\n"
 
-#: ../urpmq:82
+#: ../urpmq:103
+#, c-format
 msgid "  -i             - print useful information in human readable form.\n"
 msgstr "  -i             - 読みやすい形で情報を表示\n"
 
-#: ../urpmq:83
+#: ../urpmq:104
+#, c-format
 msgid "  -l             - list files in package.\n"
 msgstr "  -l             - パッケージに含まれるファイルを表示\n"
 
-#: ../urpmq:84
-msgid ""
-"  -P             - do not search in provides to find package (default).\n"
-msgstr "  -P             - provideタグを検索しない(デフォルト)\n"
+#: ../urpmq:105
+#, c-format
+msgid "  -m             - equivalent to -du\n"
+msgstr "  -m             - -du に相当\n"
 
-#: ../urpmq:85
-msgid "  -p             - search in provides to find package.\n"
-msgstr "  -p             - パッケージを探すためにprovideタグを検索\n"
-
-#: ../urpmq:86
+#: ../urpmq:106
+#, c-format
 msgid "  -r             - print version and release with name also.\n"
 msgstr "  -r             - 名前, バージョン, リリース番号を表示\n"
 
-#: ../urpmq:87
-msgid "  -R             - reverse search to what requires package.\n"
-msgstr "  -R             - 指定したパッケージに依存するパッケージを逆検索\n"
-
-#: ../urpmq:88
-msgid ""
-"  -RR            - extended reverse search (includes virtual packages).\n"
-msgstr "  -RR            - 拡張逆検索(仮想パッケージを含める)\n"
-
-#: ../urpmq:89
+#: ../urpmq:107
+#, c-format
 msgid "  -s             - next package is a source package (same as --src).\n"
-msgstr "  -s             - ソースパッケージを指定(--src と同じ)\n"
+msgstr "  -s             - ソースパッケージを指定 (--src と同じ)\n"
 
-#: ../urpmq:90
+#: ../urpmq:108
+#, c-format
 msgid ""
 "  -u             - remove package if a more recent version is already "
 "installed.\n"
 msgstr ""
 "  -u             - 新しい版がインストールされているときはパッケージを削除\n"
 
-#: ../urpmq:92
-msgid "  -y             - impose fuzzy search (same as --fuzzy).\n"
-msgstr "  -y             - ファジー検索(--fuzzyと同じ)\n"
-
-#: ../urpmq:93
-msgid "  -Y             - like -y, but forces to match case-insensitively.\n"
-msgstr "  -Y             - 大文字/小文字を区別しない[-y](ファジー検索)\n"
-
-#: ../urpmq:94
-msgid "  names or rpm files given on command line are queried.\n"
-msgstr "  指定したパッケージ名/RPMファイルがあるか調べる\n"
-
-#: ../urpmq:170
-msgid "--list-nodes can only be used with --parallel"
-msgstr "[--list-nodes]は[--parallel]と一緒にしか使えません"
-
-#: ../urpmq:327
+#: ../urpmq:109
 #, c-format
-msgid "skipping media %s: no hdlist"
-msgstr "メディア %s をスキップ: hdlistがありません"
+msgid "  -y             - impose fuzzy search (same as --fuzzy).\n"
+msgstr "  -y             - ファジー検索 (--fuzzy と同じ)\n"
 
-#: ../urpmq:401
-msgid "No filelist found\n"
-msgstr "ファイルリストがありません\n"
+#: ../urpmq:110
+#, c-format
+msgid "  -Y             - like -y, but forces to match case-insensitively.\n"
+msgstr "  -Y             - 大文字/小文字を区別しない [-y] (ファジー検索)\n"
 
-#: ../urpmq:413
+#: ../urpmq:111
+#, c-format
+msgid "  names or rpm files given on command line are queried.\n"
+msgstr "  指定したパッケージ名/RPM ファイルがあるか調べる\n"
+
+#: ../urpmq:158
+#, c-format
+msgid "usage: \"urpmq --auto-orphans\" with no argument"
+msgstr "使い方: 引数なしで \"urpmq --auto-orphans\""
+
+#: ../urpmq:211
+#, c-format
+msgid "--list-nodes can only be used with --parallel"
+msgstr "--list-nodes は --parallel と一緒にしか使えません"
+
+#: ../urpmq:235
+#, c-format
+msgid "use -l to list files"
+msgstr "ファイルを一覧表示するには -l を使います"
+
+#: ../urpmq:420
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for package %s"
+msgstr ""
+"メディア %s に XML 情報がないため、パッケージ %s の検索結果は不完全です"
+
+#: ../urpmq:421
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for packages %s"
+msgstr ""
+"メディア %s に XML 情報がないため、パッケージ %s の検索結果は不完全です"
+
+#: ../urpmq:424
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for package %s"
+msgstr ""
+"メディア %s に XML 情報がないため、パッケージ %s の検索結果を返せません"
+
+#: ../urpmq:425
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for packages %s"
+msgstr ""
+"メディア %s に XML 情報がないため、パッケージ %s の検索結果を返せません"
+
+#: ../urpmq:492
+#, c-format
 msgid "No changelog found\n"
-msgstr "チェンジログはありません\n"
+msgstr "変更ログはありません\n"
 
-#~ msgid "Search"
-#~ msgstr "検索"
+#: ../gurpmi.desktop.in.h:1
+msgid "Software Installer"
+msgstr "ソフトウェアインストーラ"
 
-#~ msgid "Is this OK?"
-#~ msgstr "よろしいですか？"
-
-#~ msgid ""
-#~ "  --version      - use specified distribution version, the default is "
-#~ "taken\n"
-#~ "                   from the version of the distribution told by the\n"
-#~ "                   installed mandriva-release package.\n"
-#~ msgstr ""
-#~ "  --version      - ディストリビューションのバージョンを指定する。\n"
-#~ "                   デフォルト値はインストールされているmandraklinux-"
-#~ "release\n"
-#~ "                   パッケージから検出\n"
+#: ../gurpmi.desktop.in.h:2
+msgid "Graphical front end to install RPM files"
+msgstr "RPM インストール用グラフィカルフロントエンド"
 
 #~ msgid ""
-#~ "  --arch         - use specified architecture, the default is arch of\n"
-#~ "                   mandriva-release package installed.\n"
-#~ msgstr ""
-#~ "  --arch         - アーキテクチャを指定する。デフォルト値はインストール\n"
-#~ "                    されているmandriva-releaseパッケージから検出\n"
-
-#~ msgid ""
-#~ "  --headers      - extract headers for package listed from urpmi db to\n"
-#~ "                   stdout (root only).\n"
-#~ msgstr ""
-#~ "  --headers      - 指定したパッケージのヘッダをurpmiデータベースから\n"
-#~ "                   標準出力する(rootのみ)\n"
-
-#~ msgid "rpm2header utility not found, impossible to use the --header option"
-#~ msgstr "rpm2header が見つかりません。--header オプションは使用できません。"
-
-#~ msgid ""
-#~ "To satisfy dependencies, the following %d packages are going to be "
-#~ "installed (%d MB)"
-#~ msgstr ""
-#~ "依存を満たすために以下の %d 個のパッケージをインストールします(%d MB)"
-
-#~ msgid "installing %s\n"
-#~ msgstr "%s をインストール\n"
-
-#~ msgid ""
-#~ "Automatic installation of packages...\n"
-#~ "You requested installation of package %s\n"
-#~ msgstr "指定されたパッケージ %s をインストールします\n"
-
-#~ msgid "%s: command not found\n"
-#~ msgstr "%s: コマンドが見つかりません\n"
-
-#~ msgid ""
-#~ "Some package requested cannot be installed:\n"
+#~ "Installation failed, some files are missing:\n"
 #~ "%s\n"
-#~ "Continue?"
+#~ "You may want to update your urpmi database"
 #~ msgstr ""
-#~ "インストールできないパッケージがあります:\n"
+#~ "インストールに失敗。以下のファイルがありません:\n"
 #~ "%s\n"
-#~ "続けますか？"
+#~ "urpmi データベースを更新してください。"
+
+#~ msgid "Cancel"
+#~ msgstr "キャンセル"
+
+#, fuzzy
+#~ msgid "Cannot write DUDF file.\n"
+#~ msgstr "ファイルを書き込めません"
 
 #~ msgid ""
-#~ "The following packages have to be removed for others to be upgraded:\n"
-#~ "%s\n"
-#~ "Continue?"
+#~ "  --sources      - give all source packages before downloading (root "
+#~ "only).\n"
 #~ msgstr ""
-#~ "更新するには以下のパッケージを削除しなければなりません:\n"
-#~ "%s\n"
-#~ "続けますか？"
+#~ "  --sources      - ダウンロードする前にすべてのソースパッケージを表示 "
+#~ "(root のみ)\n"
 
-#~ msgid "md5sum mismatch"
-#~ msgstr "md5sum不一致"
+#~ msgid "due to already installed %s"
+#~ msgstr "インストール済みの %s のために"
 
 #~ msgid ""
-#~ "urpmf version %s\n"
-#~ "Copyright (C) 2002-2004 Mandriva.\n"
-#~ "This is free software and may be redistributed under the terms of the GNU "
-#~ "GPL.\n"
-#~ "\n"
-#~ "usage:\n"
+#~ "  --from         - use specified url for list of mirrors, the default is\n"
+#~ "                   %s\n"
 #~ msgstr ""
-#~ "urpmf version %s\n"
-#~ "Copyright (C) 2002-2004 Mandriva.\n"
-#~ "これはフリーソフトウェアであり、GNU GPLの条件のもとで再配布できます。\n"
-#~ "\n"
-#~ "使いかた:\n"
+#~ "  --from         - ミラーリストの取得に指定した URL を使う。デフォルトは\n"
+#~ "                   %s\n"
 
-#~ msgid "  --synthesis    - use the synthesis given instead of urpmi db.\n"
-#~ msgstr ""
-#~ "  --synthesis    - urpmiデータベースの代わりに指定したsynthesisを使う\n"
+#~ msgid "Updating media...\n"
+#~ msgstr "メディアを更新...\n"
 
-#~ msgid ""
-#~ "  --quiet        - do not print tag name (default if no tag given on "
-#~ "command\n"
-#~ "                   line, incompatible with interactive mode).\n"
-#~ msgstr ""
-#~ "  --quiet        - タグ名を表示しない(タグ名をオプションで指定した場合は\n"
-#~ "                   デフォルトで非表示。対話モードでは使用不可\n"
+#~ msgid "examining %s file"
+#~ msgstr "%s ファイルを検査"
 
-#~ msgid "  --uniq         - do not print identical lines.\n"
-#~ msgstr "  --uniq         - 全く同じ行は表示しない\n"
+#~ msgid "invalid MD5SUM file"
+#~ msgstr "無効な MD5SUM ファイル"
 
-#~ msgid "  --all          - print all tags.\n"
-#~ msgstr "  --all          - すべてのタグを表示\n"
+#~ msgid "found probed synthesis as %s"
+#~ msgstr "検出した synthesis を %s と認識しました"
 
-#~ msgid "  --summary      - print tag summary: summary.\n"
-#~ msgstr "  --summary      - 要約タグを表示\n"
+#~ msgid "  --update       - create an update medium.\n"
+#~ msgstr "  --update       - 更新メディアを作成\n"
 
-#~ msgid "  --description  - print tag description: description.\n"
-#~ msgstr "  --description  - 説明タグを表示\n"
+#~ msgid "malformed URL: [%s]"
+#~ msgstr "不正な形式の URL: [%s]"
 
-#~ msgid "  --buildhost    - print tag buildhost: build host.\n"
-#~ msgstr "  --buildhost    - ビルドホストを表示\n"
+#~ msgid "sorry, you can't use --install-src to install remote .src.rpm files"
+#~ msgstr "リモートの .src.rpm ファイルには --install-src は使えません"
 
-#~ msgid "  --provides     - print tag provides: all provides.\n"
-#~ msgstr "  --provides     - provide(提供)タグを表示\n"
+#~ msgid "Error"
+#~ msgstr "エラー"
 
-#~ msgid "  --requires     - print tag requires: all requires.\n"
-#~ msgstr "  --requires     - require(要求)タグを表示\n"
+#~ msgid "%d installation transaction failed"
+#~ msgid_plural "%d installation transactions failed"
+#~ msgstr[0] "%d 件のインストールトランザクションが失敗しました"
 
-#~ msgid "  --files        - print tag files: all files.\n"
-#~ msgstr "  --files        - ファイルタグを表示\n"
+#~ msgid "Package %s can not be installed"
+#~ msgstr "パッケージ %s はインストールできません"
 
-#~ msgid "  --obsoletes    - print tag obsoletes: all obsoletes.\n"
-#~ msgstr "  --obsoletes    - obsolete(廃止)タグを表示\n"
+#~ msgid "Checking to remove the following packages"
+#~ msgstr "以下のパッケージを削除するために調査しています"
 
-#~ msgid ""
-#~ "  --env          - use specific environment (typically a bug\n"
-#~ "                   report).\n"
-#~ msgstr ""
-#~ "  --env          - 特定の環境を使う\n"
-#~ "                   (バグレポートなどのため)\n"
-
-#~ msgid "  -i             - ignore case distinctions in every pattern.\n"
-#~ msgstr "  -i             - 検索時に大文字と小文字の区別をしない\n"
-
-#~ msgid ""
-#~ "  -a             - binary AND operator, true if both expression are "
-#~ "true.\n"
-#~ msgstr ""
-#~ "  -a             - binary AND operator, 両方の表現がtrueの場合はtrue\n"
-
-#~ msgid "  !              - unary NOT, true if expression is false.\n"
-#~ msgstr "  !              - unary NOT, 表現がfalseの場合はtrue\n"
-
-#~ msgid "  (              - left parenthesis to open group expression.\n"
-#~ msgstr "  (              - グループ表現を開始する左括弧\n"
-
-#~ msgid "  )              - right parenthesis to close group expression.\n"
-#~ msgstr "  )              - グループ表現を閉じる右括弧\n"
-
-#~ msgid ""
-#~ "callback is:\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "コールバックは:\n"
-#~ "%s\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "続けますか？"
-
-#~ msgid ""
-#~ "Some package requested cannot be installed:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "インストールできないパッケージがあります:\n"
-#~ "%s"
+#~ msgid "%s database locked"
+#~ msgstr "%s データベースがロックされています"
 
 #, fuzzy
 #~ msgid ""
-#~ "  --keep         - keep existing packages if possible, reject requested\n"
-#~ "                   packages that leads to remove.\n"
-#~ msgstr "  --keep         - 既存のパッケージを維持し、削除要求は拒否する\n"
+#~ "  --auto         - non-interactive mode, assume default answers to "
+#~ "questions.    --auto\n"
+#~ msgstr "  --auto\t  - 非対話モード、質問に対する答えはデフォルトとみなす\n"
 
-#~ msgid "unable to write file [%s]"
-#~ msgstr "ファイル[%s]を作成できません"
+#~ msgid "Unknown option %s"
+#~ msgstr "不明なオプション %s"
+
+#~ msgid "too many mount points for removable medium \"%s\""
+#~ msgstr "リムーバブルメディア %s にはマウントポイントが多すぎます"
+
+#~ msgid "Medium \"%s\" is an ISO image, will be mounted on-the-fly"
+#~ msgstr "メディア %s は ISO イメージです。オンザフライでマウントされます。"
+
+#~ msgid "using different removable device [%s] for \"%s\""
+#~ msgstr "%2$s に他のリムーバブルデバイス [%1$s] を使います"
+
+#~ msgid "unable to retrieve pathname for removable medium \"%s\""
+#~ msgstr "リムーバブルメディア %s のパスを読み出せません"
+
+#~ msgid "unable to mount the distribution medium"
+#~ msgstr "ディストリビューションのメディアをマウントできません"
 
 #~ msgid ""
-#~ "  --distrib-XXX  - automatically create a medium for XXX part of a\n"
-#~ "                   distribution, XXX may be main, contrib, updates or\n"
-#~ "                   anything else that has been configured ;-)\n"
+#~ "unable to access medium \"%s\",\n"
+#~ "this could happen if you mounted manually the directory when creating the "
+#~ "medium."
 #~ msgstr ""
-#~ "  --distrib-XXX  - ディストリビューションのXXXに自動的にメディアを作成\n"
-#~ "                   XXXはmain/contrib/updates(更新)その他設定されている\n"
-#~ "                   ものなら何でも可能\n"
+#~ "メディア %s にアクセスできません。\n"
+#~ "この現象は、メディアを追加するときに手動でディレクトリをマウントすると起こ"
+#~ "ることがあります。"
 
-#~ msgid "found version %s and arch %s ..."
-#~ msgstr "バージョン %s/アーキテクチャ %s を検出.."
+#~ msgid "inconsistent medium \"%s\" marked removable but not really"
+#~ msgstr "メディア %s はリムーバブルだと判断しましたが、不確実です"
 
-#~ msgid "cannot add updates of a cooker distribution\n"
-#~ msgstr "cookerには更新メディアは追加できません\n"
+#~ msgid "  -c             - clean headers cache directory.\n"
+#~ msgstr "  -c             - キャッシュディレクトリのヘッダを削除\n"
 
-#~ msgid "retrieving mirrors at %s ..."
-#~ msgstr "%s からミラーリストを取得.."
+#~ msgid "virtual medium needs to be local"
+#~ msgstr "仮想メディアはローカルでなければいけません"
+
+#~ msgid "Error generating names file: Can't write to file (%s)"
+#~ msgstr "名前ファイルの生成エラー: ファイルに書き込めません (%s)"
+
+#~ msgid "unable to parse synthesis file of \"%s\""
+#~ msgstr "%s の synthesis ファイルを分析できません"
+
+#~ msgid "found %d rpm headers in cache, removing %d obsolete headers"
+#~ msgstr "キャッシュに %d RPM ヘッダを検出、古い %d ヘッダを削除"
+
+#~ msgid "computing md5sum of existing source hdlist (or synthesis) [%s]"
+#~ msgstr "既存の source hdlist (または synthesis) の md5sum を計算 [%s]"
+
+#~ msgid ""
+#~ "virtual medium \"%s\" should not have defined hdlist or list file, medium "
+#~ "ignored"
+#~ msgstr ""
+#~ "仮想メディア %s に hdlist またはリストファイルが指定されています。メディア"
+#~ "を無視します。"
+
+#~ msgid "invalid hdlist name"
+#~ msgstr "hdlist 名が無効です"
+
+#~ msgid "unable to find list file for \"%s\", medium ignored"
+#~ msgstr "%s のリストファイルが見つかりません。メディアを無視します。"
+
+#~ msgid "\"synthesis\" should not be set (medium \"%s\")"
+#~ msgstr "\"synthesis\" はセットできません (メディア %s)"
+
+#~ msgid "\"synthesis\" should be set (medium \"%s\")"
+#~ msgstr "\"synthesis\" をセットしてください (メディア %s)"
+
+#~ msgid "unable to access list file of \"%s\""
+#~ msgstr "リストファイル %s にアクセスできません"
+
+#~ msgid "medium \"%s\" trying to use an already used hdlist, medium ignored"
+#~ msgstr ""
+#~ "メディア %s は既に使われた hdlist を使おうとしています。このメディアを無視"
+#~ "します。"
+
+#~ msgid "medium \"%s\" trying to use an already used list, medium ignored"
+#~ msgstr ""
+#~ "メディア %s は既に使われたリストを使おうとしています。このメディアを無視し"
+#~ "ます。"
+
+#~ msgid "wrote %s"
+#~ msgstr "%s を書き込みました"
+
+#~ msgid ""
+#~ "Note: no hdlist for medium \"%s\", unable to return any result for it"
+#~ msgstr ""
+#~ "注: メディア %s に hdlist がないため、検索結果を返すことができません"
+
+#~ msgid "performing second pass to compute dependencies\n"
+#~ msgstr "セカンドステージ実行中 (依存を計算)\n"
+
+#~ msgid "building hdlist [%s]"
+#~ msgstr "hdlist [%s] を作成"
+
+#~ msgid ""
+#~ "Unable to build synthesis file for medium \"%s\". Your hdlist file may be "
+#~ "corrupted."
+#~ msgstr ""
+#~ "メディア %s の synthesis ファイルを作成できません。hdlist ファイルが壊れて"
+#~ "いる可能性があります。"
+
+#~ msgid "problem reading hdlist or synthesis file of medium \"%s\""
+#~ msgstr ""
+#~ "メディア %s の hdlist (または synthesis) ファイルの読み込み中に問題が発生"
+
+#~ msgid "computing md5sum of copied source hdlist (or synthesis)"
+#~ msgstr "コピーした source hdlist (または synthesis) の md5sum を計算"
+
+#~ msgid "...retrieving failed: md5sum mismatch"
+#~ msgstr "...取得に失敗: md5sum 不一致"
+
+#~ msgid "no rpm files found from [%s]"
+#~ msgstr "[%s] には RPM ファイルがありません"
+
+#~ msgid "unable to read rpm files from [%s]: %s"
+#~ msgstr "[%s] から RPM ファイルを読み込めません: %s"
+
+#~ msgid "no rpms read"
+#~ msgstr "RPM を読めませんでした"
+
+#~ msgid "reading headers from medium \"%s\""
+#~ msgstr "メディア %s のヘッダを読み込み"
+
+#~ msgid "    --probe-synthesis - use synthesis file.\n"
+#~ msgstr "  --probe-synthesis - synthesis ファイルを使う\n"
+
+#~ msgid "    --probe-hdlist - use hdlist file.\n"
+#~ msgstr "  --probe-hdlist - hdlist ファイルを使う\n"
+
+#~ msgid ""
+#~ "Note: since no media searched uses hdlists, urpmf was unable to return "
+#~ "any result\n"
+#~ msgstr ""
+#~ "注: どのメディアにも hdlist がないため、検索結果を返すことができませんでし"
+#~ "た\n"
+
+#~ msgid "You may want to use --name to search for package names.\n"
+#~ msgstr "パッケージ名を探すには --name オプションを使うと便利です\n"
+
+#~ msgid "  --probe-hdlist - use hdlist file.\n"
+#~ msgstr "  --probe-hdlist - hdlist ファイルを使う\n"
+
+#~ msgid "unable to update medium \"%s\"\n"
+#~ msgstr "メディア %s を更新できません\n"
+
+#~ msgid "unable to create medium \"%s\"\n"
+#~ msgstr "メディア %s を作成できません\n"
+
+#~ msgid "there are multiple packages with the same rpm filename \"%s\""
+#~ msgstr "%s という名の RPM ファイルが複数あります"
+
+#~ msgid "unable to correctly parse [%s] on value \"%s\""
+#~ msgstr "値 %2$s で [%1$s] を正しく分析できません"
+
+#~ msgid "(retry as root?)"
+#~ msgstr "(root で再試行しますか？)"
+
+#~ msgid ""
+#~ "medium \"%s\" uses an invalid list file:\n"
+#~ "  mirror is probably not up-to-date, trying to use alternate method"
+#~ msgstr ""
+#~ "メディア %s のリストファイルが無効です:\n"
+#~ "  恐らくミラーが最新状態に更新されていません。別の方法を試みます。"
+
+#~ msgid "medium \"%s\" does not define any location for rpm files"
+#~ msgstr "メディア %s には RPM ファイルの場所が定義されていません"
+
+#~ msgid "unrequested"
+#~ msgstr "要求されていません"

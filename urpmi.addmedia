@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmi.addmedia,v 1.106 2006/03/24 15:32:27 rgarciasuarez Exp $
+# $Id: urpmi.addmedia 271299 2010-11-21 15:54:30Z peroyvind $
 
 #- Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005, 2006 Mandriva SA
+#- Copyright (C) 2005-2010 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -21,157 +21,176 @@
 
 use strict;
 use urpm;
-use urpm::args 'options';
+use urpm::args;
 use urpm::msg;
 use urpm::download ();
 use urpm::cfg;
+use urpm::media;
+use urpm::util 'member';
 
 sub usage {
     my $m = shift;
-# Translator: The URI types strings 'file:', 'ftp:', 'http:',
-# Translator: and 'removable:' must not be translated!
-# Translator: neither the ``with''.
-# Translator: only what is between <brackets> can be translated.
-    my $usage = N("usage: urpmi.addmedia [options] <name> <url> [with <relative_path>]
+    my $usage =
+      #-PO: The URI types strings 'file:', 'ftp:', 'http:', and 'cdrom:' must not be translated!
+      #-PO: neither the ``with''.  Only what is between <brackets> can be translated.
+      N("usage: urpmi.addmedia [options] <name> <url>
 where <url> is one of
-       [file:/]/<path> with <relative filename of hdlist>
-       ftp://<login>:<password>\@<host>/<path> with <relative filename of hdlist>
-       ftp://<host>/<path> with <relative filename of hdlist>
-       http://<host>/<path> with <relative filename of hdlist>
-       removable://<path>
+       [file:/]/<path>
+       ftp://<login>:<password>\@<host>/<path>
+       ftp://<host>/<path>
+       http://<host>/<path>
+       cdrom://<path>
+
+usage: urpmi.addmedia [options] --distrib --mirrorlist <url>
+usage: urpmi.addmedia [options] --mirrorlist <url> <name> <relative path>
+
+examples:
+
+  urpmi.addmedia --distrib --mirrorlist '\$MIRRORLIST'
+  urpmi.addmedia --mirrorlist '\$MIRRORLIST' backports media/main/backports
+  urpmi.addmedia --distrib --zeroconf
+
 
 and [options] are from
 ") . N("  --help         - print this help message.
 ") . N("  --wget         - use wget to retrieve distant files.
 ") . N("  --curl         - use curl to retrieve distant files.
+") . N("  --prozilla     - use prozilla to retrieve distant files.
+") . N("  --aria2        - use aria2 to retrieve distant files.
+") . N("  --metalink     - generate and use a local metalink.
 ") . N("  --limit-rate   - limit the download speed.
 ") . N("  --proxy        - use specified HTTP proxy, the port number is assumed
                    to be 1080 by default (format is <proxyhost[:port]>).
 ") . N("  --proxy-user   - specify user and password to use for proxy
                    authentication (format is <user:password>).
-") . N("  --update       - create an update medium.
-") . N("  --probe-synthesis - try to find and use synthesis file.
-") . N("  --probe-hdlist - try to find and use hdlist file.
-") . N("  --no-probe     - do not try to find any synthesis or
-                   hdlist file.
+") . N("  --update       - create an update medium, 
+                   or discard non-update media (when used with --distrib)
+") . N("  --xml-info     - use the specific policy for downloading xml info files
+                   one of: never, on-demand, update-only, always. cf urpmi.cfg(5)
+") . N("  --probe-synthesis - use synthesis file.
+") . N("  --probe-rpms   - use rpm files (instead of synthesis).
+") . N("  --no-probe     - do not try to find any synthesis file.
+") . N("  --urpmi-root   - use another root for urpmi db & rpm installation.
 ") . N("  --distrib      - automatically create all media from an installation
                    medium.
-") . N("  --from         - use specified url for list of mirrors, the default is
-                   %s
-", $urpm::cfg::mirrors) . N("  --virtual      - create virtual media wich are always up-to-date,
-                   only file:// protocol is allowed.
+") . N("  --interactive  - with --distrib, ask confirmation for each media
+") . N("  --all-media    - with --distrib, add every listed media
+") . N("  --virtual      - create virtual media wich are always up-to-date.
 ") . N("  --no-md5sum    - disable MD5SUM file checking.
-") . N("  --norebuild    - don't try to rebuild hdlist if not readable.
 ") . N("  --nopubkey     - don't import pubkey of added media
 ") . N("  --raw          - add the media in config, but don't update it.
-") . N("  -c             - clean headers cache directory.
-") . N("  -f             - force generation of hdlist files.
 ") . N("  -q             - quiet mode.
 ") . N("  -v             - verbose mode.
 ");
-    print $m ? "$usage\n$m" : $usage;
-    exit 0;
+    print($m ? "$usage\n$m" : $usage);
+    exit 1;
 }
 
-#- remove quietly the failing media.
-sub remove_failed {
-    my ($urpm, @media) = @_;
-    if (@media) {
-	print STDERR join("\n", map { N("unable to update medium \"%s\"\n", $_->{name}) } @media);
-	local $urpm->{log} = sub {};
-	$urpm->remove_selected_media;
-	$urpm->update_media(%options, callback => \&urpm::download::sync_logger);
-    }
-}
-
-$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
+$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin";
 delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
 
-#- parse /etc/urpmi/mirror.config if present, or use default mdk mirror.
-#- the --from option overrides this setting.
-if ($options{mirrors_url}) {
-    $urpm::cfg::mirrors = $options{mirrors_url};
-} else {
-    urpm::cfg::mirrors_cfg();
-}
 $options{force} = 0;
-$options{noclean} = 1;
-$options{verbose} = 1;
-my $urpm = new urpm;
-urpm::args::parse_cmdline(urpm => $urpm) or usage;
-#- the default is to probe a synthesis file, except for --distrib
-$options{probe_with} = 'synthesis' unless $options{distrib} || exists($options{probe_with});
-our ($name, $url, $with, $relative_hdlist) = our @cmdline;
+my $urpm = urpm->new_parse_cmdline or usage();
 
-#- remove verbose if not asked.
-$options{verbose} > 0 or $urpm->{log} = sub {};
+if ($options{'xml-info'}) {
+    member($options{'xml-info'}, urpm::xml_info_policies()) or die N("known xml-info policies are %s", join(', ', urpm::xml_info_policies())) . "\n";
+}
+
+our ($name, $url, $with, $relative_synthesis) = our @cmdline;
+my $with_dir;
+
+$options{quiet} = 1 if $options{verbose} < 0;
 
 $url or ($url, $name) = ($name, '');
-my ($type) = $url =~ m,^(([^:]*):/)?/, or usage;
+if ($options{mirrorlist} || $options{zeroconf}) {
+    if ($options{distrib}) {
+	$url and die N("no argument needed for --distrib --mirrorlist <url>") . "\n";
+    } else {
+	($with_dir, $url) = ($url, undef);
+    }
+} else {
+    $url =~ m,^(([^:]*):/)?/, or die N("bad <url> (for local directory, the path must be absolute)") . "\n";
+}
 
 if ($< != 0) {
     $urpm->{fatal}(1, N("Only superuser is allowed to add media"));
 }
 if (!-e $urpm->{config}) {
-    $urpm->{error}(N("Will create config file [%s]", $urpm->{config}));
-    open my $f, '>', $urpm->{config} or $urpm->{fatal}(6, N("Can't create config file [%s]", $urpm->{config}));
+    $urpm->{log}(N("creating config file [%s]", $urpm->{config}));
+    open my $_f, '>', $urpm->{config} or $urpm->{fatal}(6, N("Can't create config file [%s]", $urpm->{config}));
 }
-$urpm->read_config;
-exists $options{limit_rate} or $options{limit_rate} = $urpm->{options}{'limit-rate'};
+my $_urpmi_lock = urpm::lock::urpmi_db($urpm, 'exclusive', wait => $options{wait_lock});
+urpm::media::read_config($urpm, 'nocheck');
 
+my $ok = 1;
 if ($options{distrib}) {
-    $with || $relative_hdlist
-	and usage N("no need to give <relative path of hdlist> with --distrib");
+    $with || $relative_synthesis
+	and usage N("no need to give <relative path of synthesis> with --distrib");
 
-    $urpm->add_distrib_media(
+    my $add_media_callback = $options{interactive} ?
+	sub {
+	    my ($medianame, $add_by_default) = @_;
+	    my $yesexpr = N("Yy");
+	    $add_by_default = 1 if $options{allmedia};
+	    my $answer = message_input_(
+		N("\nDo you want to add media '%s'?", $medianame) . ($add_by_default ? N(" (Y/n) ") : N(" (y/N) ")),
+		boolean => 1,
+	    );
+	    return $answer ? $answer =~ /[$yesexpr]/ : $add_by_default;
+	} : $options{allmedia} ? sub {
+	    1;
+	} : undef;
+
+    urpm::media::add_distrib_media($urpm,
 	$name,
 	$url,
+        mirrorlist => $options{mirrorlist},
+        zeroconf => $options{zeroconf},
 	virtual => $options{virtual},
-	update => $options{update},
+	only_updates => $options{update},
 	probe_with => $options{probe_with},
 	nolock => $options{nolock},
-    );
-    local $SIG{INT} = sub {
-	remove_failed($urpm, grep { $_->{modified} } @{$urpm->{media}});
-	exit(1);
-    };
-    $urpm->update_media(%options, callback => \&urpm::download::sync_logger);
-    remove_failed($urpm, grep { $_->{modified} } @{$urpm->{media}});
-
+	ask_media => $add_media_callback,
+	'xml-info' => $options{'xml-info'},
+    ) or $urpm->{fatal}(10, N("unable to add medium"));
+    $ok = urpm::media::update_media($urpm, %options, 
+			      quiet => $options{verbose} < 0,		      
+			      callback => \&urpm::download::sync_logger);
 } else {
-    $name or usage;
+    $name && $name !~ m!/! or usage();
 
     if ($with eq "with") {
-	$relative_hdlist or usage N("<relative path of hdlist> missing\n");
-    } elsif ($type =~ /^(ftp|https?|rsync|ssh)$/) {
-	$options{probe_with} or usage N("`with' missing for network media\n");
+	$relative_synthesis or usage N("<relative path of synthesis> missing\n");
+    }
+    if ($options{probe_with} && $options{probe_with} eq 'rpms' && !urpm::is_local_url($url)) {
+	die N("Can't use %s with remote medium", "--probe-rpms");
     }
 
-    $urpm->add_medium(
-	$name, $url, $relative_hdlist,
+    urpm::media::add_medium($urpm,
+	$name, $url, $relative_synthesis,
+        mirrorlist => $options{mirrorlist},
+        zeroconf => $options{zeroconf},
+	'with-dir' => $with_dir,
 	virtual => $options{virtual},
 	update => $options{update},
-	no_reload_config => $options{raw},
 	ignore => $options{raw},
 	nolock => $options{nolock},
-    );
+	'xml-info' => $options{'xml-info'},
+    ) or $urpm->{fatal}(10, N("unable to add medium"));
+
     urpm::download::copy_cmd_line_proxy($name);
     if ($options{raw}) {
-	$urpm->write_config;
+	urpm::media::write_config($urpm);
     } else {
-	local $SIG{INT} = sub {
-	    remove_failed($urpm, grep { $_->{name} eq $name && $_->{modified} } @{$urpm->{media}});
-	    exit(1);
-	};
-	$urpm->update_media(%options, callback => \&urpm::download::sync_logger);
-	#- check creation of media
-	my ($medium) = grep { $_->{name} eq $name } @{$urpm->{media}};
-	$medium or die N("unable to create medium \"%s\"\n", $name);
-	remove_failed($urpm, $medium) if $medium->{modified};
+	$ok = urpm::media::update_media($urpm, %options, 
+				  quiet => $options{verbose} < 0,
+				  callback => \&urpm::download::sync_logger);
     }
 }
 
 #- try to umount removable devices which may have been mounted.
-$urpm->try_umounting_removables;
+urpm::removable::try_umounting_removables($urpm);
+
+exit($ok ? 0 : 1);
 
 # vim:ts=8:sts=4:sw=4

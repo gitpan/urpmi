@@ -8,8 +8,7 @@ PGOAL = urpmi
 PL_FILES = ../rpm-find-leaves ../urpm.pm ../urpme ../urpmf \
 	../urpmi ../urpmi.addmedia ../gurpmi ../gurpmi2 ../gurpmi.pm \
 	../urpmi.removemedia ../urpmi.update ../urpmq ../urpmi.recover \
-	../urpm/parallel_ka_run.pm ../urpm/parallel_ssh.pm \
-	../urpm/msg.pm ../urpm/args.pm ../rurpmi
+	../urpm/*.pm ../rurpmi
 
 POFILES = $(shell ls *.po)
 MOFILES = $(POFILES:%.po=%.mo)
@@ -22,20 +21,20 @@ all: $(GOALS)
 %.mo: %.po
 	msgfmt -o $@ $<
 
-merge: $(PGOAL).pot
+update_n_merge: $(PGOAL).pot merge
+
+merge:
 	@for n in $(POFILES); do \
 	    echo "Merging $$n"; \
-	    msgmerge --width=79 "$$n" $< > "$$n"t; \
+	    msgmerge "$$n" $(PGOAL).pot > "$$n"t; \
 	    mv -f "$$n"t "$$n"; \
 	done
 
-$(PGOAL).pot:
-	xgettext -F -n --add-comments \
-	  --keyword=N_ --keyword=N \
-	  --language=Perl -o $(PGOAL)_tmp.pot $(PL_FILES)
-	[ ! -e $(PGOAL)_tmp.pot ] || msgcat --use-first $(PGOAL)_tmp.pot > $@
-	perl -pi -es/perl-format/c-format/ $@
-	rm -f $(PGOAL)_tmp.pot
+$(PGOAL).pot: $(PL_FILES)
+	intltool-update --gettext-package desktopstuff --pot
+	perl_checker -q --generate-pot $(PGOAL)_tmp.pot $(PL_FILES)
+	[ ! -e $(PGOAL)_tmp.pot ] || msgcat --use-first $(PGOAL)_tmp.pot desktopstuff.pot > $@
+	rm -f desktopstuff.pot $(PGOAL)_tmp.pot 
 
 install: all
 	for l in $(LANGS); do \

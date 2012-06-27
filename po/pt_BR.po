@@ -1,8 +1,5 @@
-# translation of pt_BR.po to
-# translation of urpmi-pt_BR.po to
-# translation of urpmi-pt_BR.po to
-#
-# Copyright (C) 2000,2003, 2004, 2005 Free Software Foundation, Inc.
+# translation of pt_BR.po to Brazilian Portuguese
+# Copyright (C) 2000,2003, 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
 # Andrei Bosco Bezerra Torres <andreibt@uol.com.br>, 1999-2000.
 # Bruno Dorfman Buys <brunobuys@zipmail.com.br>, 2002.
 # Carlos Roberto Mafra <crmafra@mafra.eti.br>, 2002.
@@ -15,34 +12,40 @@
 # Klaus Orian Vicaro <kvicaro@gmx.net>, 2004.
 # Deivi Lopes Kuhn <deivi@softwarelivre.org>, 2005.
 # Arthur R. Mello <renato@conectiva.com.br>, 2005.
-# Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2006.
+# Wanderlei Antonio Cavassin <cavassin@mandriva.com>, 2006, 2007, 2008.
+# Felipe Arruda <felipemiguel@gmail.com>, 2006, 2008.
+# Sergio Rafael Lemke <sergio@mandriva.com.br>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-01 16:35+0800\n"
-"PO-Revision-Date: 2005-10-28 09:02-0200\n"
-"Last-Translator: Arthur Renato Mello <renato@conectiva.com.br>\n"
-"Language-Team:  <pt@li.org>\n"
+"POT-Creation-Date: 2012-06-08 19:19+0200\n"
+"PO-Revision-Date: 2010-03-15 18:45-0300\n"
+"Last-Translator: Sergio Rafael Lemke <sergio@mandriva.com.br>\n"
+"Language-Team: Brazilian Portuguese <cooker-i18n@mandrivalinux.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms:  nplurals=2; plural=(n > 1);\n"
 
-#: ../gurpmi:30 ../gurpmi2:56
+#: ../gurpmi:32
+#, c-format
 msgid "RPM installation"
 msgstr "Instalação de RPM"
 
-#: ../gurpmi:43
+#: ../gurpmi:46
 #, c-format
 msgid "Error: unable to find file %s, will cancel operation"
 msgstr "Erro: não foi possível encontrar arquivo %s, cancelando operação"
 
-#: ../gurpmi:44 ../gurpmi2:127 ../gurpmi2:150
+#: ../gurpmi:47 ../gurpmi2:196 ../gurpmi2:221
+#, c-format
 msgid "_Ok"
 msgstr "_Ok"
 
-#: ../gurpmi:64
+#: ../gurpmi:67
 #, c-format
 msgid ""
 "You have selected a source package:\n"
@@ -64,7 +67,7 @@ msgstr ""
 "\n"
 "O que você deseja fazer?"
 
-#: ../gurpmi:72 ../gurpmi:83
+#: ../gurpmi:75 ../gurpmi:86
 #, c-format
 msgid ""
 "You are about to install the following software packages on your computer:\n"
@@ -80,7 +83,7 @@ msgstr ""
 "\n"
 "Confirma instalação?"
 
-#: ../gurpmi:78
+#: ../gurpmi:81
 #, c-format
 msgid ""
 "You are about to install the following software package on your computer:\n"
@@ -96,168 +99,317 @@ msgstr ""
 "\n"
 "Você pode apenas salvá-lo(s). Qual a sua escolha?"
 
-#. - buttons
-#: ../gurpmi:96
+#: ../gurpmi:99
+#, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../gurpmi:97
+#: ../gurpmi:100
+#, c-format
 msgid "_Save"
 msgstr "_Salvar"
 
-#: ../gurpmi:98 ../gurpmi2:127
+#: ../gurpmi:101 ../gurpmi2:196
+#, c-format
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gurpmi:106
+#: ../gurpmi:109
+#, c-format
 msgid "Choose location to save file"
 msgstr "Escolha o local para salvar o arquivo"
 
-#: ../gurpmi.pm:76
+#: ../gurpmi.pm:39 ../urpmi:66
 #, c-format
-msgid "Unknown option %s"
-msgstr "Opção desconhecida %s"
+msgid ""
+"urpmi version %s\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"This is free software and may be redistributed under the terms of the GNU "
+"GPL.\n"
+"\n"
+"usage:\n"
+msgstr ""
+"urpmi versão %s\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
+"Este é um software livre, e pode ser redistribuído sob os termos da GNU "
+"GPL.\n"
+"\n"
+"uso:\n"
 
-#: ../gurpmi.pm:86
+#: ../gurpmi.pm:45
+#, c-format
+msgid "Options:"
+msgstr "Opções:"
+
+#: ../gurpmi.pm:46 ../urpme:46 ../urpmf:35 ../urpmi:71 ../urpmi.addmedia:55
+#: ../urpmi.recover:33 ../urpmi.removemedia:40 ../urpmi.update:32 ../urpmq:45
+#, c-format
+msgid "  --help         - print this help message.\n"
+msgstr "  --help         - imprime esta mensagem de ajuda.\n"
+
+#: ../gurpmi.pm:47 ../urpmi:78
+#, c-format
+msgid ""
+"  --auto         - non-interactive mode, assume default answers to "
+"questions.\n"
+msgstr ""
+"  --auto         - modo não-interativo, assume respostas padrão para as "
+"perguntas.\n"
+
+#: ../gurpmi.pm:48 ../urpmi:79 ../urpmq:52
+#, c-format
+msgid ""
+"  --auto-select  - automatically select packages to upgrade the system.\n"
+msgstr ""
+"  --auto-select  - automaticamente seleciona os pacotes para atualizar o "
+"sistema.\n"
+
+#: ../gurpmi.pm:49 ../urpme:50 ../urpmi:102 ../urpmq:68
+#, c-format
+msgid ""
+"  --force        - force invocation even if some packages do not exist.\n"
+msgstr "  --force        - força mesmo se alguns pacotes não existem.\n"
+
+#: ../gurpmi.pm:50 ../urpmi:133
+#, c-format
+msgid ""
+"  --verify-rpm   - verify rpm signature before installation\n"
+"                   (--no-verify-rpm disables it, default is enabled).\n"
+msgstr ""
+"  --verify-rpm   - verifica a assinatura do rpm antes da instalação.\n"
+"                   (--no-verify-rpm desabilita, por padrão é habilitado).\n"
+
+#: ../gurpmi.pm:52 ../urpmf:41 ../urpmi:72 ../urpmq:47
+#, c-format
+msgid "  --media        - use only the given media, separated by comma.\n"
+msgstr ""
+"  --media        - use somente as mídias listadas (separadas por vírgula).\n"
+
+#: ../gurpmi.pm:53 ../urpmi:150
+#, c-format
+msgid "  -p             - allow search in provides to find package.\n"
+msgstr ""
+"  -p             - permite a busca em 'provides' para achar o pacote.\n"
+
+#: ../gurpmi.pm:54 ../urpmi:151
+#, c-format
+msgid "  -P             - do not search in provides to find package.\n"
+msgstr ""
+"  -P             - não procure em 'provides' para encontrar o pacote.\n"
+
+#: ../gurpmi.pm:55 ../urpmi:109 ../urpmq:71
+#, c-format
+msgid "  --root         - use another root for rpm installation.\n"
+msgstr "  --root         - use outro root para instalação rpm.\n"
+
+#: ../gurpmi.pm:56 ../urpmi:135
+#, c-format
+msgid ""
+"  --test         - only verify if the installation can be achieved "
+"correctly.\n"
+msgstr ""
+"  --test         - apenas verifica se a instalação pode ser efetuada "
+"corretamente.\n"
+
+#: ../gurpmi.pm:57 ../urpmi:75
+#, c-format
+msgid ""
+"  --searchmedia  - use only the given media to search requested packages.\n"
+msgstr "  --searchmedia  - usa apenas a mídia fornecida para buscar pacotes.\n"
+
+#: ../gurpmi.pm:100
+#, c-format
 msgid "No packages specified"
 msgstr "Nenhum pacote especificado"
 
-#: ../gurpmi2:37
+#: ../gurpmi2:54
+#, c-format
 msgid "Please wait..."
-msgstr "Por favor aguarde..."
+msgstr "Aguarde..."
 
-#: ../gurpmi2:46
+#: ../gurpmi2:63
+#, c-format
 msgid "Must be root"
-msgstr "É necesssário super usuário"
+msgstr "Tem que ser root"
 
-#: ../gurpmi2:80
+#: ../gurpmi2:70
+#, c-format
+msgid "Distribution Upgrade"
+msgstr "Atualização da Distribuição"
+
+#: ../gurpmi2:70
+#, c-format
+msgid "Packages installation"
+msgstr "Instalação de Programas"
+
+#: ../gurpmi2:97
+#, c-format
+msgid "Preparing packages installation..."
+msgstr "Preparando programas para instalação..."
+
+#: ../gurpmi2:112 ../urpmi:509
+#, c-format
+msgid ""
+"Some requested packages cannot be installed:\n"
+"%s"
+msgstr ""
+"Alguns pacotes não puderam ser instalados:\n"
+"%s"
+
+#: ../gurpmi2:120
 #, c-format
 msgid ""
 "Some requested packages cannot be installed:\n"
 "%s\n"
 "Continue installation anyway?"
 msgstr ""
-"Alguns pacotes requeridos não puderam ser instalados:\n"
+"Alguns programas requeridos não puderam ser instalados:\n"
 "%s\n"
 "Prosseguir com a instalação mesmo assim?"
 
-#: ../gurpmi2:123
+#: ../gurpmi2:155
+#, c-format
+msgid "Warning"
+msgstr "Aviso"
+
+#: ../gurpmi2:155
+#, c-format
+msgid "Ok"
+msgstr "Ok"
+
+#: ../gurpmi2:192
+#, c-format
 msgid " (to upgrade)"
 msgstr " (para atualizar)"
 
-#: ../gurpmi2:124
+#: ../gurpmi2:193
+#, c-format
 msgid " (to install)"
 msgstr " (para instalar)"
 
-#: ../gurpmi2:127
+#: ../gurpmi2:196
+#, c-format
 msgid "Package choice"
-msgstr "Escolha de pacotes"
+msgstr "Escolha de Programas"
 
-#: ../gurpmi2:128 ../urpmi:414
+#: ../gurpmi2:197
+#, c-format
 msgid "One of the following packages is needed:"
-msgstr "Um dos pacotes a seguir é necessário:"
+msgstr "Um seguintes programas é necessário:"
 
-#: ../gurpmi2:151
+#: ../gurpmi2:222
+#, c-format
 msgid "_Abort"
 msgstr "_Abortar"
 
-#: ../gurpmi2:171
+#: ../gurpmi2:257
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
 "%s\n"
 "Continue installation anyway?"
 msgstr ""
-"Estes pacotes precisam ser removidos para que outros sejam atualizados:\n"
+"Estes programas precisam ser removidos para que outros sejam atualizados:\n"
 "%s\n"
 "Prosseguir com a instalação mesmo assim?"
 
-#: ../gurpmi2:185
+#: ../gurpmi2:276 ../urpmi:609
 #, c-format
 msgid ""
-"To satisfy dependencies, the following %d packages are going to be "
-"installed:\n"
-"%s\n"
+"To satisfy dependencies, the following package is going to be installed:"
+msgstr "Para satisfazer as dependências, o seguinte pacote será instalado:"
+
+#: ../gurpmi2:277 ../urpmi:610
+#, c-format
+msgid ""
+"To satisfy dependencies, the following packages are going to be installed:"
 msgstr ""
-"Para satisfazer as dependências, os seguintes %d pacotes serão instalados:\n"
-"%s\n"
+"Para satisfazer as dependências, os seguintes programas serão instalados:"
 
-#: ../gurpmi2:192
-msgid "Package installation..."
-msgstr "Instalação de pacotes..."
+#: ../gurpmi2:279
+#, c-format
+msgid "(%d package, %d MB)"
+msgid_plural "(%d packages, %d MB)"
+msgstr[0] "(%d pacote, %d MB)"
+msgstr[1] "(%d pacotes, %d MB)"
 
-#: ../gurpmi2:194 ../urpmi:569
+#: ../gurpmi2:287 ../urpm/main_loop.pm:304
+#, c-format
 msgid "unable to get source packages, aborting"
 msgstr "incapaz de obter pacotes fonte, abortando"
 
-#: ../gurpmi2:207 ../urpmi:579
+#: ../gurpmi2:319 ../urpm/install.pm:81
 #, c-format
-msgid "Please insert the medium named \"%s\" on device [%s]"
-msgstr "Insira a mídia chamada \"%s\" no dispositivo [%s]"
-
-#: ../gurpmi2:236
-#, c-format
-msgid "Downloading package `%s'..."
-msgstr "Baixando o pacote `%s'..."
-
-#: ../gurpmi2:251
-#, c-format
-msgid ""
-"The following packages have bad signatures:\n"
-"%s\n"
-"\n"
-"Do you want to continue installation ?"
-msgstr ""
-"Os seguintes pacotes possuem assinaturas inválidas:\n"
-"%s\n"
-"\n"
-"Deseja continuar com a instalação?"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:258 ../gurpmi2:314 ../urpmi:651 ../urpmi:782
-#, c-format
-msgid ""
-"Installation failed, some files are missing:\n"
-"%s\n"
-"You may want to update your urpmi database"
-msgstr ""
-"Instalação falhou, alguns arquivos estão faltando:.\n"
-"%s\n"
-"Você deve atualizar a sua base de dados urpmi"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:265 ../urpme:128 ../urpmi:698
-#, c-format
-msgid "removing %s"
-msgstr "removendo %s"
-
-#: ../gurpmi2:272 ../urpm.pm:2916
 msgid "Preparing..."
 msgstr "Preparando..."
 
-#: ../gurpmi2:274
+#: ../gurpmi2:325
 #, c-format
 msgid "Installing package `%s' (%s/%s)..."
 msgstr "Instalando pacote `%s' (%s/%s)..."
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../gurpmi2:300 ../urpmi:663 ../urpmi:721 ../urpmi:741 ../urpmi:759
-msgid "Installation failed"
-msgstr "A Instalação falhou"
+#: ../gurpmi2:343 ../urpmi:637
+#, c-format
+msgid "Please insert the medium named \"%s\""
+msgstr "Por favor insira a mídia chamada \"%s\""
 
-#: ../gurpmi2:309
+#: ../gurpmi2:357
+#, c-format
+msgid "Downloading package `%s'..."
+msgstr "Baixando o pacote `%s'..."
+
+#: ../gurpmi2:369 ../urpm.pm:338 ../urpm/download.pm:831
+#: ../urpm/get_pkgs.pm:262 ../urpm/media.pm:981 ../urpm/media.pm:1493
+#: ../urpm/media.pm:1644
+#, c-format
+msgid "...retrieving failed: %s"
+msgstr "...a busca falhou: %s"
+
+#: ../gurpmi2:385
+#, c-format
 msgid "_Done"
 msgstr "_Pronto"
 
-#: ../gurpmi2:317 ../urpmi:799
+#: ../gurpmi2:402 ../urpm/main_loop.pm:69
+#, c-format
+msgid ""
+"Installation failed, some files are missing:\n"
+"%s"
+msgstr ""
+"A instalação falhou, alguns arquivos faltam:\n"
+"%s"
+
+#: ../gurpmi2:405
+#, fuzzy, c-format
+msgid "You may want to update your urpmi database."
+msgstr "Você deve atualizar a sua base de dados urpmi."
+
+#: ../gurpmi2:409 ../urpm/main_loop.pm:261 ../urpm/main_loop.pm:421
+#, c-format
+msgid "Installation failed:"
+msgstr "A Instalação falhou:"
+
+#: ../gurpmi2:414
+#, c-format
 msgid "The package(s) are already installed"
 msgstr "Tudo já está instalado"
 
-#: ../gurpmi2:319
+#: ../gurpmi2:416
+#, c-format
 msgid "Installation finished"
 msgstr "Instalação concluída"
 
-#: ../rpm-find-leaves:14
+#: ../gurpmi2:417 ../urpme:169
+#, c-format
+msgid "removing %s"
+msgstr "removendo %s"
+
+#: ../gurpmi2:428 ../urpmi:695
+#, c-format
+msgid "restarting urpmi"
+msgstr "reiniciando urpmi"
+
+#: ../rpm-find-leaves:15
 #, c-format
 msgid ""
 "usage: %s [options]\n"
@@ -266,1014 +418,1374 @@ msgstr ""
 "uso: %s [opções]\n"
 "onde [opções] podem ser\n"
 
-#: ../rpm-find-leaves:16
+#: ../rpm-find-leaves:17
+#, c-format
 msgid "   -h|--help      - print this help message.\n"
 msgstr "   -h|--help      - imprime esta mensagem de ajuda.\n"
 
-#: ../rpm-find-leaves:17
+#: ../rpm-find-leaves:18
+#, c-format
 msgid "   --root <path>  - use the given root instead of /\n"
 msgstr "   --root <path>  - usar o root informado em vez de /\n"
 
-#: ../rpm-find-leaves:18
+#: ../rpm-find-leaves:19
+#, c-format
 msgid "   -g [group]     - restrict results to specified group.\n"
 msgstr "   -g [group]     - restringe os resultados ao grupo. \n"
 
-#: ../rpm-find-leaves:19
+#: ../rpm-find-leaves:20
 #, c-format
 msgid "                    defaults to %s.\n"
 msgstr "                    por padrão é %s.\n"
 
-#. - need to be root if binary rpms are to be installed
-#: ../rurpmi:11 ../urpmi:242
+#: ../rpm-find-leaves:21
+#, c-format
+msgid "   -f             - output rpm full name (NVRA)\n"
+msgstr "   -f             - imprime nome completo do rpm (NVRA).\n"
+
+#: ../rurpmi:11 ../urpmi:269
+#, c-format
 msgid "Only superuser is allowed to install packages"
-msgstr "Apenas o super-usuário tem permissão para instalar pacotes"
+msgstr "Apenas o superusuário tem permissão para instalar programas"
 
 #: ../rurpmi:18
+#, c-format
 msgid "Running urpmi in restricted mode..."
 msgstr "Executando o urpmi no modo restrito..."
 
-#: ../urpm.pm:72
+#: ../urpm.pm:23
 #, c-format
-msgid "unknown protocol defined for %s"
-msgstr "protocolo desconhecido definido para %s"
-
-#: ../urpm.pm:101
-#, c-format
-msgid "%s is not available, falling back on %s"
+msgid "While some packages may have been installed, there were failures.\n"
 msgstr ""
 
-#: ../urpm.pm:109
+#: ../urpm.pm:110
 #, c-format
-msgid "no webfetch found, supported webfetch are: %s\n"
-msgstr "nenhuma webfetch encontrada, webfetch suportadas são: %s\n"
+msgid "fail to create directory %s"
+msgstr "falha ao criar diretório %s"
 
-#: ../urpm.pm:125
+#: ../urpm.pm:111
 #, c-format
-msgid "unable to handle protocol: %s"
-msgstr "incapaz de usar protocolo: %s"
+msgid "invalid owner for directory %s"
+msgstr "dono inválido para diretório %s"
 
-#: ../urpm.pm:222
+#: ../urpm.pm:135
 #, c-format
-msgid "medium \"%s\" trying to use an already used hdlist, medium ignored"
-msgstr "mídia \"%s\" tentou usar um 'hdlist' já usado, mídia ignorada"
+msgid "Can not download packages into %s"
+msgstr "Não foi possível fazer o download dos programas em %s"
 
-#: ../urpm.pm:223
+#: ../urpm.pm:150
 #, c-format
-msgid "medium \"%s\" trying to use an already used list, medium ignored"
-msgstr "mídia \"%s\" tentou usar uma lista já usada, mídia ignorada."
+msgid "Environment directory %s does not exist"
+msgstr "Diretório de ambiente %s não existe"
 
-#: ../urpm.pm:236 ../urpm.pm:1313 ../urpm.pm:1323
+#: ../urpm.pm:151 ../urpmf:248 ../urpmq:167
 #, c-format
-msgid "unable to access hdlist file of \"%s\", medium ignored"
-msgstr "incapaz de acessar a arquivo 'hdlist' de \"%s\", mídia ignorada"
+msgid "using specific environment on %s\n"
+msgstr "usando o ambiente específico em %s\n"
 
-#. list file exists but isn't readable
-#. report error only if no result found, list files are only readable by root
-#: ../urpm.pm:239 ../urpm.pm:2521
+#: ../urpm.pm:313
 #, c-format
-msgid "unable to access list file of \"%s\", medium ignored"
-msgstr "incapaz de acessar a lista de arquivos de \"%s\", mídia ignorada."
-
-#: ../urpm.pm:267
-#, c-format
-msgid "trying to override existing medium \"%s\", skipping"
-msgstr "tentando contornar mídia existente \"%s\", evitando"
-
-#: ../urpm.pm:278
-#, c-format
-msgid ""
-"virtual medium \"%s\" should not have defined hdlist or list file, medium "
-"ignored"
-msgstr ""
-"mídia Virtual \"%s\" não contém o arquivo 'hdlist' ou lista de arquivos; "
-"mídia ignorada."
-
-#: ../urpm.pm:283
-#, c-format
-msgid "virtual medium \"%s\" should have a clear url, medium ignored"
-msgstr "mídia virtual \"%s\" precisa ter uma url limpa, mídia ignorada."
-
-#: ../urpm.pm:292
-#, c-format
-msgid "unable to find hdlist file for \"%s\", medium ignored"
-msgstr "Incapaz de encontrar arquivo 'hdlist' para \"%s\", mídia ignorada."
-
-#: ../urpm.pm:299
-#, c-format
-msgid "unable to find list file for \"%s\", medium ignored"
-msgstr "incapaz de encontrar a lista para \"%s\", mídia ignorada."
-
-#: ../urpm.pm:323
-#, c-format
-msgid "inconsistent list file for \"%s\", medium ignored"
-msgstr "Lista de arquivos incoerente para \"%s\", mídia ignorada"
-
-#: ../urpm.pm:333
-#, c-format
-msgid "unable to inspect list file for \"%s\", medium ignored"
-msgstr "incapaz de inspecionar a lista de arquivos \"%s\", mídia ignorada"
-
-#. - return value is suitable for an hash.
-#: ../urpm.pm:373
-#, c-format
-msgid "too many mount points for removable medium \"%s\""
-msgstr "muitos pontos de montagem para a mídia removível \"%s\""
-
-#: ../urpm.pm:374
-#, c-format
-msgid "taking removable device as \"%s\""
-msgstr "considerando dispositivos removíveis como \"%s\""
-
-#: ../urpm.pm:377
-#, c-format
-msgid "Medium \"%s\" is an ISO image, will be mounted on-the-fly"
-msgstr "A mídia \"%s\" é uma imagem ISO e poderá ser montada automaticamente"
-
-#: ../urpm.pm:380
-#, c-format
-msgid "using different removable device [%s] for \"%s\""
-msgstr "usando diferentes dispositivos removíveis [%s] para \"%s\""
-
-#: ../urpm.pm:385 ../urpm.pm:388
-#, c-format
-msgid "unable to retrieve pathname for removable medium \"%s\""
-msgstr "incapaz de buscar caminhos para mídia removível \"%s\""
-
-#: ../urpm.pm:414
-#, c-format
-msgid "unable to write config file [%s]"
-msgstr "incapaz de gravar o arquivo de configuração [%s]"
-
-#: ../urpm.pm:424
-#, c-format
-msgid "wrote config file [%s]"
-msgstr "grava o arquivo de configuração [%s]"
-
-#: ../urpm.pm:452
-msgid "Can't use parallel mode with use-distrib mode"
-msgstr "Não pode usar o modo paralelo com modo 'use-distrib'"
-
-#: ../urpm.pm:462
-#, c-format
-msgid "unable to parse \"%s\" in file [%s]"
-msgstr "incapaz de processar \"%s\" no arquivo [%s]"
-
-#: ../urpm.pm:474
-#, c-format
-msgid "examining parallel handler in file [%s]"
-msgstr "examinando aquisição em paralelo no arquivo [%s]"
-
-#: ../urpm.pm:485
-#, c-format
-msgid "found parallel handler for nodes: %s"
-msgstr "encontrado manipulador paralelo para os nós: %s"
-
-#: ../urpm.pm:489
-#, c-format
-msgid "using associated media for parallel mode: %s"
-msgstr "usando a mídia associada para o modo paralelo: %s"
-
-#: ../urpm.pm:493
-#, c-format
-msgid "unable to use parallel option \"%s\""
-msgstr "incapaz de usar a opção paralela \"%s\""
-
-#: ../urpm.pm:501
-#, c-format
-msgid "there doesn't seem to be devices in the chroot in \"%s\""
-msgstr "não parece haver dispositivos no chroot em\"%s\""
-
-#: ../urpm.pm:507
-msgid ""
-"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
-"update or --parallel"
-msgstr ""
-"--synthesis não pode ser usada com --media, -excludemedia, -sortmedia, --"
-"update ou --parallel"
-
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - as previously done, just read synthesis file here, this is enough, but only
-#. - if synthesis exists, else it needs to be recomputed.
-#. - XXX we could link the new hdlist to the old one.
-#. - (However links need to be managed. see bug #12391.)
-#. - as previously done, just read synthesis file here, this is enough.
-#. - read default synthesis (we have to make sure nothing get out of depslist).
-#: ../urpm.pm:571 ../urpm.pm:597 ../urpm.pm:1085 ../urpm.pm:1096
-#: ../urpm.pm:1168 ../urpm.pm:1185 ../urpm.pm:1240 ../urpm.pm:1296
-#: ../urpm.pm:1506 ../urpm.pm:1626 ../urpm.pm:1743 ../urpm.pm:1749
-#: ../urpm.pm:1852 ../urpm.pm:1938 ../urpm.pm:1942
-#, c-format
-msgid "examining synthesis file [%s]"
-msgstr "examinando arquivo de síntese [%s]"
-
-#: ../urpm.pm:575 ../urpm.pm:590 ../urpm.pm:603 ../urpm.pm:1088
-#: ../urpm.pm:1099 ../urpm.pm:1174 ../urpm.pm:1180 ../urpm.pm:1245
-#: ../urpm.pm:1300 ../urpm.pm:1510 ../urpm.pm:1630 ../urpm.pm:1737
-#: ../urpm.pm:1755 ../urpm.pm:1948
-#, c-format
-msgid "examining hdlist file [%s]"
-msgstr "examinando arquivo hdlist [%s]"
-
-#: ../urpm.pm:585 ../urpm.pm:1092
-#, c-format
-msgid "virtual medium \"%s\" is not local, medium ignored"
-msgstr "mídia virtual \"%s\" não é local, mídia ignorada"
-
-#: ../urpm.pm:615
-#, c-format
-msgid "Search start: %s end: %s"
-msgstr "Procura inicia em %s e termina em %s"
-
-#. - this is almost a fatal error, ignore it by default?
-#: ../urpm.pm:620 ../urpm.pm:1106 ../urpm.pm:1193 ../urpm.pm:1249
-#: ../urpm.pm:1634
-#, c-format
-msgid "problem reading hdlist or synthesis file of medium \"%s\""
-msgstr "problema lendo arquivo hdlist ou síntese da mídia \"%s\""
-
-#: ../urpm.pm:627 ../urpm.pm:1890
-msgid "performing second pass to compute dependencies\n"
-msgstr "fazendo segundo passo para calcular dependências\n"
-
-#: ../urpm.pm:643
-#, c-format
-msgid "skipping package %s"
-msgstr "pulando o pacote %s"
-
-#: ../urpm.pm:656
-#, c-format
-msgid "would install instead of upgrade package %s"
-msgstr "é necessário instalar ao invés de atualizar o pacote %s"
-
-#. - beware this can be a child process or the main process now...
-#. - open in read/write mode unless testing installation.
-#: ../urpm.pm:667 ../urpm.pm:2329 ../urpm.pm:2390 ../urpm.pm:2579
-#: ../urpm.pm:2982 ../urpm.pm:3109
 msgid "unable to open rpmdb"
 msgstr "incapaz de abrir rpmdb"
 
-#: ../urpm.pm:708
-#, c-format
-msgid "medium \"%s\" already exists"
-msgstr "mídia \"%s\" já existe"
-
-#: ../urpm.pm:715
-msgid "virtual medium needs to be local"
-msgstr "mídia virtual precisar ser local"
-
-#: ../urpm.pm:740
-#, c-format
-msgid "added medium %s"
-msgstr "mídia adicionada %s"
-
-#: ../urpm.pm:786
-msgid "unable to access first installation medium"
-msgstr "incapaz de acessar a primeira mídia de instalação."
-
-#: ../urpm.pm:790
-msgid "copying hdlists file..."
-msgstr "copiando arquivo hdlist..."
-
-#: ../urpm.pm:792 ../urpm.pm:1209 ../urpm.pm:1266
-msgid "...copying done"
-msgstr "..cópia terminada"
-
-#: ../urpm.pm:793 ../urpm.pm:1210 ../urpm.pm:1341 ../urpm.pm:1404
-#: ../urpm.pm:1572 ../urpm.pm:1579
-msgid "...copying failed"
-msgstr "...falha na cópia"
-
-#: ../urpm.pm:796 ../urpm.pm:821 ../urpm.pm:860
-msgid "unable to access first installation medium (no hdlists file found)"
-msgstr ""
-"incapaz de acessar a primeira mídia de instalação (não encontrado arquivos "
-"hdlists)"
-
-#: ../urpm.pm:803
-msgid "retrieving hdlists file..."
-msgstr "buscando arquivos hdlists..."
-
-#: ../urpm.pm:815 ../urpm.pm:1616 ../urpm.pm:2117 ../urpm.pm:2837
-msgid "...retrieving done"
-msgstr "...busca completa"
-
-#: ../urpm.pm:817 ../urpm.pm:1600 ../urpm.pm:2121 ../urpm.pm:2839
-#, c-format
-msgid "...retrieving failed: %s"
-msgstr "...a busca falhou: %s"
-
-#: ../urpm.pm:841
-#, c-format
-msgid "invalid hdlist description \"%s\" in hdlists file"
-msgstr "descrição inválida \"%s\" no arquivo 'hdlists'"
-
-#: ../urpm.pm:897
-#, c-format
-msgid "trying to select nonexistent medium \"%s\""
-msgstr "tentando selecionar mídia inexistente \"%s\""
-
-#. - several elements in found and/or foundi lists.
-#: ../urpm.pm:899
-#, c-format
-msgid "selecting multiple media: %s"
-msgstr "selecionando múltiplas mídias: %s"
-
-#: ../urpm.pm:915
-#, c-format
-msgid "removing medium \"%s\""
-msgstr "removendo a mídia \"%s\""
-
-#: ../urpm.pm:966
-#, c-format
-msgid "reconfiguring urpmi for media \"%s\""
-msgstr "reconfigurando o urpmi para a mídia \"%s\"..."
-
-#: ../urpm.pm:995
-msgid "...reconfiguration failed"
-msgstr "...falha na reconfiguração"
-
-#: ../urpm.pm:1002
-msgid "reconfiguration done"
-msgstr "reconfiguração terminada"
-
-#: ../urpm.pm:1146
-#, c-format
-msgid ""
-"unable to access medium \"%s\",\n"
-"this could happen if you mounted manually the directory when creating the "
-"medium."
-msgstr ""
-"incapaz de acessar a mídia \"%s\",\n"
-"verifique se não é necessário montar manualmente o diretório no qual ela foi "
-"criada."
-
-#: ../urpm.pm:1197
-#, c-format
-msgid ""
-"virtual medium \"%s\" should have valid source hdlist or synthesis, medium "
-"ignored"
-msgstr ""
-"Mídia \"%s\" a fonte fornecida não é válida ('hdlist' ou 'synthesis'), mídia "
-"ignorada."
-
-#: ../urpm.pm:1207
-#, c-format
-msgid "copying description file of \"%s\"..."
-msgstr "Copiando o arquivo de descrição de \"%s\"..."
-
-#: ../urpm.pm:1262
-#, c-format
-msgid "copying source hdlist (or synthesis) of \"%s\"..."
-msgstr "copiando fonte 'hdlist' (ou síntese) de \"%s\"..."
-
-#: ../urpm.pm:1276
-#, c-format
-msgid "copy of [%s] failed (file is suspiciously small)"
-msgstr "cópia de [%s] falhou (arquivo é suspeitamente pequeno)"
-
-#: ../urpm.pm:1281
-msgid "computing md5sum of copied source hdlist (or synthesis)"
-msgstr "computando o md5sum de uma fonte 'hdlist' copiada (ou síntese)"
-
-#: ../urpm.pm:1283
-#, c-format
-msgid "copy of [%s] failed (md5sum mismatch)"
-msgstr "cópia de [%s] falhou (md5sum não é igual)"
-
-#: ../urpm.pm:1304 ../urpm.pm:1514 ../urpm.pm:1855
-#, c-format
-msgid "problem reading synthesis file of medium \"%s\""
-msgstr "Problema ao ler arquivo síntese da mídia \"%s\""
-
-#: ../urpm.pm:1362
-#, c-format
-msgid "reading rpm files from [%s]"
-msgstr "lendo arquivos rpms de [%s]"
-
-#: ../urpm.pm:1377
-msgid "no rpms read"
-msgstr "nenhum rpm lido"
-
-#: ../urpm.pm:1387
-#, c-format
-msgid "unable to read rpm files from [%s]: %s"
-msgstr "incapaz de ler os arquivos rpm de: [%s]: %s"
-
-#: ../urpm.pm:1392
-#, c-format
-msgid "no rpm files found from [%s]"
-msgstr "nenhum arquivo rpm encontrado em [%s]"
-
-#. - try to probe for possible with_hdlist parameter, unless
-#. - it is already defined (and valid).
-#: ../urpm.pm:1529
-#, c-format
-msgid "retrieving source hdlist (or synthesis) of \"%s\"..."
-msgstr "Adquirindo a fonte 'hdlist' (ou a síntese) de \"%s\"..."
-
-#: ../urpm.pm:1557
-#, c-format
-msgid "found probed hdlist (or synthesis) as %s"
-msgstr "encontrado 'hdlist' (ou síntese) em %s"
-
-#: ../urpm.pm:1607
-msgid "computing md5sum of retrieved source hdlist (or synthesis)"
-msgstr "computando o md5sum de uma fonte 'hdlist' recuperada (ou síntese)"
-
-#: ../urpm.pm:1609
-msgid "...retrieving failed: md5sum mismatch"
-msgstr "   A aquisição falhou: assinatura md5sum diferente"
-
-#: ../urpm.pm:1707
-msgid "retrieval of source hdlist (or synthesis) failed"
-msgstr "Aquisição da fonte hdlist (ou síntese) falhou"
-
-#: ../urpm.pm:1714
-#, c-format
-msgid "no hdlist file found for medium \"%s\""
-msgstr "Nenhum arquivo 'hdlist' encontrado para a mídia \"%s\""
-
-#: ../urpm.pm:1725 ../urpm.pm:1779
-#, c-format
-msgid "file [%s] already used in the same medium \"%s\""
-msgstr "arquivo [%s] já está em uso na mesma mídia \"%s\""
-
-#: ../urpm.pm:1765
-#, c-format
-msgid "unable to parse hdlist file of \"%s\""
-msgstr "incapaz de atualizar o arquivo hdlist de \"%s\""
-
-#: ../urpm.pm:1804
-#, c-format
-msgid "unable to write list file of \"%s\""
-msgstr "incapaz de gravar lista de arquivos de \"%s\""
-
-#: ../urpm.pm:1812
-#, c-format
-msgid "writing list file for medium \"%s\""
-msgstr "Gravando a lista de arquivos para a mídia \"%s\""
-
-#: ../urpm.pm:1814
-#, c-format
-msgid "nothing written in list file for \"%s\""
-msgstr "Nada escrito na lista para \"%s\""
-
-#: ../urpm.pm:1829
-#, c-format
-msgid "examining pubkey file of \"%s\"..."
-msgstr "examinando arquivo de chave pública em \"%s\"..."
-
-#: ../urpm.pm:1836
-#, c-format
-msgid "...imported key %s from pubkey file of \"%s\""
-msgstr "...importando chave %s do arquivo de chaves públicas de \"%s\""
-
-#: ../urpm.pm:1839
-#, c-format
-msgid "unable to import pubkey file of \"%s\""
-msgstr "incapaz de importar arquivo de chave pública de \"%s\""
-
-#: ../urpm.pm:1904
-#, c-format
-msgid "reading headers from medium \"%s\""
-msgstr "Lendo cabeçalhos da mídia \"%s\""
-
-#: ../urpm.pm:1909
-#, c-format
-msgid "building hdlist [%s]"
-msgstr "Construindo 'hdlist' [%s]"
-
-#. - XXX this happens when building a synthesis for a local media from RPMs... why ?
-#: ../urpm.pm:1924 ../urpm.pm:1960
-#, c-format
-msgid ""
-"Unable to build synthesis file for medium \"%s\". Your hdlist file may be "
-"corrupted."
-msgstr ""
-"Não foi possível construir o arquivo synthesis para a mídia \"%s\". O "
-"arquivo hdlist pode estar corrompido."
-
-#: ../urpm.pm:1928 ../urpm.pm:1964 ../urpmi:370
-#, c-format
-msgid "built hdlist synthesis file for medium \"%s\""
-msgstr "Construindo arquivo de síntese de 'hdlist' para mídia \"%s\""
-
-#: ../urpm.pm:1987
-#, c-format
-msgid "found %d headers in cache"
-msgstr "Encontrado %d cabeçalhos no cache."
-
-#: ../urpm.pm:1991
-#, c-format
-msgid "removing %d obsolete headers in cache"
-msgstr "Removendo %d cabeçalhos obsoletos no cache."
-
-#: ../urpm.pm:2012
-#, c-format
-msgid "Error generating names file: dependency %d not found"
-msgstr "Erro gerando arquivo de nomes: dependência %d não encontrada"
-
-#: ../urpm.pm:2017
-#, c-format
-msgid "Error generating names file: Can't write to file (%s)"
-msgstr ""
-"Erro gerando arquivo de nomes: Não foi possível escrever no arquivo (%s)"
-
-#: ../urpm.pm:2053
-#, c-format
-msgid "mounting %s"
-msgstr "montando %s"
-
-#: ../urpm.pm:2077
-#, c-format
-msgid "unmounting %s"
-msgstr "desmontando %s"
-
-#: ../urpm.pm:2102
+#: ../urpm.pm:327
 #, c-format
 msgid "invalid rpm file name [%s]"
 msgstr "nome rpm inválido [%s]"
 
-#: ../urpm.pm:2108
+#: ../urpm.pm:333
 #, c-format
 msgid "retrieving rpm file [%s] ..."
 msgstr "buscando o arquivo rpm [%s]...."
 
-#: ../urpm.pm:2126
+#: ../urpm.pm:335 ../urpm/get_pkgs.pm:260
+#, c-format
+msgid "...retrieving done"
+msgstr "...busca completa"
+
+#: ../urpm.pm:343
 #, c-format
 msgid "unable to access rpm file [%s]"
 msgstr "incapaz de acessar o arquivo rpm [%s]"
 
-#: ../urpm.pm:2131
+#: ../urpm.pm:348
 #, c-format
 msgid "unable to parse spec file %s [%s]"
 msgstr "incapaz de processar arquivo spec %s [%s]"
 
-#: ../urpm.pm:2141
+#: ../urpm.pm:356
+#, c-format
 msgid "unable to register rpm file"
 msgstr "incapaz de registrar arquivo rpm"
 
-#: ../urpm.pm:2143
+#: ../urpm.pm:358
 #, c-format
 msgid "Incompatible architecture for rpm [%s]"
-msgstr ""
+msgstr "Arquitetura incompatível para o rpm [%s]"
 
-#: ../urpm.pm:2147
+#: ../urpm.pm:362
+#, c-format
 msgid "error registering local packages"
 msgstr "erro ao registrar pacotes locais"
 
-#: ../urpm.pm:2257
+#: ../urpm.pm:450
 #, c-format
-msgid "no package named %s"
-msgstr "nenhum nome de pacote %s"
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm.pm:2259 ../urpme:101
-#, c-format
-msgid "The following packages contain %s: %s"
-msgstr "Os seguintes pacotes contém %s: %s"
-
-#: ../urpm.pm:2452 ../urpm.pm:2498 ../urpm.pm:2530
-#, c-format
-msgid "there are multiple packages with the same rpm filename \"%s\""
-msgstr "existem múltiplos pacotes com o mesmo nome rpm \"%s\""
-
-#: ../urpm.pm:2512
-#, c-format
-msgid "unable to correctly parse [%s] on value \"%s\""
-msgstr "incapaz de ler corretamente [%s] no valor \"%s\""
-
-#: ../urpm.pm:2522
-msgid "(retry as root?)"
-msgstr ""
-
-#: ../urpm.pm:2546
-#, c-format
-msgid ""
-"medium \"%s\" uses an invalid list file:\n"
-"  mirror is probably not up-to-date, trying to use alternate method"
-msgstr ""
-"a mídia \"%s\" usa uma lista de arquivos inválida:\n"
-"  o espelho provavelmente não está atualizado, tente usando métodos "
-"alternativos"
-
-#: ../urpm.pm:2550
-#, c-format
-msgid "medium \"%s\" does not define any location for rpm files"
-msgstr "a mídia \"%s\" não define uma localização para arquivos rpm"
-
-#: ../urpm.pm:2562
-#, c-format
-msgid "package %s is not found."
-msgstr "o pacote %s não foi encontrado."
-
-#: ../urpm.pm:2613 ../urpm.pm:2627 ../urpm.pm:2647 ../urpm.pm:2661
-msgid "urpmi database locked"
-msgstr "base de dados urpmi bloqueada"
-
-#: ../urpm.pm:2713 ../urpm.pm:2718 ../urpm.pm:2744
-#, c-format
-msgid "medium \"%s\" is not selected"
-msgstr "mídia \"%s\" não está selecionada"
-
-#. - fallback to use other method for retrieving the file later.
-#: ../urpm.pm:2740
-#, c-format
-msgid "unable to read rpm file [%s] from medium \"%s\""
-msgstr "incapaz de ler o arquivo rpm [%s] para a mídia \"%s\""
-
-#. - we have a removable device that is not removable, well...
-#: ../urpm.pm:2748
-#, c-format
-msgid "inconsistent medium \"%s\" marked removable but not really"
-msgstr "mídia inconsistente \"%s\" marcada como removível, porém não é"
-
-#: ../urpm.pm:2760
-#, c-format
-msgid "unable to access medium \"%s\""
-msgstr "incapaz de acessar a mídia \"%s\""
-
-#: ../urpm.pm:2815
-#, c-format
-msgid "malformed URL: [%s]"
-msgstr "URL mal formada: [%s]"
-
-#: ../urpm.pm:2822
-#, c-format
-msgid "retrieving rpm files from medium \"%s\"..."
-msgstr "buscando os arquivos rpm da mídia \"%s\"..."
-
-#: ../urpm.pm:2921
-#, fuzzy
-msgid "[repackaging]"
-msgstr "Desabilitando reempacotamento\n"
-
-#: ../urpm.pm:2954
-#, c-format
-msgid "using process %d for executing transaction"
-msgstr "utilizando processo %d para executar a transação"
-
-#: ../urpm.pm:2987
-#, c-format
-msgid ""
-"created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
-msgstr ""
-"transação criada para instalar %s (remover=%d, instalar=%d, atualizar=%d)"
-
-#: ../urpm.pm:2990
-msgid "unable to create transaction"
-msgstr "incapaz de criar a transação"
-
-#: ../urpm.pm:2998
-#, c-format
-msgid "removing package %s"
-msgstr "removendo pacote %s"
-
-#: ../urpm.pm:3000
-#, c-format
-msgid "unable to remove package %s"
-msgstr "incapaz de remover o pacote %s"
-
-#: ../urpm.pm:3012
-#, c-format
-msgid "unable to extract rpm from delta-rpm package %s"
-msgstr "incapaz de extrair rpm do pacote delta-rpm %s"
-
-#: ../urpm.pm:3018
-#, c-format
-msgid "adding package %s (id=%d, eid=%d, update=%d, file=%s)"
-msgstr "adicionando pacote %s (id=%d, eid=%d, atualização=%d, arquivo=%s)"
-
-#: ../urpm.pm:3021
-#, c-format
-msgid "unable to install package %s"
-msgstr "incapaz de instalar o pacote %s"
-
-#: ../urpm.pm:3071
-#, c-format
-msgid "More information on package %s"
-msgstr "Mais informações no pacote %s"
-
-#: ../urpm.pm:3252 ../urpm.pm:3290
-#, c-format
-msgid "due to missing %s"
-msgstr "devido estar faltando %s"
-
-#: ../urpm.pm:3253 ../urpm.pm:3288
-#, c-format
-msgid "due to unsatisfied %s"
-msgstr "devido a não satisfazer %s"
-
-#: ../urpm.pm:3259
-#, c-format
-msgid "trying to promote %s"
-msgstr "tentando promover %s"
-
-#: ../urpm.pm:3260
-#, c-format
-msgid "in order to keep %s"
-msgstr "para manter %s"
-
-#: ../urpm.pm:3283
-#, c-format
-msgid "in order to install %s"
-msgstr "para instalar %s"
-
-#: ../urpm.pm:3294
-#, c-format
-msgid "due to conflicts with %s"
-msgstr "devido a conflitos com %s"
-
-#: ../urpm.pm:3295
-msgid "unrequested"
-msgstr "não requisitado"
-
-#: ../urpm.pm:3314
-#, c-format
-msgid "Invalid signature (%s)"
-msgstr "Assinatura inválida (%s)"
-
-#: ../urpm.pm:3347
-#, c-format
-msgid "Invalid Key ID (%s)"
-msgstr "Chave Inválida ID (%s)"
-
-#: ../urpm.pm:3349
-#, c-format
-msgid "Missing signature (%s)"
-msgstr "Assinatura não encontrada (%s)"
-
-#: ../urpm.pm:3408
-msgid "examining MD5SUM file"
-msgstr "examinando arquivo MD5SUM"
-
-#: ../urpm.pm:3418
-#, c-format
-msgid "warning: md5sum for %s unavailable in MD5SUM file"
-msgstr "aviso: o arquivo MD5SUM não contém o md5sum para %s"
-
-#: ../urpm.pm:3429
-msgid "computing md5sum of existing source hdlist (or synthesis)"
-msgstr "computando o md5sum de uma fonte 'hdlist' existente (ou síntese)"
-
-#: ../urpm.pm:3459
 msgid "This operation is forbidden while running in restricted mode"
 msgstr "Esta operação não é permitida no modo restrito"
 
-#: ../urpm/args.pm:106 ../urpm/args.pm:115
+#: ../urpm/args.pm:151 ../urpm/args.pm:160
+#, c-format
 msgid "bad proxy declaration on command line\n"
 msgstr "declaração de proxy errada na linha de comando\n"
 
-#: ../urpm/args.pm:230
-msgid "You need to be root to use --use-distrib"
-msgstr "Você precisa ser root para usar --use-distrib"
-
-#: ../urpm/args.pm:262
+#: ../urpm/args.pm:306
 #, c-format
 msgid "urpmq: cannot read rpm file \"%s\"\n"
 msgstr "urpmq: não pode ler o arquivo rpm \"%s\"\n"
 
-#. Translator: Add here the keys which might be pressed in the "No"-case.
-#: ../urpm/msg.pm:46 ../urpme:32 ../urpmi:452 ../urpmi:470 ../urpmi:508
-#: ../urpmi:558 ../urpmi:641 ../urpmi:727
-msgid "Nn"
-msgstr "Nn"
-
-#. Translator: Add here the keys which might be pressed in the "Yes"-case.
-#: ../urpm/msg.pm:47 ../urpme:34 ../urpmi:453 ../urpmi:471 ../urpmi:509
-#: ../urpmi:559 ../urpmi:642 ../urpmi:728
-msgid "Yy"
-msgstr "SsYy"
-
-#: ../urpm/msg.pm:92
-msgid "Sorry, bad choice, try again\n"
-msgstr "Desculpe, má escolha, tente novamente\n"
-
-#: ../urpm/parallel_ka_run.pm:27 ../urpm/parallel_ka_run.pm:121
-#: ../urpm/parallel_ka_run.pm:215
-msgid "mput failed, maybe a node is unreacheable"
-msgstr "mput falhou, provavelmente um nó está inacessível"
-
-#: ../urpm/parallel_ka_run.pm:64
+#: ../urpm/args.pm:383
 #, c-format
-msgid "node %s has an old version of urpme, please upgrade"
-msgstr "nó %s tem uma versão antga do urpme, por favor atualize"
+msgid "unexpected expression %s"
+msgstr "expressão inesperada %s"
 
-#: ../urpm/parallel_ka_run.pm:88 ../urpm/parallel_ka_run.pm:200
-#: ../urpm/parallel_ka_run.pm:230
-msgid "rshp failed, maybe a node is unreacheable"
-msgstr "rshp falhou, provavelmente um nó está inacessível"
-
-#: ../urpm/parallel_ka_run.pm:97 ../urpm/parallel_ssh.pm:102
+#: ../urpm/args.pm:384
 #, c-format
-msgid "on node %s"
-msgstr "no nó %s"
+msgid "missing expression before %s"
+msgstr "expressão faltando antes %s"
 
-#. - first propagate the synthesis file to all machine.
-#: ../urpm/parallel_ka_run.pm:119
-msgid "Propagating synthesis to nodes..."
-msgstr "Propagando synthesis para os nós..."
-
-#. - now try an iteration of urpmq.
-#: ../urpm/parallel_ka_run.pm:170
-msgid "Resolving dependencies on nodes..."
-msgstr "Resolvendo dependências nos nós..."
-
-#: ../urpm/parallel_ka_run.pm:213
-msgid "Distributing files to nodes..."
-msgstr "Distribuindo arquivos para os nós..."
-
-#: ../urpm/parallel_ka_run.pm:220
-msgid "Verifying if install is possible on nodes..."
-msgstr "Verificando se a instalação é possível nos nós..."
-
-#: ../urpm/parallel_ka_run.pm:234 ../urpm/parallel_ssh.pm:249
+#: ../urpm/args.pm:390
 #, c-format
-msgid "Installation failed on node %s"
-msgstr "A Instalação falhou no nó %s"
+msgid "unexpected expression %s (suggestion: use -a or -o ?)"
+msgstr "expressão inesperada %s (sugestão: usar -a ou -o ?)"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpm/parallel_ka_run.pm:239 ../urpm/parallel_ssh.pm:254 ../urpmi:796
+#: ../urpm/args.pm:394
+#, c-format
+msgid "no expression to close"
+msgstr "sem expressão para fechar"
+
+#: ../urpm/args.pm:403
+#, c-format
+msgid "by default urpmf awaits a regexp. you should use option \"--literal\""
+msgstr ""
+"por padrão urpmf espera uma regexp. você pode usar a opção \"--literal\""
+
+#: ../urpm/args.pm:477
+#, c-format
+msgid "chroot directory doesn't exist"
+msgstr "diretório chroot não existe"
+
+#: ../urpm/args.pm:500
+#, c-format
+msgid "Can't use %s without %s"
+msgstr "Não é possível usar %s sem %s"
+
+#: ../urpm/args.pm:503 ../urpm/args.pm:506 ../urpmq:159
+#, c-format
+msgid "Can't use %s with %s"
+msgstr "Não é possível usar %s com %s"
+
+#: ../urpm/args.pm:514
+#, c-format
+msgid "Too many arguments\n"
+msgstr "Muitos parâmetros\n"
+
+#: ../urpm/bug_report.pm:55 ../urpmi:259
+#, c-format
+msgid "Copying failed"
+msgstr "Falha na cópia"
+
+#: ../urpm/cdrom.pm:67
+#, c-format
+msgid ""
+"You must mount CD-ROM yourself (or install perl-Hal-Cdroms to have it done "
+"automatically)"
+msgstr ""
+"Você deve montar o CD manualmente (ou instalar o perl-Hal-Cdroms para que "
+"seja montado automaticamente)"
+
+#: ../urpm/cdrom.pm:69
+#, c-format
+msgid "Udisks daemon (udisks-daemon) is not running or not ready"
+msgstr ""
+"O daemon do Udisks (udisks-daemon) não está rodando ou não está respondendo"
+
+#: ../urpm/cdrom.pm:161 ../urpm/cdrom.pm:166
+#, c-format
+msgid "medium \"%s\" is not available"
+msgstr "mídia \"%s\" não está disponível"
+
+#: ../urpm/cdrom.pm:205
+#, c-format
+msgid "unable to read rpm file [%s] from medium \"%s\""
+msgstr "incapaz de ler o arquivo rpm [%s] para a mídia \"%s\""
+
+#: ../urpm/cfg.pm:82
+#, c-format
+msgid "syntax error in config file at line %s"
+msgstr "erro de sintaxe no arquivo de configuração na linha %s"
+
+#: ../urpm/cfg.pm:115
+#, c-format
+msgid "unable to read config file [%s]"
+msgstr "incapaz de ler o arquivo de configuração [%s]"
+
+#: ../urpm/cfg.pm:141
+#, c-format
+msgid "medium `%s' is defined twice, aborting"
+msgstr "mídia `%s' está definida duas vezes, abortando"
+
+#: ../urpm/cfg.pm:254 ../urpm/media.pm:541
+#, c-format
+msgid "unable to write config file [%s]"
+msgstr "incapaz de gravar o arquivo de configuração [%s]"
+
+#: ../urpm/download.pm:83
+#, c-format
+msgid "%s is not available, falling back on %s"
+msgstr "%s não está disponível, utilizando %s no lugar"
+
+#: ../urpm/download.pm:166
+#, c-format
+msgid "can not read proxy settings (not enough rights to read %s)"
+msgstr ""
+"não foi possível ler configuração do proxy (permissões de leitura "
+"insuficientes %s)"
+
+#: ../urpm/download.pm:191
+#, c-format
+msgid "Please enter your credentials for accessing proxy\n"
+msgstr "Favor entrar com suas credenciais para acesso ao proxy\n"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "User name:"
+msgstr "Nome do usuário:"
+
+#: ../urpm/download.pm:192
+#, c-format
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../urpm/download.pm:268
+#, c-format
+msgid "Unknown webfetch `%s' !!!\n"
+msgstr "Webfetch desconhecido `%s' !!!\n"
+
+#: ../urpm/download.pm:276
+#, c-format
+msgid "%s failed: exited with signal %d"
+msgstr "%s falhou: código de erro %d"
+
+#: ../urpm/download.pm:277
+#, c-format
+msgid "%s failed: exited with %d"
+msgstr "%s falhou: código de erro %d"
+
+#: ../urpm/download.pm:311
+#, c-format
+msgid "copy failed"
+msgstr "falha na cópia"
+
+#: ../urpm/download.pm:317
+#, c-format
+msgid "wget is missing\n"
+msgstr "wget não encontrado\n"
+
+#: ../urpm/download.pm:384
+#, c-format
+msgid "curl is missing\n"
+msgstr "curl não encontrado\n"
+
+#: ../urpm/download.pm:520
+#, c-format
+msgid "curl failed: upload canceled\n"
+msgstr "curl falhou: upload cancelado\n"
+
+#: ../urpm/download.pm:521
+#, c-format
+msgid "curl failed: download canceled\n"
+msgstr "curl falhou: download cancelado\n"
+
+#: ../urpm/download.pm:556
+#, c-format
+msgid "rsync is missing\n"
+msgstr "rsync não encontrado\n"
+
+#: ../urpm/download.pm:624
+#, c-format
+msgid "ssh is missing\n"
+msgstr "ssh não encontrado\n"
+
+#: ../urpm/download.pm:643
+#, c-format
+msgid "prozilla is missing\n"
+msgstr "Prozila não encontrado\n"
+
+#: ../urpm/download.pm:659
+#, c-format
+msgid "Couldn't execute prozilla\n"
+msgstr "Impossível executar o Prozilla\n"
+
+#: ../urpm/download.pm:669
+#, c-format
+msgid "aria2 is missing\n"
+msgstr "aria2 não encontrado\n"
+
+#: ../urpm/download.pm:713
+#, c-format
+msgid "Failed to download %s"
+msgstr "Falhou ao baixar %s"
+
+#: ../urpm/download.pm:808
+#, c-format
+msgid "        %s%% of %s completed, ETA = %s, speed = %s"
+msgstr "        %s%% de %s completados. ETA = %s. Velocidade = %s"
+
+#: ../urpm/download.pm:809
+#, c-format
+msgid "        %s%% completed, speed = %s"
+msgstr "        %s%% completados. Velocidade = %s"
+
+#: ../urpm/download.pm:883
+#, c-format
+msgid "retrieving %s"
+msgstr "buscando %s"
+
+#: ../urpm/download.pm:894
+#, c-format
+msgid "retrieved %s"
+msgstr "recebido %s"
+
+#: ../urpm/download.pm:958
+#, c-format
+msgid "unknown protocol defined for %s"
+msgstr "protocolo desconhecido definido para %s"
+
+#: ../urpm/download.pm:972
+#, c-format
+msgid "no webfetch found, supported webfetch are: %s\n"
+msgstr "nenhuma webfetch encontrada, webfetch suportadas são: %s\n"
+
+#: ../urpm/download.pm:987
+#, c-format
+msgid "unable to handle protocol: %s"
+msgstr "incapaz de usar protocolo: %s"
+
+#: ../urpm/get_pkgs.pm:16
+#, c-format
+msgid "cleaning %s and %s"
+msgstr "limpando %s e %s"
+
+#: ../urpm/get_pkgs.pm:128
+#, c-format
+msgid "package %s is not found."
+msgstr "o programa %s não foi encontrado."
+
+#: ../urpm/get_pkgs.pm:253
+#, c-format
+msgid "retrieving rpm files from medium \"%s\"..."
+msgstr "buscando os arquivos rpm da mídia \"%s\"..."
+
+#: ../urpm/install.pm:87
+#, c-format
+msgid "[repackaging]"
+msgstr "[reempacotamento]"
+
+#: ../urpm/install.pm:168
+#, c-format
+msgid ""
+"created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
+msgstr ""
+"Criada transação para instalar em %s (remover=%d, instalar=%d, atualizar=%d)"
+
+#: ../urpm/install.pm:171
+#, c-format
+msgid "unable to create transaction"
+msgstr "incapaz de criar a transação"
+
+#: ../urpm/install.pm:196
+#, c-format
+msgid "unable to extract rpm from delta-rpm package %s"
+msgstr "incapaz de extrair rpm do pacote delta-rpm %s"
+
+#: ../urpm/install.pm:209
+#, c-format
+msgid "unable to install package %s"
+msgstr "incapaz de instalar o pacote %s"
+
+#: ../urpm/install.pm:212
+#, c-format
+msgid "removing bad rpm (%s) from %s"
+msgstr "removendo rpm ruim (%s) de %s"
+
+#: ../urpm/install.pm:213 ../urpm/install.pm:278
+#, c-format
+msgid "removing %s failed: %s"
+msgstr "removendo %s com falha: %s"
+
+#: ../urpm/install.pm:259
+#, c-format
+msgid "Removing package %s"
+msgstr "Removendo pacote %s"
+
+#: ../urpm/install.pm:260
+#, c-format
+msgid "removing package %s"
+msgstr "removendo pacote %s"
+
+#: ../urpm/install.pm:276
+#, c-format
+msgid "removing installed rpms (%s) from %s"
+msgstr "removendo rpms instalados (%s) de %s"
+
+#: ../urpm/install.pm:285
+#, c-format
+msgid "More information on package %s"
+msgstr "Mais informações no pacote %s"
+
+#: ../urpm/ldap.pm:71
+#, c-format
+msgid "Cannot create ldap cache directory"
+msgstr "Não foi possível diretório cache do ldap"
+
+#: ../urpm/ldap.pm:73
+#, c-format
+msgid "Cannot write cache file for ldap\n"
+msgstr "Não foi possível escrever arquivo de cache do ldap\n"
+
+#: ../urpm/ldap.pm:162
+#, c-format
+msgid "No server defined, missing uri or host"
+msgstr "Nenhum servidor definido, uri ou host não informados"
+
+#: ../urpm/ldap.pm:163
+#, c-format
+msgid "No base defined"
+msgstr "Base não definida"
+
+#: ../urpm/ldap.pm:173 ../urpm/ldap.pm:176
+#, c-format
+msgid "Cannot connect to ldap uri:"
+msgstr "Não foi possível conectar-se à uri ldap:"
+
+#: ../urpm/lock.pm:68
+#, c-format
+msgid "%s database is locked, process %d is already using it"
+msgstr "a database %s está trancada porque o processo %d já está usando ela"
+
+#: ../urpm/lock.pm:70
+#, c-format
+msgid "%s database is locked (another program is already using it)"
+msgstr "base de dados %s está bloqueada (sendo usada por outro programa)"
+
+#: ../urpm/lock.pm:84
+#, c-format
+msgid "%s database is locked. Waiting..."
+msgstr "Base de dados %s está bloqueada. Esperando..."
+
+#: ../urpm/lock.pm:85
+#, c-format
+msgid "aborting"
+msgstr "cancelando"
+
+#: ../urpm/main_loop.pm:45
+#, c-format
+msgid "Retry?"
+msgstr "Tentar Novamente ?"
+
+#: ../urpm/main_loop.pm:72
+#, c-format
+msgid "You may need to update your urpmi database."
+msgstr "Você deve atualizar a sua base de dados urpmi."
+
+#: ../urpm/main_loop.pm:75
+#, c-format
+msgid ""
+"Installation failed, bad rpms:\n"
+"%s"
+msgstr ""
+"A instalação falhou, rpms ruins:\n"
+"%s"
+
+#: ../urpm/main_loop.pm:94
+#, c-format
+msgid ""
+"There is not enough space on your filesystem to download all packages (%s "
+"needed, %s available).\n"
+"Are you sure you want to continue?"
+msgstr ""
+"Não a espaço suficiente em seu sistema de arquivos para baixar todos os "
+"programas (necessário %s, livre %s).\n"
+"Deseja continuar mesmo assim ?"
+
+#: ../urpm/main_loop.pm:124
+#, c-format
+msgid "The following package has bad signature"
+msgstr "O seguinte programa contém assinaturas erradas"
+
+#: ../urpm/main_loop.pm:125
+#, c-format
+msgid "The following packages have bad signatures"
+msgstr "Os seguintes programas contêm assinaturas erradas"
+
+#: ../urpm/main_loop.pm:126
+#, c-format
+msgid "Do you want to continue installation ?"
+msgstr "Você deseja continuar a instalação?"
+
+#: ../urpm/main_loop.pm:140 ../urpm/main_loop.pm:159 ../urpm/main_loop.pm:263
+#: ../urpm/main_loop.pm:271
+#, c-format
+msgid "Installation failed"
+msgstr "A Instalação falhou"
+
+#: ../urpm/main_loop.pm:144
+#, c-format
+msgid "removing installed rpms (%s)"
+msgstr "removendo rpms instalados (%s)"
+
+#: ../urpm/main_loop.pm:160
+#, c-format
+msgid "Try to continue anyway?"
+msgstr "Continuar mesmo assim?"
+
+#: ../urpm/main_loop.pm:209
+#, c-format
+msgid "installing %s from %s"
+msgstr "instalando %s a partir de %s"
+
+#: ../urpm/main_loop.pm:211
+#, c-format
+msgid "installing %s"
+msgstr "instalando %s"
+
+#: ../urpm/main_loop.pm:218
+#, c-format
+msgid "distributing %s"
+msgstr "distribuindo %s"
+
+#: ../urpm/main_loop.pm:264
+#, c-format
+msgid "Try installation without checking dependencies?"
+msgstr "Tentar instalar sem checar as dependências?"
+
+#: ../urpm/main_loop.pm:272
+#, c-format
+msgid "Try harder to install (--force)?"
+msgstr "Forçar instalação (--force)?"
+
+#: ../urpm/main_loop.pm:431
+#, c-format
+msgid "Packages are up to date"
+msgstr "Pacotes estão atualizados"
+
+#: ../urpm/main_loop.pm:442 ../urpm/parallel.pm:299
+#, c-format
 msgid "Installation is possible"
 msgstr "Instalação é possível"
 
-#. - continue installation.
-#: ../urpm/parallel_ka_run.pm:244
-msgid "Installing packages on nodes..."
-msgstr "Instalando pacotes nos nós..."
+#: ../urpm/md5sum.pm:26
+#, c-format
+msgid "warning: md5sum for %s unavailable in MD5SUM file"
+msgstr "aviso: o arquivo MD5SUM não contém o md5sum para %s"
 
-#: ../urpm/parallel_ssh.pm:28 ../urpm/parallel_ssh.pm:126
-#: ../urpm/parallel_ssh.pm:230
+#: ../urpm/media.pm:258
+#, c-format
+msgid "virtual medium \"%s\" should have a clear url, medium ignored"
+msgstr "mídia virtual \"%s\" deve ter uma url limpa, mídia ignorada"
+
+#: ../urpm/media.pm:260
+#, c-format
+msgid "unable to access list file of \"%s\", medium ignored"
+msgstr "incapaz de acessar a lista de arquivos de \"%s\", mídia ignorada."
+
+#: ../urpm/media.pm:263
+#, c-format
+msgid "unable to access synthesis file of \"%s\", medium ignored"
+msgstr "incapaz de acessar o arquivo synthesis de \"%s\", mídia ignorada"
+
+#: ../urpm/media.pm:289
+#, c-format
+msgid "trying to override existing medium \"%s\", skipping"
+msgstr "tentando contornar mídia existente \"%s\", evitando"
+
+#: ../urpm/media.pm:505
+#, c-format
+msgid "failed to migrate removable device, ignoring media"
+msgstr "falha ao migrar dispositivo removível, ignorando mídia"
+
+#: ../urpm/media.pm:543
+#, c-format
+msgid "wrote config file [%s]"
+msgstr "grava o arquivo de configuração [%s]"
+
+#: ../urpm/media.pm:586
+#, c-format
+msgid "Can't use parallel mode with use-distrib mode"
+msgstr "Não pode usar o modo paralelo com modo 'use-distrib'"
+
+#: ../urpm/media.pm:594
+#, c-format
+msgid "using associated media for parallel mode: %s"
+msgstr "usando mídias associadas para o modo paralelo: %s"
+
+#: ../urpm/media.pm:610
+#, c-format
+msgid ""
+"--synthesis cannot be used with --media, --excludemedia, --sortmedia, --"
+"update, --use-distrib or --parallel"
+msgstr ""
+"--synthesis não pode ser usada com --media, -excludemedia, -sortmedia, --"
+"update, --use-distrib ou --parallel"
+
+#: ../urpm/media.pm:719
+#, c-format
+msgid "Search start: %s end: %s"
+msgstr "Procura inicia em %s e termina em %s"
+
+#: ../urpm/media.pm:736
+#, c-format
+msgid "skipping package %s"
+msgstr "pulando o pacote %s"
+
+#: ../urpm/media.pm:752
+#, c-format
+msgid "would install instead of upgrade package %s"
+msgstr "é necessário instalar ao invés de atualizar o pacote %s"
+
+#: ../urpm/media.pm:828
+#, c-format
+msgid "medium \"%s\" already exists"
+msgstr "mídia \"%s\" já existe"
+
+#: ../urpm/media.pm:869
+#, c-format
+msgid "(ignored by default)"
+msgstr "(ignorado por default)"
+
+#: ../urpm/media.pm:875
+#, c-format
+msgid "adding medium \"%s\" before remote medium \"%s\""
+msgstr "adicionando mídia \"%s\" antes da mídia remota \"%s\""
+
+#: ../urpm/media.pm:881
+#, c-format
+msgid "adding medium \"%s\""
+msgstr "adicionando a mídia \"%s\""
+
+#: ../urpm/media.pm:905
+#, c-format
+msgid "failed to copy media.cfg to %s (%d)"
+msgstr "falhou ao copiar media.cfg para %s (%d)"
+
+#: ../urpm/media.pm:947
+#, c-format
+msgid "directory %s does not exist"
+msgstr "diretório %s não existe"
+
+#: ../urpm/media.pm:955
+#, c-format
+msgid "this location doesn't seem to contain any distribution"
+msgstr "não foi encontrada uma distribuinão nesta localização"
+
+#: ../urpm/media.pm:979
+#, c-format
+msgid "unable to parse media.cfg"
+msgstr "incapaz de analisar media.cfg"
+
+#: ../urpm/media.pm:982
+#, c-format
+msgid "unable to access the distribution medium (no media.cfg file found)"
+msgstr ""
+"incapaz de acessar as mídias da distribuição (media.cfg não encontrado)"
+
+#: ../urpm/media.pm:1003
+#, c-format
+msgid "skipping non compatible media `%s' (for %s)"
+msgstr "ignorando mídias não compatívieis `%s' (para %s)"
+
+#: ../urpm/media.pm:1018
+#, fuzzy, c-format
+msgid "ignoring non-free medium `%s'"
+msgstr "ignorando mídia \"%s\""
+
+#: ../urpm/media.pm:1061
+#, c-format
+msgid "retrieving media.cfg file..."
+msgstr "recuperando o arquivo media.cfg..."
+
+#: ../urpm/media.pm:1104
+#, c-format
+msgid "trying to select nonexistent medium \"%s\""
+msgstr "tentando selecionar mídia inexistente \"%s\""
+
+#: ../urpm/media.pm:1107
+#, c-format
+msgid "selecting multiple media: %s"
+msgstr "selecionando múltiplas mídias: %s"
+
+#: ../urpm/media.pm:1166
+#, c-format
+msgid "removing medium \"%s\""
+msgstr "removendo a mídia \"%s\""
+
+#: ../urpm/media.pm:1249
+#, c-format
+msgid "reconfiguring urpmi for media \"%s\""
+msgstr "reconfigurando o urpmi para as mídias \"%s\""
+
+#: ../urpm/media.pm:1283
+#, c-format
+msgid "...reconfiguration failed"
+msgstr "...falha na reconfiguração"
+
+#: ../urpm/media.pm:1289
+#, c-format
+msgid "reconfiguration done"
+msgstr "reconfiguração terminada"
+
+#: ../urpm/media.pm:1305
+#, c-format
+msgid "Error generating names file: dependency %d not found"
+msgstr "Erro gerando arquivo de nomes: dependência %d não encontrada"
+
+#: ../urpm/media.pm:1326
+#, c-format
+msgid "medium \"%s\" is up-to-date"
+msgstr "mídia \"%s\" já está atualizada"
+
+#: ../urpm/media.pm:1337
+#, c-format
+msgid "examining synthesis file [%s]"
+msgstr "examinando arquivo synthesis [%s]"
+
+#: ../urpm/media.pm:1357
+#, c-format
+msgid "problem reading synthesis file of medium \"%s\""
+msgstr "problema ao ler arquivo synthesis da mídia \"%s\""
+
+#: ../urpm/media.pm:1370 ../urpm/media.pm:1465
+#, c-format
+msgid "copying [%s] for medium \"%s\"..."
+msgstr "copiando [%s] para a mídia \"%s\"..."
+
+#: ../urpm/media.pm:1372 ../urpm/media.pm:1442 ../urpm/media.pm:1695
+#, c-format
+msgid "...copying failed"
+msgstr "...falha na cópia"
+
+#: ../urpm/media.pm:1438
+#, c-format
+msgid "copying description file of \"%s\"..."
+msgstr "Copiando o arquivo de descrição de \"%s\"..."
+
+#: ../urpm/media.pm:1440 ../urpm/media.pm:1469
+#, c-format
+msgid "...copying done"
+msgstr "..cópia terminada"
+
+#: ../urpm/media.pm:1471
+#, c-format
+msgid "copy of [%s] failed (file is suspiciously small)"
+msgstr "cópia de [%s] falhou (arquivo é suspeitamente pequeno)"
+
+#: ../urpm/media.pm:1519
+#, c-format
+msgid "computing md5sum of retrieved source synthesis"
+msgstr "computando o md5sum de uma fonte synthesis"
+
+#: ../urpm/media.pm:1521 ../urpm/media.pm:1961
+#, c-format
+msgid "retrieval of [%s] failed (md5sum mismatch)"
+msgstr "baixa de [%s] falhou (md5sum não é igual)"
+
+#: ../urpm/media.pm:1536
+#, c-format
+msgid "genhdlist2 failed on %s"
+msgstr "genhdlist2 falhou em %s"
+
+#: ../urpm/media.pm:1546
+#, c-format
+msgid "comparing %s and %s"
+msgstr "comparando %s e %s"
+
+#: ../urpm/media.pm:1576
+#, c-format
+msgid "invalid hdlist file %s for medium \"%s\""
+msgstr "hdlist inválido %s para a mídia \"%s\""
+
+#: ../urpm/media.pm:1602
+#, c-format
+msgid "copying MD5SUM file of \"%s\"..."
+msgstr "copiando arquivo MD5SUM de \"%s\"..."
+
+#: ../urpm/media.pm:1642
+#, c-format
+msgid "invalid MD5SUM file (downloaded from %s)"
+msgstr "arquivo MD5SUM inválido (baixado de %s)"
+
+#: ../urpm/media.pm:1645
+#, c-format
+msgid "no metadata found for medium \"%s\""
+msgstr "metadados não encontrados para a mídia \"%s\""
+
+#: ../urpm/media.pm:1677
+#, c-format
+msgid "retrieving source synthesis of \"%s\"..."
+msgstr "obtendo a fonte synthesis de \"%s\"..."
+
+#: ../urpm/media.pm:1743
+#, c-format
+msgid "examining pubkey file of \"%s\"..."
+msgstr "examinando arquivo de chave pública em \"%s\"..."
+
+#: ../urpm/media.pm:1755
+#, c-format
+msgid "...imported key %s from pubkey file of \"%s\""
+msgstr "...importando chave %s do arquivo de chaves públicas de \"%s\""
+
+#: ../urpm/media.pm:1759
+#, c-format
+msgid "unable to import pubkey file of \"%s\""
+msgstr "incapaz de importar arquivo de chave pública de \"%s\""
+
+#: ../urpm/media.pm:1800
+#, c-format
+msgid "no synthesis file found for medium \"%s\""
+msgstr "nenhum arquivo synthesis encontrado para a mídia \"%s\""
+
+#: ../urpm/media.pm:1833
+#, c-format
+msgid "updated medium \"%s\""
+msgstr "atualizada a mídia \"%s\""
+
+#: ../urpm/media.pm:1955
+#, c-format
+msgid "retrieval of [%s] failed"
+msgstr "busca de [%s] falhou"
+
+#: ../urpm/mirrors.pm:19 ../urpm/mirrors.pm:40
+#, c-format
+msgid "trying again with mirror %s"
+msgstr "tentando novamente com o espelho %s"
+
+#: ../urpm/mirrors.pm:92
+#, c-format
+msgid "Could not find a mirror from mirrorlist %s"
+msgstr "Não foi possível encontar um espelho da lista %s"
+
+#: ../urpm/mirrors.pm:240
+#, c-format
+msgid "found geolocalisation %s %.2f %.2f from timezone %s"
+msgstr "encontrada geolocalização %s %.2f %.2f do fuso horário %s"
+
+#: ../urpm/mirrors.pm:285
+#, c-format
+msgid "getting mirror list from %s"
+msgstr "obtendo a lista de espelhos de %s"
+
+#: ../urpm/msg.pm:76 ../urpmi:495 ../urpmi:513 ../urpmi:629
+#, c-format
+msgid "Nn"
+msgstr "Nn"
+
+#. -PO: Add here the keys which might be pressed in the "Yes"-case.
+#: ../urpm/msg.pm:77 ../urpme:38 ../urpmi.addmedia:133
+#, c-format
+msgid "Yy"
+msgstr "SsYy"
+
+#: ../urpm/msg.pm:107 ../urpme:163 ../urpmi.addmedia:136
+#, c-format
+msgid " (y/N) "
+msgstr " (s/N) "
+
+#: ../urpm/msg.pm:139
+#, c-format
+msgid "Sorry, bad choice, try again\n"
+msgstr "Desculpe, má escolha, tente novamente\n"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Package"
+msgstr "Pacote"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Version"
+msgstr "Versão"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Release"
+msgstr "Release"
+
+#: ../urpm/msg.pm:170
+#, c-format
+msgid "Arch"
+msgstr "Arch"
+
+#: ../urpm/msg.pm:179
+#, c-format
+msgid "(suggested)"
+msgstr "(sugerido)"
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "medium \"%s\""
+msgstr "mídia \"%s\""
+
+#: ../urpm/msg.pm:194
+#, c-format
+msgid "command line"
+msgstr "linha de comando"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "B"
+msgstr "B"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "KB"
+msgstr "KB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "MB"
+msgstr "MB"
+
+#: ../urpm/msg.pm:208
+#, c-format
+msgid "GB"
+msgstr "GB"
+
+#: ../urpm/msg.pm:208 ../urpm/msg.pm:217
+#, c-format
+msgid "TB"
+msgstr "TB"
+
+#: ../urpm/orphans.pm:51
+#, c-format
+msgid "Marking %s as manually installed, it won't be auto-orphaned"
+msgstr "Marcando %s como instalado manualmente, não será orfanizado"
+
+#: ../urpm/orphans.pm:448
+#, fuzzy, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned."
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned."
+msgstr[0] "Um seguintes programas é necessário:"
+msgstr[1] "Um seguintes programas é necessário:"
+
+#: ../urpm/orphans.pm:451
+#, fuzzy, c-format
+msgid "You may wish to remove it."
+msgid_plural "You may wish to remove them."
+msgstr[0] "Nenhum pacote órfão para ser removido"
+msgstr[1] "Nenhum pacote órfão para ser removido"
+
+#: ../urpm/orphans.pm:460
+#, c-format
+msgid ""
+"The following package:\n"
+"%s\n"
+"is now orphaned, if you wish to remove it, you can use \"urpme --auto-orphans"
+"\""
+msgid_plural ""
+"The following packages:\n"
+"%s\n"
+"are now orphaned, if you wish to remove them, you can use \"urpme --auto-"
+"orphans\""
+msgstr[0] ""
+"O seguinte pacote:\n"
+"%s\n"
+"agora é órfão, para removê-lo, use o comando  \"urpme --auto-orphans\""
+msgstr[1] ""
+"O seguintes pacotes:\n"
+"%s\n"
+"agora estão órfãos, para removê-los, use o comando  \"urpme --auto-orphans\""
+
+#: ../urpm/parallel.pm:15
+#, c-format
+msgid "unable to parse \"%s\" in file [%s]"
+msgstr "incapaz de processar \"%s\" no arquivo [%s]"
+
+#: ../urpm/parallel.pm:24
+#, c-format
+msgid "examining parallel handler in file [%s]"
+msgstr "examinando aquisição em paralelo no arquivo [%s]"
+
+#: ../urpm/parallel.pm:35
+#, c-format
+msgid "found parallel handler for nodes: %s"
+msgstr "encontrado manipulador paralelo para os nós: %s"
+
+#: ../urpm/parallel.pm:39
+#, c-format
+msgid "unable to use parallel option \"%s\""
+msgstr "incapaz de usar a opção paralela \"%s\""
+
+#: ../urpm/parallel.pm:94
+#, c-format
+msgid "on node %s"
+msgstr "no node %s"
+
+#: ../urpm/parallel.pm:294
+#, c-format
+msgid "Installation failed on node %s"
+msgstr "A Instalação falhou no nodo %s"
+
+#: ../urpm/parallel_ka_run.pm:58
+#, c-format
+msgid "rshp failed, maybe a node is unreacheable"
+msgstr "rshp falhou, provavelmente um nó está inacessível"
+
+#: ../urpm/parallel_ka_run.pm:80
+#, c-format
+msgid "mput failed, maybe a node is unreacheable"
+msgstr "mput falhou, provavelmente um nó está inacessível"
+
+#: ../urpm/parallel_ssh.pm:27
 #, c-format
 msgid "scp failed on host %s (%d)"
 msgstr "scp falhou no host %s (%d)"
 
-#: ../urpm/parallel_ssh.pm:124
+#: ../urpm/parallel_ssh.pm:39
 #, c-format
-msgid "Propagating synthesis to %s..."
-msgstr "Propagando synthesis para %s..."
+msgid "cp failed on host %s (%d)"
+msgstr "cp falhou no host %s (%d)"
 
-#: ../urpm/parallel_ssh.pm:177
+#: ../urpm/parallel_ssh.pm:86
 #, c-format
-msgid "Resolving dependencies on %s..."
-msgstr "Resolvendo dependências em %s..."
+msgid ""
+"%s failed on host %s (maybe it does not have a good version of urpmi?) (exit "
+"code: %d)"
+msgstr ""
+"%s falhou no host %s (talvez ele não tenha a versão ideal do urpmi?) (código "
+"de saida: %d)"
 
-#: ../urpm/parallel_ssh.pm:207
+#: ../urpm/removable.pm:33
 #, c-format
-msgid "host %s does not have a good version of urpmi (%d)"
-msgstr "host %s não tem uma versão necessária do urpmi (%d)"
+msgid "unable to access medium \"%s\"."
+msgstr "incapaz de acessar a mídia \"%s\"."
 
-#: ../urpm/parallel_ssh.pm:223
+#: ../urpm/removable.pm:73 ../urpm/removable.pm:91
 #, c-format
-msgid "Distributing files to %s..."
-msgstr "Distribuindo arquivos para %s..."
+msgid "mounting %s"
+msgstr "montando %s"
 
-#: ../urpm/parallel_ssh.pm:237
+#: ../urpm/removable.pm:104
 #, c-format
-msgid "Verifying if install is possible on %s..."
-msgstr "Verificando se instalação é possível em %s..."
+msgid "unmounting %s"
+msgstr "desmontando %s"
 
-#: ../urpm/parallel_ssh.pm:261
+#: ../urpm/select.pm:31
 #, c-format
-msgid "Performing install on %s..."
-msgstr "Executando instalação em %s..."
+msgid "urpmi was restarted, and the list of priority packages did not change"
+msgstr "o urpmi foi reiniciado, e a lista de pacotes prioritários não mudou"
 
-#: ../urpm/parallel_ssh.pm:274
+#: ../urpm/select.pm:33
 #, c-format
-msgid "Installing %s on %s..."
-msgstr "instalando %s em %s..."
+msgid ""
+"urpmi was restarted, and the list of priority packages did change: %s vs %s"
+msgstr ""
+"o urpmi foi reiniciado, e a lista de pacotes prioritários mudou: %s vs %s"
 
-#: ../urpm/parallel_ssh.pm:275
+#: ../urpm/select.pm:186
 #, c-format
-msgid "Preparing install on %s..."
-msgstr "Preparando instalação em %s..."
+msgid "No package named %s"
+msgstr "Nenhum  pacote de nome %s"
 
-#: ../urpme:37
+#: ../urpm/select.pm:188 ../urpme:117
+#, c-format
+msgid "The following packages contain %s: %s"
+msgstr "Os seguintes pacotes contém %s: %s"
+
+#: ../urpm/select.pm:190
+#, c-format
+msgid "You should use \"-a\" to use all of them"
+msgstr "Você deve usar a opção \"-a\" para o urpmi usar todas"
+
+#: ../urpm/select.pm:308
+#, c-format
+msgid "found package(s) %s in urpmi db, but none are installed"
+msgstr ""
+"encontrado(s) o(s) pacote(s) %s na base urpmi, mas nenhum está instalado"
+
+#: ../urpm/select.pm:554
+#, c-format
+msgid "Package %s is already installed"
+msgstr "Pacote %s já está instalado"
+
+#: ../urpm/select.pm:555
+#, c-format
+msgid "Packages %s are already installed"
+msgstr "Pacotes %s já estão instalados"
+
+#: ../urpm/select.pm:572 ../urpm/select.pm:659
+#, c-format
+msgid "due to conflicts with %s"
+msgstr "devido a conflitos com %s"
+
+#: ../urpm/select.pm:573 ../urpm/select.pm:653
+#, c-format
+msgid "due to unsatisfied %s"
+msgstr "devido a estar faltando %s"
+
+#: ../urpm/select.pm:579
+#, c-format
+msgid "trying to promote %s"
+msgstr "tentando promover %s"
+
+#: ../urpm/select.pm:580
+#, c-format
+msgid "in order to keep %s"
+msgstr "para manter %s"
+
+#: ../urpm/select.pm:621
+#, c-format
+msgid ""
+"The following package has to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"Este pacote precisa ser removido para que os outros sejam atualizados:\n"
+"%s"
+
+#: ../urpm/select.pm:622
+#, c-format
+msgid ""
+"The following packages have to be removed for others to be upgraded:\n"
+"%s"
+msgstr ""
+"Estes programas precisam ser removidos para outros serem atualizados:\n"
+"%s"
+
+#: ../urpm/select.pm:649
+#, c-format
+msgid "in order to install %s"
+msgstr "para instalar %s"
+
+#: ../urpm/select.pm:655
+#, c-format
+msgid "due to missing %s"
+msgstr "devido estar faltando %s"
+
+#: ../urpm/signature.pm:33
+#, c-format
+msgid "Invalid signature (%s)"
+msgstr "Assinatura inválida (%s)"
+
+#: ../urpm/signature.pm:64
+#, c-format
+msgid "Invalid Key ID (%s)"
+msgstr "Chave Inválida ID (%s)"
+
+#: ../urpm/signature.pm:66
+#, c-format
+msgid "Missing signature (%s)"
+msgstr "Assinatura não encontrada (%s)"
+
+#: ../urpm/sys.pm:186
+#, c-format
+msgid "system"
+msgstr "sistema"
+
+#: ../urpm/sys.pm:223
+#, c-format
+msgid "You should restart your computer for %s"
+msgstr "Recomendamos que você reinicie o computador."
+
+#: ../urpm/sys.pm:225
+#, c-format
+msgid "You should restart your session for %s"
+msgstr "Você deve reiniciar sua sessão para o %s"
+
+#: ../urpm/sys.pm:227
+#, c-format
+msgid "You should restart %s for %s"
+msgstr "Você deve reiniciar %s para %s"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't write file"
+msgstr "Não foi possível escrever arquivo"
+
+#: ../urpm/sys.pm:352
+#, c-format
+msgid "Can't open file"
+msgstr "Não foi possível abrir arquivo"
+
+#: ../urpm/sys.pm:365
+#, c-format
+msgid "Can't move file %s to %s"
+msgstr "Não é possível mover arquivo %s para %s"
+
+#: ../urpme:41
 #, c-format
 msgid ""
 "urpme version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
 "usage:\n"
 msgstr ""
 "urpme versão %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
+"Copyright (C) 1999-2010 Mandriva.\n"
 "Este é um software livre, e pode ser redistribuído sob os termos da GNU "
 "GPL.\n"
 "\n"
 "uso:\n"
 
-#: ../urpme:42 ../urpmf:34 ../urpmi:80 ../urpmi.addmedia:44
-#: ../urpmi.recover:33 ../urpmi.removemedia:54 ../urpmi.update:31 ../urpmq:44
-msgid "  --help         - print this help message.\n"
-msgstr "  --help         - imprime esta mensagem de ajuda.\n"
-
-#: ../urpme:43
+#: ../urpme:47
+#, c-format
 msgid "  --auto         - automatically select a package in choices.\n"
 msgstr "  --auto         - automaticamente seleciona um pacote, em escolhas.\n"
 
-#: ../urpme:44
+#: ../urpme:48
+#, c-format
+msgid "  --auto-orphans - remove orphans\n"
+msgstr "  --auto-orphans - remove dependências e programas órfãos\n"
+
+#: ../urpme:49
+#, c-format
 msgid "  --test         - verify if the removal can be achieved correctly.\n"
 msgstr ""
 "  --test         - verifica se a remoção pode ser feita corretamente.\n"
 
-#: ../urpme:45 ../urpmi:102 ../urpmq:63
-msgid ""
-"  --force        - force invocation even if some packages do not exist.\n"
-msgstr "  --force        - força mesmo se alguns pacotes não existem.\n"
-
-#: ../urpme:46 ../urpmi:107 ../urpmq:65
+#: ../urpme:51 ../urpmi:108 ../urpmq:70
+#, c-format
 msgid "  --parallel     - distributed urpmi across machines of alias.\n"
 msgstr "  --parallel     - urpmi distribuído.\n"
 
-#: ../urpme:47 ../urpmi:134
+#: ../urpme:52 ../urpmi:142
+#, c-format
 msgid "  --repackage    - Re-package the files before erasing\n"
 msgstr "  --repackage    - reempacota os arquivos antes da remoção\n"
 
-#: ../urpme:48
+#: ../urpme:53
+#, c-format
 msgid "  --root         - use another root for rpm removal.\n"
 msgstr "  --root         - use outro root para desisntalação de rpm.\n"
 
-#: ../urpme:49
+#: ../urpme:54 ../urpmf:40 ../urpmi:110 ../urpmi.addmedia:73
+#: ../urpmi.recover:36 ../urpmi.removemedia:45 ../urpmi.update:48 ../urpmq:72
+#, c-format
+msgid "  --urpmi-root   - use another root for urpmi db & rpm installation.\n"
+msgstr "  --urpmi-root    - use outro root para o urpmi e instalação rpm.\n"
+
+#: ../urpme:55 ../urpmi:100
+#, c-format
+msgid "  --justdb       - update only the rpm db, not the filesystem.\n"
+msgstr ""
+"  --justdb       - atualiza somente a base rpm, não o sistema de arquivos.\n"
+
+#: ../urpme:56
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s).\n"
 msgstr "  --noscripts    - não executa script(s) dos pacotes.\n"
 
-#: ../urpme:50
+#: ../urpme:57
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpme on the fly from a distrib tree, useful\n"
 "                   to (un)install a chroot with --root option.\n"
 msgstr ""
-"  --use-distrib  - configura o urpme automaticamente a partir de uma árvore\n"
-"                   de distribuição, útil para (des)instalar em um chroot\n"
-"                   com a opção --root.\n"
+"  --use-distrib  - configura o urpme na hora a partir de uma árvore,\n"
+"                   útil para (des)instalar um chroot com a opção --root.\n"
 
-#: ../urpme:52 ../urpmi:145 ../urpmi.addmedia:70 ../urpmi.removemedia:59
-#: ../urpmi.update:49 ../urpmq:91
-msgid "  -v             - verbose mode.\n"
-msgstr "  -v             - modo detalhado.\n"
+#: ../urpme:59 ../urpmi:153 ../urpmq:91
+#, c-format
+msgid "  --verbose, -v  - verbose mode.\n"
+msgstr "  --verbose, -v  - modo detalhado.\n"
 
-#: ../urpme:53
+#: ../urpme:60
+#, c-format
 msgid "  -a             - select all packages matching expression.\n"
 msgstr ""
 "  -a             - seleciona todos os pacotes que combinam com a expressão.\n"
 
-#: ../urpme:70
+#: ../urpme:75
+#, c-format
 msgid "Only superuser is allowed to remove packages"
-msgstr "Apenas super usuário tem permissão para remover pacotes"
+msgstr "Apenas super usuário tem permissão para remover programas"
 
-#: ../urpme:95
-msgid "unknown package"
-msgstr "pacote desconhecido."
-
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:95
+#: ../urpme:108
+#, c-format
 msgid "unknown packages"
 msgstr "pacotes desconhecidos"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:107 ../urpmi:488
+#: ../urpme:108
 #, c-format
-msgid "removing package %s will break your system"
-msgstr "a remoção do pacote %s irá danificar seu sistema"
+msgid "unknown package"
+msgstr "pacote desconhecido."
 
-#: ../urpme:110
+#: ../urpme:123
+#, c-format
+msgid "Removing the following package will break your system:"
+msgid_plural "Removing the following packages will break your system:"
+msgstr[0] "A remoção do pacote irá danificar o seu sistema:"
+msgstr[1] "A remoção dos seguintes programas irá danificar o seu sistema:"
+
+#: ../urpme:128
+#, c-format
 msgid "Nothing to remove"
 msgstr "Nada para remover"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:115
-msgid "Checking to remove the following packages"
-msgstr "Verificando para remover os seguintes pacotes"
-
-#: ../urpme:122
+#: ../urpme:145
 #, c-format
-msgid ""
-"To satisfy dependencies, the following %d packages will be removed (%d MB)"
-msgstr "Para satisfazer as dependências, os pacotes %d serão removidos (%d MB)"
+msgid "No orphans to remove"
+msgstr "Nenhum pacote órfão para ser removido"
 
-#: ../urpme:124 ../urpmi:510 ../urpmi:643
-msgid " (y/N) "
-msgstr " (s/N) "
-
-#: ../urpme:124
+#: ../urpme:151
 #, c-format
-msgid "Remove %d packages?"
-msgstr "Remover %d pacote(s)?"
+msgid "To satisfy dependencies, the following package will be removed"
+msgid_plural ""
+"To satisfy dependencies, the following %d packages will be removed"
+msgstr[0] "Para satisfazer as dependências, o seguinte pacote será removido"
+msgstr[1] ""
+"Para satisfazer as dependências, os seguintes %d pacotes serão removidos"
 
-#. - Warning : the following message is parsed in urpm::parallel_*
-#: ../urpme:148
+#: ../urpme:156
+#, c-format
+msgid "(orphan package)"
+msgid_plural "(orphan packages)"
+msgstr[0] "(pacote órfão)"
+msgstr[1] "(pacotes órfãos)"
+
+#: ../urpme:163
+#, c-format
+msgid "Remove %d package?"
+msgid_plural "Remove %d packages?"
+msgstr[0] "Remover %d pacote?"
+msgstr[1] "Remover %d pacotes?"
+
+#: ../urpme:168
+#, c-format
+msgid "testing removal of %s"
+msgstr "testando a remoção de %s"
+
+#: ../urpme:185
+#, c-format
 msgid "Removal failed"
 msgstr "A remoção falhou"
 
-#: ../urpmf:28
+#: ../urpme:187
 #, c-format
+msgid "Removal is possible"
+msgstr "A remoção é possível"
+
+#: ../urpmf:29
+#, fuzzy, c-format
 msgid ""
 "urpmf version %s\n"
-"Copyright (C) 2002-2006 Mandriva.\n"
+"Copyright (C) 2002-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -1286,263 +1798,311 @@ msgstr ""
 "\n"
 "uso: urpmf [opções] expressão\n"
 
-#: ../urpmf:35
+#: ../urpmf:36
+#, c-format
 msgid "  --version      - print this tool's version number.\n"
 msgstr "  --version      - imprime o número da versão desta ferramenta.\n"
 
-#: ../urpmf:36 ../urpmi:125 ../urpmq:74
+#: ../urpmf:37 ../urpmi:132 ../urpmq:82
+#, c-format
 msgid "  --env          - use specific environment (typically a bug report).\n"
 msgstr ""
-"  --env          - usa um ambiente específico (tipicamente para relatório\n"
-"                   de falhas).\n"
+"  --env          - usa um ambiente específico (tipicamente para bug "
+"report).\n"
 
-#: ../urpmf:37 ../urpmi:82 ../urpmq:48
+#: ../urpmf:38 ../urpmi:73 ../urpmq:49
+#, c-format
 msgid "  --excludemedia - do not use the given media, separated by comma.\n"
 msgstr ""
-"  --excludemedia - não usa a mídia fornecida (separadas por vírgulas).\n"
+"  --excludemedia - não usa as mídias fornecidas (separadas por vírgula).\n"
 
-#: ../urpmf:38
+#: ../urpmf:39
+#, c-format
 msgid ""
 "  --literal, -l  - don't match patterns, use argument as a literal string.\n"
 msgstr ""
-"  --literal, -l  - não combina com padrão, utilize argumento como uma\n"
-"                   string de literais.\n"
+"  --literal, -l  - não combina regulares, use argumento como string "
+"literal.\n"
 
-#: ../urpmf:39 ../urpmi:81 ../urpmq:46
-msgid "  --media        - use only the given media, separated by comma.\n"
-msgstr ""
-"  --media        - use somente as mídias listadas (separadas por vírgulas).\n"
-
-#: ../urpmf:40 ../urpmi:85 ../urpmq:49
+#: ../urpmf:42 ../urpmi:76 ../urpmq:50
+#, c-format
 msgid ""
 "  --sortmedia    - sort media according to substrings separated by comma.\n"
 msgstr "  --sortmedia    - ordena as mídias (separadas por vírgulas).\n"
 
-#: ../urpmf:41 ../urpmi:86 ../urpmq:50
-msgid "  --synthesis    - use the given synthesis instead of urpmi db.\n"
-msgstr ""
-"  --synthesis    - usa a síntese dada ao invés do banco de dados urpmi.\n"
+#: ../urpmf:43
+#, c-format
+msgid "  --use-distrib  - use the given path to access media\n"
+msgstr "  --use-distrib  - usa o caminho dado para acessar mídias\n"
 
-#: ../urpmf:42
+#: ../urpmf:44 ../urpmi:77 ../urpmq:51
+#, c-format
+msgid "  --synthesis    - use the given synthesis instead of urpmi db.\n"
+msgstr "  --synthesis    - usa synthesis invés da database do urpmi.\n"
+
+#: ../urpmf:45
+#, c-format
 msgid "  --uniq         - do not print identical lines twice.\n"
 msgstr "  --uniq         - não lista linhas idênticas.\n"
 
-#: ../urpmf:43 ../urpmi:83 ../urpmq:45
+#: ../urpmf:46 ../urpmi:74 ../urpmq:46
+#, c-format
 msgid "  --update       - use only update media.\n"
-msgstr "  --update       - use somente mídia update (de atualização).\n"
+msgstr "  --update       - use somente mídias de atualização.\n"
 
-#: ../urpmf:44
+#: ../urpmf:47
+#, c-format
 msgid "  --verbose      - verbose mode.\n"
 msgstr "  --verbose      - modo detalhado.\n"
 
-#: ../urpmf:45
+#: ../urpmf:48
+#, c-format
 msgid "  -i             - ignore case distinctions in patterns.\n"
 msgstr ""
 "  -i             - ignora a distinção de maiúscula/minúscula em tudo.\n"
 
-#: ../urpmf:46
+#: ../urpmf:49
+#, c-format
+msgid "  -I             - honor case distinctions in patterns (default).\n"
+msgstr "  -i             - Considera diferença entre maiúsculas/minúsculas.\n"
+
+#: ../urpmf:50
+#, c-format
 msgid "  -F<str>        - change field separator (defaults to ':').\n"
 msgstr "  -F<str>        - altera o separador de campo (padrão é ':').\n"
 
-#: ../urpmf:47
+#: ../urpmf:51
+#, c-format
 msgid "Pattern expressions:\n"
 msgstr "Expressões Regulares:\n"
 
-#: ../urpmf:48
+#: ../urpmf:52
+#, c-format
 msgid "  text           - any text is parsed as a regexp, unless -l is used.\n"
 msgstr ""
-"  text           - qualquer texto é tratado como uma expressão regular, a\n"
-"                   menos que -l seja usado.\n"
+" text           - qualquer texto é tratado como uma expressão regulara menos "
+"que -l seja usado.\n"
 
-#: ../urpmf:49
+#: ../urpmf:53
+#, c-format
 msgid "  -e             - include perl code directly as perl -e.\n"
 msgstr ""
 "  -e             - inclui o código perl diretamente como em 'perl -e'.\n"
 
-#: ../urpmf:50
+#: ../urpmf:54
+#, c-format
 msgid "  -a             - binary AND operator.\n"
 msgstr "  -a             - operador binário 'E'.\n"
 
-#: ../urpmf:51
+#: ../urpmf:55
+#, c-format
 msgid "  -o             - binary OR operator.\n"
 msgstr "  -o             - operador binário 'OU'.\n"
 
-#: ../urpmf:52
+#: ../urpmf:56
+#, c-format
 msgid "  !              - unary NOT.\n"
 msgstr "  !              - operador unário 'NÃO'.\n"
 
-#: ../urpmf:53
+#: ../urpmf:57
+#, c-format
 msgid "  ( )            - left and right parentheses.\n"
 msgstr "  ( )            - parênteses direito e esquerdo.\n"
 
-#: ../urpmf:54
+#: ../urpmf:58
+#, c-format
 msgid "List of tags:\n"
-msgstr ""
-"Lista de tags:\n"
-"\n"
+msgstr "Lista de tags:\n"
 
-#: ../urpmf:55
+#: ../urpmf:59
+#, c-format
 msgid "  --qf           - specify a printf-like output format\n"
 msgstr "  --qf           - especifica um formato de impressão para a saída\n"
 
-#: ../urpmf:56
+#: ../urpmf:60
 #, c-format
 msgid "                   example: '%%name:%%files'\n"
 msgstr "                   exemplo: '%%nome:%%arquivos'\n"
 
-#: ../urpmf:57
+#: ../urpmf:61
+#, c-format
 msgid "  --arch         - architecture\n"
 msgstr "  --arch         - arquitetura\n"
 
-#: ../urpmf:58
+#: ../urpmf:62
+#, c-format
 msgid "  --buildhost    - build host\n"
 msgstr "  --buildhost    - máquina onde foi compilado\n"
 
-#: ../urpmf:59
+#: ../urpmf:63
+#, c-format
 msgid "  --buildtime    - build time\n"
 msgstr "  --buildtime    - data que foi compilado\n"
 
-#: ../urpmf:60
+#: ../urpmf:64
+#, c-format
 msgid "  --conffiles    - configuration files\n"
 msgstr "  --conffiles    - arquivos de configuração\n"
 
-#: ../urpmf:61
+#: ../urpmf:65
+#, c-format
 msgid "  --conflicts    - conflict tags\n"
 msgstr "  --conflicts    - lista conflitos\n"
 
-#: ../urpmf:62
+#: ../urpmf:66
+#, c-format
 msgid "  --description  - package description\n"
 msgstr "  --description  - descrição do pacote\n"
 
-#: ../urpmf:63
+#: ../urpmf:67
+#, c-format
 msgid "  --distribution - distribution\n"
 msgstr "  --distribution - distribuição\n"
 
-#: ../urpmf:64
+#: ../urpmf:68
+#, c-format
 msgid "  --epoch        - epoch\n"
 msgstr "  --epoch        - epoch\n"
 
-#: ../urpmf:65
+#: ../urpmf:69
+#, c-format
 msgid "  --filename     - filename of the package\n"
 msgstr "  --filename     - nome do pacote\n"
 
-#: ../urpmf:66
+#: ../urpmf:70
+#, c-format
 msgid "  --files        - list of files contained in the package\n"
 msgstr "  --files        - lista de arquivos contidos no pacote\n"
 
-#: ../urpmf:67
+#: ../urpmf:71
+#, c-format
 msgid "  --group        - group\n"
 msgstr "  --group        - grupo\n"
 
-#: ../urpmf:68
+#: ../urpmf:72
+#, c-format
+msgid "  --license      - license\n"
+msgstr "  --license      - licença\n"
+
+#: ../urpmf:73
+#, c-format
 msgid "  --name         - package name\n"
 msgstr "  --name         - nome do pacote\n"
 
-#: ../urpmf:69
+#: ../urpmf:74
+#, c-format
 msgid "  --obsoletes    - obsoletes tags\n"
 msgstr "  --obsoletes    - lista todos arquivos obsoletos\n"
 
-#: ../urpmf:70
+#: ../urpmf:75
+#, c-format
 msgid "  --packager     - packager\n"
 msgstr "  --packager     - empacotador\n"
 
-#: ../urpmf:71
+#: ../urpmf:76
+#, c-format
 msgid "  --provides     - provides tags\n"
 msgstr "  --provides     - lista dos que provem o pacote\n"
 
-#: ../urpmf:72
+#: ../urpmf:77
+#, c-format
 msgid "  --requires     - requires tags\n"
 msgstr "  --requires     - lista dos que requerem o pacote\n"
 
-#: ../urpmf:73
+#: ../urpmf:78
+#, c-format
 msgid "  --size         - installed size\n"
 msgstr "  --size         - tamanho da instalação.\n"
 
-#: ../urpmf:74
+#: ../urpmf:79
+#, c-format
 msgid "  --sourcerpm    - source rpm name\n"
 msgstr "  --sourcerpm    - nome da fonte do rpm\n"
 
-#: ../urpmf:75
+#: ../urpmf:80
+#, c-format
+msgid "  --suggests     - suggests tags\n"
+msgstr "  --suggests     - lista sugestões\n"
+
+#: ../urpmf:81
+#, c-format
 msgid "  --summary      - summary\n"
 msgstr "  --summary      - sumário\n"
 
-#: ../urpmf:76
+#: ../urpmf:82
+#, c-format
 msgid "  --url          - url\n"
 msgstr "  --url          - url\n"
 
-#: ../urpmf:77
+#: ../urpmf:83
+#, c-format
 msgid "  --vendor       - vendor\n"
 msgstr "  --vendor       - fabricante\n"
 
-#: ../urpmf:78
+#: ../urpmf:84
+#, c-format
 msgid "  -m             - the media in which the package was found\n"
 msgstr "  -m             - a mídia onde o pacote foi encontrado\n"
 
-#: ../urpmf:79 ../urpmq:80
+#: ../urpmf:85 ../urpmq:101
+#, c-format
 msgid "  -f             - print version, release and arch with name.\n"
 msgstr ""
 "  -f             - imprime versão, 'release' e arquitetura, com nome.\n"
 
-#: ../urpmf:131
+#: ../urpmf:153
+#, c-format
+msgid "unterminated expression (%s)"
+msgstr "expressão indeterminada (%s)"
+
+#: ../urpmf:198
+#, c-format
 msgid "Incorrect format: you may use only one multi-valued tag"
 msgstr ""
 "Formato incorreto: você deve utilizar somente uma opção com múltiplos valores"
 
-#: ../urpmf:173 ../urpmi:231 ../urpmq:126
+#: ../urpmf:291
 #, c-format
-msgid "using specific environment on %s\n"
-msgstr "usando o ambiente específico em %s\n"
+msgid "no hdlist available for medium \"%s\""
+msgstr "nenhum hdlist disponível para a mídia \"%s\""
 
-#: ../urpmf:219
-msgid ""
-"Note: since no media searched uses hdlists, urpmf was unable to return any "
-"result\n"
-msgstr ""
-"Nota:  se nenhuma mídia encontrada usando hdlists, o urpmf é incapaz de "
-"retornar qualquer resultado\n"
-
-#: ../urpmf:220
-msgid "You may want to use --name to search for package names.\n"
-msgstr "Você poderá usar --name para procurar pelo nome pacote.\n"
-
-#: ../urpmi:75
+#: ../urpmf:298
 #, c-format
-msgid ""
-"urpmi version %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"This is free software and may be redistributed under the terms of the GNU "
-"GPL.\n"
-"\n"
-"usage:\n"
-msgstr ""
-"urpmi versão %s\n"
-"Copyright (C) 1999-2006 Mandriva.\n"
-"Este é um software livre, e pode ser redistribuído sob os termos da GNU "
-"GPL.\n"
-"\n"
-"uso:\n"
+msgid "no synthesis available for medium \"%s\""
+msgstr "synthesis não disponível para a mídia \"%s\""
 
-#: ../urpmi:84
-msgid ""
-"  --searchmedia  - use only the given media to search requested packages.\n"
-msgstr "  --searchmedia  - usa apenas a mídia fornecida para buscar pacotes.\n"
+#: ../urpmf:307
+#, c-format
+msgid "no xml-info available for medium \"%s\""
+msgstr "xml-info não disponível para a mídia \"%s\""
 
-#: ../urpmi:87
-msgid ""
-"  --auto         - non-interactive mode, assume default answers to "
-"questions.\n"
-msgstr ""
-"  --auto         - modo não-interativo, assume respostas padrão para as\n"
-"                   perguntas.\n"
+#: ../urpmi:80
+#, c-format
+msgid "  --auto-update  - update media then upgrade the system.\n"
+msgstr "  --auto-update  - atualiza mídias e então atualiza o sistema.\n"
 
-#: ../urpmi:88 ../urpmq:51
-msgid ""
-"  --auto-select  - automatically select packages to upgrade the system.\n"
-msgstr ""
-"  --auto-select  - automaticamente seleciona os pacotes necessários para \n"
-"                   atualizar o sistema.\n"
+#: ../urpmi:81
+#, c-format
+msgid "    --no-md5sum    - disable MD5SUM file checking.\n"
+msgstr "    --no-md5sum    - desabilita checagem MD5SUM dos arquivos.\n"
 
-#: ../urpmi:89
+#: ../urpmi:82
+#, c-format
+msgid "    --force-key    - force update of gpg key.\n"
+msgstr "    --force-key    - força atualização da chave gpg.\n"
+
+#: ../urpmi:83
+#, c-format
+msgid "  --auto-orphans - remove orphans without asking\n"
+msgstr "  --auto-orphans - remove pacotes órfãos sem confirmação do usuário\n"
+
+#: ../urpmi:84 ../urpmq:56
+#, c-format
+msgid "  --no-suggests  - do not auto select \"suggested\" packages.\n"
+msgstr "  --no-suggests  - não seleciona automaticamente pacotes sugeridos.\n"
+
+#: ../urpmi:85
+#, c-format
 msgid ""
 "  --no-uninstall - never ask to uninstall a package, abort the "
 "installation.\n"
@@ -1550,11 +2110,13 @@ msgstr ""
 "  --no-uninstall - nunca pergunte para desinstalar um pacote. Caso seja \n"
 "                   necessário, a instalação será abortada.\n"
 
-#: ../urpmi:90
+#: ../urpmi:86
+#, c-format
 msgid "  --no-install   - don't install packages (only download)\n"
 msgstr "  --no-install   - não instala pacotes (download somente)\n"
 
-#: ../urpmi:91 ../urpmq:53
+#: ../urpmi:87 ../urpmq:58
+#, c-format
 msgid ""
 "  --keep         - keep existing packages if possible, reject requested\n"
 "                   packages that lead to removals.\n"
@@ -1562,7 +2124,7 @@ msgstr ""
 "  --keep         - mantém os pacotes existentes se possível, recusando os\n"
 "                   pacotes solicitados que pedem a remoção do pacote.\n"
 
-#: ../urpmi:93
+#: ../urpmi:89
 #, c-format
 msgid ""
 "  --split-level  - split in small transaction if more than given packages\n"
@@ -1573,33 +2135,45 @@ msgstr ""
 "                   precisa ser instalado ou atualizado,\n"
 "                   o padrão é %d.\n"
 
-#: ../urpmi:96
+#: ../urpmi:93
 #, c-format
 msgid "  --split-length - small transaction length, default is %d.\n"
 msgstr "  --split-length - transações em pequenos pedaços, o padrão é %d.\n"
 
-#: ../urpmi:97
+#: ../urpmi:95
+#, c-format
 msgid "  --fuzzy, -y    - impose fuzzy search.\n"
 msgstr "  --fuzzy, -y    - impõe uma busca aproximada.\n"
 
-#: ../urpmi:98
-msgid "  --src, -s      - next package is a source package.\n"
-msgstr "  --src, -s      - o próximo pacote é um pacote fonte.\n"
+#: ../urpmi:96
+#, c-format
+msgid "  --buildrequires - install the buildrequires of the packages\n"
+msgstr "  --buildrequires - instala buildrequires dos pacotes\n"
 
-#: ../urpmi:99
+#: ../urpmi:97
+#, c-format
 msgid "  --install-src  - install only source package (no binaries).\n"
 msgstr ""
 "  --install-src  - instala somente o pacote de fontes (sem binários).\n"
 
-#: ../urpmi:100
+#: ../urpmi:98
+#, c-format
 msgid "  --clean        - remove rpm from cache before anything else.\n"
 msgstr "  --clean        - remove os rpm do cache antes de iniciar.\n"
 
-#: ../urpmi:101
+#: ../urpmi:99
+#, c-format
 msgid "  --noclean      - don't clean rpms from cache.\n"
 msgstr "  --noclean      - não remove os rpms do cache.\n"
 
+#: ../urpmi:101
+#, c-format
+msgid ""
+"  --replacepkgs  - force installing packages which are already installed.\n"
+msgstr "  --replacepkgs  - força a reinstalação de pacotes já instalados.\n"
+
 #: ../urpmi:103
+#, c-format
 msgid ""
 "  --allow-nodeps - allow asking user to install packages without\n"
 "                   dependencies checking.\n"
@@ -1608,6 +2182,7 @@ msgstr ""
 "                   checagem de dependências.\n"
 
 #: ../urpmi:105
+#, c-format
 msgid ""
 "  --allow-force  - allow asking user to install packages without\n"
 "                   dependencies checking and integrity.\n"
@@ -1615,11 +2190,13 @@ msgstr ""
 "  --allow-force  - permite ao usuário instalar pacotes sem conferir\n"
 "                   dependências e integridade.\n"
 
-#: ../urpmi:108
-msgid "  --root         - use another root for rpm installation.\n"
-msgstr "  --root         - use outro root para instalação rpm.\n"
+#: ../urpmi:107
+#, c-format
+msgid "  --allow-suggests - auto select \"suggested\" packages.\n"
+msgstr "  --allow-suggests - seleciona automaticamente pacotes sugeridos.\n"
 
-#: ../urpmi:109
+#: ../urpmi:111
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree, useful\n"
 "                   to install a chroot with --root option.\n"
@@ -1628,31 +2205,60 @@ msgstr ""
 "                   padrão, útil para instalar um chroot com a\n"
 "                   opção --root.\n"
 
-#: ../urpmi:111 ../urpmi.addmedia:45 ../urpmi.update:32 ../urpmq:68
-msgid "  --wget         - use wget to retrieve distant files.\n"
-msgstr "  --wget         - usa wget para buscar arquivos remotos.\n"
+#: ../urpmi:113 ../urpmi.addmedia:60 ../urpmi.update:37
+#, c-format
+msgid "  --metalink     - generate and use a local metalink.\n"
+msgstr "  --metalink     - cria e utiliza um metalink local.\n"
 
-#: ../urpmi:112 ../urpmi.addmedia:46 ../urpmi.update:33 ../urpmq:69
-msgid "  --curl         - use curl to retrieve distant files.\n"
-msgstr "  --curl         - usa curl para buscar arquivos remotos.\n"
+#: ../urpmi:114
+#, c-format
+msgid ""
+"  --download-all - download all needed packages before trying to install "
+"them\n"
+msgstr ""
+"  --download-all - baixar todos os programas antes de tentar instalá-los\n"
 
-#: ../urpmi:113
+#: ../urpmi:115
+#, c-format
+msgid ""
+"  --downloader   - program to use to retrieve distant files. \n"
+"                   known programs: %s\n"
+msgstr ""
+"  --downloader   - programa para baixar arquivos remotos. \n"
+"                   programas conhecidos: %s\n"
+
+#: ../urpmi:118
+#, c-format
 msgid "  --curl-options - additional options to pass to curl\n"
 msgstr "  --curl-options - opções adicionais para passar ao curl\n"
 
-#: ../urpmi:114
+#: ../urpmi:119
+#, c-format
 msgid "  --rsync-options- additional options to pass to rsync\n"
 msgstr "  --rsync-options- opções adicionais para passar ao rsync\n"
 
-#: ../urpmi:115
+#: ../urpmi:120
+#, c-format
 msgid "  --wget-options - additional options to pass to wget\n"
 msgstr "  --wget-options - opções adicionais para passar ao wget\n"
 
-#: ../urpmi:116 ../urpmi.addmedia:47 ../urpmi.update:34
+#: ../urpmi:121
+#, c-format
+msgid "  --prozilla-options - additional options to pass to prozilla\n"
+msgstr "  --prozilla-options - opções adicionais para passar ao prozilla\n"
+
+#: ../urpmi:122
+#, c-format
+msgid "  --aria2-options - additional options to pass to aria2\n"
+msgstr "  --aria2-options - opções adicionais para passar ao aria2\n"
+
+#: ../urpmi:123 ../urpmi.addmedia:61 ../urpmi.update:38
+#, c-format
 msgid "  --limit-rate   - limit the download speed.\n"
 msgstr "  --limit-rate   - limita a velocidade do download.\n"
 
-#: ../urpmi:117
+#: ../urpmi:124
+#, c-format
 msgid ""
 "  --resume       - resume transfer of partially-downloaded files\n"
 "                   (--no-resume disables it, default is disabled).\n"
@@ -1661,7 +2267,8 @@ msgstr ""
 "                   baixados (--no-resume desabilita isso, o padrão é\n"
 "                   desabilitado).\n"
 
-#: ../urpmi:119 ../urpmi.addmedia:48 ../urpmi.update:35 ../urpmq:70
+#: ../urpmi:126 ../urpmi.addmedia:62 ../urpmi.update:39 ../urpmq:78
+#, c-format
 msgid ""
 "  --proxy        - use specified HTTP proxy, the port number is assumed\n"
 "                   to be 1080 by default (format is <proxyhost[:port]>).\n"
@@ -1669,7 +2276,8 @@ msgstr ""
 "  --proxy        - usa o proxy HTTP especificado, o número da porta\n"
 "                   é 1080 por padrão (o formato é <máquinaproxy[:porta]>).\n"
 
-#: ../urpmi:121 ../urpmi.addmedia:50 ../urpmi.update:37 ../urpmq:72
+#: ../urpmi:128 ../urpmi.addmedia:64 ../urpmi.update:41 ../urpmq:80
+#, c-format
 msgid ""
 "  --proxy-user   - specify user and password to use for proxy\n"
 "                   authentication (format is <user:password>).\n"
@@ -1677,7 +2285,8 @@ msgstr ""
 "  --proxy-user   - especifica usuário e senha para usar na autenticação\n"
 "                   do proxy (o formato é <usuário:senha>).\n"
 
-#: ../urpmi:123
+#: ../urpmi:130
+#, c-format
 msgid ""
 "  --bug          - output a bug report in directory indicated by\n"
 "                   next arg.\n"
@@ -1685,49 +2294,50 @@ msgstr ""
 "  --bug          - escreve um relatório de falhas no diretório indicado\n"
 "                   pelo próximo argumento.\n"
 
-#: ../urpmi:126
-msgid ""
-"  --verify-rpm   - verify rpm signature before installation\n"
-"                   (--no-verify-rpm disables it, default is enabled).\n"
-msgstr ""
-"  --verify-rpm   - verifica a assinatura do rpm antes da instalação.\n"
-"                   (--no-verify-rpm desabilita, por padrão é habilitado).\n"
-
-#: ../urpmi:128
-msgid ""
-"  --test         - only verify if the installation can be achieved "
-"correctly.\n"
-msgstr ""
-"  --test         - apenas verifica se a instalação pode ser efetuada\n"
-"                   corretamente.\n"
-
-#: ../urpmi:129
+#: ../urpmi:136
+#, c-format
 msgid "  --excludepath  - exclude path separated by comma.\n"
 msgstr "  --excludepath  - exclui o(s) caminho(s), separados por vírgula.\n"
 
-#: ../urpmi:130
+#: ../urpmi:137
+#, c-format
 msgid "  --excludedocs  - exclude doc files.\n"
 msgstr "  --excludedocs  - exclui arquivos de documentação.\n"
 
-#: ../urpmi:131
+#: ../urpmi:138
+#, c-format
 msgid "  --ignoresize   - don't verify disk space before installation.\n"
 msgstr ""
 "  --ignoresize   - não verifica o espaço em disco antes da instalação.\n"
 
-#: ../urpmi:132
+#: ../urpmi:139
+#, c-format
 msgid "  --ignorearch   - allow to install rpms for unmatched architectures.\n"
 msgstr ""
 "  --ignorearch   - permite instalar rpms de arquiteturas divergentes.\n"
 
-#: ../urpmi:133
+#: ../urpmi:140
+#, c-format
 msgid "  --noscripts    - do not execute package scriptlet(s)\n"
 msgstr "  --noscripts    - não executa script(s) dos pacotes\n"
 
-#: ../urpmi:135
+#: ../urpmi:141
+#, c-format
+msgid "  --replacefiles - ignore file conflicts\n"
+msgstr "  --replacefiles - ignora conflitos de arquivos\n"
+
+#: ../urpmi:143
+#, c-format
 msgid "  --skip         - packages which installation should be skipped\n"
 msgstr "  --skip         - pacotes que a instalação deve ignorá-los.\n"
 
-#: ../urpmi:136
+#: ../urpmi:144
+#, c-format
+msgid "  --prefer       - packages which should be preferred\n"
+msgstr "  --prefer       - pacotes que a instalação deve dar preferência\n"
+
+#: ../urpmi:145
+#, c-format
 msgid ""
 "  --more-choices - when several packages are found, propose more choices\n"
 "                   than the default.\n"
@@ -1735,47 +2345,74 @@ msgstr ""
 "  --more-choices - quando diversos pacotes forem encontrados, proponha mais\n"
 "                   escolhas por padrão.\n"
 
-#: ../urpmi:138 ../urpmi.addmedia:64 ../urpmi.update:42
-msgid "  --norebuild    - don't try to rebuild hdlist if not readable.\n"
-msgstr ""
-"  --norebuild    - não tenta recriar o hdlist se ele não puder ser lido.\n"
-
-#: ../urpmi:139
+#: ../urpmi:147
+#, c-format
 msgid "  --nolock       - don't lock rpm db.\n"
 msgstr "  --nolock       - não bloqueia o banco de dados rpm.\n"
 
-#: ../urpmi:140
+#: ../urpmi:148
+#, c-format
 msgid "  --strict-arch  - upgrade only packages with the same architecture.\n"
 msgstr "  --strict-arch  - só atualiza os pacotes com a mesma arquitectura.\n"
 
-#: ../urpmi:141 ../urpmq:77
+#: ../urpmi:149 ../urpmq:99
+#, c-format
 msgid "  -a             - select all matches on command line.\n"
 msgstr "  -a             - seleciona todos os listados na linha de comando.\n"
 
-#: ../urpmi:142
-msgid "  -p             - allow search in provides to find package.\n"
-msgstr ""
-"  -p             - permite a busca em 'provides' para achar o pacote.\n"
+#: ../urpmi:152
+#, c-format
+msgid "  --quiet, -q    - quiet mode.\n"
+msgstr "  --quiet, -q    - modo silencioso.\n"
 
-#: ../urpmi:143
-msgid "  -P             - do not search in provides to find package.\n"
-msgstr ""
-"  -P             - não procure em 'provides' para encontrar o pacote.\n"
+#: ../urpmi:154
+#, c-format
+msgid "  --debug        - very verbose mode.\n"
+msgstr "  --debug        - modo muito detalhado.\n"
 
-#: ../urpmi:144 ../urpmi.addmedia:69 ../urpmi.removemedia:58
-#: ../urpmi.update:48
-msgid "  -q             - quiet mode.\n"
-msgstr "  -q             - modo silencioso (não informativo).\n"
-
-#: ../urpmi:146
+#: ../urpmi:155
+#, c-format
 msgid "  names or rpm files given on command line will be installed.\n"
 msgstr "  nomes ou arquivos rpm dados na linha de comando serão instalados.\n"
 
-#: ../urpmi:197
+#: ../urpmi:183
+#, c-format
+msgid "Error: can't use --auto-select along with package list.\n"
+msgstr "Erro: não se pode usar --auto-select com uma lista de pacotes.\n"
+
+#: ../urpmi:190
+#, c-format
+msgid ""
+"Error: To generate a bug report, specify the usual command-line arguments\n"
+"along with --bug.\n"
+msgstr ""
+"Erro: Para gerar um bugreport, especifique a linha de comando com os "
+"parâmetros usuais e acrescente --bug.\n"
+
+#: ../urpmi:220
+#, c-format
 msgid "You can't install binary rpm files when using --install-src"
 msgstr "Você não pode instalar arquivos rpm binários ao usar --install-src"
 
-#: ../urpmi:220
+#: ../urpmi:221
+#, c-format
+msgid "You can't install spec files"
+msgstr "Você não pode instalar arquivos spec"
+
+#: ../urpmi:228
+#, c-format
+msgid "defaulting to --buildrequires"
+msgstr "padrão para --buildrequires"
+
+#: ../urpmi:233
+#, c-format
+msgid ""
+"please use --buildrequires or --install-src, defaulting to --buildrequires"
+msgstr ""
+"favor usar --buildrequires ou --install-src, preferencialmente --"
+"buildrequires"
+
+#: ../urpmi:253
 #, c-format
 msgid ""
 "Directory [%s] already exists, please use another directory for bug report "
@@ -1784,21 +2421,12 @@ msgstr ""
 "Diretório [%s] já existe, favor usar outro diretório para reportar o "
 "problema ou apague-o"
 
-#: ../urpmi:221
+#: ../urpmi:254
 #, c-format
 msgid "Unable to create directory [%s] for bug report"
 msgstr "Incapaz de criar o diretório [%s] para relatório de falhas"
 
-#: ../urpmi:224 ../urpmi:380
-msgid "Copying failed"
-msgstr "Falha na cópia"
-
-#: ../urpmi:230
-#, c-format
-msgid "Environment directory %s does not exist"
-msgstr "Diretório de ambiente %s não existe"
-
-#: ../urpmi:248
+#: ../urpmi:275
 #, c-format
 msgid ""
 "Error: %s appears to be mounted read-only.\n"
@@ -1807,17 +2435,55 @@ msgstr ""
 "Erro: %s parece estar montado apenas como leitura.\n"
 "Usar --allow-force para forçar a operação."
 
-#. - For translators : there are several media here
-#: ../urpmi:332
-msgid "Updating media...\n"
-msgstr "Atualizando mídia...\n"
+#. -PO: here format is "<package_name>: <summary> (to upgrade)"
+#: ../urpmi:429
+#, c-format
+msgid "%s: %s (to upgrade)"
+msgstr "%s: %s (para atualizar)"
 
-#: ../urpmi:417
+#. -PO: here format is "<package_name> (to upgrade)"
+#: ../urpmi:431
+#, c-format
+msgid "%s (to upgrade)"
+msgstr "%s (para atualizar)"
+
+#. -PO: here format is "<package_name>: <summary> (to install)"
+#: ../urpmi:435
+#, c-format
+msgid "%s: %s (to install)"
+msgstr "%s: %s (para instalar)"
+
+#. -PO: here format is "<package_name> (to install)"
+#: ../urpmi:437
+#, c-format
+msgid "%s (to install)"
+msgstr "%s (para instalar)"
+
+#: ../urpmi:443
+#, c-format
+msgid ""
+"In order to satisfy the '%s' dependency, one of the following packages is "
+"needed:"
+msgstr ""
+"Para satisfazer a dependência '%s', um dos seguintes pacotes é necessário:"
+
+#: ../urpmi:446
 #, c-format
 msgid "What is your choice? (1-%d) "
 msgstr "Qual é a sua escolha? (1-%d) "
 
-#: ../urpmi:447
+#: ../urpmi:488
+#, c-format
+msgid ""
+"The following package cannot be installed because it depends on packages\n"
+"that are older than the installed ones:\n"
+"%s"
+msgstr ""
+"O seguinte pacote não pode ser instalado porque depende de pacotes\n"
+"que são mais antigos que os atualmente instalados:\n"
+"%s"
+
+#: ../urpmi:490
 #, c-format
 msgid ""
 "The following packages can't be installed because they depend on packages\n"
@@ -1828,7 +2494,8 @@ msgstr ""
 "que são mais antigos que os atualmente instalados:\n"
 "%s"
 
-#: ../urpmi:455 ../urpmi:473
+#: ../urpmi:496 ../urpmi:514
+#, c-format
 msgid ""
 "\n"
 "Continue installation anyway?"
@@ -1836,20 +2503,37 @@ msgstr ""
 "\n"
 "Prosseguir instalação mesmo assim?"
 
-#: ../urpmi:455 ../urpmi:473 ../urpmi:560
+#: ../urpmi:497 ../urpmi:515 ../urpmi:630 ../urpmi.addmedia:136
+#, c-format
 msgid " (Y/n) "
 msgstr " (S/n) "
 
-#: ../urpmi:466
+#: ../urpmi:508
 #, c-format
 msgid ""
-"Some requested packages cannot be installed:\n"
+"A requested package cannot be installed:\n"
 "%s"
 msgstr ""
-"Alguns pacotes não puderam ser instalados:\n"
+"Um pacote não pôde ser instalado:\n"
 "%s"
 
-#: ../urpmi:496
+#: ../urpmi:529
+#, c-format
+msgid "removing package %s will break your system"
+msgstr "a remoção do pacote %s irá danificar seu sistema"
+
+#: ../urpmi:537
+#, c-format
+msgid ""
+"The installation cannot continue because the following package\n"
+"has to be removed for others to be upgraded:\n"
+"%s\n"
+msgstr ""
+"A instalação não pode continuar porque o seguite pacote\n"
+"precisa ser removido para que os outros possam ser atualizados:\n"
+"%s\n"
+
+#: ../urpmi:539
 #, c-format
 msgid ""
 "The installation cannot continue because the following packages\n"
@@ -1860,245 +2544,280 @@ msgstr ""
 "precisam ser removidos para que os outros possam ser atualizados:\n"
 "%s\n"
 
-#: ../urpmi:501
-#, c-format
-msgid ""
-"The following packages have to be removed for others to be upgraded:\n"
-"%s"
-msgstr ""
-"Estes pacotes precisam ser removidos para que os outros sejam atualizados:\n"
-"%s"
-
-#: ../urpmi:503
-msgid "(test only, removal will not be actually done)"
-msgstr "(somente teste, remoções não serão efetivadas)"
-
-#: ../urpmi:539 ../urpmi:551
-msgid ""
-"To satisfy dependencies, the following packages are going to be installed"
-msgstr "Para satisfazer as dependências, os seguintes pacotes serão instalados"
-
-#: ../urpmi:540 ../urpmi:552
-msgid "To satisfy dependencies, the following package is going to be installed"
-msgstr "Para satisfazer as dependências, o seguinte pacote será instalado"
-
-#: ../urpmi:541
-#, c-format
-msgid "(%d packages, %d MB)"
-msgstr "(%d pacotes, %d MB)"
-
 #: ../urpmi:547
 #, c-format
+msgid "(test only, removal will not be actually done)"
+msgstr "(somente testar, remoções não serão efetivadas)"
+
+#: ../urpmi:566
+#, c-format
 msgid ""
-"You need to be root to install the following dependencies:\n"
+"You must first call urpmi with --buildrequires to install the following "
+"dependencies:\n"
 "%s\n"
 msgstr ""
-"Você precisa ser root para instalar as seguintes dependências :\n"
+"Você precisa executar o urpmi com --buildrequires para instalar as seguintes "
+"dependências:\n"
 "%s\n"
 
-#: ../urpmi:554
+#: ../urpmi:576
+#, c-format
+msgid "The following orphan package will be removed."
+msgid_plural "The following orphan packages will be removed."
+msgstr[0] "O seguinte pacote órfão será removido"
+msgstr[1] "Os seguintes pacotes órfãos serão removidos"
+
+#: ../urpmi:600
+#, c-format
+msgid "WARNING: %s option is in use. Some strange problems may happen"
+msgstr ""
+
+#: ../urpmi:612
+#, c-format
 msgid "(test only, installation will not be actually done)"
 msgstr "(somente teste, instalações não serão efetivadas)"
 
-#: ../urpmi:556
+#: ../urpmi:618
 #, c-format
-msgid "Proceed with the installation of the %d packages? (%d MB)"
-msgstr "Proceder a instalação de %d pacotes? (%d MB)"
+msgid "%s of additional disk space will be used."
+msgstr "%s de espaço adicional em disco será usado."
 
-#: ../urpmi:580
-msgid "Press Enter when ready..."
-msgstr "Tecle Enter quando estiver pronto..."
-
-#: ../urpmi:586
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ../urpmi:586
-msgid "Ok"
-msgstr "Ok"
-
-#: ../urpmi:633
-msgid "The following packages have bad signatures"
-msgstr "Os seguintes pacotes contêm assinaturas erradas"
-
-#: ../urpmi:634
-msgid "Do you want to continue installation ?"
-msgstr "Você deseja continuar a instalação?"
-
-#: ../urpmi:682
+#: ../urpmi:619
 #, c-format
-msgid "distributing %s"
-msgstr "distribuindo %s"
+msgid "%s of disk space will be freed."
+msgstr "%s de espaço em disco serão liberados."
 
-#. - there's a common prefix, simplify message
-#: ../urpmi:693
+#: ../urpmi:620
 #, c-format
-msgid "installing %s from %s"
-msgstr "instalando %s a partir de %s"
+msgid "%s of packages will be retrieved."
+msgstr "%s de pacotes serão baixados."
 
-#: ../urpmi:695
+#: ../urpmi:621
 #, c-format
-msgid "installing %s"
-msgstr "instalando %s"
+msgid "Proceed with the installation of one package?"
+msgid_plural "Proceed with the installation of the %d packages?"
+msgstr[0] "Proceder a instalação de um pacote?"
+msgstr[1] "Proceder a instalação de %d pacotes?"
 
-#: ../urpmi:729
-msgid "Try installation without checking dependencies? (y/N) "
-msgstr "Tentar instalar sem checar as dependências? (s/N) "
-
-#: ../urpmi:747
-msgid "Try harder to install (--force)? (y/N) "
-msgstr "Forçar instalação (--force)? (s/N) "
-
-#: ../urpmi:787
+#: ../urpmi:643
 #, c-format
-msgid "%d installation transactions failed"
-msgstr "%d instalação falhou"
+msgid "Press Enter when mounted..."
+msgstr "Tecle Enter quando montado..."
 
-#: ../urpmi:803
-#, c-format
-msgid "The following package names were assumed: %s"
-msgstr "Os seguintes nomes de pacotes serão assumidos: %s"
-
-#: ../urpmi:820
-msgid "restarting urpmi"
-msgstr "reiniciando urpmi"
-
-#. Translator: The URI types strings 'file:', 'ftp:', 'http:',
-#. Translator: and 'removable:' must not be translated!
-#. Translator: neither the ``with''.
-#. Translator: only what is between <brackets> can be translated.
-#: ../urpmi.addmedia:35
+#. -PO: The URI types strings 'file:', 'ftp:', 'http:', and 'cdrom:' must not be translated!
+#. -PO: neither the ``with''.  Only what is between <brackets> can be translated.
+#: ../urpmi.addmedia:36
+#, fuzzy, c-format
 msgid ""
-"usage: urpmi.addmedia [options] <name> <url> [with <relative_path>]\n"
+"usage: urpmi.addmedia [options] <name> <url>\n"
 "where <url> is one of\n"
-"       [file:/]/<path> with <relative filename of hdlist>\n"
-"       ftp://<login>:<password>@<host>/<path> with <relative filename of "
-"hdlist>\n"
-"       ftp://<host>/<path> with <relative filename of hdlist>\n"
-"       http://<host>/<path> with <relative filename of hdlist>\n"
-"       removable://<path>\n"
+"       [file:/]/<path>\n"
+"       ftp://<login>:<password>@<host>/<path>\n"
+"       ftp://<host>/<path>\n"
+"       http://<host>/<path>\n"
+"       cdrom://<path>\n"
+"\n"
+"usage: urpmi.addmedia [options] --distrib --mirrorlist <url>\n"
+"usage: urpmi.addmedia [options] --mirrorlist <url> <name> <relative path>\n"
+"\n"
+"examples:\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"  urpmi.addmedia --distrib --zeroconf\n"
+"\n"
 "\n"
 "and [options] are from\n"
 msgstr ""
-"uso: urpmi.addmedia [opções] <nome> <url> [with <caminho_relativo>]\n"
+"uso: urpmi.addmedia [opções] <nome> <url>\n"
 "onde <url> é um entre:\n"
-"       [file:/]/<caminho_para_arquivo> with <nome_relativo_de_hdlist>\n"
-"       ftp://<login>:<senha>@<máquina>/<caminho> with "
-"<nome_relativo_de_hdlist>\n"
-"       ftp://<máquina>/<caminho> with <nome_relativo_de_hdlist>\n"
-"       http://<máquina>/<caminho> with <nome_relativo_de_hdlist>\n"
-"       removable://<caminho>\n"
+"       [file:/]/<caminho_para_arquivo>\n"
+"       ftp://<login>:<senha>@<máquina>/<caminho>\n"
+"       ftp://<máquina>/<caminho>\n"
+"       http://<máquina>/<caminho>\n"
+"       cdrom://<caminho>\n"
 "\n"
-"e [opções] são\n"
+"uso: urpmi.addmedia [opções] --distrib --mirrorlist <url>\n"
+"uso: urpmi.addmedia [opções] --mirrorlist <url> <nome> <caminho relativo>\n"
+"\n"
+"exemplos:\n"
+"\n"
+"  urpmi.addmedia --distrib --mirrorlist '$MIRRORLIST'\n"
+"  urpmi.addmedia --mirrorlist '$MIRRORLIST' backports media/main/backports\n"
+"\n"
+"\n"
+"e [opções] vêm de\n"
 
-#: ../urpmi.addmedia:52
-msgid "  --update       - create an update medium.\n"
-msgstr "  --update       - cria uma mídia de atualização.\n"
+#: ../urpmi.addmedia:56 ../urpmi.update:33 ../urpmq:75
+#, c-format
+msgid "  --wget         - use wget to retrieve distant files.\n"
+msgstr "  --wget         - usa wget para baixar os dados.\n"
 
-#: ../urpmi.addmedia:53
-msgid "  --probe-synthesis - try to find and use synthesis file.\n"
-msgstr "  --probe-synthesis - tente encontrar e usar o arquivo síntese.\n"
+#: ../urpmi.addmedia:57 ../urpmi.update:34 ../urpmq:76
+#, c-format
+msgid "  --curl         - use curl to retrieve distant files.\n"
+msgstr "  --curl         - usa curl para baixar os dados.\n"
 
-#: ../urpmi.addmedia:54
-msgid "  --probe-hdlist - try to find and use hdlist file.\n"
-msgstr "  --probe-hdlist - tenta procurar e usar arquivo 'hdlist' \n"
+#: ../urpmi.addmedia:58 ../urpmi.update:35 ../urpmq:77
+#, c-format
+msgid "  --prozilla     - use prozilla to retrieve distant files.\n"
+msgstr "  --prozilla     - use prozilla para baixar os dados.\n"
 
-#: ../urpmi.addmedia:55
+#: ../urpmi.addmedia:59 ../urpmi.update:36
+#, c-format
+msgid "  --aria2        - use aria2 to retrieve distant files.\n"
+msgstr "  --aria2        - use o aria2 para baixar os dados.\n"
+
+#: ../urpmi.addmedia:66
+#, c-format
 msgid ""
-"  --no-probe     - do not try to find any synthesis or\n"
-"                   hdlist file.\n"
+"  --update       - create an update medium, \n"
+"                   or discard non-update media (when used with --distrib)\n"
 msgstr ""
-"  --no-probe     - não tentar procurar qualquer arquivo de síntese\n"
-"                   ou arquivo 'hdlist'.\n"
+"  --update       - cria uma mídia de atualização, \n"
+"                   ou descarta mídias que não sejam de atualização (quando "
+"usado com a opção --distrib)\n"
 
-#: ../urpmi.addmedia:57
+#: ../urpmi.addmedia:68
+#, c-format
+msgid ""
+"  --xml-info     - use the specific policy for downloading xml info files\n"
+"                   one of: never, on-demand, update-only, always. cf urpmi."
+"cfg(5)\n"
+msgstr ""
+"  --xml-info     - usar uma política específica para transferir arquivos\n"
+"                   xmlinfo uma de: never, on-demand, update-only, always.cf "
+"urpmi.cfg(5)\n"
+
+#: ../urpmi.addmedia:70
+#, c-format
+msgid "  --probe-synthesis - use synthesis file.\n"
+msgstr "  --probe-synthesis - use o arquivo synthesis.\n"
+
+#: ../urpmi.addmedia:71
+#, c-format
+msgid "  --probe-rpms   - use rpm files (instead of synthesis).\n"
+msgstr "  --probe-rpms   - use arquivos rpm (ao invés de synthesis).\n"
+
+#: ../urpmi.addmedia:72
+#, c-format
+msgid "  --no-probe     - do not try to find any synthesis file.\n"
+msgstr "  --no-probe     - não tentar procurar qualquer arquivo synthesis.\n"
+
+#: ../urpmi.addmedia:74
+#, c-format
 msgid ""
 "  --distrib      - automatically create all media from an installation\n"
 "                   medium.\n"
 msgstr ""
-"  --distrib      - automaticamente cria todas as mídias a partir de uma "
-"mídia\n"
-"                   de instalação.\n"
+"  --distrib      - automaticamente cria todas as mídias a partir de uma\n"
+"                   mídia de instalação.\n"
 
-#: ../urpmi.addmedia:59
+#: ../urpmi.addmedia:76
 #, c-format
-msgid ""
-"  --from         - use specified url for list of mirrors, the default is\n"
-"                   %s\n"
-msgstr ""
-"  --from         - usa um endereço url específico como lista de espelhos,\n"
-"                   o padrão é %s\n"
+msgid "  --interactive  - with --distrib, ask confirmation for each media\n"
+msgstr "  --interactive  - com --distrib, pede a confirmação para cada mídia\n"
 
-#: ../urpmi.addmedia:61
-msgid ""
-"  --virtual      - create virtual media wich are always up-to-date,\n"
-"                   only file:// protocol is allowed.\n"
-msgstr ""
-"  --virtual      - cria uma mídia virtual que será sempre atualizada,\n"
-"                   apenas o protocolo 'file://' é permitido.\n"
+#: ../urpmi.addmedia:77
+#, c-format
+msgid "  --all-media    - with --distrib, add every listed media\n"
+msgstr "  --all-media    - com --distrib, adiciona todas as mídias listadas\n"
 
-#: ../urpmi.addmedia:63 ../urpmi.update:40
+#: ../urpmi.addmedia:78
+#, c-format
+msgid "  --virtual      - create virtual media wich are always up-to-date.\n"
+msgstr ""
+"  --virtual      - cria mídias virtuais que estão sempre atualizadas.\n"
+
+#: ../urpmi.addmedia:79 ../urpmi.update:44
+#, c-format
 msgid "  --no-md5sum    - disable MD5SUM file checking.\n"
 msgstr "  --no-md5sum    - desabilita checagem de arquivo com MD5SUM.\n"
 
-#: ../urpmi.addmedia:65
+#: ../urpmi.addmedia:80
+#, c-format
 msgid "  --nopubkey     - don't import pubkey of added media\n"
 msgstr "  --nopubkey     - não importa chave pública da mídia adicionada\n"
 
-#: ../urpmi.addmedia:66
-msgid "  --raw          - add the media in config, but don't update it.\n"
-msgstr ""
-"  --raw          - adiciona a mídia a configuração, mas não atualiza ela.\n"
-
-#: ../urpmi.addmedia:67 ../urpmi.removemedia:56 ../urpmi.update:46
-msgid "  -c             - clean headers cache directory.\n"
-msgstr "  -c             - limpa o diretório dos cabeçalhos de cache.\n"
-
-#: ../urpmi.addmedia:68 ../urpmi.update:47
-msgid "  -f             - force generation of hdlist files.\n"
-msgstr "  -f             - força a geração de arquivos 'hdlist'.\n"
-
-#: ../urpmi.addmedia:80
+#: ../urpmi.addmedia:81
 #, c-format
-msgid "unable to update medium \"%s\"\n"
-msgstr "incapaz de atualizar mídia \"%s\"\n"
+msgid "  --raw          - add the media in config, but don't update it.\n"
+msgstr "  --raw          - adiciona a mídia à configuração, sem atualizá-la.\n"
 
-#: ../urpmi.addmedia:113
-msgid "Only superuser is allowed to add media"
-msgstr "Apenas super usuário tem permissão para instalar pacotes"
+#: ../urpmi.addmedia:82 ../urpmi.removemedia:43 ../urpmi.update:53
+#, c-format
+msgid "  -q             - quiet mode.\n"
+msgstr "  -q             - modo silencioso (não informativo).\n"
+
+#: ../urpmi.addmedia:83 ../urpmi.removemedia:44 ../urpmi.update:54
+#, c-format
+msgid "  -v             - verbose mode.\n"
+msgstr "  -v             - modo detalhado.\n"
+
+#: ../urpmi.addmedia:96
+#, c-format
+msgid "known xml-info policies are %s"
+msgstr "políticas xml-info conhecidas são %s"
+
+#: ../urpmi.addmedia:107
+#, c-format
+msgid "no argument needed for --distrib --mirrorlist <url>"
+msgstr "nenhum argumento necessário para --distrib --mirrorlist <url>"
+
+#: ../urpmi.addmedia:112
+#, c-format
+msgid "bad <url> (for local directory, the path must be absolute)"
+msgstr "<url> inválida (para diretório local o caminho deve ser absoluto)"
 
 #: ../urpmi.addmedia:116
 #, c-format
-msgid "Will create config file [%s]"
-msgstr "Criando o arquivo de configuração [%s]"
+msgid "Only superuser is allowed to add media"
+msgstr "Apenas o super usuário tem permissão para adicionar mídias"
 
-#: ../urpmi.addmedia:117
+#: ../urpmi.addmedia:119
+#, c-format
+msgid "creating config file [%s]"
+msgstr "criando arquivo de configuração [%s]"
+
+#: ../urpmi.addmedia:120
 #, c-format
 msgid "Can't create config file [%s]"
 msgstr "Não foi possível criar o arquivo de configuração [%s]"
 
-#: ../urpmi.addmedia:124
-msgid "no need to give <relative path of hdlist> with --distrib"
-msgstr "não precisa dar <caminho relativo do hdlist> com --distrib"
-
-#: ../urpmi.addmedia:145
-msgid "<relative path of hdlist> missing\n"
-msgstr "<caminho relativo do hdlist> faltando\n"
-
-#: ../urpmi.addmedia:147
-msgid "`with' missing for network media\n"
-msgstr "`with' faltando para mídia da rede\n"
-
-#: ../urpmi.addmedia:169
+#: ../urpmi.addmedia:128
 #, c-format
-msgid "unable to create medium \"%s\"\n"
-msgstr "incapaz de criar mídia \"%s\"\n"
+msgid "no need to give <relative path of synthesis> with --distrib"
+msgstr "não é preciso fornecer <caminho relativo do synthesis> com --distrib"
 
-#: ../urpmi.recover:28
+#: ../urpmi.addmedia:136
 #, c-format
 msgid ""
+"\n"
+"Do you want to add media '%s'?"
+msgstr ""
+"\n"
+"Você deseja adicionar a mídia '%s'?"
+
+#: ../urpmi.addmedia:155 ../urpmi.addmedia:179
+#, c-format
+msgid "unable to add medium"
+msgstr "incapaz de adicionar mídia"
+
+#: ../urpmi.addmedia:163
+#, c-format
+msgid "<relative path of synthesis> missing\n"
+msgstr "<caminho relativo do synthesis> faltando\n"
+
+#: ../urpmi.addmedia:166
+#, c-format
+msgid "Can't use %s with remote medium"
+msgstr "Não se pode usar %s com mídia remota"
+
+#: ../urpmi.recover:28
+#, fuzzy, c-format
+msgid ""
 "urpmi.recover version %s\n"
-"Copyright (C) 2006 Mandriva.\n"
+"Copyright (C) 2006-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -2112,28 +2831,33 @@ msgstr ""
 "uso:\n"
 
 #: ../urpmi.recover:34
+#, c-format
 msgid "  --checkpoint   - set repackaging start now\n"
 msgstr "  --checkpoint   - liga início de reempacotamento agora\n"
 
 #: ../urpmi.recover:35
+#, c-format
 msgid "  --noclean      - don't clean repackage directory on checkpoint\n"
 msgstr "  --noclean      - não remove rpms reempacotados no checkpoint.\n"
 
-#: ../urpmi.recover:36
+#: ../urpmi.recover:37
+#, c-format
 msgid ""
 "  --list         - list transactions since provided date/duration argument\n"
 msgstr "  --list         - lista transações desde data/duração fornecida\n"
 
-#: ../urpmi.recover:37
+#: ../urpmi.recover:38
+#, c-format
 msgid "  --list-all     - list all transactions in rpmdb (long)\n"
 msgstr "  --list-all     - lista todas as transações no rpmdb (longo)\n"
 
-#: ../urpmi.recover:38
-#, fuzzy
-msgid "  --list-safe    - list transactions since checkpoint\n"
-msgstr "  --list-all     - lista todas as transações no rpmdb (longo)\n"
-
 #: ../urpmi.recover:39
+#, c-format
+msgid "  --list-safe    - list transactions since checkpoint\n"
+msgstr "  --list-safe     - lista transações feitas desde o checkpoint\n"
+
+#: ../urpmi.recover:40
+#, c-format
 msgid ""
 "  --rollback     - rollback until specified date,\n"
 "                   or rollback the specified number of transactions\n"
@@ -2141,118 +2865,123 @@ msgstr ""
 "  --rollback     - desfazer até a data especificada,\n"
 "                   ou desfazer o número especificado de transações\n"
 
-#: ../urpmi.recover:41
+#: ../urpmi.recover:42
+#, c-format
 msgid "  --disable      - turn off repackaging\n"
 msgstr "  --disable      - desliga reempacotamento\n"
 
-#: ../urpmi.recover:56
+#: ../urpmi.recover:57
 #, c-format
 msgid "Invalid date or duration [%s]\n"
 msgstr "Data ou duração inválida [%s]\n"
 
-#: ../urpmi.recover:64
+#: ../urpmi.recover:65
+#, c-format
 msgid "Repackage directory not defined\n"
 msgstr "Diretório de reempacotamento não definido\n"
 
-#: ../urpmi.recover:67
+#: ../urpmi.recover:68
 #, c-format
 msgid "Can't write to repackage directory [%s]\n"
 msgstr "Não foi possível escrever no diretório de reempacotamento [%s]\n"
 
-#: ../urpmi.recover:69
+#: ../urpmi.recover:70
 #, c-format
 msgid "Cleaning up repackage directory [%s]...\n"
 msgstr "Limpando diretório de reempacotamento [%s]...\n"
 
-#: ../urpmi.recover:71
+#: ../urpmi.recover:72
 #, c-format
-msgid "%d files removed\n"
-msgstr "%d arquivos removidos\n"
+msgid "%d file removed\n"
+msgid_plural "%d files removed\n"
+msgstr[0] "%d arquivo removido\n"
+msgstr[1] "%d arquivos removidos\n"
 
-#: ../urpmi.recover:81
+#: ../urpmi.recover:82
 #, c-format
 msgid "Spurious command-line arguments [%s]\n"
 msgstr "Argumentos espúrios na linha de comando [%s]\n"
 
-#: ../urpmi.recover:83
+#: ../urpmi.recover:84
+#, c-format
 msgid "You can't specify --checkpoint and --rollback at the same time\n"
 msgstr "Não se pode especificar --checkpoint e --rollback ao mesmo tempo\n"
 
-#: ../urpmi.recover:85
+#: ../urpmi.recover:86
+#, c-format
 msgid "You can't specify --checkpoint and --list at the same time\n"
 msgstr "Não se pode especificar --checkpoint e --list ao mesmo tempo\n"
 
-#: ../urpmi.recover:87
+#: ../urpmi.recover:88
+#, c-format
 msgid "You can't specify --rollback and --list at the same time\n"
 msgstr "Não se pode especificar --rollback e --list ao mesmo tempo\n"
 
-#: ../urpmi.recover:89
+#: ../urpmi.recover:90
+#, c-format
 msgid "You can't specify --disable along with another option"
 msgstr "Não se pode especificar --disable junto com outra opção"
 
-#: ../urpmi.recover:114
+#: ../urpmi.recover:115
 #, c-format
 msgid "No transaction found since %s\n"
 msgstr "Nenhuma transação encontrada desde %s\n"
 
-#. - check we're running as root
-#: ../urpmi.recover:129
+#: ../urpmi.recover:130
+#, c-format
 msgid "You must be superuser to do this"
-msgstr "Você deve ser super-usuário para fazer isto"
+msgstr "Você deve ser superusuário para fazer isto"
 
-#. - write rpm config file
-#: ../urpmi.recover:142 ../urpmi.recover:208
+#: ../urpmi.recover:143 ../urpmi.recover:209
 #, c-format
 msgid "Writing rpm macros file [%s]...\n"
 msgstr "Escrevendo arquivo de macros rpm [%s]...\n"
 
-#: ../urpmi.recover:184
+#: ../urpmi.recover:185
+#, c-format
 msgid "No rollback date found\n"
 msgstr "Data de desfazimento não encontrada\n"
 
-#: ../urpmi.recover:187
+#: ../urpmi.recover:188
 #, c-format
 msgid "Rollback until %s...\n"
 msgstr "Desfazer até %s...\n"
 
-#: ../urpmi.recover:194
+#: ../urpmi.recover:195
+#, c-format
 msgid "Disabling repackaging\n"
 msgstr "Desabilitando reempacotamento\n"
 
-#: ../urpmi.removemedia:52
+#: ../urpmi.removemedia:38
+#, c-format
 msgid ""
-"usage: urpmi.removemedia [-a] <name> ...\n"
+"usage: urpmi.removemedia (-a | <name> ...)\n"
 "where <name> is a medium name to remove.\n"
 msgstr ""
-"uso: urpmi.removemedia [-a] <nome> ...\n"
+"uso: urpmi.removemedia (-a | <nome> ...)\n"
 "onde <nome> é um nome de mídia para remover.\n"
 
-#: ../urpmi.removemedia:55
+#: ../urpmi.removemedia:41
+#, c-format
 msgid "  -a             - select all media.\n"
 msgstr "  -a             - seleciona todas as mídias.\n"
 
-#: ../urpmi.removemedia:57
-msgid "  -y             - fuzzy match on media names.\n"
-msgstr "  -y             - seleciona mídias com nomes semelhantes.\n"
-
-#: ../urpmi.removemedia:60
+#: ../urpmi.removemedia:42
 #, c-format
-msgid ""
-"\n"
-"unknown options '%s'\n"
-msgstr ""
-"\n"
-"Opcões desconhecidas '%s'\n"
+msgid "  -y             - fuzzy match on media names.\n"
+msgstr "  -y             - seleciona mídias com nomes aproximados.\n"
 
-#: ../urpmi.removemedia:70
+#: ../urpmi.removemedia:59
+#, c-format
 msgid "Only superuser is allowed to remove media"
-msgstr "Apenas super usuário tem permissão para remover mídia"
+msgstr "Apenas super usuário tem permissão para remover mídias"
 
-#: ../urpmi.removemedia:81
+#: ../urpmi.removemedia:71
+#, c-format
 msgid "nothing to remove (use urpmi.addmedia to add a media)\n"
-msgstr "nada para remover (use urpmi.addmedia para adicionar uma mídia)\n"
+msgstr "nada a remover (use urpmi.addmedia para adicionar uma mídia)\n"
 
-#: ../urpmi.removemedia:83
+#: ../urpmi.removemedia:77
 #, c-format
 msgid ""
 "the entry to remove is missing\n"
@@ -2261,7 +2990,8 @@ msgstr ""
 "a entrada para remover está faltando\n"
 "(um de %s)\n"
 
-#: ../urpmi.update:29
+#: ../urpmi.update:30
+#, c-format
 msgid ""
 "usage: urpmi.update [options] <name> ...\n"
 "where <name> is a medium name to update.\n"
@@ -2269,35 +2999,58 @@ msgstr ""
 "uso: urpmi.update [opções] <nome> ...\n"
 "onde <nome> é um nome de mídia para atualizar.\n"
 
-#: ../urpmi.update:39
+#: ../urpmi.update:43
+#, c-format
 msgid "  --update       - update only update media.\n"
-msgstr "  --update       - atualize somente a mídia de atualizações.\n"
+msgstr "  --update       - atualize somente as mídia de atualizações.\n"
 
-#: ../urpmi.update:41
+#: ../urpmi.update:45
+#, c-format
 msgid "  --force-key    - force update of gpg key.\n"
 msgstr "  --force-key    - força atualização da chave gpg.\n"
 
-#: ../urpmi.update:43
+#: ../urpmi.update:46
+#, c-format
 msgid "  --ignore       - don't update, mark the media as ignored.\n"
 msgstr "  --ignore       - não atualiza, marca a mídia para ser ignorada.\n"
 
-#: ../urpmi.update:44
+#: ../urpmi.update:47
+#, c-format
 msgid "  --no-ignore    - don't update, mark the media as enabled.\n"
-msgstr "  --no-ignore    - não atualizar, marcar a media como habilitada.\n"
+msgstr "  --no-ignore    - não atualizar, marcar a mídia como habilitada.\n"
 
-#: ../urpmi.update:45
-msgid "  -a             - select all non-removable media.\n"
+#: ../urpmi.update:49
+#, c-format
+msgid "  --probe-rpms   - do not use synthesis, use rpm files directly\n"
+msgstr ""
+"  --probe-rpms   - não usar synthesis, usando arquivos rpm diretamente\n"
+
+#: ../urpmi.update:50
+#, fuzzy, c-format
+msgid "  -a             - select all enabled non-removable media.\n"
 msgstr "  -a             - seleciona todas as mídias não removíveis.\n"
 
-#: ../urpmi.update:68
+#: ../urpmi.update:51
+#, c-format
+msgid "  -f             - force updating synthesis\n"
+msgstr "  -f             - força a atualização de synthesis\n"
+
+#: ../urpmi.update:52
+#, c-format
+msgid "  -ff            - really force updating synthesis\n"
+msgstr "  -ff            - realmente força a atualização de synthesis\n"
+
+#: ../urpmi.update:69
+#, c-format
 msgid "Only superuser is allowed to update media"
-msgstr "Apenas super usuário tem permissão para atualizar mídia"
+msgstr "Apenas o super usuário tem permissão para atualizar mídia"
 
-#: ../urpmi.update:76
+#: ../urpmi.update:86
+#, c-format
 msgid "nothing to update (use urpmi.addmedia to add a media)\n"
-msgstr "nada para atualizar (use urpmi.addmedia para adicionar uma mídia)\n"
+msgstr "nada a atualizar (use urpmi.addmedia para adicionar uma mídia)\n"
 
-#: ../urpmi.update:94
+#: ../urpmi.update:87
 #, c-format
 msgid ""
 "the entry to update is missing\n"
@@ -2313,19 +3066,19 @@ msgstr "\"%s\""
 
 #: ../urpmi.update:99
 #, c-format
-msgid "enabling media %s"
-msgstr "habilitando mídia \"%s\""
+msgid "ignoring media %s"
+msgstr "ignorando mídia \"%s\""
 
 #: ../urpmi.update:99
 #, c-format
-msgid "ignoring media %s"
-msgstr "Ignorando mídia \"%s\":"
+msgid "enabling media %s"
+msgstr "habilitando mídia \"%s\""
 
-#: ../urpmq:39
-#, c-format
+#: ../urpmq:40
+#, fuzzy, c-format
 msgid ""
 "urpmq version %s\n"
-"Copyright (C) 2000-2006 Mandriva.\n"
+"Copyright (C) 2000-2010 Mandriva.\n"
 "This is free software and may be redistributed under the terms of the GNU "
 "GPL.\n"
 "\n"
@@ -2338,7 +3091,8 @@ msgstr ""
 "\n"
 "uso:\n"
 
-#: ../urpmq:47
+#: ../urpmq:48
+#, c-format
 msgid ""
 "  --searchmedia  - use only the given media to search requested (or updated) "
 "packages.\n"
@@ -2346,56 +3100,78 @@ msgstr ""
 "  --searchmedia  - usa apenas a mídia fornecida para buscar pacotes (ou\n"
 "                   atualizações).\n"
 
-#: ../urpmq:52
+#: ../urpmq:53
+#, c-format
+msgid "  --auto-orphans - list orphans\n"
+msgstr "  --auto-orphans - lista pacotes órfãos\n"
+
+#: ../urpmq:54
+#, c-format
+msgid ""
+"  --not-available\n"
+"                 - list installed packages not available on any media.\n"
+msgstr ""
+"  --not-available\n"
+"                 - lista pacotes instalados mas não presentes nas midias.\n"
+
+#: ../urpmq:57
+#, c-format
 msgid "  --fuzzy        - impose fuzzy search (same as -y).\n"
 msgstr "  --fuzzy        - impõe uma busca aproximada (igual a -y).\n"
 
-#: ../urpmq:55
+#: ../urpmq:60
+#, c-format
 msgid "  --list         - list available packages.\n"
 msgstr "  --list         - lista os pacotes disponíveis.\n"
 
-#: ../urpmq:56
+#: ../urpmq:61
+#, c-format
 msgid "  --list-media   - list available media.\n"
-msgstr "  --list-media   - lista as mídias disponíveis\n"
+msgstr "  --list-media   - lista as mídias disponíveis.\n"
 
-#: ../urpmq:57
+#: ../urpmq:62
+#, c-format
 msgid "  --list-url     - list available media and their url.\n"
 msgstr "  --list-url     - lista mídias disponíveis e suas url's.\n"
 
-#: ../urpmq:58
+#: ../urpmq:63
+#, c-format
 msgid "  --list-nodes   - list available nodes when using --parallel.\n"
 msgstr ""
 "  --list-nodes   - lista os nós disponíveis quando  --parallel é usada.\n"
 
-#: ../urpmq:59
+#: ../urpmq:64
+#, c-format
 msgid "  --list-aliases - list available parallel aliases.\n"
 msgstr "  --list-aliases - lista os apelidos paralelos disponíveis\n"
 
-#: ../urpmq:60
+#: ../urpmq:65
+#, c-format
 msgid ""
 "  --dump-config  - dump the config in form of urpmi.addmedia argument.\n"
 msgstr ""
 "  --dump-config  - mostrar a configuração como argumentos para o\n"
 "                   urpmi.addmedia.\n"
 
-#: ../urpmq:61
+#: ../urpmq:66
+#, c-format
 msgid "  --src          - next package is a source package (same as -s).\n"
 msgstr ""
 "  --src          - o próximo pacote é um pacote fonte (o mesmo que -s).\n"
 
-#: ../urpmq:62
-msgid ""
-"  --sources      - give all source packages before downloading (root only).\n"
-msgstr ""
-"  --sources      - fornece todos os pacotes fonte antes de baixar\n"
-"                   (somente root).\n"
+#: ../urpmq:67
+#, fuzzy, c-format
+msgid "  --sources      - print source URLs of selected packages\n"
+msgstr "  --src, -s      - o próximo pacote é um pacote fonte.\n"
 
-#: ../urpmq:64
+#: ../urpmq:69
+#, c-format
 msgid "  --ignorearch   - allow to query rpms for unmatched architectures.\n"
 msgstr ""
 "  --ignorearch   - permite consultar pacotes de arquiteturas divergentes.\n"
 
-#: ../urpmq:66
+#: ../urpmq:73
+#, c-format
 msgid ""
 "  --use-distrib  - configure urpmi on the fly from a distrib tree.\n"
 "                   This permit to querying a distro.\n"
@@ -2404,155 +3180,692 @@ msgstr ""
 "                   distribuição. Isso permite consultar essa\n"
 "                   distribuição.\n"
 
-#: ../urpmq:75
+#: ../urpmq:83
+#, c-format
 msgid "  --changelog    - print changelog.\n"
 msgstr "  --changelog    - imprime 'changelog'.\n"
 
-#: ../urpmq:76
+#: ../urpmq:84
+#, c-format
+msgid "  --conflicts    - print conflicts.\n"
+msgstr "  --conflicts    - lista conflitos.\n"
+
+#: ../urpmq:85
+#, c-format
+msgid "  --obsoletes    - print obsoletes.\n"
+msgstr "  --obsoletes    - exibir obsoletos.\n"
+
+#: ../urpmq:86
+#, c-format
+msgid "  --provides     - print provides.\n"
+msgstr "  --provides     - lista provides.\n"
+
+#: ../urpmq:87
+#, c-format
+msgid "  --requires     - print requires.\n"
+msgstr "  --requires     - lista requires.\n"
+
+#: ../urpmq:88
+#, c-format
+msgid "  --suggests     - print suggests.\n"
+msgstr "  --suggests     - exibir sugestões\n"
+
+#: ../urpmq:89
+#, c-format
+msgid "  --sourcerpm    - print sourcerpm.\n"
+msgstr "  --sourcerpm    - lista o pacote fonte do rpm\n"
+
+#: ../urpmq:90
+#, c-format
 msgid "  --summary, -S  - print summary.\n"
 msgstr "  --summary, -S  - imprime sumário.\n"
 
-#: ../urpmq:78
+#: ../urpmq:92
+#, c-format
+msgid ""
+"  --requires-recursive, -d\n"
+"                   - query package dependencies.\n"
+msgstr ""
+"  --requires-recursive, -d\n"
+"                   - consulta dependências de pacote.\n"
+
+#: ../urpmq:94
+#, c-format
+msgid "  --whatrequires - reverse search to what requires package.\n"
+msgstr "  --whatrequires - busca reversa para o que requer o pacote.\n"
+
+#: ../urpmq:95
+#, c-format
+msgid ""
+"  --whatrequires-recursive\n"
+"                   - extended reverse search (includes virtual packages).\n"
+msgstr ""
+"  --whatrequires-recursive\n"
+"                   - busca reversa extendida (inclui pacotes virtuais).\n"
+
+#: ../urpmq:97
+#, c-format
+msgid ""
+"  --whatprovides, -p\n"
+"                   - search in provides to find package.\n"
+msgstr ""
+"  --whatprovides, -p\n"
+"                   - permite a busca em provides para encontrar o pacote.\n"
+
+#: ../urpmq:100
+#, c-format
 msgid "  -c             - complete output with package to be removed.\n"
 msgstr "  -c             - lista completa dos pacotes a remover.\n"
 
-#: ../urpmq:79
-msgid "  -d             - extend query to package dependencies.\n"
-msgstr ""
-"  -d             - estende a consulta para as dependências dos pacotes.\n"
-
-#: ../urpmq:81
+#: ../urpmq:102
+#, c-format
 msgid "  -g             - print groups with name also.\n"
 msgstr "  -g             - imprime grupos, com nome também.\n"
 
-#: ../urpmq:82
+#: ../urpmq:103
+#, c-format
 msgid "  -i             - print useful information in human readable form.\n"
 msgstr ""
 "  -i             - imprime informações úteis em formato que pode ser lido\n"
 
-#: ../urpmq:83
+#: ../urpmq:104
+#, c-format
 msgid "  -l             - list files in package.\n"
 msgstr "  -l             - lista os arquivos do pacote.\n"
 
-#: ../urpmq:84
-msgid ""
-"  -P             - do not search in provides to find package (default).\n"
-msgstr ""
-"  -P             - não procure em 'repositórios' para encontrar o pacote.\n"
+#: ../urpmq:105
+#, c-format
+msgid "  -m             - equivalent to -du\n"
+msgstr "  -m             - equivalente a -du\n"
 
-#: ../urpmq:85
-msgid "  -p             - search in provides to find package.\n"
-msgstr ""
-"  -p             - permite a busca em 'repositórios para encontrar o "
-"pacote.\n"
-
-#: ../urpmq:86
+#: ../urpmq:106
+#, c-format
 msgid "  -r             - print version and release with name also.\n"
 msgstr "  -r             - imprime versão e 'release' com nome também.\n"
 
-#: ../urpmq:87
-msgid "  -R             - reverse search to what requires package.\n"
-msgstr "  -R             - busca reversa para o que requer o pacote.\n"
-
-#: ../urpmq:88
-msgid ""
-"  -RR            - extended reverse search (includes virtual packages).\n"
-msgstr ""
-"  -RR            - busca reversa extendida (inclui pacotes virtuais).\n"
-
-#: ../urpmq:89
+#: ../urpmq:107
+#, c-format
 msgid "  -s             - next package is a source package (same as --src).\n"
 msgstr ""
 "  -s             - o próximo pacote é um pacote fonte (o mesmo que --src).\n"
 
-#: ../urpmq:90
+#: ../urpmq:108
+#, c-format
 msgid ""
 "  -u             - remove package if a more recent version is already "
 "installed.\n"
 msgstr ""
 "  -u             - remove um pacote se uma versão mais atual\n"
-"                   já estiver instalada.\n"
+"                 já estiver instalada.\n"
 
-#: ../urpmq:92
+#: ../urpmq:109
+#, c-format
 msgid "  -y             - impose fuzzy search (same as --fuzzy).\n"
 msgstr "  -y             - impõe uma busca aproximada (igual a --fuzzy).\n"
 
-#: ../urpmq:93
+#: ../urpmq:110
+#, c-format
 msgid "  -Y             - like -y, but forces to match case-insensitively.\n"
 msgstr ""
 "  -Y             - como -y, ignorando a distinção de maiúscula/minúscula.\n"
 
-#: ../urpmq:94
+#: ../urpmq:111
+#, c-format
 msgid "  names or rpm files given on command line are queried.\n"
 msgstr " nomes ou arquivos rpm dados na linha de comando são consultados \n"
 
-#: ../urpmq:170
+#: ../urpmq:158
+#, c-format
+msgid "usage: \"urpmq --auto-orphans\" with no argument"
+msgstr "uso: \"urpmq --auto-orphans\" sem argumentos"
+
+#: ../urpmq:211
+#, c-format
 msgid "--list-nodes can only be used with --parallel"
 msgstr "--list-nodes só pode ser usado com --parallel"
 
-#: ../urpmq:327
+#: ../urpmq:235
 #, c-format
-msgid "skipping media %s: no hdlist"
-msgstr "Ignorando a mídia %s: sem hdlist"
+msgid "use -l to list files"
+msgstr "use -l para listar arquivos"
 
-#: ../urpmq:401
-msgid "No filelist found\n"
-msgstr "Lista de arquivos não encontrada \n"
+#: ../urpmq:420
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for package %s"
+msgstr "sem xml info para a mídia \"%s\", resultado parcial para o pacote %s"
 
-#: ../urpmq:413
+#: ../urpmq:421
+#, c-format
+msgid "no xml info for medium \"%s\", only partial result for packages %s"
+msgstr "sem xml info para a mídia \"%s\", resultado parcial para os pacotes %s"
+
+#: ../urpmq:424
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for package %s"
+msgstr ""
+"sem xml info para a mídia \"%s\", incapaz de retornar resultados para %s"
+
+#: ../urpmq:425
+#, c-format
+msgid ""
+"no xml info for medium \"%s\", unable to return any result for packages %s"
+msgstr ""
+"sem xml info para a mídia \"%s\", incapaz de retornar resultados para %s"
+
+#: ../urpmq:492
+#, c-format
 msgid "No changelog found\n"
 msgstr "Arquivo com as alterações não foi encontrado \n"
 
-#~ msgid "Search"
-#~ msgstr "Procurar"
+#: ../gurpmi.desktop.in.h:1
+msgid "Software Installer"
+msgstr "Instalador de Programas"
 
-#~ msgid "Is this OK?"
-#~ msgstr "Tudo bem?"
-
-#~ msgid ""
-#~ "  --version      - use specified distribution version, the default is "
-#~ "taken\n"
-#~ "                   from the version of the distribution told by the\n"
-#~ "                   installed mandriva-release package.\n"
-#~ msgstr ""
-#~ "  --version      - usa a versão especificada, o padrão é a versão do\n"
-#~ "                   pacote 'mandriva-release' instalado.\n"
+#: ../gurpmi.desktop.in.h:2
+msgid "Graphical front end to install RPM files"
+msgstr "Interface gráfica para instalar pacotes RPM"
 
 #~ msgid ""
-#~ "  --arch         - use specified architecture, the default is arch of\n"
-#~ "                   mandriva-release package installed.\n"
+#~ "Installation failed, some files are missing:\n"
+#~ "%s\n"
+#~ "You may want to update your urpmi database"
 #~ msgstr ""
-#~ "  --arch         - usa a arquitetura especificada, o padrão é a "
-#~ "arquitetura\n"
-#~ "                   especificada no pacote 'mandriva-release' instalado.\n"
+#~ "Instalação falhou, alguns arquivos estão faltando:.\n"
+#~ "%s\n"
+#~ "Você deve atualizar a sua base de dados urpmi"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgid ""
+#~ "# Here are logs of your DUDF uploads.\n"
+#~ "# Line format is : <date time of generation> <uid>\n"
+#~ "# You can use uids to see the content of your uploads at this url :\n"
+#~ "# %s"
+#~ msgstr ""
+#~ "# Aqui estão os logs dos seus envios DUDF.\n"
+#~ "# O formato da linha é: <data hora de geração> <uid>\n"
+#~ "# Você pode usar uids para ver o conteúdo dos seus uploads nessa url: \n"
+#~ "# http://dudf.forge.mandriva.com/"
+
+#~ msgid "curl is missing, cannot upload DUDF file.\n"
+#~ msgstr "curl está faltando, não posso enviar o arquivo DUDF.\n"
+
+#~ msgid "Compressing DUDF data... "
+#~ msgstr "Comprimindo dados DUDF..."
+
+#~ msgid "NOT OK\n"
+#~ msgstr "NÃO OK\n"
+
+#~ msgid "OK\n"
+#~ msgstr "OK\n"
+
+#~ msgid "Uploading DUDF data:\n"
+#~ msgstr "Enviando dados DUDF:\n"
 
 #~ msgid ""
-#~ "  --headers      - extract headers for package listed from urpmi db to\n"
-#~ "                   stdout (root only).\n"
+#~ "\n"
+#~ "You can see your DUDF report at the following URL :\n"
+#~ "\t"
 #~ msgstr ""
-#~ "  --headers      - extrai cabeçalhos de pacotes listados, da base de\n"
-#~ "                   dados urpmi para saída padrão (somente root).\n"
+#~ "\n"
+#~ "Você pode ver o seu relatório DUDF na seguinte URL: \n"
+#~ "\t"
 
-#~ msgid "rpm2header utility not found, impossible to use the --header option"
+#~ msgid ""
+#~ "You can access a log of your uploads in\n"
+#~ "\t"
 #~ msgstr ""
-#~ "utilitário rpm2header não encontrado, impossível usar opção --header"
+#~ "Você pode ver um relatório dos seus envios em\n"
+#~ "\t"
+
+#~ msgid ""
+#~ "A problem has been encountered. You can help Mandriva to improve package\n"
+#~ "installation by uploading a DUDF report file.\n"
+#~ "This is a part of the Mancoosi european research project.\n"
+#~ "More at http://www.mancoosi.org\n"
+#~ msgstr ""
+#~ "Um problema foi detectado. Você pode ajudar a Mandriva a melhorar a "
+#~ "instalação \n"
+#~ "de programas enviando um arquivo de relatório DUDF.\n"
+#~ "Isto é parte do projeto de pesquisas europeu Mancoosi.\n"
+#~ "Mais em http://www.mancoosi.org\n"
+
+#~ msgid "Do you want to upload a DUDF report to Mandriva?"
+#~ msgstr "Você deseja enviar para a Mandriva um relatório DUDF ?"
+
+#~ msgid ""
+#~ "\n"
+#~ "Generating DUDF... "
+#~ msgstr ""
+#~ "\n"
+#~ "Gerando DUDF..."
+
+#~ msgid "Cannot write DUDF file.\n"
+#~ msgstr "Impossível gravar arquivo DUDF.\n"
+
+#~ msgid ""
+#~ "  --sources      - give all source packages before downloading (root "
+#~ "only).\n"
+#~ msgstr ""
+#~ "  --sources      - fornece todos os pacotes fonte antes de baixar\n"
+#~ "                   (somente root).\n"
+
+#~ msgid "due to already installed %s"
+#~ msgstr "devido ao pacote já instalado %s"
+
+#~ msgid ""
+#~ "  --from         - use specified url for list of mirrors, the default is\n"
+#~ "                   %s\n"
+#~ msgstr ""
+#~ "  --from         - usa um endereço url específico como lista de "
+#~ "espelhos,\n"
+#~ "                   o padrão é %s\n"
+
+#~ msgid "Updating media...\n"
+#~ msgstr "Atualizando mídias...\n"
+
+#~ msgid "examining %s file"
+#~ msgstr "examinando arquivo %s"
+
+#~ msgid "invalid MD5SUM file"
+#~ msgstr "arquivo inválido de MD5SUM"
+
+#~ msgid "found probed synthesis as %s"
+#~ msgstr "encontrado synthesis como %s"
+
+#~ msgid "  --update       - create an update medium.\n"
+#~ msgstr "  --update       - cria uma mídia de atualização.\n"
+
+#~ msgid "malformed URL: [%s]"
+#~ msgstr "URL mal formada: [%s]"
+
+#~ msgid "sorry, you can't use --install-src to install remote .src.rpm files"
+#~ msgstr ""
+#~ "você não pode usar --install-src para instalar arquivos .src.rpm remotos"
+
+#~ msgid "Error"
+#~ msgstr "Erro"
+
+#~ msgid "%d installation transaction failed"
+#~ msgid_plural "%d installation transactions failed"
+#~ msgstr[0] "%d transação de instalação falhou"
+#~ msgstr[1] "%d transações de instalação falharam"
+
+#~ msgid "Package %s can not be installed"
+#~ msgstr "Pacotes %s já estão instalados"
+
+#~ msgid "Checking to remove the following packages"
+#~ msgstr "Verificando para remover os seguintes pacotes"
+
+#~ msgid "%s database locked"
+#~ msgstr "base de dados bloqueada %s"
+
+#~ msgid ""
+#~ "  --auto         - non-interactive mode, assume default answers to "
+#~ "questions.    --auto\n"
+#~ msgstr ""
+#~ "  --auto         - modo não-interativo, assume respostas padrão para as\n"
+#~ "                   perguntas.\n"
+
+#~ msgid "Unknown option %s"
+#~ msgstr "Opção desconhecida %s"
+
+#~ msgid "too many mount points for removable medium \"%s\""
+#~ msgstr "muitos pontos de montagem para a mídia removível \"%s\""
+
+#~ msgid "Medium \"%s\" is an ISO image, will be mounted on-the-fly"
+#~ msgstr ""
+#~ "A mídia \"%s\" é uma imagem ISO e poderá ser montada automaticamente"
+
+#~ msgid "using different removable device [%s] for \"%s\""
+#~ msgstr "usando diferentes dispositivos removíveis [%s] para \"%s\""
+
+#~ msgid "unable to retrieve pathname for removable medium \"%s\""
+#~ msgstr "incapaz de buscar caminhos para mídia removível \"%s\""
+
+#~ msgid "unable to mount the distribution medium"
+#~ msgstr "incapaz de montar a mídia da distribuição"
+
+#~ msgid ""
+#~ "unable to access medium \"%s\",\n"
+#~ "this could happen if you mounted manually the directory when creating the "
+#~ "medium."
+#~ msgstr ""
+#~ "incapaz de acessar a mídia \"%s\",\n"
+#~ "verifique se não é necessário montar manualmente o diretório no qual ela "
+#~ "foi criada."
+
+#~ msgid "inconsistent medium \"%s\" marked removable but not really"
+#~ msgstr "mídia inconsistente \"%s\" marcada como removível, porém não é"
+
+#~ msgid "  -c             - clean headers cache directory.\n"
+#~ msgstr "  -c             - limpa o diretório dos cabeçalhos de cache.\n"
+
+#~ msgid "virtual medium needs to be local"
+#~ msgstr "mídia virtual precisar ser local"
+
+#~ msgid "Error generating names file: Can't write to file (%s)"
+#~ msgstr ""
+#~ "Erro gerando arquivo de nomes: Não foi possível escrever no arquivo (%s)"
+
+#~ msgid "unable to parse synthesis file of \"%s\""
+#~ msgstr "incapaz de atualizar o arquivo hdlist de \"%s\""
+
+#~ msgid "found %d rpm headers in cache, removing %d obsolete headers"
+#~ msgstr "encontrados %d headers rpm no cache, removendo %d headers obsoletos"
+
+#~ msgid "computing md5sum of existing source hdlist (or synthesis) [%s]"
+#~ msgstr "computando md5sum de fonte 'hdlist' existente (ou síntese) [%s]"
+
+#~ msgid ""
+#~ "virtual medium \"%s\" should not have defined hdlist or list file, medium "
+#~ "ignored"
+#~ msgstr ""
+#~ "mídia virtual \"%s\" não contém o arquivo 'hdlist' ou lista de arquivos; "
+#~ "mídia ignorada."
+
+#~ msgid "invalid hdlist name"
+#~ msgstr "nome do hdlist inválido"
+
+#~ msgid "unable to find list file for \"%s\", medium ignored"
+#~ msgstr "incapaz de encontrar a lista para \"%s\", mídia ignorada."
+
+#~ msgid "\"synthesis\" should not be set (medium \"%s\")"
+#~ msgstr "\"synthesis\" não deve estar configurado (mídia \"%s\")"
+
+#~ msgid "\"synthesis\" should be set (medium \"%s\")"
+#~ msgstr "\"synthesis\" deve estar configurado (mídia \"%s\")"
+
+#~ msgid "unable to access list file of \"%s\""
+#~ msgstr "incapaz de acessar lista de \"%s\""
+
+#~ msgid "medium \"%s\" trying to use an already used hdlist, medium ignored"
+#~ msgstr "mídia \"%s\" tentou usar um 'hdlist' já usado, mídia ignorada"
+
+#~ msgid "medium \"%s\" trying to use an already used list, medium ignored"
+#~ msgstr "mídia \"%s\" tentou usar uma lista já usada, mídia ignorada."
+
+#~ msgid "wrote %s"
+#~ msgstr "escrito %s"
+
+#~ msgid ""
+#~ "Note: no hdlist for medium \"%s\", unable to return any result for it"
+#~ msgstr ""
+#~ "Nota: sem hdlist para a mídia \"%s\", incapaz de retornar qualquer "
+#~ "resultado"
+
+#~ msgid "performing second pass to compute dependencies\n"
+#~ msgstr "fazendo segundo passo para calcular dependências\n"
+
+#~ msgid "building hdlist [%s]"
+#~ msgstr "Construindo 'hdlist' [%s]"
+
+#~ msgid ""
+#~ "Unable to build synthesis file for medium \"%s\". Your hdlist file may be "
+#~ "corrupted."
+#~ msgstr ""
+#~ "Não foi possível construir o arquivo synthesis para a mídia \"%s\". O "
+#~ "arquivo hdlist pode estar corrompido."
+
+#~ msgid "problem reading hdlist or synthesis file of medium \"%s\""
+#~ msgstr "problema lendo arquivo hdlist ou síntese da mídia \"%s\""
+
+#~ msgid "computing md5sum of copied source hdlist (or synthesis)"
+#~ msgstr "computando o md5sum de uma fonte 'hdlist' copiada (ou síntese)"
+
+#~ msgid "...retrieving failed: md5sum mismatch"
+#~ msgstr "   A aquisição falhou: assinatura md5sum diferente"
+
+#~ msgid "no rpm files found from [%s]"
+#~ msgstr "nenhum arquivo rpm encontrado em [%s]"
+
+#~ msgid "unable to read rpm files from [%s]: %s"
+#~ msgstr "incapaz de ler os arquivos rpm de: [%s]: %s"
+
+#~ msgid "no rpms read"
+#~ msgstr "nenhum rpm lido"
+
+#~ msgid "reading headers from medium \"%s\""
+#~ msgstr "lendo cabeçalhos da mídia \"%s\""
+
+#~ msgid "    --probe-synthesis - use synthesis file.\n"
+#~ msgstr "    --probe-synthesis - use o arquivo síntese.\n"
+
+#~ msgid "    --probe-hdlist - use hdlist file.\n"
+#~ msgstr "    --probe-hdlist - use arquivo hdlist.\n"
+
+#~ msgid ""
+#~ "Note: since no media searched uses hdlists, urpmf was unable to return "
+#~ "any result\n"
+#~ msgstr ""
+#~ "Nota:  se nenhuma mídia encontrada usando hdlists, o urpmf é incapaz de "
+#~ "retornar qualquer resultado\n"
+
+#~ msgid "You may want to use --name to search for package names.\n"
+#~ msgstr "Você poderá usar --name para procurar pelo nome pacote.\n"
+
+#~ msgid "  --probe-hdlist - use hdlist file.\n"
+#~ msgstr "  --probe-hdlist - use arquivo hdlist.\n"
+
+#~ msgid "unable to update medium \"%s\"\n"
+#~ msgstr "incapaz de atualizar mídia \"%s\"\n"
+
+#~ msgid "unable to create medium \"%s\"\n"
+#~ msgstr "incapaz de criar mídia \"%s\"\n"
+
+#~ msgid "there are multiple packages with the same rpm filename \"%s\""
+#~ msgstr "existem múltiplos pacotes com o mesmo nome rpm \"%s\""
+
+#~ msgid "unable to correctly parse [%s] on value \"%s\""
+#~ msgstr "incapaz de ler corretamente [%s] no valor \"%s\""
+
+#~ msgid "(retry as root?)"
+#~ msgstr "(tentar novamente como root?)"
+
+#~ msgid ""
+#~ "medium \"%s\" uses an invalid list file:\n"
+#~ "  mirror is probably not up-to-date, trying to use alternate method"
+#~ msgstr ""
+#~ "a mídia \"%s\" usa uma lista de arquivos inválida:\n"
+#~ "  o espelho provavelmente não está atualizado, tente usando métodos "
+#~ "alternativos"
+
+#~ msgid "medium \"%s\" does not define any location for rpm files"
+#~ msgstr "a mídia \"%s\" não define uma localização para arquivos rpm"
+
+#~ msgid "unrequested"
+#~ msgstr "não requisitado"
+
+#~ msgid "adding package %s (id=%d, eid=%d, update=%d, file=%s)"
+#~ msgstr "adicionando pacote %s (id=%d, eid=%d, atualização=%d, arquivo=%s)"
+
+#~ msgid ""
+#~ "The following packages have bad signatures:\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Do you want to continue installation ?"
+#~ msgstr ""
+#~ "Os seguintes pacotes possuem assinaturas inválidas:\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Deseja continuar com a instalação?"
+
+#~ msgid "You need to be root to use --use-distrib"
+#~ msgstr "Você precisa ser root para usar --use-distrib"
+
+#~ msgid "unable to remove package %s"
+#~ msgstr "incapaz de remover o pacote %s"
+
+#~ msgid "Proceed with the installation of the %d package? (%d MB)"
+#~ msgid_plural "Proceed with the installation of the %d packages? (%d MB)"
+#~ msgstr[0] "Proceder a instalação de %d pacote? (%d MB)"
+#~ msgstr[1] "Proceder a instalação de %d pacotes? (%d MB)"
+
+#~ msgid "No filelist found\n"
+#~ msgstr "Lista de arquivos não encontrada \n"
+
+#~ msgid "(%d packages, %d MB)"
+#~ msgstr "(%d pacotes, %d MB)"
+
+#~ msgid "medium \"%s\" is not selected"
+#~ msgstr "mídia \"%s\" não está selecionada"
+
+#~ msgid "Remove %d packages?"
+#~ msgstr "Remover %d pacote(s)?"
+
+#~ msgid "Proceed with the installation of 1 package? (%2$d MB)"
+#~ msgid_plural "Proceed with the installation of the %d packages? (%d MB)"
+#~ msgstr[0] "Proceder a instalação de %d pacotes? (%d MB)"
+#~ msgstr[1] "Proceder a instalação de %d pacotes? (%d MB)"
+
+#~ msgid "  -f             - force generation of hdlist files.\n"
+#~ msgstr "  -f             - força a geração de arquivos 'hdlist'.\n"
+
+#~ msgid ""
+#~ "  -P             - do not search in provides to find package (default).\n"
+#~ msgstr ""
+#~ "  -P             - não procure em 'repositórios' para encontrar o "
+#~ "pacote.\n"
+
+#~ msgid "  -R             - reverse search to what requires package.\n"
+#~ msgstr "  -R             - busca reversa para o que requer o pacote.\n"
+
+#~ msgid ""
+#~ "  -RR            - extended reverse search (includes virtual packages).\n"
+#~ msgstr ""
+#~ "  -RR            - busca reversa extendida (inclui pacotes virtuais).\n"
+
+#~ msgid ""
+#~ "To satisfy dependencies, the following package is going to be installed"
+#~ msgid_plural ""
+#~ "To satisfy dependencies, the following packages are going to be installed"
+#~ msgstr[0] ""
+#~ "Para satisfazer as dependências, o seguinte pacote será instalado"
+#~ msgstr[1] ""
+#~ "Para satisfazer as dependências, o seguinte pacote será instalado"
 
 #~ msgid ""
 #~ "To satisfy dependencies, the following %d packages are going to be "
-#~ "installed (%d MB)"
+#~ "installed:\n"
+#~ "%s\n"
 #~ msgstr ""
-#~ "Para satisfazer as dependências, os seguintes %d pacotes serão instalados "
-#~ "(%d MB)"
-
-#~ msgid "installing %s\n"
-#~ msgstr "instalando %s\n"
+#~ "Para satisfazer as dependências, os seguintes %d pacotes serão "
+#~ "instalados:\n"
+#~ "%s\n"
 
 #~ msgid ""
-#~ "Automatic installation of packages...\n"
-#~ "You requested installation of package %s\n"
-#~ msgstr ""
-#~ "Instalação automática de pacotes...\n"
-#~ "Você pediu a instalação do pacote %s\n"
+#~ "To satisfy dependencies, the following packages are going to be installed"
+#~ msgid_plural ""
+#~ "To satisfy dependencies, the following package is going to be installed"
+#~ msgstr[0] ""
+#~ "Para satisfazer as dependências, os seguintes pacotes serão instalados"
+#~ msgstr[1] ""
+#~ "Para satisfazer as dependências, os seguintes pacotes serão instalados"
 
-#~ msgid "%s: command not found\n"
-#~ msgstr "%s: comando não encontrado\n"
+#~ msgid "skipping media %s: no hdlist"
+#~ msgstr "Ignorando a mídia %s: sem hdlist"
+
+#~ msgid "node %s has an old version of urpme, please upgrade"
+#~ msgstr "nó %s tem uma versão antga do urpme, por favor atualize"
+
+#~ msgid "Propagating synthesis to nodes..."
+#~ msgstr "Propagando synthesis para os nós..."
+
+#~ msgid "Resolving dependencies on nodes..."
+#~ msgstr "Resolvendo dependências nos nós..."
+
+#~ msgid "Distributing files to nodes..."
+#~ msgstr "Distribuindo arquivos para os nós..."
+
+#~ msgid "Verifying if install is possible on nodes..."
+#~ msgstr "Verificando se a instalação é possível nos nós..."
+
+#~ msgid "Installing packages on nodes..."
+#~ msgstr "Instalando pacotes nos nós..."
+
+#~ msgid "Propagating synthesis to %s..."
+#~ msgstr "Propagando synthesis para %s..."
+
+#~ msgid "Resolving dependencies on %s..."
+#~ msgstr "Resolvendo dependências em %s..."
+
+#~ msgid "Distributing files to %s..."
+#~ msgstr "Distribuindo arquivos para %s..."
+
+#~ msgid "Verifying if install is possible on %s..."
+#~ msgstr "Verificando se instalação é possível em %s..."
+
+#~ msgid "Performing install on %s..."
+#~ msgstr "Executando instalação em %s..."
+
+#~ msgid "Preparing install on %s..."
+#~ msgstr "Preparando instalação em %s..."
+
+#~ msgid "  --probe-synthesis - try to find and use synthesis file.\n"
+#~ msgstr "  --probe-synthesis - tente encontrar e usar o arquivo síntese.\n"
+
+#~ msgid "  --probe-hdlist - try to find and use hdlist file.\n"
+#~ msgstr "  --probe-hdlist - tenta procurar e usar arquivo 'hdlist' \n"
+
+#~ msgid "`with' missing for network media\n"
+#~ msgstr "`with' faltando para mídia da rede\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "unknown options '%s'\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Opcões desconhecidas '%s'\n"
+
+#~ msgid "unable to find hdlist file for \"%s\", medium ignored"
+#~ msgstr "Incapaz de encontrar arquivo 'hdlist' para \"%s\", mídia ignorada."
+
+#~ msgid "inconsistent list file for \"%s\", medium ignored"
+#~ msgstr "Lista de arquivos incoerente para \"%s\", mídia ignorada"
+
+#~ msgid "unable to inspect list file for \"%s\", medium ignored"
+#~ msgstr "incapaz de inspecionar a lista de arquivos \"%s\", mídia ignorada"
+
+#~ msgid "there doesn't seem to be devices in the chroot in \"%s\""
+#~ msgstr "não parece haver dispositivos no chroot em\"%s\""
+
+#~ msgid "virtual medium \"%s\" is not local, medium ignored"
+#~ msgstr "mídia virtual \"%s\" não é local, mídia ignorada"
+
+#~ msgid ""
+#~ "virtual medium \"%s\" should have valid source hdlist or synthesis, "
+#~ "medium ignored"
+#~ msgstr ""
+#~ "Mídia \"%s\" a fonte fornecida não é válida ('hdlist' ou 'synthesis'), "
+#~ "mídia ignorada."
+
+#~ msgid "copying source hdlist (or synthesis) of \"%s\"..."
+#~ msgstr "copiando fonte 'hdlist' (ou síntese) de \"%s\"..."
+
+#~ msgid "retrieval of source hdlist (or synthesis) failed"
+#~ msgstr "Aquisição da fonte hdlist (ou síntese) falhou"
+
+#~ msgid "file [%s] already used in the same medium \"%s\""
+#~ msgstr "arquivo [%s] já está em uso na mesma mídia \"%s\""
+
+#~ msgid "nothing written in list file for \"%s\""
+#~ msgstr "Nada escrito na lista para \"%s\""
+
+#~ msgid "found %d headers in cache"
+#~ msgstr "Encontrado %d cabeçalhos no cache."
+
+#~ msgid "removing %d obsolete headers in cache"
+#~ msgstr "Removendo %d cabeçalhos obsoletos no cache."
+
+#~ msgid "using process %d for executing transaction"
+#~ msgstr "utilizando processo %d para executar a transação"
+
+#~ msgid "  --norebuild    - don't try to rebuild hdlist if not readable.\n"
+#~ msgstr ""
+#~ "  --norebuild    - não tenta recriar o hdlist se ele não puder ser lido.\n"
+
+#~ msgid "The following package names were assumed: %s"
+#~ msgstr "Os seguintes nomes de pacotes serão assumidos: %s"

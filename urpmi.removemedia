@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-# $Id: urpmi.removemedia,v 1.30 2006/02/13 14:50:54 rgarciasuarez Exp $
+# $Id: urpmi.removemedia 271299 2010-11-21 15:54:30Z peroyvind $
 
 #- Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
-#- Copyright (C) 2005, 2006 Mandriva SA
+#- Copyright (C) 2005-2010 Mandriva SA
 #-
 #- This program is free software; you can redistribute it and/or modify
 #- it under the terms of the GNU General Public License as published by
@@ -25,64 +25,62 @@ use strict;
 use urpm;
 use urpm::msg;
 use urpm::download;
+use urpm::media;
+use urpm::args;
 
-$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin";
+$ENV{PATH} = "/sbin:/usr/sbin:/bin:/usr/bin";
 delete @ENV{qw(ENV BASH_ENV IFS CDPATH)};
 
 my @toremove;
 
-#- default option values
-my %options = (
-    noclean => 1,
-    strict_match => 1,
-    verbose => 1,
-);
-
-{
-    my $options_end = 0;
-    foreach (@ARGV) {
-	$_ eq '--' and $options_end = 1, next;
-	unless ($options_end) {
-	    /^--?a$/ and $options{all} = 1, next;
-	    /^--?c$/ and $options{noclean} = 0, next;
-	    /^--?y$/ and $options{strict_match} = 0, next;
-	    /^--?v$/ and $options{verbose} = 1, next;
-	    /^--?q$/ and $options{verbose} = 0, next;
-	    /^-/ and do {
-		print N("usage: urpmi.removemedia [-a] <name> ...
+sub usage {
+    my ($msg) = @_;
+    print N("usage: urpmi.removemedia (-a | <name> ...)
 where <name> is a medium name to remove.
 ") . N("  --help         - print this help message.
 ") . N("  -a             - select all media.
-") . N("  -c             - clean headers cache directory.
 ") . N("  -y             - fuzzy match on media names.
 ") . N("  -q             - quiet mode.
 ") . N("  -v             - verbose mode.
-") . (/^--?h(?:elp)$/ ? '' : N("\nunknown options '%s'\n", $_));
-		exit 0;
-	    };
-	}
-	push @toremove, $_;
-    }
+") . N("  --urpmi-root   - use another root for urpmi db & rpm installation.
+") . $msg;
+    exit 1;
 }
 
-my $urpm = new urpm;
+
+#- default option values
+$options{strict_match} = 1;
+
+our @cmdline; #- set by urpm::args
+
+my $urpm = urpm->new_parse_cmdline or exit(1);
+
 if ($< != 0) {
     $urpm->{fatal}(1, N("Only superuser is allowed to remove media"));
 }
 
-$options{verbose} > 0 or $urpm->{log} = sub {};
-
-$urpm->read_config;
+my $_urpmi_lock = urpm::lock::urpmi_db($urpm, 'exclusive', wait => $options{wait_lock});
+urpm::media::read_config($urpm, 'nocheck');
 urpm::download::set_cmdline_proxy();
 my @entries = map { $_->{name} } @{$urpm->{media}};
 
 if ($options{all}) {
-    @toremove = @entries;
-    @toremove == 0 and die N("nothing to remove (use urpmi.addmedia to add a media)\n");
+    if (@cmdline) {
+	usage('');
+    } elsif (!@entries) {
+	print STDERR N("nothing to remove (use urpmi.addmedia to add a media)\n");
+	exit 0;
+    } else {
+	@toremove = @entries;
+    }
+} else {
+    @toremove = @cmdline or usage(N("the entry to remove is missing\n(one of %s)\n", join(", ", @entries)));
 }
-@toremove == 0 and die N("the entry to remove is missing\n(one of %s)\n", join(", ", @entries));
 
-$urpm->select_media({ strict_match => $options{strict_match} }, @toremove);
-$urpm->remove_selected_media;
+my @selected = urpm::media::select_media_by_name($urpm, \@toremove, !$urpm->{options}{fuzzy})
+  or exit 1;
 
-$urpm->update_media(noclean => $options{noclean});
+urpm::media::remove_media($urpm, \@selected);
+urpm::media::write_urpmi_cfg($urpm);
+
+exit(0);

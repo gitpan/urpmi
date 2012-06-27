@@ -1,11 +1,13 @@
 package urpm::cfg;
 
+# $Id: cfg.pm 271299 2010-11-21 15:54:30Z peroyvind $
+
 use strict;
 use warnings;
 use urpm::util;
 use urpm::msg 'N';
 
-(our $VERSION) = q$Id: cfg.pm,v 1.38 2006/02/17 11:09:08 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
 
 =head1 NAME
 
@@ -22,12 +24,15 @@ urpm::cfg - routines to handle the urpmi configuration files
 Reads an urpmi configuration file and returns its contents in a hash ref :
 
     {
-	'medium name 1' => {
+	media => [
+         {
+            name => 'medium name 1',
 	    url => 'http://...',
 	    option => 'value',
 	    ...
-	}
-	'' => {
+	 },
+        ],
+	global => {
 	    # global options go here
 	},
     }
@@ -49,11 +54,9 @@ Returns 1 on success, 0 on failure.
 my ($arch, $release);
 sub _init_arch_release () {
     if (!$arch && !$release) {
-	open my $f, '/etc/release' or return undef;
-	my $l = <$f>;
-	close $f;
-	($release, $arch) = $l =~ /release (\d+\.\d+).*for (\w+)/;
-	$release = 'cooker' if $l =~ /cooker/i;
+	my $l = cat_('/etc/release') or return undef;
+	($release, $arch) = $l =~ /release (\d+\.?\d?).*for (\w+)/;
+	$release = 'cauldron' if $l =~ /cauldron/i;
     }
     1;
 }
@@ -101,53 +104,56 @@ sub expand_line {
     return $line;
 }
 
-sub load_config ($;$) {
-    my ($file, $norewrite) = @_;
-    my %config;
-    my $priority = 0;
-    my $medium;
+my $no_para_option_regexp = 'update|ignore|synthesis|noreconfigure|no-suggests|no-media-info|static|virtual|disable-certificate-check';
+
+sub load_config_raw {
+    my ($file, $b_norewrite) = @_;
+    my @blocks;
+    my $block;
     $err = '';
-    open my $f, $file or do { $err = N("unable to read config file [%s]", $file); return };
-    local $_;
-    while (<$f>) {
+    -r $file or do { 
+	$err = N("unable to read config file [%s]", $file); 
+	return;
+    };
+    foreach (cat_($file)) {
 	chomp;
 	next if /^\s*#/; #- comments
 	s/^\s+//; s/\s+$//;
-	$_ = expand_line($_) unless $norewrite;
+	$_ = expand_line($_) unless $b_norewrite;
 	if ($_ eq '}') { #-{
-	    if (!defined $medium) {
+	    if (!defined $block) {
 		_syntax_error();
 		return;
 	    }
-	    $config{$medium}{priority} = $priority++; #- to preserve order
-	    undef $medium;
-	    next;
-	}
-	if (defined $medium && /{$/) { #-}
+	    push @blocks, $block;
+	    undef $block;
+	} elsif (defined $block && /{$/) { #-}
 	    _syntax_error();
 	    return;
-	}
-	if ($_ eq '{') { #-} Entering a global block
-	    $medium = '';
-	    next;
-	}
-	if (/^(.*?[^\\])\s+(?:(.*?[^\\])\s+)?{$/) { #- medium definition
-	    $medium = unquotespace $1;
-	    if ($config{$medium}) {
+	} elsif ($_ eq '{') { 
+	    #-} Entering a global block
+	    $block = { name => '' };
+	} elsif (/^(.*?[^\\])\s+(?:(.*?[^\\])\s+)?{$/) { 
+	    #- medium definition
+	    my ($name, $url) = (unquotespace($1), unquotespace($2));
+	    if (any { $_->{name} eq $name } @blocks) {
 		#- hmm, somebody fudged urpmi.cfg by hand.
-		$err = N("medium `%s' is defined twice, aborting", $medium);
+		$err = N("medium `%s' is defined twice, aborting", $name);
 		return;
 	    }
-	    $config{$medium}{url} = unquotespace $2;
-	    next;
-	}
-	#- config values
-	/^(hdlist
+	    $block = { name => $name, $url ? (url => $url) : @{[]} };
+	} elsif (/^(hdlist
 	  |list
 	  |with_hdlist
+	  |with_synthesis
+	  |with-dir
+          |mirrorlist
+	  |media_info_dir
 	  |removable
 	  |md5sum
 	  |limit-rate
+	  |nb-of-new-unrequested-pkgs-between-auto-select-orphans-check
+	  |xml-info
 	  |excludepath
 	  |split-(?:level|length)
 	  |priority-upgrade
@@ -155,17 +161,21 @@ sub load_config ($;$) {
 	  |downloader
 	  |retry
 	  |default-media
-	  |(?:curl|rsync|wget)-options
-	 )\s*:\s*['"]?(.*?)['"]?$/x
-	    and $config{$medium}{$1} = $2, next;
-	/^key[-_]ids\s*:\s*['"]?(.*?)['"]?$/
-	    and $config{$medium}{'key-ids'} = $1, next;
-	#- positive flags
-	/^(update|ignore|synthesis|noreconfigure|static|virtual)$/
-	    and $config{$medium}{$1} = 1, next;
-	my ($no, $k, $v);
-	#- boolean options
-	if (($no, $k, $v) = /^(no-)?(
+	  |download-all
+	  |tune-rpm
+	  |(?:curl|rsync|wget|prozilla|aria2)-options
+	  )\s*:\s*['"]?(.*?)['"]?$/x) {
+	    #- config values
+	    $block->{$1} = $2;
+	} elsif (/^key[-_]ids\s*:\s*['"]?(.*?)['"]?$/) {
+	    $block->{'key-ids'} = $1;
+	} elsif (/^(hdlist|synthesis)$/) {
+	    # ignored, kept for compatibility
+	} elsif (/^($no_para_option_regexp)$/) {
+	    #- positive flags
+	    $block->{$1} = 1;
+	} elsif (my ($no, $k, $v) =
+          /^(no-)?(
 	    verify-rpm
 	    |norebuild
 	    |fuzzy
@@ -181,68 +191,71 @@ sub load_config ($;$) {
 	    |nopubkey
 	    |resume)(?:\s*:\s*(.*))?$/x
 	) {
+	    #- boolean options
 	    my $yes = $no ? 0 : 1;
 	    $no = $yes ? 0 : 1;
 	    $v = '' unless defined $v;
-	    $config{$medium}{$k} = $v =~ /^(yes|on|1|)$/i ? $yes : $no;
-	    next;
+	    $block->{$k} = $v =~ /^(yes|on|1|)$/i ? $yes : $no;
+	} elsif ($_ eq 'modified') {
+	    #- obsolete
+	} else {
+	    warn "unknown line '$_'\n" if $_;
 	}
-	#- obsolete
-	$_ eq 'modified' and next;
     }
-    close $f;
-    return \%config;
+    \@blocks;
 }
 
-sub dump_config ($$) {
+sub load_config {
+    my ($file) = @_;
+
+    my $blocks = load_config_raw($file);
+    my ($media, $global) = partition { $_->{name} } @$blocks;
+    ($global) = @$global;
+    delete $global->{name};
+
+    { global => $global || {}, media => $media };
+}
+
+sub dump_config {
     my ($file, $config) = @_;
-    my $config_old = load_config($file, 1);
-    my @media = sort {
-	return  0 if $a eq $b;
-	return -1 if $a eq ''; #- global options come first
-	return  1 if $b eq '';
-	return $config->{$a}{priority} <=> $config->{$b}{priority} || $a cmp $b;
-    } keys %$config;
-    open my $f, '>', $file or do {
+
+    my %global = (name => '', %{$config->{global}});
+
+    dump_config_raw($file, [ %global ? \%global : @{[]}, @{$config->{media}} ]);
+}
+
+sub dump_config_raw {
+    my ($file, $blocks) = @_;
+
+    my $old_blocks = load_config_raw($file, 1);
+    my $substitute_back = sub {
+	my ($m, $field) = @_;
+	my ($prev_block) = grep { $_->{name} eq $m->{name} } @$old_blocks;
+	substitute_back($m->{$field}, $prev_block && $prev_block->{$field});
+    };
+
+    my @lines;
+    foreach my $m (@$blocks) {
+	my @l = map {
+	    if (/^($no_para_option_regexp)$/) {
+		$_;
+	    } elsif ($_ ne 'priority') {
+		"$_: " . $substitute_back->($m, $_);
+	    }
+	} sort grep { $_ && $_ ne 'url' && $_ ne 'name' } keys %$m;
+
+        my $name_url = $m->{name} ? 
+	  join(' ', map { quotespace($_) } $m->{name}, $substitute_back->($m, 'url')) . ' ' : '';
+
+	push @lines, join("\n", $name_url . '{', (map { "  $_" } @l), "}\n");
+    }
+
+    output_safe($file, join("\n", @lines)) or do {
 	$err = N("unable to write config file [%s]", $file);
 	return 0;
     };
-    foreach my $m (@media) {
-	if ($m) {
-	    print $f quotespace($m), ' ', quotespace(substitute_back($config->{$m}{url}, $config_old->{$m}{url})), " {\n";
-	} else {
-	    next if !keys %{$config->{''}};
-	    print $f "{\n";
-	}
-	foreach (sort grep { $_ && $_ ne 'url' } keys %{$config->{$m}}) {
-	    if (/^(update|ignore|synthesis|noreconfigure|static|virtual)$/) {
-		print $f "  $_\n";
-	    } elsif ($_ ne 'priority') {
-		print $f "  $_: " . substitute_back($config->{$m}{$_}, $config_old->{$m}{$_}) . "\n";
-	    }
-	}
-	print $f "}\n\n";
-    }
-    close $f;
-    return 1;
-}
 
-#- routines to handle mirror list location
-
-#- Default mirror list
-our $mirrors = 'http://www.mandrivalinux.com/mirrorsfull.list';
-
-sub mirrors_cfg () {
-    if (-e "/etc/urpmi/mirror.config") {
-	local $_;
-	open my $fh, "/etc/urpmi/mirror.config" or return undef;
-	while (<$fh>) {
-	    chomp; s/#.*$//; s/^\s*//; s/\s*$//;
-	    /^url\s*=\s*(.*)/ and $mirrors = $1;
-	}
-	close $fh;
-    }
-    return 1;
+    1;
 }
 
 1;
@@ -255,6 +268,6 @@ __END__
 
 Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 MandrakeSoft SA
 
-Copyright (C) 2005, 2006 Mandriva SA
+Copyright (C) 2005-2010 Mandriva SA
 
 =cut

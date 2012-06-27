@@ -4,6 +4,7 @@ use strict;
 
 use urpm;
 use urpm::msg;
+use urpm::orphans;
 
 my %options = (
     restrict_group => 0,
@@ -17,12 +18,15 @@ where [options] are from
 ") . N("   --root <path>  - use the given root instead of /
 ") . N("   -g [group]     - restrict results to specified group.
 ") . N("                    defaults to %s.
-", $options{group});
+", $options{group}) . N("   -f             - output rpm full name (NVRA)
+");
 
-while ($_ = shift) {
+my $urpm = urpm->new;
+
+while (my $_ = shift) {
     $_ eq '--root' and do {
 	my $root = shift;
-	$root and $options{root} = $root;
+	$root and urpm::set_files($urpm, $root);
 	next;
 
     };
@@ -33,29 +37,12 @@ while ($_ = shift) {
 	$options{group} = $group;
 	next;
     };
-    print $usage; exit 0;
+    $_ eq '-f' and do { $options{fullname} = 1; next };
+    print $usage; exit 1;
 }
 
-my @packages;
-{
-    my $db = URPM::DB::open($options{root}) or die "Can't open RPM db\n";
-    $db->traverse(sub {
-	my ($p) = @_;
-	$p->pack_header;
-	push @packages, $p;
-    });
-}
+my $discard = $options{restrict_group} && sub { $_[0]->group !~ /\Q$options{group}/oi };
+my $leaves = urpm::orphans::installed_leaves($urpm, $discard);
 
-my %l;
-my %provides;
-foreach my $pkg (@packages) {
-    next if $options{restrict_group} && $pkg->group !~ /\Q$options{group}/oi;
-    $l{$pkg->name} = 1;
-    push @{$provides{$_}}, $pkg->name foreach $pkg->provides_nosense;
-}
-
-foreach my $pkg (@packages) {
-    delete @l{grep { $_ ne $pkg->name } @{$provides{$_} || []}} foreach $pkg->requires_nosense;
-}
-
-print "$_\n" foreach sort keys %l;
+my @l = map { $options{fullname} ? scalar $_->fullname : $_->name } @$leaves;
+print "$_\n" foreach sort @l;

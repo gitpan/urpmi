@@ -1,8 +1,10 @@
 package urpm::prompt;
 
+# $Id: prompt.pm 271299 2010-11-21 15:54:30Z peroyvind $
+
 use strict;
 
-(our $VERSION) = q$Id: prompt.pm,v 1.4 2006/02/08 15:16:25 rgarciasuarez Exp $ =~ /(\d+\.\d+)/;
+(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
 
 sub new {
     my ($class, $title, $prompts, $defaults, $hidden) = @_;
@@ -52,6 +54,6 @@ urpm::prompt - base class to prompt the user for data
 
 Copyright (C) 2005 MandrakeSoft SA
 
-Copyright (C) 2005, 2006 Mandriva SA
+Copyright (C) 2005-2010 Mandriva SA
 
 =cut
