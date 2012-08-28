@@ -70,6 +70,7 @@ sub _download_packages {
                           join("\n", map { "    $_->[0]" } @missing))
               . "\n" .
                 N("You may need to update your urpmi database.");
+            $urpm->{nb_install} -= scalar @missing;
         }
         if (@bad) {
             push @msgs, N("Installation failed, bad rpms:\n%s",
@@ -125,7 +126,8 @@ sub _verify_rpm {
             : N("The following packages have bad signatures");
         my $msg2 = N("Do you want to continue installation ?");
         my $p = join "\n", @bad_signatures;
-        $callbacks->{bad_signature}->("$msg:\n$p\n", $msg2) or return 16;
+        my $res = $callbacks->{bad_signature}->("$msg:\n$p\n", $msg2);
+        return $res ? 0 : 16;
     }
 }
 
@@ -360,7 +362,8 @@ sub run {
 
         #- verify packages
         if (!$force && ($options->{'verify-rpm'} || grep { $_->{'verify-rpm'} } @{$urpm->{media}})) {
-            _verify_rpm($urpm, $callbacks, \%transaction_sources_install, $transaction_sources);
+            my $res = _verify_rpm($urpm, $callbacks, \%transaction_sources_install, $transaction_sources);
+            $res and return $res;
         }
 
         #- install source package only (whatever the user is root or not, but use rpm for that).

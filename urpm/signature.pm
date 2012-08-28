@@ -31,6 +31,9 @@ sub _check {
 	if ($verif =~ /NOT OK/) {
 	    $verif =~ s/\n//g;
 	    $invalid_sources{$filepath} = N("Invalid signature (%s)", $verif);
+	} elsif ($verif =~ /OK \(\(none\)\)/) {
+	    $verif =~ s/\n//g;
+	    $invalid_sources{$filepath} = N("Missing signature (%s)", $verif);
 	} else {
 	    unless ($medium && urpm::media::is_valid_medium($medium) &&
 		    $medium->{start} <= $id && $id <= $medium->{end})
@@ -44,7 +47,10 @@ sub _check {
 	    #- no medium found for this rpm ?
 	    next if !$medium;
 	    #- check whether verify-rpm is specifically disabled for this medium
-	    next if defined $medium->{'verify-rpm'} && !$medium->{'verify-rpm'};
+	    if (defined $medium->{'verify-rpm'} && !$medium->{'verify-rpm'}) {
+		$urpm->{log}(N("NOT checking %s\n", $filepath));
+		next;
+	    }
 
 	    my $key_ids = $medium->{'key-ids'} || $urpm->{options}{'key-ids'};
 	    #- check that the key ids of the medium match the key ids of the package.
@@ -65,6 +71,8 @@ sub _check {
 		} elsif (!$valid_ids) {
 		    $invalid_sources{$filepath} = N("Missing signature (%s)", $verif);
 		}
+	    } else {
+		$invalid_sources{$filepath} = N("Medium without signature (%s)", $verif);
 	    }
 	    #- invoke check signature callback.
 	    $options{callback} and $options{callback}->(

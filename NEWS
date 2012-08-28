@@ -1,3 +1,17 @@
+Version 7.4 - 24 August 2012
+
+- decrease total package count when some files are missing
+- fix installing a package if user acks bogus signature
+  (regression introduced in 7.0)
+- security:
+  o warn about missing signatures on packages from media without signatures
+  o warn when a medium has no signature
+  o warn when signature checking is disabled per medium
+
+Version 7.3 - 24 August 2012
+
+- only search for README.urpmi files in doc files (needs URPM >= 4.13)
+
 Version 7.2 - 29 June 2012
 
 - urpme: simplify traversing DB (needs URPM >= 4.10)
