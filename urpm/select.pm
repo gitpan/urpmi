@@ -13,6 +13,20 @@ my @priority_list = split(',', $default_priority_list);
 
 my $evr_re = qr/[^\-]*-[^\-]*\.[^\.\-]*$/;
 
+
+=head1 NAME
+
+urpm::select - package selection routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
+
 sub add_packages_to_priority_upgrade_list {
     @priority_list = uniq(@priority_list, @_);
 }
@@ -75,15 +89,32 @@ sub build_listid_ {
     $urpm->build_listid(undef, undef, searchmedia_idlist($urpm));
 }
 
-#- search packages registered by their names by storing their ids into the $packages hash.
-#- Recognized options:
-#-	all
-#-	caseinsensitive
-#-	fuzzy
-#-      no_substring
-#-	src
-#-	use_provides
-#-
+
+=item search_packages($urpm, $packages, $names, %options)
+
+Search packages registered by their names by storing their ids into the $packages hash.
+
+Recognized options:
+
+=over
+
+
+=item * all
+
+=item * caseinsensitive
+
+=item * fuzzy
+
+=item * no_substring
+
+=item * src
+
+=item * use_provides
+
+=back
+
+=cut
+
 #- side-effects: $packages, flag_skip
 sub search_packages {
     my ($urpm, $packages, $names, %options) = @_;
@@ -238,19 +269,48 @@ sub _search_packages_keep_best {
     join('|', map { $_->id } @l);
 }
 
-#- Resolves dependencies between requested packages (and auto selection if any).
-#- handles parallel option if any.
-#- The return value is true if program should be restarted (in order to take
-#- care of important packages being upgraded (priority upgrades)
-#- %options :
-#-	auto_select
-#-	install_src
-#-	priority_upgrade
-#- %options passed to ->resolve_requested:
-#-	callback_choices
-#-	keep
-#-	nodeps
-#-	no_suggests
+
+=item resolve_dependencies($urpm, $state, $requested, %options)
+
+
+Resolves dependencies between requested packages (and auto selection if any).
+Handles parallel option if any.
+
+The return value is true if program should be restarted (in order to take
+care of important packages being upgraded (priority upgrades)
+
+$state->{selected} will contain the selection of packages to be
+installed or upgraded
+
+
+%options :
+
+=over
+
+=item * auto_select
+
+=item * install_src
+
+=item * priority_upgrade
+
+=back
+
+%options passed to ->resolve_requested:
+
+=over
+
+=item * callback_choices
+
+=item * keep
+
+=item * nodeps
+
+=item * no_suggests
+
+=back
+
+=cut
+
 sub resolve_dependencies {
     #- $state->{selected} will contain the selection of packages to be
     #- installed or upgraded
@@ -384,16 +444,30 @@ sub get_preferred {
     $best ? [$best] : [], [@prefer, @l];
 }
 
-my $fullname2name_re = qr/^(.*)-[^\-]*-[^\-]*\.[^\.\-]*$/;
+=item find_packages_to_remove($urpm, $state, $l, %options)
 
-#- find packages to remove.
-#- options:
-#-	callback_base
-#-	callback_fuzzy
-#-	callback_notfound
-#-	force
-#-	matches
-#-	test
+Find packages to remove.
+
+Options:
+
+=over
+
+=item * callback_base
+
+=item * callback_fuzzy
+
+=item * callback_notfound
+
+=item * force
+
+=item * matches
+
+=item * test
+
+=back
+
+=cut 
+
 sub find_packages_to_remove {
     my ($urpm, $state, $l, %options) = @_;
 
@@ -406,7 +480,7 @@ sub find_packages_to_remove {
 
 	if (!$options{matches}) {
 	    foreach (@$l) {
-		my ($n, $found);
+		my ($found);
 
 		$db->traverse_tag('nvra', [ $_ ], sub {
 			my ($p) = @_;
@@ -461,7 +535,7 @@ sub find_packages_to_remove {
 	find_removed_from_basesystem($urpm, $db, $state, $options{callback_base})
 	    or return ();
     }
-    removed_packages($urpm, $state);
+    removed_packages($state);
 }
 
 sub find_removed_from_basesystem {
@@ -478,7 +552,7 @@ sub find_removed_from_basesystem {
 sub _prohibit_packages_that_would_be_removed {
     my ($urpm, $db, $state) = @_;
 
-    my @to_remove = removed_packages($urpm, $state) or return 1;
+    my @to_remove = removed_packages($state) or return 1;
 
     my @dont_remove = ('basesystem', 'basesystem-minimal', 
 		       split /,\s*/, $urpm->{global_config}{'prohibit-remove'});
@@ -494,13 +568,24 @@ sub _prohibit_packages_that_would_be_removed {
     } intersection(\@to_remove, \@base_fn);
 }
 
-#- misc functions to help finding ask_unselect and ask_remove elements with their reasons translated.
+
+=item unselected_packages($state)
+
+misc functions to help finding ask_unselect and ask_remove elements with their reasons translated.
+
+=cut
+
 sub unselected_packages {
-    my (undef, $state) = @_;
+    my ($state) = @_;
     grep { $state->{rejected}{$_}{backtrack} } keys %{$state->{rejected} || {}};
 }
 
-#- misc functions to help finding ask_unselect and ask_remove elements with their reasons translated.
+=item already_installed($state)
+
+misc functions to help finding ask_unselect and ask_remove elements with their reasons translated.
+
+=cut
+
 sub already_installed {
     my ($state) = @_;
     uniq(map { scalar $_->fullname } values %{$state->{rejected_already_installed} || {}});
@@ -559,7 +644,7 @@ sub was_pkg_name_installed {
 }
 
 sub removed_packages {
-    my (undef, $state) = @_;
+    my ($state) = @_;
     grep {
 	$state->{rejected}{$_}{removed} && !$state->{rejected}{$_}{obsoleted};
     } keys %{$state->{rejected} || {}};
@@ -589,7 +674,7 @@ sub conflicting_packages_msg {
 
 sub removed_packages_msgs {
     my ($urpm, $state) = @_;
-    map { translate_why_removed_one($urpm, $state, $_) } sort(removed_packages($urpm, $state));
+    map { translate_why_removed_one($urpm, $state, $_) } sort(removed_packages($state));
 }
 
 sub translate_why_removed {
@@ -663,3 +748,7 @@ sub should_we_migrate_back_rpmdb_db_version {
 }
 
 1;
+
+=back
+
+=cut

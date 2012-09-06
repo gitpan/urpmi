@@ -5,7 +5,7 @@ package urpm::args;
 use strict;
 use warnings;
 no warnings 'once';
-use Getopt::Long;# 2.33;
+use Getopt::Long;
 use urpm::download;
 use urpm::msg;
 use urpm::util 'file2absolute_file';
@@ -351,6 +351,7 @@ my %options_spec = (
 	virtual => \$options{virtual},
 	nopubkey => \$options{nopubkey},
 	raw => \$options{raw},
+	'verify-rpm!' => sub { ${options}{'verify-rpm'} = $_[1] },
     },
 
     'urpmi.recover' => {
@@ -515,6 +516,18 @@ sub parse_cmdline {
 	}
     }
     $ret;
+}
+
+sub copyright {
+    my ($prog_name, @copyrights) = @_;
+    N("%s version %s
+%s
+This is free software and may be redistributed under the terms of the GNU GPL.
+
+usage:
+", $prog_name, $urpm::VERSION,
+      join("\n", map { N("Copyright (C) %s by %s", @$_) } @copyrights)
+	);
 }
 
 1;

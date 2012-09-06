@@ -48,6 +48,18 @@ my @media_info_prefix_suffix = (
     (map { [ $_, '.xml.lzma' ] } @xml_media_info),
 );
 
+=head1 NAME
+
+urpm::media - Media routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut 
+
 
 sub get_medium_option {
     my ($urpm, $medium, $option_name) = @_;
@@ -836,6 +848,7 @@ sub add_medium {
     my $medium = { name => $name, 
 		url => $url, 
 		modified => !$options{ignore}, 
+		(defined $options{'verify-rpm'} ? ('verify-rpm' => $options{'verify-rpm'}) : ()),
 	    };
     foreach (qw(downloader update ignore media_info_dir mirrorlist with-dir xml-info)) {
 	$medium->{$_} = $options{$_} if exists $options{$_};
@@ -2047,3 +2060,15 @@ sub clean {
 }
 
 1;
+
+__END__
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+=cut

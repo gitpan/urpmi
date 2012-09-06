@@ -1,3 +1,35 @@
+Version 7.7 - 5 September 2012
+
+- use xz instead of lzma in order to read metadata
+
+Version 7.6 - 1 September 2012
+
+- translation updates
+
+Version 7.5 - 31 August 2012
+
+- fix testsuite
+- library:
+  o drop urpm::download::sync() (obsolete for years)
+  o enhanced doc
+  o internal cleanup (needs new drakx/rpmdrake)
+- security:
+  o downgrade missing medium key check question to a warning for virtual media
+    without keys when using urpmi --use-distrib
+  o downgrade missing signature check for local packages from a question to a
+    warning
+  o honor per medium "verify-rpm" option for missing signature check
+  o media have keys, not signatures
+  o prefix some messages with "SECURITY:"
+  o warn about packages we don't check even if not using -v
+- unrequested package list management (for orphans) (mga#7167):
+  o do not wrongly tell we updated the unrequested package list when we didn't
+    (eg: when not having the proper rights such as running urpmq as !root)
+  o only write the unrequested package list file if the list actually changed
+- urpmi.addmedia:
+  o add --(no-)verify-rpm options
+- urpmq: minor documentation fix (mga#7166)
+
 Version 7.4 - 24 August 2012
 
 - decrease total package count when some files are missing

@@ -8,7 +8,22 @@ use urpm::msg;
 use urpm::download;
 
 
-#- $medium fields used: mirrorlist, with-dir
+=head1 NAME
+
+urpm::mirrors - Mirrors routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=item try($urpm, $medium, $try)
+
+$medium fields used: mirrorlist, with-dir
+
+=cut
+
 #- side-effects: $medium->{url}
 #-   + those of _pick_one ($urpm->{mirrors_cache})
 sub try {
@@ -24,10 +39,15 @@ sub try {
     0;
 }
 
-#- similar to try() above, but failure is "normal"
-#- (useful when we lookup a file)
-#-
-#- $medium fields used: mirrorlist, with-dir
+=item try_probe($urpm, $medium, $try)
+
+Similar to try() above, but failure is "normal" (useful when we lookup
+a file)
+
+$medium fields used: mirrorlist, with-dir
+
+=cut
+
 #- side-effects: $medium->{url}
 #-   + those of list_urls ($urpm->{mirrors_cache})
 sub try_probe {
@@ -297,9 +317,9 @@ sub _mirrors_filtered {
 
 sub _MIRRORLIST() {
     my $product_id = parse_LDAP_namespace_structure(cat_('/etc/product.id'));
-    _mandriva_mirrorlist($product_id);
+    _mageia_mirrorlist($product_id);
 }
-sub _mandriva_mirrorlist {
+sub _mageia_mirrorlist {
     my ($product_id, $o_arch) = @_;
 
     #- contact the following URL to retrieve the list of mirrors.
@@ -331,3 +351,15 @@ sub parse_LDAP_namespace_structure {
 }
 
 1;
+
+__END__
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+=cut

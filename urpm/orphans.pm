@@ -9,6 +9,19 @@ use urpm;
 
 my $fullname2name_re = qr/^(.*)-[^\-]*-[^\-]*\.[^\.\-]*$/;
 
+
+=head1 NAME
+
+urpm::orphans - The orphan management code for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
 #- side-effects: none
 sub installed_packages_packed {
     my ($urpm) = @_;
@@ -23,11 +36,19 @@ sub installed_packages_packed {
     \@l;
 }
 
+
+=item unrequested_list__file($urpm)
+
+Return the path of the unrequested list file.
+
+=cut
+
 #- side-effects: none
 sub unrequested_list__file {
     my ($urpm) = @_;
     ($urpm->{env_dir} || "$urpm->{root}/var/lib/rpm") . '/installed-through-deps.list';
 }
+
 #- side-effects: none
 sub unrequested_list {
     my ($urpm) = @_;
@@ -37,6 +58,13 @@ sub unrequested_list {
 	$_ => 1;
     } cat_(unrequested_list__file($urpm)) };
 }
+
+=item mark_as_requested($urpm, $state, $test)
+
+Mark some packages as explicitely requested (usually because
+they were manually installed).
+
+=cut
 
 #- side-effects: those of _write_unrequested_list__file
 sub mark_as_requested {
@@ -68,6 +96,7 @@ sub _installed_req_and_unreq {
     my ($req, $unreq, $_unrequested) = _installed_req_and_unreq_and_update_unrequested_list($urpm);
     ($req, $unreq);
 }
+
 #- side-effects:
 #-   + those of _installed_req_and_unreq_and_update_unrequested_list (<root>/var/lib/rpm/installed-through-deps.list)
 sub _installed_and_unrequested_lists {
@@ -80,6 +109,7 @@ sub _installed_and_unrequested_lists {
 #- side-effects: <root>/var/lib/rpm/installed-through-deps.list
 sub _write_unrequested_list__file {
     my ($urpm, $unreq) = @_;
+    return if $>;
 
     $urpm->{info}("writing " . unrequested_list__file($urpm));
     
@@ -99,7 +129,11 @@ sub _installed_req_and_unreq_and_update_unrequested_list {
     my ($unreq, $req) = partition { $unrequested->{$_->name} } @$pkgs;
     
     # update the list (to filter dups and now-removed-pkgs)
-    _write_unrequested_list__file($urpm, [map { $_->name } @$unreq]);
+    my @old = keys %$unrequested;
+    my @new = map { $_->name } @$unreq;
+    if (@new != @old) {
+        _write_unrequested_list__file($urpm, \@new);
+    }
 
     ($req, $unreq, $unrequested);
 }
@@ -152,6 +186,7 @@ sub _renamed_unrequested {
     }
     %l;
 }
+
 sub new_unrequested {
     my ($urpm, $state) = @_;
     (
@@ -159,6 +194,7 @@ sub new_unrequested {
 	_renamed_unrequested($urpm, $state->{selected}, $state->{rejected}),
     );
 }
+
 #- side-effects: <root>/var/lib/rpm/installed-through-deps.list
 sub add_unrequested {
     my ($urpm, $state) = @_;
@@ -167,9 +203,15 @@ sub add_unrequested {
     append_to_file(unrequested_list__file($urpm), join('', map { "$_\t\t$l{$_}\n" } keys %l));
 }
 
-#- we don't want to check orphans on every auto-select,
-#- doing it only after many packages have been added
-#-
+=item check_unrequested_orphans_after_auto_select($urpm)
+
+We don't want to check orphans on every auto-select.
+We do it only after many packages have been added.
+
+Returns whether we should look for orphans depending on a threshold.
+
+=cut
+
 #- side-effects: none
 sub check_unrequested_orphans_after_auto_select {
     my ($urpm) = @_;
@@ -178,13 +220,20 @@ sub check_unrequested_orphans_after_auto_select {
     $nb_added >= $urpm->{options}{'nb-of-new-unrequested-pkgs-between-auto-select-orphans-check'};
 }
 
-#- this function computes wether removing $toremove packages will create
-#- unrequested orphans.
-#-
-#- it does not return the new orphans since "whatsuggests" is not available,
-#- if it detects there are new orphans, _all_unrequested_orphans()
-#- must be used to have the list of the orphans
-#-
+
+=item unrequested_orphans_after_remove($urpm, $toremove)
+
+This function computes wether removing $toremove packages will create
+unrequested orphans.
+
+It does not return the new orphans since "whatsuggests" is not
+available,
+
+If it detects there are new orphans, _all_unrequested_orphans() must
+be used to have the list of the orphans
+
+=cut
+
 #- side-effects: none
 sub unrequested_orphans_after_remove {
     my ($urpm, $toremove) = @_;
@@ -193,6 +242,7 @@ sub unrequested_orphans_after_remove {
     my %toremove = map { $_ => 1 } @$toremove;
     _unrequested_orphans_after_remove_once($urpm, $db, unrequested_list($urpm), \%toremove);
 }
+
 #- side-effects: none
 sub _unrequested_orphans_after_remove_once {
     my ($urpm, $db, $unrequested, $toremove) = @_;
@@ -228,6 +278,7 @@ sub _unrequested_orphans_after_remove_once {
     }
     0;
 }
+
 #- return true if $pkg will no more be required after removing $toremove
 #-
 #- nb: it may wrongly return false for complex loops,
@@ -394,6 +445,12 @@ sub _all_unrequested_orphans {
     [ values %l ];
 }
 
+=item compute_future_unrequested_orphans($urpm, $state)
+
+Compute the list of packages that will be unrequested and
+could potently be removed.
+
+=cut
 
 #- side-effects: $state->{orphans_to_remove}
 #-   + those of _installed_and_unrequested_lists (<root>/var/lib/rpm/installed-through-deps.list)
@@ -417,8 +474,16 @@ sub compute_future_unrequested_orphans {
     # nb: $state->{orphans_to_remove} is used when computing ->selected_size
 }
 
-#- it is quite fast. the slow part is the creation of $installed_packages_packed
-#- (using installed_packages_packed())
+
+=item get_orphans($urpm)
+
+Returns the list of unrequested packages (aka orphans).
+
+It is quite fast. the slow part is the creation of
+$installed_packages_packed (using installed_packages_packed())
+
+=cut
+
 #
 #- side-effects:
 #-   + those of _installed_req_and_unreq (<root>/var/lib/rpm/installed-through-deps.list)
@@ -440,6 +505,15 @@ sub _get_now_orphans_raw_msg {
     (scalar(@orphans), add_leading_spaces(join("\n", sort @orphans)));
 }
 
+=item get_now_orphans_gui_msg($urpm)
+
+Like get_now_orphans_msg() but more suited for GUIes, it return
+message about orphan packages.
+
+Used by rpmdrake.
+
+=cut
+
 sub get_now_orphans_gui_msg {
     my ($urpm) = @_;
 
@@ -453,6 +527,14 @@ sub get_now_orphans_gui_msg {
     );
 }
 
+
+=item get_now_orphans_msg($urpm)
+
+Similar to get_now_orphans_gui_msg() but more suited for CLI, it
+return message about orphan packages.
+
+=cut
+
 sub get_now_orphans_msg {
     my ($urpm) = @_;
 
@@ -462,6 +544,12 @@ sub get_now_orphans_msg {
       $count, $list) . "\n";
 }
 
+
+=item add_leading_spaces($string)
+
+Add leading spaces to the string and return it.
+
+=cut
 
 #- side-effects: none
 sub add_leading_spaces {
@@ -497,3 +585,15 @@ sub installed_leaves {
 }
 
 1;
+
+
+=back
+
+=head1 COPYRIGHT
+
+
+Copyright (C) 2008-2010 Mandriva SA
+
+Copyright (C) 2011-2012 Mageia
+
+=cut

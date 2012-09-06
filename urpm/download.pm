@@ -27,6 +27,18 @@ my $proxy_config;
 our $CONNECT_TIMEOUT = 60; #-  (in seconds)
 
 
+=head1 NAME
+
+urpm::download - download routines for the urpm* tools
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
 
 sub ftp_http_downloaders() { qw(curl wget prozilla aria2) }
 
@@ -161,16 +173,21 @@ sub remove_proxy_media {
 }
 
 sub get_proxy_ {
-    my ($urpm, $_medium) = @_;
+    my ($urpm) = @_;
 
     -e $PROXY_CFG && !-r $PROXY_CFG and $urpm->{error}(N("can not read proxy settings (not enough rights to read %s)", $PROXY_CFG));
 
     get_proxy($urpm);
 }
 
-#- reads and loads the proxy.cfg file ;
-#- returns the global proxy settings (without arguments) or the
-#- proxy settings for the specified media (with a media name as argument)
+=item get_proxy($media)
+
+Reads and loads the proxy.cfg file ;
+Returns the global proxy settings (without arguments) or the
+proxy settings for the specified media (with a media name as argument)
+
+=cut
+
 sub get_proxy (;$) {
     my ($o_media) = @_; $o_media ||= '';
     load_proxy_config();
@@ -214,7 +231,12 @@ sub copy_cmd_line_proxy {
     }
 }
 
-#- overrides the config file proxy settings with values passed via command-line
+=item set_cmdline_proxy(%h)
+
+Overrides the config file proxy settings with values passed via command-line
+
+=cut
+
 sub set_cmdline_proxy {
     my (%h) = @_;
     load_proxy_config();
@@ -227,7 +249,12 @@ sub set_cmdline_proxy {
     $proxy_config->{cmd_line}{$_} = $h{$_} foreach keys %h;
 }
 
-#- changes permanently the proxy settings
+=item set_proxy_config($key, $value, $o_media)
+
+Changes permanently the proxy settings
+
+=cut
+
 sub set_proxy_config {
     my ($key, $value, $o_media) = @_;
     $proxy_config->{$o_media || ''}{$key} = $value;
@@ -802,20 +829,25 @@ eval {
 };
 
 sub progress_text {
-    my ($mode, $_file, $percent, $total, $eta, $speed) = @_;
+    my ($mode, $percent, $total, $eta, $speed) = @_;
     $mode eq 'progress' ?
       (defined $total && defined $eta ?
 	 N("        %s%% of %s completed, ETA = %s, speed = %s", $percent, $total, $eta, $speed) :
 	 N("        %s%% completed, speed = %s", $percent, $speed)) : '';
 }
 
-#- default logger suitable for sync operation on STDERR only.
+=item sync_logger($mode, $file, $percent, $_total, $_eta, $_speed)
+
+Default logger (callback) suitable for sync operation on STDERR only.
+
+=cut
+
 sub sync_logger {
-    my ($mode, $file, $percent, $_total, $_eta, $_speed) = @_;
+    my ($mode, $file, $percent, $total, $eta, $speed) = @_;
     if ($mode eq 'start') {
 	print STDERR "    $file\n";
     } elsif ($mode eq 'progress') {
-	my $text = &progress_text;
+	my $text = progress_text($mode, $percent, $total, $eta, $speed);
 	if (length($text) > $wchar) { $text = substr($text, 0, $wchar) }
 	if (bytes::length($text) < $wchar) {
 	    # clearing more than needed in case the terminal is not handling utf8 and we have a utf8 string
@@ -832,6 +864,12 @@ sub sync_logger {
     }
 }
 
+=item requested_ftp_http_downloader($urpm, $medium)
+
+Return the downloader program to use (whether it pas provided on the
+command line or in the config file).
+
+=cut
 
 sub requested_ftp_http_downloader {
     my ($urpm, $medium) = @_;
@@ -862,7 +900,7 @@ sub _all_options {
 
     my %all_options = ( 
 	dir => "$urpm->{cachedir}/partial",
-	proxy => get_proxy_($urpm, $medium),
+	proxy => get_proxy_($urpm),
 	metalink => $medium->{mirrorlist},
 	$medium->{"disable-certificate-check"} ? "no-certificate-check" : @{[]},
 	$urpm->{debug} ? (debug => $urpm->{debug}) : @{[]},
@@ -907,6 +945,12 @@ sub sync_rel_one {
     $files->[0];
 }
 
+=item sync_url($urpm, $url, %options)
+
+Retrieve a file from the network and return the local cached file path.
+
+=cut
+
 sub sync_url {
     my ($urpm, $url, %options) = @_;
     sync_rel_one($urpm, { url => dirname($url), disable_metalink => $options{disable_metalink} }, basename($url), %options);
@@ -921,19 +965,11 @@ sub sync_rel_to {
     $result_file;
 }
 
-#- deprecated, use sync_url() or sync_rel() instead
-#-
-#- $medium can be undef
-#- known options: quiet, resume, callback, ask_retry
-sub sync {
-    my ($urpm, $medium, $files, %options) = @_;
+=item get_content($urpm, $url, %o_options)
 
-    if ($medium) {
-	$urpm->{error}("deprecated urpm::download::sync() called with a medium, this is not handled anymore, not using the medium and only taking the protocol into account");
-    }
-    sync_url($urpm, $_, %options) or return foreach @$files;
-    1;
-}
+Retrieve a file and return its content.
+
+=cut
 
 sub get_content {
     my ($urpm, $url, %o_options) = @_;
@@ -1059,13 +1095,7 @@ sub _create_metalink_ {
 
 __END__
 
-=head1 NAME
-
-urpm::download - download routines for the urpm* tools
-
-=head1 SYNOPSIS
-
-=head1 DESCRIPTION
+=back
 
 =head1 COPYRIGHT
 

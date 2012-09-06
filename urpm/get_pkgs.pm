@@ -10,6 +10,19 @@ use urpm::media;
 use urpm 'file_from_local_url';
 # perl_checker: require urpm::select
 
+
+=head1 NAME
+
+urpm::get_pkgs - Package retrieving routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut 
+
 sub clean_all_cache {
     my ($urpm) = @_;
     #- clean download directory, do it here even if this is not the best moment.
@@ -165,9 +178,15 @@ sub verify_partial_rpm_and_move {
     "$cachedir/rpms/$filename";
 }
 
-# get the filesize of packages to download from remote media.
+
+=item get_distant_media_filesize($blists, $sources)
+
+Get the filesize of packages to download from remote media.
+
+=cut
+
 sub get_distant_media_filesize {
-    my (undef, $blists, $sources) = @_;
+    my ($blists, $sources) = @_;
 
     my $filesize;
     #- get back all ftp and http accessible rpm files into the local cache
@@ -186,10 +205,15 @@ sub get_distant_media_filesize {
     $filesize;
 }
 
-# download packages listed in $blists,
-# and put the result in $sources or $error_sources
-#
-#- options: quiet, callback, 
+=item download_packages_of_distant_media($urpm, $blists, $sources, $error_sources, %options)
+
+Download packages listed in $blists, and put the result in $sources or
+$error_sources
+
+Options: quiet, callback, 
+
+=cut
+
 sub download_packages_of_distant_media {
     my ($urpm, $blists, $sources, $error_sources, %options) = @_;
 
@@ -284,3 +308,15 @@ sub _download_packages_of_distant_media {
 }
 
 1;
+
+__END__
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+=cut

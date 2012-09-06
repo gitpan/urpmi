@@ -15,7 +15,7 @@ use urpm::md5sum;
 # perl_checker: require urpm::media
 # perl_checker: require urpm::parallel
 
-our $VERSION = '7.4';
+our $VERSION = '7.7';
 our @ISA = qw(URPM Exporter);
 our @EXPORT_OK = ('file_from_local_url', 'file_from_local_medium', 'is_local_medium');
 
@@ -394,7 +394,7 @@ sub is_delta_installable {
 #- - for inst.list (cf flag disable_obsolete)
 #- sources is a hash of id -> source rpm filename.
 sub extract_packages_to_install {
-    my ($urpm, $sources, $_state) = @_;
+    my ($urpm, $sources) = @_;
     my %inst;
 
     foreach (keys %$sources) {

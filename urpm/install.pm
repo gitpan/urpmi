@@ -8,6 +8,18 @@ use urpm::msg;
 use urpm::util;
 
 
+=head1 NAME
+
+urpm::install - Package installation transactin routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
 # size of the installation progress bar
 my $progress_size = 45;
 eval {
@@ -27,8 +39,13 @@ sub _hash_intersect_list {
     \%h;
 }
 
+=item prepare_transaction($set, $blists, $sources)
+
+=cut
+
+
 sub prepare_transaction {
-    my ($_urpm, $set, $blists, $sources) = @_;
+    my ($set, $blists, $sources) = @_;
 
     my @blists_subset = map {
 	+{ %$_, pkgs => _hash_intersect_list($_->{pkgs}, $set->{upgrade}) };
@@ -67,6 +84,12 @@ sub transaction_set_to_string {
     } @$set;
 }
 
+=item install_logger($urpm, $type, $id, $subtype, $amount, $total)
+
+Standard logger for transactions
+
+=cut
+
 # install logger callback
 sub install_logger {
     my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
@@ -103,6 +126,10 @@ sub install_logger {
 	}
     }
 }
+
+=item get_README_files($urpm, $trans, $pkg)
+
+=cut
 
 sub get_README_files {
     my ($urpm, $trans, $pkg) = @_;
@@ -149,20 +176,26 @@ sub options {
     );
 }
 
-#- install packages according to each hash (remove, install or upgrade).
-#- options: 
-#-      test, excludepath, nodeps, noorder (unused), delta, 
-#-      callback_inst, callback_trans, callback_report_uninst,
-#-      post_clean_cache, verbose
-#-   (more options for trans->run)
-#-      excludedocs, nosize, noscripts, oldpackage, repackage, replacepkgs, justdb, ignorearch
+=item install($urpm, $remove, $install, $upgrade, %options)
+
+Install packages according to each hash (remove, install or upgrade).
+
+options: 
+     test, excludepath, nodeps, noorder (unused), delta, 
+     callback_inst, callback_trans, callback_report_uninst,
+     post_clean_cache, verbose
+  (more options for trans->run)
+     excludedocs, nosize, noscripts, oldpackage, repackage, replacepkgs, justdb, ignorearch
+
+=cut
+
 sub install {
     my ($urpm, $remove, $install, $upgrade, %options) = @_;
     $options{translate_message} = 1;
 
     my $db = urpm::db_open_or_die_($urpm, !$options{test}); #- open in read/write mode unless testing installation.
 
-    my $trans = $db->create_transaction();
+    my $trans = $db->create_transaction;
     if ($trans) {
 	sys_log("transaction on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/', scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade));
 	$urpm->{log}(N("created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/',
@@ -300,3 +333,15 @@ sub install {
 }
 
 1;
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 1999-2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+Copyright (C) 2011-2012 Mageia
+
+=cut

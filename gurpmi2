@@ -11,6 +11,7 @@ BEGIN { #- set up a safe path and environment
 }
 
 use gurpmi;
+use urpm::download;
 use urpm::install;
 use urpm::media;
 use urpm::signature;
@@ -105,7 +106,7 @@ my $restart_itself = urpm::select::resolve_dependencies($urpm,
     auto_select => $::auto_select,
     priority_upgrade => $urpm->{options}{'priority-upgrade'},
 );
-my @ask_unselect = urpm::select::unselected_packages($urpm, $state);
+my @ask_unselect = urpm::select::unselected_packages($state);
 
 # If there are some unselected packages, designate that we are going to return nonzero code.
 if (@ask_unselect) {
@@ -251,7 +252,7 @@ sub ask_continue_blocking {
 
 sub do_install {
     wait_label();
-    my @ask_remove = urpm::select::removed_packages($urpm, $state);
+    my @ask_remove = urpm::select::removed_packages($state);
     @ask_remove
 	? ask_continue_if_no_auto(N(
 	    "The following packages have to be removed for others to be upgraded:\n%s\nContinue installation anyway?",
@@ -331,7 +332,7 @@ sub do_install_3 () {
 		sync();
 	    };
 
-    my $exit_code = urpm::main_loop::run($urpm, $state, scalar(@gurpmi::names),  \@ask_unselect, \%requested, {
+    my $exit_code = urpm::main_loop::run($urpm, $state, scalar(@gurpmi::names),  \@ask_unselect, {
         bad_signature => sub {
             my ($msg, $msg2) = @_;
             $urpm->{log}("$msg\n$msg2");
@@ -348,13 +349,14 @@ sub do_install_3 () {
             1;
         },
         trans_log => sub {
-	    my ($mode, $file, $percent, $_total, $_eta, $_speed) = @_;
+	    my ($mode, $file, $percent, $total, $eta, $speed) = @_;
 
             urpm::download::sync_logger(@_);
 
             if (member($mode, 'start', 'progress')) {
 		$file =~ s|/*\s*$||; $file =~ s|.*/||;
-                $progress_label->set_label(N("Downloading package `%s'...", $file) . "\n" . &urpm::download::progress_text);
+                $progress_label->set_label(N("Downloading package `%s'...", $file) . "\n" .
+                                             &urpm::download::progress_text($mode, $percent, $total, $eta, $speed));
 	    }
             if ($mode eq 'start') {
 		$download_nb++;

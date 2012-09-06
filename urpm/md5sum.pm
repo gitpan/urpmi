@@ -4,6 +4,27 @@ use strict;
 use urpm::util;
 use urpm::msg;
 
+
+=head1 NAME
+
+urpm::md5sum - Meta-data checking routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut 
+
+
+=item parse($md5sum_file)
+
+Parse a MD5SUM file.
+Returns a hash of file => md5sum 
+
+=cut
+
 sub parse {
     my ($md5sum_file) = @_;
 
@@ -14,6 +35,14 @@ sub parse {
 
     \%h;
 }
+
+
+=item parse($md5sum_file)
+
+Check size and parse a MD5SUM file.
+Returns a hash of file => md5sum 
+
+=cut
 
 sub check_file {
     my ($md5sum_file) = @_;
@@ -26,6 +55,13 @@ sub from_MD5SUM__or_warn {
     $md5sums->{$basename} or $urpm->{log}(N("warning: md5sum for %s unavailable in MD5SUM file", $basename));
     $md5sums->{$basename};
 }
+
+
+=item versioned_media_info_file($urpm, $medium, $basename)
+
+Returns the latest versionated file name for $basename
+
+=cut
 
 sub versioned_media_info_file {
     my ($urpm, $medium, $basename) = @_;
@@ -40,6 +76,12 @@ sub versioned_media_info_file {
     }
     $l[0];
 }
+
+=item compute($file)
+
+Return the MD5SUM control sum of $file
+
+=cut
 
 sub compute {
     my ($file) = @_;
@@ -57,3 +99,15 @@ sub compute {
 }
 
 1;
+
+__END__
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+=cut

@@ -26,13 +26,7 @@ use urpm::msg;
 use urpm::media;
 
 sub usage() {
-    print N("urpmf version %s
-Copyright (C) 2002-2010 Mandriva.
-Copyright (C) 2012 Mageia.
-This is free software and may be redistributed under the terms of the GNU GPL.
-
-usage: urpmf [options] pattern-expression
-", $urpm::VERSION)
+    print urpm::args::copyright('urpmf', [ '2002-2010', 'Mandriva' ], [ '2011-2012', 'Mageia' ])
    . N("  --help         - print this help message.
 ") . N("  --version      - print this tool's version number.
 ") . N("  --env          - use specific environment (typically a bug report).

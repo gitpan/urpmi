@@ -12,6 +12,19 @@ use urpm 'file_from_local_medium';
 
 
 
+=head1 NAME
+
+urpm::install - Package installation transactin routines for urpmi
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
+
 #- side-effects: $blists->[_]{medium}{mntpoint}
 sub _find_blist_matching {
     my ($urpm, $blists, $mntpoint) = @_;
@@ -207,6 +220,12 @@ sub _copy_from_cdrom__if_needed {
 	}
 }
 
+
+=item copy_packages_of_removable_media($urpm, $blists, $sources, $o_ask_for_medium)
+
+=cut
+
+
 #- side-effects:
 #-   + those of _may_eject_cdrom ($urpm->{cdrom_mounted}, "hal_umount", "hal_eject")
 #-   + those of _mount_cdrom ($urpm->{cdrom_mounted}, $blists->[_]{medium}{mntpoint}, "hal_mount", "hal_eject")
@@ -236,3 +255,15 @@ sub copy_packages_of_removable_media {
 }
 
 1;
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 1999-2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+Copyright (C) 2011-2012 Mageia
+
+=cut

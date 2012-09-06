@@ -37,6 +37,19 @@ my ($auto_select, $no_install, $install_src, $clean, $noclean, $force, $parallel
 my ($ok, $nok);
 my $exit_code;
 
+
+=head1 NAME
+
+urpm::main_loop - The install/remove main loop for urpm based programs (urpmi, gurpmi, rpmdrake, drakx)
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=over
+
+=cut
+
 sub _download_callback {
     my ($urpm, $callbacks, $raw_msg, $msg) = @_;
     if (my $download_errors = delete $urpm->{download_errors}) {
@@ -90,7 +103,7 @@ sub _download_all {
     my (undef, $available) = urpm::sys::df("$urpm->{cachedir}/rpms");
 
     if (!$urpm->{options}{ignoresize}) {
-        my ($download_size) = urpm::get_pkgs::get_distant_media_filesize($urpm, $blists, $sources); 
+        my ($download_size) = urpm::get_pkgs::get_distant_media_filesize($blists, $sources); 
         if ($download_size >= $available*1000) {
             my $p = N("There is not enough space on your filesystem to download all packages (%s needed, %s available).\nAre you sure you want to continue?", formatXiB($download_size), formatXiB($available*1000)); 
             $force || urpm::msg::ask_yes_or_no($p) or return 10;
@@ -146,6 +159,16 @@ sub _install_src {
                 $urpm->{log}(N("removing installed rpms (%s)", join(' ', @tmp_srpm)));
                 unlink @tmp_srpm;
             }
+        }
+    }
+}
+
+sub clean_trans_sources_from_src_packages {
+    my ($urpm, $transaction_sources_install, $transaction_sources) = @_;
+    foreach ($transaction_sources_install, $transaction_sources) {
+        foreach my $id (keys %$_) {
+            my $pkg = $urpm->{depslist}[$id] or next;
+            $pkg->arch eq 'src' and delete $_->{$id};
         }
     }
 }
@@ -286,9 +309,47 @@ sub _run_transaction {
     !$fatal;
 }
 
-# locking is left to callers
+=item run($urpm, $state, $something_was_to_be_done, $ask_unselect, $_requested, $callbacks)
+
+Run the main urpm loop:
+
+=over
+
+=item * mount removable media if needed
+
+=item * split the work in smaller transactions
+
+=item * for each transaction:
+
+=over
+
+=item * prepare the transaction
+
+=item * download packages needed for this small transaction
+
+=item * verify packages
+
+=item * split package that should be installed instead of upgraded,
+
+=item * install source package only (whatever the user is root or not, but use rpm for that)
+
+=item * install/remove other packages
+
+=back
+
+=item * migrate the chrooted rpmdb if needed
+
+=item * display the final success/error message(s)
+
+=back
+
+Warning: locking is left to callers...
+
+=cut
+
+
 sub run {
-    my ($urpm, $state, $something_was_to_be_done, $ask_unselect, $_requested, $callbacks) = @_;
+    my ($urpm, $state, $something_was_to_be_done, $ask_unselect, $callbacks) = @_;
 
     #- global boolean options
     ($auto_select, $no_install, $install_src, $clean, $noclean, $force, $parallel, $test) =
@@ -338,14 +399,14 @@ sub run {
     my $migrate_back_rpmdb_db_version = 
       $urpm->{root} && urpm::select::should_we_migrate_back_rpmdb_db_version($urpm, $state);
 
-    #- no process each remove/install transaction
+    #- now process each remove/install transaction
     foreach my $set (@{$state->{transaction} || []}) {
 
         #- put a blank line to separate with previous transaction or user question.
         $urpm->{print}("\n") if $options{verbose} >= 0;
 
         my ($transaction_blists, $transaction_sources) = 
-          urpm::install::prepare_transaction($urpm, $set, $blists, \%sources);
+          urpm::install::prepare_transaction($set, $blists, \%sources);
 
         #- first, filter out what is really needed to download for this small transaction.
         my ($error_sources, $msgs) = _download_packages($urpm, $callbacks, $transaction_blists, $transaction_sources);
@@ -356,8 +417,8 @@ sub run {
 
         $callbacks->{post_download} and $callbacks->{post_download}->();
 
-        #- extract package that should be installed instead of upgraded,
-        my %transaction_sources_install = %{$urpm->extract_packages_to_install($transaction_sources, $state) || {}};
+        #- extract packages that should be installed instead of upgraded,
+        my %transaction_sources_install = %{$urpm->extract_packages_to_install($transaction_sources) || {}};
         $callbacks->{post_extract} and $callbacks->{post_extract}->($set, $transaction_sources, \%transaction_sources_install);
 
         #- verify packages
@@ -375,12 +436,7 @@ sub run {
         next if $no_install;
 
         #- clean to remove any src package now.
-        foreach (\%transaction_sources_install, $transaction_sources) {
-            foreach my $id (keys %$_) {
-                my $pkg = $urpm->{depslist}[$id] or next;
-                $pkg->arch eq 'src' and delete $_->{$id};
-            }
-        }
+        clean_trans_sources_from_src_packages($urpm, \%transaction_sources_install, $transaction_sources);
 
         #- install/remove other packages
         if (keys(%transaction_sources_install) || keys(%$transaction_sources) || $set->{remove}) {
@@ -469,3 +525,15 @@ sub handle_need_restart {
 }
 
 1;
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 1999-2005 MandrakeSoft SA
+
+Copyright (C) 2005-2010 Mandriva SA
+
+Copyright (C) 2011-2012 Mageia
+
+=cut
