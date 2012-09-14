@@ -21,4 +21,4 @@ requires:
   Locale::gettext: 1.01
   MDV::Packdrakeng: 1.01
   URPM: 1.48
-version: v7.8.1
+version: 7.8

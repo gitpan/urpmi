@@ -1,7 +1,3 @@
-Version 7.8.1 - 8 September 2012
-
-- fix urpmq -h (mga#7390)
-
 Version 7.8 - 7 September 2012
 
 - add urpm::check_cache_dir() for mgaonline (mga#6083)

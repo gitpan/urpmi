@@ -4,6 +4,8 @@ package urpm::prompt;
 
 use strict;
 
+(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
+
 sub new {
     my ($class, $title, $prompts, $defaults, $hidden) = @_;
     bless {
