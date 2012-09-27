@@ -15,7 +15,7 @@ use urpm::md5sum;
 # perl_checker: require urpm::media
 # perl_checker: require urpm::parallel
 
-our $VERSION = '7.8';
+our $VERSION = '7.8.2';
 our @ISA = qw(URPM Exporter);
 our @EXPORT_OK = ('file_from_local_url', 'file_from_local_medium', 'is_local_medium');
 
@@ -411,12 +411,6 @@ sub extract_packages_to_install {
     \%inst;
 }
 
-#- deprecated
-sub install { require urpm::install; &urpm::install::install }
-
-#- deprecated
-sub parallel_remove { &urpm::parallel::remove }
-
 #- get reason of update for packages to be updated
 #- use all update medias if none given
 sub get_updates_description {
@@ -477,7 +471,7 @@ on a Mageia Linux distribution.
 =item urpm->new()
 
 The constructor creates a new urpm object. It's a blessed hash that
-contains fields from C<URPM>, and also the following fields:
+contains fields from L<URPM>, and also the following fields:
 
 B<source>: { id => src_rpm_file|spec_file }
 

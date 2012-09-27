@@ -8,8 +8,6 @@ use urpm::util;
 use urpm::msg;
 use POSIX ();
 
-(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
-
 
 =head1 NAME
 
@@ -65,16 +63,6 @@ Find used mount point from a pathname
 sub find_a_mntpoint {
     my ($dir) = @_;
     _find_a_mntpoint($dir, {});
-}
-
-# deprecated
-sub find_mntpoints {
-    my ($dir, $infos) = @_;
-    if (my $entry = _find_a_mntpoint($dir, $infos)) {
-	$entry->{mntpoint};
-    } else {
-	();
-    }
 }
 
 sub read_mtab() { _read_fstab_or_mtab('/etc/mtab') }

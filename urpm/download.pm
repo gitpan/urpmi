@@ -17,8 +17,6 @@ our @EXPORT = qw(get_proxy
 	set_proxy_config dump_proxy_config
 );
 
-(our $VERSION) = q($Revision: 271299 $) =~ /(\d+)/;
-
 #- proxy config file.
 our $PROXY_CFG = '/etc/urpmi/proxy.cfg';
 my $proxy_config;
@@ -517,14 +515,14 @@ sub sync_curl {
 	    "--stderr", "-", # redirect everything to stdout
 	    @all_files);
 	$options->{debug} and $options->{debug}($cmd);
-	$result = _curl_action($cmd,$options,@l);
+	$result = _curl_action($cmd, $options, @l);
     }
     chdir $cwd;
     $result;
 }
 
 sub _curl_action {
-    my ($cmd, $options, @l, $o_is_upload) = @_;
+    my ($cmd, $options, @l) = @_;
     
 	my ($buf, $file); $buf = '';
 	my $curl_pid = open(my $curl, "$cmd |");
@@ -543,8 +541,6 @@ sub _curl_action {
 			if (propagate_sync_callback($options, 'progress', $file, $percent, $total, $eta, $speed) eq 'canceled') {
 			    kill 15, $curl_pid;
 			    close $curl;
-			    
-			    die N("curl failed: upload canceled\n") if $o_is_upload;
 			    die N("curl failed: download canceled\n");
 			}
 			#- this checks that download has actually started
