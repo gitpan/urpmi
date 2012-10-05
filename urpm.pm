@@ -15,7 +15,7 @@ use urpm::md5sum;
 # perl_checker: require urpm::media
 # perl_checker: require urpm::parallel
 
-our $VERSION = '7.8.2';
+our $VERSION = '7.8.3';
 our @ISA = qw(URPM Exporter);
 our @EXPORT_OK = ('file_from_local_url', 'file_from_local_medium', 'is_local_medium');
 
@@ -409,6 +409,19 @@ sub extract_packages_to_install {
     }
 
     \%inst;
+}
+
+#- deprecated, use find_candidate_packages_() directly
+#-
+#- side-effects: none
+sub find_candidate_packages_ {
+    my ($urpm, $id_prop) = @_;
+
+    my %packages;
+    foreach ($urpm->find_candidate_packages($id_prop)) {
+	push @{$packages{$_->name}}, $_;
+    }
+    values %packages;
 }
 
 #- get reason of update for packages to be updated
