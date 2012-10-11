@@ -169,7 +169,12 @@ my %options_spec = (
 	'skip=s' => \$options{skip},
 	'prefer=s' => \$options{prefer},
  	'root=s' => sub { set_root($urpm, $_[1]) },
-	'use-distrib=s' => \$options{usedistrib},
+	'use-distrib=s' => sub {
+	    $options{usedistrib} = $_[1];
+	    return if !$>;
+	    $urpm->{cachedir} = $urpm->valid_cachedir;
+	    $urpm->{statedir} = $urpm->valid_statedir;
+	},
 	'probe-synthesis' => sub { $options{probe_with} = 'synthesis' },
 	'probe-hdlist' => sub { $options{probe_with} = 'synthesis' }, #- ignored, kept for compatibility
 	'excludepath|exclude-path=s' => sub { $urpm->{options}{excludepath} = $_[1] },
@@ -178,7 +183,6 @@ my %options_spec = (
 	'ignorearch' => sub { $urpm->{options}{ignorearch} = 1 },
 	noscripts => sub { $urpm->{options}{noscripts} = 1 },
 	replacefiles => sub { $urpm->{options}{replacefiles} = 1 },
-	repackage => sub { $urpm->{options}{repackage} = 1 },
 	'more-choices' => sub { $urpm->{options}{morechoices} = 1 },
 	'expect-install!' => \$::urpm::main_loop::expect_install,
 	'nolock' => \$options{nolock},
@@ -352,16 +356,6 @@ my %options_spec = (
 	'verify-rpm!' => sub { ${options}{'verify-rpm'} = $_[1] },
     },
 
-    'urpmi.recover' => {
-	'list=s' => \$::listdate,
-	'list-all' => sub { $::listdate = -1 },
-	'list-safe' => sub { $::listdate = 'checkpoint' },
-	checkpoint => \$::do_checkpoint,
-	'rollback=s' => \$::rollback,
-	noclean => \$::noclean,
-	disable => \$::disable,
-    },
-
 );
 
 # generate urpmf options callbacks
@@ -417,7 +411,7 @@ foreach my $k ('allow-medium-change', 'auto', 'auto-select', 'clean', 'download-
 $options_spec{gurpmi2} = $options_spec{gurpmi};
 
 foreach my $k ("test!", "force", "root=s", "use-distrib=s", 'env=s',
-    'repackage', 'noscripts', 'auto', 'auto-orphans', 'justdb',
+    'noscripts', 'auto', 'auto-orphans', 'justdb',
     "parallel=s")
 {
     $options_spec{urpme}{$k} = $options_spec{urpmi}{$k};
