@@ -347,14 +347,14 @@ sub _will_prop_still_be_needed {
 sub _get_current_kernel_package() {
     my $release = (POSIX::uname())[2];
     # --qf '%{name}' is used in order to provide the right format:
-    -e "/boot/vmlinuz-$release" && `rpm -qf --qf '%{name}' /boot/vmlinuz-$release`;
+    -e "/boot/vmlinuz-$release" && ($release, `rpm -qf --qf '%{name}' /boot/vmlinuz-$release`);
 }
 
 
 # - returns list of kernels
 #
 # _fast_ version w/o looking at all non kernel packages requires on
-# kernels (like "urpmi_find_leaves '^kernel'" would)
+# kernels (like "urpmi_find_leaves 'kernel'" would)
 #
 # _all_unrequested_orphans blacklists nearly all kernels b/c of packages
 # like 'ndiswrapper' or 'basesystem' that requires 'kernel'
@@ -363,7 +363,7 @@ sub _get_current_kernel_package() {
 # do not care about (eg: kernel-devel, kernel-firmware, kernel-latest)
 # so it's useless to look at them
 #
-my (@latest_kernels, %requested_kernels, %kernels);
+my (@req_by_latest_kernels, %requested_kernels, %kernels);
 sub _kernel_callback { 
     my ($pkg, $unreq_list) = @_;
     my $shortname = $pkg->name;
@@ -371,8 +371,8 @@ sub _kernel_callback {
 
     # only consider kernels (and not main 'kernel' package):
     # but perform a pass on their requires for dkms like packages that require a specific kernel:
-    if ($shortname !~ /^kernel-/) {
-	foreach (grep { /^kernel/ } $pkg->requires) {
+    if ($shortname !~ /kernel-/) {
+	foreach (grep { /kernel/ } $pkg->requires_nosense) {
 	    $requested_kernels{$_}{$shortname} = $pkg;
 	}
 	return;
@@ -384,9 +384,9 @@ sub _kernel_callback {
     # ignore requested kernels (aka that are not in /var/lib/rpm/installed-through-deps.list)
     return if !$unreq_list->{$shortname} && $shortname !~ /latest/;
 
-    # keep track of latest kernels in order not to try removing requested kernels:
+    # keep track of packages required by latest kernels in order not to try removing requested kernels:
     if ($n =~ /latest/) {
-        push @latest_kernels, $pkg->requires;
+        push @req_by_latest_kernels, $pkg->requires;
     } else {
         $kernels{$shortname} = $pkg;
     }
@@ -396,9 +396,9 @@ sub _kernel_callback {
 # - returns list of orphan kernels
 sub _get_orphan_kernels() {
     # keep kernels required by kernel-*-latest:
-    delete $kernels{$_} foreach @latest_kernels;
+    delete $kernels{$_} foreach @req_by_latest_kernels;
     # return list of unused/orphan kernels:
-    %kernels;
+    \%kernels;
 }
 
 
@@ -415,7 +415,7 @@ sub _all_unrequested_orphans {
     }
     my $unreq_list = unrequested_list($urpm);
 
-    my $current_kernel = _get_current_kernel_package();
+    my ($current_kernel_version, $current_kernel) = _get_current_kernel_package();
 
     while (my $pkg = shift @$req) {
         # do not do anything regarding kernels if we failed to detect the running one (ie: chroot)
@@ -432,7 +432,7 @@ sub _all_unrequested_orphans {
     }
 
     # add orphan kernels to the list:
-    my $a = { _get_orphan_kernels() };
+    my $a = _get_orphan_kernels();
     add2hash_(\%l, $a);
 
     # add packages that require orphan kernels to the list:
@@ -440,8 +440,8 @@ sub _all_unrequested_orphans {
 	add2hash_(\%l, $requested_kernels{$_});
     }
 
-    # do not offer to remove current kernel:
-    delete $l{$current_kernel};
+    # do not offer to remove current kernel or DKMS modules for current kernel:
+    do { delete $l{$_} } foreach grep { /$current_kernel_version/ } keys %l;
     [ values %l ];
 }
 
