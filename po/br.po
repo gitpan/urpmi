@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: urpmi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-05 17:55+0200\n"
-"PO-Revision-Date: 2011-09-20 09:56+0200\n"
+"PO-Revision-Date: 2012-10-21 17:53+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: Breton <LL@li.org>\n"
 "Language: br\n"
@@ -329,7 +329,7 @@ msgstr ""
 #: ../gurpmi2:407
 #, c-format
 msgid "You may want to update your urpmi database."
-msgstr ""
+msgstr "Martese ho pefe c'hoant da vremañaat ho stlennvon urpmi."
 
 #: ../gurpmi2:411 ../urpm/main_loop.pm:286 ../urpm/main_loop.pm:480
 #, c-format
@@ -349,7 +349,7 @@ msgstr "Echu eo ar staliadur"
 #: ../gurpmi2:419 ../urpme:164
 #, c-format
 msgid "removing %s"
-msgstr "lemel %s"
+msgstr "o lemel %s"
 
 #: ../gurpmi2:430 ../urpmi:690
 #, c-format
@@ -521,12 +521,12 @@ msgstr "n'eo ket endeo renkell ar chroot"
 #: ../urpm/args.pm:488
 #, c-format
 msgid "Can't use %s without %s"
-msgstr ""
+msgstr "N'hell ket bet implijet %s hep %s"
 
 #: ../urpm/args.pm:491 ../urpm/args.pm:494 ../urpmq:155
 #, c-format
 msgid "Can't use %s with %s"
-msgstr ""
+msgstr "N'hell ket bet implijet %s gant %s"
 
 #: ../urpm/args.pm:502
 #, c-format
@@ -690,7 +690,7 @@ msgstr "mank a ra aria2\n"
 #: ../urpm/download.pm:736
 #, c-format
 msgid "Failed to download %s"
-msgstr ""
+msgstr "N'helle ket bet pellkarget %s"
 
 #: ../urpm/download.pm:831
 #, c-format
@@ -723,9 +723,9 @@ msgid "no webfetch found, supported webfetch are: %s\n"
 msgstr ""
 
 #: ../urpm/download.pm:1019
-#, fuzzy, c-format
+#, c-format
 msgid "unable to handle protocol: %s"
-msgstr "n'hellan ket staliañ ar pakad %s"
+msgstr "n'hellan ket ober war-dro ar c'homenad %s"
 
 #: ../urpm/get_pkgs.pm:29
 #, c-format
@@ -751,7 +751,7 @@ msgstr "[oc'h adpakadiñ]"
 #, c-format
 msgid ""
 "created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
-msgstr ""
+msgstr "krouet eo bet ur gra evit staliañ war %s (lemel=%d, staliañ=%d, bremañaat=%d)"
 
 #: ../urpm/install.pm:203
 #, c-format
@@ -786,7 +786,7 @@ msgstr "O lemel ar pakad %s"
 #: ../urpm/install.pm:292
 #, c-format
 msgid "removing package %s"
-msgstr "lemel pakad %s"
+msgstr "o lemel pakad %s"
 
 #: ../urpm/install.pm:308
 #, c-format
@@ -846,12 +846,12 @@ msgstr "o nulaat"
 #: ../urpm/main_loop.pm:58
 #, c-format
 msgid "Retry?"
-msgstr ""
+msgstr "Klask adarre ?"
 
 #: ../urpm/main_loop.pm:85
 #, c-format
 msgid "You may need to update your urpmi database."
-msgstr ""
+msgstr "Martese ho pefe ezhomm da vremañaat ho stlennvon urpmi."
 
 #: ../urpm/main_loop.pm:89
 #, c-format
@@ -1377,9 +1377,9 @@ msgid "on node %s"
 msgstr "war %s"
 
 #: ../urpm/parallel.pm:294
-#, fuzzy, c-format
+#, c-format
 msgid "Installation failed on node %s"
-msgstr "Sac'het eo an staliadur"
+msgstr "Sac'het eo an staliadur war nodenn %s"
 
 #: ../urpm/parallel_ka_run.pm:57
 #, c-format
@@ -1447,7 +1447,7 @@ msgstr "%s zo er pakadoù a-heul : %s"
 #: ../urpm/select.pm:221
 #, c-format
 msgid "You should use \"-a\" to use all of them"
-msgstr ""
+msgstr "Gwell veze deoc'h implij « -a » evit implijout an holl anezhe"
 
 #: ../urpm/select.pm:368
 #, fuzzy, c-format
@@ -1518,9 +1518,9 @@ msgid "Invalid signature (%s)"
 msgstr "N'eo ket mat ar sinadur (%s)"
 
 #: ../urpm/signature.pm:77
-#, fuzzy, c-format
+#, c-format
 msgid "SECURITY: The following package is _NOT_ signed (%s): %s"
-msgstr "%s zo er pakadoù a-heul : %s"
+msgstr "SURANTEZ : n'eo _KET_ sinet ar pakad a-heul (%s) : %s"
 
 #: ../urpm/signature.pm:83
 #, c-format
@@ -1540,22 +1540,22 @@ msgstr "Mankout a ra ar sinadur (%s)"
 #: ../urpm/signature.pm:107
 #, c-format
 msgid "SECURITY: Medium \"%s\" has no key (%s)!"
-msgstr ""
+msgstr "SURANTEZ : n'eus ket alc'hwez ebet gant ar vedium « %s » (%s)!"
 
 #: ../urpm/signature.pm:109
 #, c-format
 msgid "Medium without key (%s)"
-msgstr ""
+msgstr "Medium hep alc'hwez (%s)"
 
 #: ../urpm/sys.pm:213
 #, c-format
 msgid "system"
-msgstr ""
+msgstr "reizhiad"
 
 #: ../urpm/sys.pm:250
 #, c-format
 msgid "You should restart your computer for %s"
-msgstr ""
+msgstr "Gwell veze deoc'h adloc'ha ho urzhiataer abalamour da %s"
 
 #: ../urpm/sys.pm:252
 #, c-format
@@ -1565,7 +1565,7 @@ msgstr ""
 #: ../urpm/sys.pm:254
 #, c-format
 msgid "You should restart %s for %s"
-msgstr ""
+msgstr "Gwell veze deoc'h adloc'ha %s abalamour da %s"
 
 #: ../urpm/sys.pm:392
 #, c-format
@@ -1704,7 +1704,7 @@ msgid "Removal failed"
 msgstr "Fazi en ur lemel"
 
 #: ../urpme:182
-#, fuzzy, c-format
+#, c-format
 msgid "Removal is possible"
 msgstr "Moien zo da lemel"
 

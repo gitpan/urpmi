@@ -107,7 +107,6 @@ sub install_logger {
 	    my $pname = $pkg ? $pkg->name : '';
 	    ++$urpm->{logger_count} if $pname;
 	    my $cnt = $pname ? $urpm->{logger_count} : '-';
-	    $pname ||= N("[repackaging]");
 	    my $s = sprintf("%9s: %-22s", $cnt . "/" . $total_pkg, $pname);
 	    print $s;
 	    $s =~ / $/ or printf "\n%9s  %-22s", '', '';
@@ -149,6 +148,8 @@ sub get_README_files {
 		foreach my $i (0 .. $trans->NElements - 1) {
 		    $trans->Element_name($i) eq $pkg->name or next;
 
+		    # handle README.<version>-<release>.upgrade.urpmi:
+		    # the content is displayed when upgrading from rpm older than <version>
 		    my $vr = $trans->Element_version($i) . '-' . $trans->Element_release($i);
 		    if (URPM::ranges_overlap("== $vr", "< $version")) {
 			$valid = 1;
@@ -175,6 +176,121 @@ sub options {
     );
 }
 
+sub _schedule_packages_for_erasing {
+    my ($urpm, $trans, $remove) = @_;
+    foreach (@$remove) {
+	if ($trans->remove($_)) {
+	    $urpm->{debug} and $urpm->{debug}("trans: scheduling removal of $_");
+	} else {
+	    $urpm->{error}("unable to remove package " . $_);
+	}
+    }
+}
+
+sub _apply_delta_rpm {
+    my ($urpm, $path, $mode, $pkg) = @_;
+    my $true_rpm = urpm::sys::apply_delta_rpm($path, "$urpm->{cachedir}/rpms", $pkg);
+    my $true_pkg;
+    if ($true_rpm) {
+	if (my ($id) = $urpm->parse_rpm($true_rpm)) {
+	    $true_pkg = defined $id && $urpm->{depslist}[$id];
+	    $mode->{$id} = $true_rpm;
+	} else {
+	    $urpm->{error}("Failed to parse $true_pkg");
+	}
+    } else {
+	$urpm->{error}(N("unable to extract rpm from delta-rpm package %s", $path));
+    }
+    $true_rpm, $true_pkg;
+}
+
+sub _schedule_packages {
+    my ($urpm, $trans, $install, $upgrade, $update, %options) = @_;
+    my (@trans_pkgs, @produced_deltas);
+    foreach my $mode ($install, $upgrade) {
+	foreach (keys %$mode) {
+	    my $pkg = $urpm->{depslist}[$_];
+	    $pkg->update_header($mode->{$_}, keep_all_tags => 1);
+	    my ($true_rpm, $true_pkg);
+	    if ($pkg->payload_format eq 'drpm') { #- handle deltarpms
+		($true_rpm, $true_pkg) = _apply_delta_rpm($urpm, $_, $mode, $pkg);
+		push @produced_deltas, ($mode->{$_} = $true_rpm); #- fix path
+	    }
+	    if ($trans->add($true_pkg || $pkg, update => $update,
+		    $options{excludepath} ? (excludepath => [ split /,/, $options{excludepath} ]) : ())) {
+		$urpm->{debug} and $urpm->{debug}(
+		    sprintf('trans: scheduling %s of %s (id=%d, file=%s)', 
+		      $update ? 'update' : 'install', 
+		      scalar($pkg->fullname), $_, $mode->{$_}));
+		push @trans_pkgs, $pkg;
+
+	    } else {
+		$urpm->{error}(N("unable to install package %s", $mode->{$_}));
+		my $cachefile = "$urpm->{cachedir}/rpms/" . $pkg->filename;
+		if (-e $cachefile) {
+		    $urpm->{error}(N("removing bad rpm (%s) from %s", $pkg->name, "$urpm->{cachedir}/rpms"));
+		    unlink $cachefile or $urpm->{fatal}(1, N("removing %s failed: %s", $cachefile, $!));
+		}
+	    }
+	}
+	++$update;
+    }
+    \@produced_deltas, @trans_pkgs;
+}
+
+sub _get_callbacks {
+    my ($urpm, $db, $trans, $options, $install, $upgrade, $have_pkgs) = @_;
+    my $index;
+    my $fh;
+
+    my $is_test = $options->{test}; # fix circular reference
+    #- assume default value for some parameter.
+    $options->{delta} ||= 1000;
+
+    #- ensure perl does not create a circular reference below, otherwise all this won't be collected,
+    #  and rpmdb won't be closed:
+    my ($callback_open_helper, $callback_close_helper) = ($options->{callback_open_helper}, $options->{callback_close_helper});
+    $options->{callback_open} = sub {
+	my ($_data, $_type, $id) = @_;
+	$index++;
+	$callback_open_helper and $callback_open_helper->(@_);
+	$fh = urpm::sys::open_safe($urpm, '<', $install->{$id} || $upgrade->{$id});
+	$fh ? fileno $fh : undef;
+    };
+    $options->{callback_close} = sub {
+	my ($urpm, undef, $pkgid) = @_;
+	return unless defined $pkgid;
+	$callback_close_helper and $callback_close_helper->($db, @_);
+	get_README_files($urpm, $trans, $urpm->{depslist}[$pkgid]) if !$is_test;
+	close $fh if defined $fh;
+    };
+
+    #- ensure perl does not create a circular reference below, otherwise all this won't be collected,
+    #  and rpmdb won't be closed
+    my ($verbose, $callback_report_uninst) = ($options->{verbose}, $options->{callback_report_uninst});
+    $options->{callback_uninst} = sub { 	    
+	my ($_urpm, undef, undef, $subtype) = @_;
+	if ($subtype eq 'start') {
+	    my ($name, $fullname) = ($trans->Element_name($index), $trans->Element_fullname($index));
+	    my @previous = map { $trans->Element_name($_) } 0 .. ($index - 1);
+	    # looking at previous packages in transaction
+	    # we should be looking only at installed packages, but it should not give a different result
+	    if (member($name, @previous)) {
+		$urpm->{log}("removing upgraded package $fullname");
+	    } else {
+		$callback_report_uninst and $callback_report_uninst->(N("Removing package %s", $fullname));
+		$urpm->{print}(N("removing package %s", $fullname)) if $verbose >= 0;
+	    }
+	    $index++;
+	}
+    };
+
+    if ($options->{verbose} >= 0 && $have_pkgs) {
+	$options->{callback_inst}  ||= \&install_logger;
+	$options->{callback_trans} ||= \&install_logger;
+    }
+}
+
 =item install($urpm, $remove, $install, $upgrade, %options)
 
 Install packages according to each hash (remove, install or upgrade).
@@ -196,9 +312,10 @@ sub install {
 
     my $trans = $db->create_transaction;
     if ($trans) {
-	sys_log("transaction on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/', scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade));
+	my ($rm_count, $inst_count, $up_count) = (scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade));
+	sys_log("transaction on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/', $rm_count, $inst_count, $up_count);
 	$urpm->{log}(N("created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)", $urpm->{root} || '/',
-		       scalar(@{$remove || []}), scalar(values %$install), scalar(values %$upgrade)));
+		       $rm_count, $inst_count, $up_count));
     } else {
 	return N("unable to create transaction");
     }
@@ -206,98 +323,18 @@ sub install {
     $trans->set_script_fd($options{script_fd}) if $options{script_fd};
 
     my ($update, @errors) = 0;
-    my @produced_deltas;
 
-    foreach (@$remove) {
-	if ($trans->remove($_)) {
-	    $urpm->{debug} and $urpm->{debug}("trans: scheduling removal of $_");
-	} else {
-	    $urpm->{error}("unable to remove package " . $_);
-	}
-    }
-    my @trans_pkgs;
-    foreach my $mode ($install, $upgrade) {
-	foreach (keys %$mode) {
-	    my $pkg = $urpm->{depslist}[$_];
-	    $pkg->update_header($mode->{$_}, keep_all_tags => 1);
-	    if ($pkg->payload_format eq 'drpm') { #- handle deltarpms
-		my $true_rpm = urpm::sys::apply_delta_rpm($mode->{$_}, "$urpm->{cachedir}/rpms", $pkg);
-		if ($true_rpm) {
-		    push @produced_deltas, ($mode->{$_} = $true_rpm); #- fix path
-		} else {
-		    $urpm->{error}(N("unable to extract rpm from delta-rpm package %s", $mode->{$_}));
-		}
-	    }
-	    if ($trans->add($pkg, update => $update,
-		    $options{excludepath} ? (excludepath => [ split /,/, $options{excludepath} ]) : ()
-	    )) {
-		$urpm->{debug} and $urpm->{debug}(
-		    sprintf('trans: scheduling %s of %s (id=%d, file=%s)', 
-		      $update ? 'update' : 'install', 
-		      scalar($pkg->fullname), $_, $mode->{$_}));
-		push @trans_pkgs, $pkg;
+    _schedule_packages_for_erasing($urpm, $trans, $remove);
 
-	    } else {
-		$urpm->{error}(N("unable to install package %s", $mode->{$_}));
-		my $cachefile = "$urpm->{cachedir}/rpms/" . $pkg->filename;
-		if (-e $cachefile) {
-		    $urpm->{error}(N("removing bad rpm (%s) from %s", $pkg->name, "$urpm->{cachedir}/rpms"));
-		    unlink $cachefile or $urpm->{fatal}(1, N("removing %s failed: %s", $cachefile, $!));
-		}
-	    }
-	}
-	++$update;
-    }
+    my ($produced_deltas, @trans_pkgs) = _schedule_packages($urpm, $trans, $install, $upgrade, $update, %options);
+
     if (!$options{nodeps} && (@errors = $trans->check(%options))) {
     } elsif (!$options{noorder} && (@errors = $trans->order)) {
     } else {
 	$urpm->{readmes} = {};
-	my $index;
-	my $fh;
-	my $is_test = $options{test}; # fix circular reference
-	#- assume default value for some parameter.
-	$options{delta} ||= 1000;
 
-	#- ensure perl does not create a circular reference below, otherwise all this won't be collected,
-	#  and rpmdb won't be closed:
-	my ($callback_open_helper, $callback_close_helper) = ($options{callback_open_helper}, $options{callback_close_helper});
-	$options{callback_open} = sub {
-	    my ($_data, $_type, $id) = @_;
-	    $index++;
-	    $callback_open_helper and $callback_open_helper->(@_);
-	    $fh = urpm::sys::open_safe($urpm, '<', $install->{$id} || $upgrade->{$id});
-	    $fh ? fileno $fh : undef;
-	};
-	$options{callback_close} = sub {
-	    my ($urpm, undef, $pkgid) = @_;
-	    return unless defined $pkgid;
-	    $callback_close_helper and $callback_close_helper->($db, @_);
-	    get_README_files($urpm, $trans, $urpm->{depslist}[$pkgid]) if !$is_test;
-	    close $fh if defined $fh;
-	};
-	#- ensure perl does not create a circular reference below, otherwise all this won't be collected,
-	#  and rpmdb won't be closed
-	my ($verbose, $callback_report_uninst) = ($options{verbose}, $options{callback_report_uninst});
-	$options{callback_uninst} = sub { 	    
-	    my ($_urpm, undef, undef, $subtype) = @_;
-	    if ($subtype eq 'start') {
-		my ($name, $fullname) = ($trans->Element_name($index), $trans->Element_fullname($index));
-		my @previous = map { $trans->Element_name($_) } 0 .. ($index - 1);
-		# looking at previous packages in transaction
-		# we should be looking only at installed packages, but it should not give a different result
-		if (member($name, @previous)) {
-		    $urpm->{log}("removing upgraded package $fullname");
-		} else {
-		    $callback_report_uninst and $callback_report_uninst->(N("Removing package %s", $fullname));
-		    $urpm->{print}(N("removing package %s", $fullname)) if $verbose >= 0;
-		}
-		$index++;
-	    }
-	};
-	if ($options{verbose} >= 0 && @trans_pkgs) {
-	    $options{callback_inst}  ||= \&install_logger;
-	    $options{callback_trans} ||= \&install_logger;
-	}
+	_get_callbacks($urpm, $db, $trans, \%options, $install, $upgrade, scalar @trans_pkgs);
+
 	@errors = $trans->run($urpm, %options);
 
 	#- don't clear cache if transaction failed. We might want to retry.
@@ -320,7 +357,8 @@ sub install {
 	    }
 	}
     }
-    unlink @produced_deltas;
+
+    unlink @$produced_deltas;
 
     urpm::sys::may_clean_rpmdb_shared_regions($urpm, $options{test});
 

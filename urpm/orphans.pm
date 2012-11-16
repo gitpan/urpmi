@@ -354,7 +354,7 @@ sub _get_current_kernel_package() {
 # - returns list of kernels
 #
 # _fast_ version w/o looking at all non kernel packages requires on
-# kernels (like "urpmi_find_leaves 'kernel'" would)
+# kernels (like "urpmi_find_leaves '^kernel'" would)
 #
 # _all_unrequested_orphans blacklists nearly all kernels b/c of packages
 # like 'ndiswrapper' or 'basesystem' that requires 'kernel'
@@ -371,8 +371,8 @@ sub _kernel_callback {
 
     # only consider kernels (and not main 'kernel' package):
     # but perform a pass on their requires for dkms like packages that require a specific kernel:
-    if ($shortname !~ /kernel-/) {
-	foreach (grep { /kernel/ } $pkg->requires_nosense) {
+    if ($shortname !~ /^kernel-/) {
+	foreach (grep { /^kernel/ } $pkg->requires_nosense) {
 	    $requested_kernels{$_}{$shortname} = $pkg;
 	}
 	return;
@@ -441,6 +441,7 @@ sub _all_unrequested_orphans {
     }
 
     # do not offer to remove current kernel or DKMS modules for current kernel:
+    delete $l{$current_kernel};
     do { delete $l{$_} } foreach grep { /$current_kernel_version/ } keys %l;
     [ values %l ];
 }
