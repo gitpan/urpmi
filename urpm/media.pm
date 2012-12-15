@@ -182,29 +182,22 @@ sub _read_config__read_media_info {
 
 	my $media_cfg = $media_dir . '/media.cfg';
 	my $distribconf = MDV::Distribconf->new($media_cfg, undef) or next;
-	$distribconf->settree('mandriva');
+	$distribconf->settree('mageia');
 	$distribconf->parse_mediacfg($media_cfg) or next;
     
-	if (open(my $URLS, '<', $media_dir . '/url')) {
-	    local $_;
-	    while (<$URLS>) {
-		chomp($_);
-		foreach my $medium ($distribconf->listmedia) {
-		    my $medium_path = reduce_pathname($_ . '/' . $distribconf->getpath($medium, 'path'));
-		    $url2mediamap{$medium_path} = [$distribconf, $medium];
-		}
+	foreach (cat_($media_dir . '/url')) {
+	    chomp($_);
+	    foreach my $medium ($distribconf->listmedia) {
+		my $medium_path = reduce_pathname($_ . '/' . $distribconf->getpath($medium, 'path'));
+		$url2mediamap{$medium_path} = [$distribconf, $medium];
 	    }
 	}
 
-	if (open(my $MIRRORLISTS, '<', $media_dir . '/mirrorlist')) {
-	    local $_;
-	    while (<$MIRRORLISTS>) {
-		my $mirrorlist = $_;
-		chomp($mirrorlist);
-		foreach my $medium ($distribconf->listmedia) {
-		    my $medium_path = $distribconf->getpath($medium, 'path');
-		    $mirrorlist2mediamap{$mirrorlist}{$medium_path} = [ $distribconf, $medium ];
-		}
+	foreach my $mirrorlist (cat_($media_dir . '/mirrorlist')) {
+	    chomp($mirrorlist);
+	    foreach my $medium ($distribconf->listmedia) {
+		my $medium_path = $distribconf->getpath($medium, 'path');
+		$mirrorlist2mediamap{$mirrorlist}{$medium_path} = [ $distribconf, $medium ];
 	    }
 	}
     }
@@ -960,7 +953,7 @@ sub add_distrib_media {
 	urpm::removable::try_mounting_medium_($urpm, $m) or $urpm->{error}(N("directory %s does not exist", $url));
 
 	$distribconf = MDV::Distribconf->new(file_from_file_url($url) || $url, undef);
-	$distribconf->settree('mandriva');
+	$distribconf->settree('mageia');
 
 	my $dir = file_from_local_medium($m);
 	my $media_cfg = reduce_pathname("$dir/" . $distribconf->getpath(undef, 'infodir') . '/media.cfg');
@@ -1062,6 +1055,12 @@ sub add_distrib_media {
 	);
 	++$medium_index;
     }
+
+    # associate newly added medias with their description in a media.cfg file
+    # @media content will be modified and then add_existing medium will take 
+    # care of copying the media to $urpm
+    _associate_media_with_mediacfg($urpm, [ map { name2medium($urpm, $_) } @newnames ]);
+
     return @newnames;
 }
 
@@ -1069,7 +1068,7 @@ sub _new_distribconf_and_download {
     my ($urpm, $medium) = @_;
 
     my $distribconf = MDV::Distribconf->new($medium->{url}, undef);
-    $distribconf->settree('mandriva');
+    $distribconf->settree('mageia');
 
     $urpm->{log}(N("retrieving media.cfg file..."));
     my $url = $medium->{url};

@@ -1,3 +1,8 @@
+Version 7.14 - 13 December 2012, by Thierry Vignaud
+
+- library:
+  o associate media_cfg data to media when adding them
+
 Version 7.13 - 4 December 2012, by Thierry Vignaud
 
 - library speedups when looking up packages:
@@ -8,7 +13,7 @@ Version 7.13 - 4 December 2012, by Thierry Vignaud
 Version 7.12.1 - 4 December 2012, by Thierry Vignaud
 
 - urpmi:
-  o fix missing logs
+  o fix missing logs (mga#6755)
 
 Version 7.12 - 2 December 2012, by Thierry Vignaud
 
