@@ -1,3 +1,12 @@
+Version 7.16 - 3 February 2013, by Thierry Vignaud
+
+- add basic support for detecting I/O error
+- display erasure progress too
+
+Version 7.15.2 - 16 January 2013, by Thierry Vignaud
+
+- update translations
+
 Version 7.15.1 - 18 December 2012, by Thierry Vignaud
 
 - library:
@@ -143,7 +152,7 @@ Version 7.0 - 8 June 2012
 - adapt to rpm-4.10.0
 - enhance man pages caption (inspirated by mdv)
 - fix testsuite regressions
-- o make 'basename' option work again for rpmdrake
+- make 'basename' option work again for rpmdrake
 - urpmi:
   o do not try to run gmessage as gtkdialogs is not packaged in Mga
   o drop support for --gui (no more used by drakx)
