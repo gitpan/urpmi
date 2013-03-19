@@ -12,13 +12,13 @@
 # Theophanis Mastakas <mastakas@otenet.gr>, 2006.
 # Glentadakis Dimitrios <dglent@gmail.com>, 2008, 2009.
 # Nikos Papadopoulos <231036448@freemail.gr>, 2008.
-# Dimitrios Glentadakis <dglent@gmail.com>, 2010, 2011, 2012.
+# Dimitrios Glentadakis <dglent@gmail.com>, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: urpmi-el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-09 22:13+0100\n"
-"PO-Revision-Date: 2012-12-27 07:06+0100\n"
+"PO-Revision-Date: 2013-02-10 05:41+0100\n"
 "Last-Translator: Dimitrios Glentadakis <dglent@gmail.com>\n"
 "Language-Team: Greek <i18n-el@ml.mageia.org>\n"
 "Language: el\n"
@@ -2200,9 +2200,11 @@ msgstr "  --noclean      - κρατά τα rpm στην προσωρινή μν�
 #: ../urpmi:97
 #, c-format
 msgid ""
-"  --downgrade    - dowgrade a package from the version currently installed\n"
+"  --downgrade    - downgrade a package from the version currently installed\n"
 "                   to the previously highest version\n"
 msgstr ""
+"  --downgrade    - υποβάθμιση ενός πακέτου από την εγκατεστημένη του έκδοση\n"
+"                   στην προηγούμενη τελευταία έκδοση\n"
 
 #: ../urpmi:99
 #, c-format

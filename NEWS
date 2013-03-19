@@ -1,3 +1,21 @@
+Version 7.20 - 19 March 2013, by Thierry Vignaud
+
+- library:
+  o drop 'callback_report_uninst' now that 'callback_uninst' enables to get
+    erasure progress
+  o enable rpmdrake/gurpm/drakx to pass their own callbacks for erasure
+    progress & errors
+  o enhanced doc
+  o revert 'fixing (g)urpmi --auto-select --update defaulting to all media when
+    there're no update media (#1024)' as it break looking for deps in other media
+    with --update (mga#2317)
+- gurpmi:
+  o split global progress bar widget for rpmdrake (mga#778)
+  o show removed packages in progress too
+  o support exceptions in callback in main wrapper too
+  o support other distros which do not handle exceptions in gtk+ callbacks
+  o use new exception management
+
 Version 7.19 - 9 February 2013, by Thierry Vignaud
 
 - add basic support for --downgrade (mga#6655)
@@ -179,7 +197,7 @@ Version 6.48.1 - 23 April 2012
 
 - urpmi:
   o do not print orphans message when no package is orphan (mga#4715)
-- kill mdv reference in man pages (#5277)
+- kill mdv reference in man pages (mga#5277)
 
 Version 6.48 - 26 March 2012
 
