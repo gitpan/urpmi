@@ -29,7 +29,7 @@ use urpm::select;
 use urpm::orphans;
 use urpm::get_pkgs;
 use urpm::signature;
-use urpm::util qw(difference2 find intersection member partition untaint);
+use urpm::util qw(find intersection member partition);
 
 #- global boolean options
 my ($auto_select, $no_install, $install_src, $clean, $noclean, $force, $parallel, $test);
@@ -362,7 +362,15 @@ Parameters:
 
 =over
 
+=item packages download:
+
+=over
+
 =item trans_log($mode, $file, $percent, $total, $eta, $speed): called for displaying download progress
+
+=item post_download(): called after completing download of packages
+
+=back
 
 =item interaction with user:
 

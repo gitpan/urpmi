@@ -7,7 +7,7 @@ use strict;
 use File::Find ();
 use urpm::msg;
 use urpm::download;
-use urpm::util;
+use urpm::util qw(basename begins_with cat_ cat_utf8 dirname file2absolute_file member);
 use urpm::sys;
 use urpm::cfg;
 use urpm::md5sum;
@@ -15,7 +15,7 @@ use urpm::md5sum;
 # perl_checker: require urpm::media
 # perl_checker: require urpm::parallel
 
-our $VERSION = '7.20';
+our $VERSION = '7.22';
 our @ISA = qw(URPM Exporter);
 our @EXPORT_OK = ('file_from_local_url', 'file_from_local_medium', 'is_local_medium');
 

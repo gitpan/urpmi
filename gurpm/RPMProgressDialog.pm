@@ -34,7 +34,6 @@ How to use:
 =cut
 
 use strict;
-use feature 'state';
 use Gtk2;
 use urpm::download;
 use urpm::msg 'N';
@@ -48,10 +47,10 @@ sub title {
 }
 
 # package variable needed in order to simplify callbacks
-my ($mainw, $urpm);
+my ($mainw, $urpm, $old_main_window);
 
 my $progressbar_size = 450;
-my ($progress_nb, $download_nb);
+my ($progress_nb, $download_nb, $uninst_count);
 
 
 =head2 Creators
@@ -72,6 +71,7 @@ sub new {
     # my $w = ugtk2->new($title, %options, default_width => 600, width => 600);
     my $w = $mainw = bless(Gtk2::Window->new('toplevel'), $self);
 
+    $old_main_window = $::main_window;
     $::main_window = $w;
     $w->set_border_width(12);
     $w->set_title($w->title);
@@ -160,7 +160,7 @@ sub init_progressbar {
     $progressbar->set_size_request($progressbar_size, -1);
     $vbox->pack_start($progressbar, 0, 0, 0);
     $w->{progressbar} = $progressbar;
-    $progress_nb = $download_nb = 0;
+    $progress_nb = $download_nb = $uninst_count = 0;
 
     $w->change_widget($vbox);
 }
@@ -184,11 +184,56 @@ Update the progress bar
 
 sub set_progressbar {
     my ($w, $local_ratio) = @_;
-    if ($progress_nb || $download_nb) { # this happens when computing transaction
-	$w->{global_progressbar}->set_fraction(($download_nb + $progress_nb - 1 + $local_ratio) / 2 / $urpm->{nb_install});
+    if ($progress_nb || $download_nb || $uninst_count) { # this happens when computing transaction
+	$w->{global_progressbar}->set_fraction(($download_nb + $progress_nb + $uninst_count - 1 + $local_ratio) / 2 / $urpm->{nb_install});
     }
     $w->{progressbar}->set_fraction($local_ratio);
 }
+
+=item validate_cancel($self, $cancel_msg, $cancel_cb)
+
+Add a "Cancel" button, with $cancel_msg as label, calling
+$cancel_cb when clicked.
+
+=cut
+
+sub validate_cancel {
+    my ($self, $cancel_msg, $cancel_cb) = @_;
+    if (!$self->{cancel}) {
+	$self->{hbox_cancel} = Gtk2::HButtonBox->new;
+	$self->{hbox_cancel}->add($self->{cancel} = Gtk2::Button->new($cancel_msg));
+	$self->{mainbox}->add($self->{hbox_cancel});
+	$self->{cancel}->signal_connect('clicked' => \&$cancel_cb);
+	$self->{hbox_cancel}->show_all;
+    }
+    $self->{cancel}->set_sensitive(1);
+    $self->{cancel}->show;
+}
+
+=item invalidate_cancel($self)
+
+Disable the "Cancel" button if any.
+
+=cut
+
+sub invalidate_cancel {
+    my ($self) = @_;
+    $self->{cancel} and $self->{cancel}->set_sensitive(0);
+}
+
+=item invalidate_cancel($self)
+
+Disable the "Cancel" button if any.
+
+=cut
+
+
+sub invalidate_cancel_forever {
+    my ($self) = @_;
+    $self->{hbox_cancel} or return;
+    $self->{hbox_cancel}->destroy;
+}
+
 
 =item sync($w)
 
@@ -212,6 +257,17 @@ sub get_something_done() {
     $progress_nb;
 }
 
+=item canceled($w)
+
+Whether downloading has been canceled or not.
+
+=cut
+
+sub canceled {
+    my ($w) = @_;
+    $w->{canceled};
+}
+
 =back
 
 =head2 Callbacks
@@ -230,7 +286,6 @@ Its purpose is to display installation progress in the dialog.
 sub callback_inst {
     my ($urpm, $type, $id, $subtype, $amount, $total) = @_;
     my $pkg = defined $id ? $urpm->{depslist}[$id] : undef;
-    state $uninst_count;
     if ($subtype eq 'start') {
 	if ($type eq 'trans') {
 	    $uninst_count = 0;
@@ -274,6 +329,7 @@ sub callback_download {
 				  &urpm::download::progress_text($mode, $percent, $total, $eta, $speed));
     }
     if ($mode eq 'start') {
+	$mainw->validate_cancel(N("Cancel"), \&callback_cancel);
 	$download_nb++;
 	$mainw->set_progressbar(0);
 	select(undef, undef, undef, 0.1); #- hackish
@@ -288,10 +344,22 @@ sub callback_download {
     $mainw->sync;
 }
 
+=item callback_cancel()
+
+This callback is to be called when canceling packages download.
+
+=cut
+
+sub callback_cancel {
+    $mainw->{canceled} = 1;
+}
+
+
 sub DESTROY {
     my ($self) = @_;
     undef $mainw;
     undef $urpm;
+    $::main_window = $old_main_window;
 
     $self and $self->destroy;
     $self = undef;

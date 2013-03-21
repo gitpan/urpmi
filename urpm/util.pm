@@ -18,6 +18,7 @@ our @EXPORT = qw(add2hash_
     file2absolute_file
     file_size
     find
+    formatList
     intersection
     max
     member 
@@ -222,6 +223,8 @@ __END__
 =head1 NAME
 
 urpm::util - Misc. utilities subs for urpmi
+
+Mostly a subset of L<MDK::Common>
 
 =head1 SYNOPSIS
 

@@ -5,7 +5,7 @@ package urpm::removable;
 use strict;
 use urpm::msg;
 use urpm::sys;
-use urpm::util;
+use urpm::util 'reduce_pathname';
 use urpm 'file_from_local_medium';
 
 
@@ -85,13 +85,10 @@ sub _try_mounting_iso {
     if ($mntpoint) {
 	$urpm->{log}(N("mounting %s", $mntpoint));
 
-	#- to mount an iso image, grab the first loop device
-	my $loopdev = urpm::sys::first_free_loopdev();
 	sys_log("mount iso $mntpoint on $iso");
-	$loopdev and system('mount', $iso, $mntpoint, '-t', 'iso9660', '-o', "loop=$loopdev");
+	system('mount', $iso, $mntpoint, qw(-t iso9660 -o loop));
 	$urpm->{removable_mounted}{$mntpoint} = undef;
     }
-    -e $mntpoint;
 }
 
 #- side-effects: $urpm->{removable_mounted}, "mount"
@@ -106,7 +103,6 @@ sub _try_mounting_using_fstab {
 	system("mount '$mntpoint' 2>/dev/null");
 	$urpm->{removable_mounted}{$mntpoint} = undef;
     }
-    -e $dir;
 }
 
 #- side-effects: $urpm->{removable_mounted}, "umount"
