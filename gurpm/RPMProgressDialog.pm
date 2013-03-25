@@ -23,7 +23,8 @@ How to use:
  ... # compute packages to install/remove...
  $w->init_progressbar;
  urpm::main_loop::run($urpm, $state, $nb, \@ask_unselect, {
-       trans_log => &gurpm::RPMProgressDialog::callback_download,
+       trans_log => \&gurpm::RPMProgressDialog::callback_download,
+       pre_check_sig => \&gurpm::RPMProgressDialog::pre_check_sig,
        inst => \&gurpm::RPMProgressDialog::callback_inst,
        trans => \&gurpm::RPMProgressDialog::callback_inst,
        uninst => \&gurpm::RPMProgressDialog::callback_inst,
@@ -274,6 +275,19 @@ sub canceled {
 
 =over 4
 
+=item callback_pre_check_sig()
+
+This callback is called when checking packages before installing them.
+
+Its purpose is to display installation progress in the dialog.
+
+=cut
+
+sub callback_pre_check_sig {
+    $mainw->set_progresslabel(N("Verifying package signatures..."));
+    $mainw->sync;
+}
+
 =item callback_inst($urpm, $type, $id, $subtype, $amount, $total)
 
 This callback is called when a new RPM DB transaction is created and
@@ -361,7 +375,6 @@ sub DESTROY {
     undef $urpm;
     $::main_window = $old_main_window;
 
-    $self and $self->destroy;
     $self = undef;
 }
 

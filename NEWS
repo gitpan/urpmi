@@ -1,3 +1,16 @@
+Version 7.23 - 21 March 2013, by Thierry Vignaud
+
+- library:
+  o enable to report packages signature checking in global progress bar dialog
+- gurpmi2:
+  o improved layout:
+    * only the package list needs a scrolling bar
+    * always display space information
+  o display the addionnal space that will be used and the amount of downloaded
+    packages instead of the total size of the packages (like urpmi)
+  o fix return value (mga#9519)
+  o report packages signature checking in global progress bar dialog
+
 Version 7.22 - 21 March 2013, by Thierry Vignaud
 
 - library:

@@ -185,10 +185,15 @@ sub ask_choice {
 }
 
 sub ask_continue {
-    my ($msg, $nextclosure) = @_;
+    my ($msg, $nextclosure, $o_list, $o_end_msg) = @_;
     my $vbox = Gtk2::VBox->new(0, 5);
     $vbox->pack_start(new_label($msg), 1, 1, 0);
     $urpm->{log}($msg);
+	warn ">> o_list='$o_list'\n";
+    if ($o_end_msg) {
+        $vbox->pack_start(new_label($o_list), 1, 1, 0);
+        $vbox->pack_start(new_label($o_end_msg), 1, 1, 0);
+    }
     my $continue_button = Gtk2::Button->new(but(N("_Ok")));
     my $quit_button = Gtk2::Button->new(but(N("_Abort")));
     $quit_button->signal_connect(clicked => sub { $urpm->{log}("=> cancel"); &quit(); exit 1 });
@@ -200,13 +205,13 @@ sub ask_continue {
 }
 
 sub ask_continue_if_no_auto {
-    my ($msg, $nextclosure) = @_;
+    my ($msg, $nextclosure, $o_list, $o_end_msg) = @_;
     if ($gurpmi::options{auto}) {
 	$urpm->{log}($msg);
 	$urpm->{log}("=> ok(auto)");
 	goto &$nextclosure;
     } else {
-	ask_continue($msg, $nextclosure);
+	ask_continue($msg, $nextclosure, $o_list, $o_end_msg);
     }
 }
 
@@ -232,23 +237,24 @@ sub do_install {
 }
 
 sub do_install_2 () {
-    my @to_install;
-    my $sum;
-    foreach my $pkg (sort { $a->name cmp $b->name } @{$urpm->{depslist}}[keys %{$state->{selected}}]) {
-        if ($pkg->arch ne 'src') {
-            push @to_install, scalar $pkg->fullname;
-            $sum += $pkg->size;
-        }
-    }
+    my @to_install = map { scalar $_->fullname } @{$urpm->{depslist}}[sort { $a <=> $b } keys %{$state->{selected}}]; # sorted by medium for format_selected_packages
     $urpm->{nb_install} = @to_install;
+    my ($size, $filesize) = $urpm->selected_size_filesize($state);
+    my $msg2 = $size >= 0 ? 
+      N("%s of additional disk space will be used.", formatXiB($size)) :
+      N("%s of disk space will be freed.", formatXiB(-$size));
+    my $msg2_ = $filesize ? "\n" . N("%s of packages will be retrieved.", formatXiB($filesize)) . "\n" : '';
+    my $msg3 = P("Proceed with the installation of one package?",
+    		"Proceed with the installation of the %d packages?",
+		$urpm->{nb_install}, $urpm->{nb_install});
     @to_install > 1
 	? ask_continue_if_no_auto(
 		(scalar(@to_install) == 1 ?
 		N("To satisfy dependencies, the following package is going to be installed:")
-		: N("To satisfy dependencies, the following packages are going to be installed:"))
-       	. join("\n", '', @to_install, '') 
-	. P("(%d package, %d MB)", "(%d packages, %d MB)", scalar(@to_install), scalar(@to_install), toMb($sum)),
-                    , \&do_install_3)
+		: N("To satisfy dependencies, the following packages are going to be installed:")),
+	\&do_install_3,
+       	join("\n", @to_install),
+	$msg2 . $msg2_ . $msg3)
 	: goto \&do_install_3;
 }
 
@@ -330,6 +336,7 @@ sub do_install_3 () {
             $mainw->set_progresslabel(N("The package(s) are already installed"));
         },
         success_summary => sub { $mainw->set_progresslabel(N("Installation finished")) },
+        pre_check_sig => \&gurpm::RPMProgressDialog::callback_pre_check_sig,
         uninst => \&gurpm::RPMProgressDialog::callback_inst,
         inst => \&gurpm::RPMProgressDialog::callback_inst,
         trans => \&gurpm::RPMProgressDialog::callback_inst,
