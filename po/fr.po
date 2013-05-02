@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: urpmi\n"
 "POT-Creation-Date: 2013-03-26 21:20+0100\n"
-"PO-Revision-Date: 2013-03-26 21:30+0100\n"
-"Last-Translator: Rémi Verschelde <remi@verschelde.fr>\n"
+"PO-Revision-Date: 2013-04-24 23:36+0100\n"
+"Last-Translator: Yann Ciret <mageia@zamiz.net>\n"
 "Language-Team: French <i18n-fr@ml.mageia.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: ../gurpm/RPMProgressDialog.pm:47
 #, c-format
@@ -1411,8 +1412,8 @@ msgstr[1] ""
 #, c-format
 msgid "You may wish to remove it."
 msgid_plural "You may wish to remove them."
-msgstr[0] "Vous pouvez souhaiter l'effacer."
-msgstr[1] "Vous pouvez souhaiter les effacer."
+msgstr[0] "Vous pouvez, si vous le souhaitez, l'effacer."
+msgstr[1] "Vous pouvez, si vous le souhaitez, les effacer."
 
 #: ../urpm/orphans.pm:543
 #, c-format
@@ -2214,6 +2215,9 @@ msgid ""
 "  --downgrade    - downgrade a package from the version currently installed\n"
 "                   to the previously highest version\n"
 msgstr ""
+"  --downgrade    - désinstalle la version actuellement installée d'un "
+"paquetage\n"
+"                   et installe sa plus haute version précédente\n"
 
 #: ../urpmi:99
 #, c-format
@@ -2325,8 +2329,8 @@ msgid ""
 "                   to be 1080 by default (format is <proxyhost[:port]>).\n"
 msgstr ""
 "  --proxy        - utiliser le proxy HTTP indiqué, le n° de port\n"
-"                   étant 1080 à défaut d'indication (format <proxy[:"
-"port]>).\n"
+"                   étant 1080 à défaut d'indication (format <proxy[:port]"
+">).\n"
 
 #: ../urpmi:126 ../urpmi.addmedia:64 ../urpmi.update:41 ../urpmq:76
 #, c-format
