@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 21:20+0100\n"
-"PO-Revision-Date: 2013-03-30 16:01-0000\n"
+"POT-Creation-Date: 2014-05-11 21:49+0200\n"
+"PO-Revision-Date: 2014-06-25 17:42+0300\n"
 "Last-Translator: AlexL <loginov.alex.valer@gmail.com>\n"
 "Language-Team: Russian <gnu@mx.ru>\n"
 "Language: ru\n"
@@ -35,71 +35,71 @@ msgstr "Обновление дистрибутива"
 msgid "Packages installation"
 msgstr "Установка пакетов"
 
-#: ../gurpm/RPMProgressDialog.pm:125
+#: ../gurpm/RPMProgressDialog.pm:128
 #, c-format
 msgid "Please wait..."
 msgstr "Подождите, пожалуйста..."
 
-#: ../gurpm/RPMProgressDialog.pm:287
+#: ../gurpm/RPMProgressDialog.pm:290
 #, c-format
 msgid "Verifying package signatures..."
 msgstr "Проверяются подписи пакетов..."
 
-#: ../gurpm/RPMProgressDialog.pm:306
+#: ../gurpm/RPMProgressDialog.pm:309
 #: ../urpm/install.pm:107
 #, c-format
 msgid "Preparing..."
 msgstr "Подготовка..."
 
-#: ../gurpm/RPMProgressDialog.pm:310
+#: ../gurpm/RPMProgressDialog.pm:313
 #, c-format
 msgid "Removing package `%s' ..."
 msgstr "Удаляется пакет «%s»..."
 
-#: ../gurpm/RPMProgressDialog.pm:314
+#: ../gurpm/RPMProgressDialog.pm:316
 #, c-format
 msgid "Installing package `%s' (%s/%s)..."
 msgstr "Устанавливается пакет «%s» (%s/%s)..."
 
-#: ../gurpm/RPMProgressDialog.pm:342
+#: ../gurpm/RPMProgressDialog.pm:345
 #, c-format
 msgid "Downloading package `%s'..."
 msgstr "Загружается пакет «%s»..."
 
-#: ../gurpm/RPMProgressDialog.pm:346
+#: ../gurpm/RPMProgressDialog.pm:349
 #, c-format
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../gurpm/RPMProgressDialog.pm:356
+#: ../gurpm/RPMProgressDialog.pm:359
 #: ../urpm.pm:453
 #: ../urpm/download.pm:857
 #: ../urpm/get_pkgs.pm:278
-#: ../urpm/media.pm:1078
-#: ../urpm/media.pm:1604
-#: ../urpm/media.pm:1755
+#: ../urpm/media.pm:1126
+#: ../urpm/media.pm:1647
+#: ../urpm/media.pm:1798
 #, c-format
 msgid "...retrieving failed: %s"
 msgstr "...извлечение не удалось: %s"
 
-#: ../gurpmi:38
+#: ../gurpmi:45
 #, c-format
 msgid "RPM installation"
 msgstr "Установка RPM"
 
-#: ../gurpmi:52
+#: ../gurpmi:59
 #, c-format
 msgid "Error: unable to find file %s, will cancel operation"
 msgstr "Ошибка: не удаётся найти файл %s, операция отменяется"
 
-#: ../gurpmi:53
-#: ../gurpmi2:167
-#: ../gurpmi2:197
+#: ../gurpmi:60
+#: ../gurpmi2:169
+#: ../gurpmi2:199
 #, c-format
 msgid "_Ok"
 msgstr "_ОК"
 
-#: ../gurpmi:73
+#: ../gurpmi:80
 #, c-format
 msgid ""
 "You have selected a source package:\n"
@@ -119,8 +119,8 @@ msgstr ""
 "\n"
 "Что нужно сделать?"
 
-#: ../gurpmi:81
-#: ../gurpmi:92
+#: ../gurpmi:88
+#: ../gurpmi:99
 #, c-format
 msgid ""
 "You are about to install the following software packages on your computer:\n"
@@ -135,7 +135,7 @@ msgstr ""
 "\n"
 "Продолжить?"
 
-#: ../gurpmi:87
+#: ../gurpmi:94
 #, c-format
 msgid ""
 "You are about to install the following software package on your computer:\n"
@@ -150,23 +150,23 @@ msgstr ""
 "\n"
 "Пакет можно просто сохранить. Что нужно сделать?"
 
-#: ../gurpmi:105
+#: ../gurpmi:112
 #, c-format
 msgid "_Install"
 msgstr "_Установить"
 
-#: ../gurpmi:106
+#: ../gurpmi:113
 #, c-format
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: ../gurpmi:107
-#: ../gurpmi2:167
+#: ../gurpmi:114
+#: ../gurpmi2:169
 #, c-format
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: ../gurpmi:115
+#: ../gurpmi:122
 #, c-format
 msgid "Choose location to save file"
 msgstr "Укажите местоположение для сохранения файла"
@@ -300,42 +300,42 @@ msgstr ""
 "%s\n"
 "Продолжить установку?"
 
-#: ../gurpmi2:126
+#: ../gurpmi2:115
 #, c-format
 msgid "Warning"
 msgstr "Внимание"
 
-#: ../gurpmi2:126
+#: ../gurpmi2:115
 #, c-format
 msgid "Ok"
 msgstr "ОК"
 
-#: ../gurpmi2:163
+#: ../gurpmi2:165
 #, c-format
 msgid " (to upgrade)"
 msgstr " (обновить)"
 
-#: ../gurpmi2:164
+#: ../gurpmi2:166
 #, c-format
 msgid " (to install)"
 msgstr " (установить)"
 
-#: ../gurpmi2:167
+#: ../gurpmi2:169
 #, c-format
 msgid "Package choice"
 msgstr "Выбор пакета"
 
-#: ../gurpmi2:168
+#: ../gurpmi2:170
 #, c-format
 msgid "One of the following packages is needed:"
 msgstr "Нужен один из следующих пакетов:"
 
-#: ../gurpmi2:198
+#: ../gurpmi2:200
 #, c-format
 msgid "_Abort"
 msgstr "_Прервать"
 
-#: ../gurpmi2:233
+#: ../gurpmi2:235
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
@@ -346,25 +346,25 @@ msgstr ""
 "%s\n"
 "Всё равно продолжить установку?"
 
-#: ../gurpmi2:244
+#: ../gurpmi2:246
 #: ../urpmi:615
 #, c-format
 msgid "%s of additional disk space will be used."
 msgstr "Будет использовано %s дополнительного дискового пространства."
 
-#: ../gurpmi2:245
+#: ../gurpmi2:247
 #: ../urpmi:616
 #, c-format
 msgid "%s of disk space will be freed."
 msgstr "Будет освобождено %s дискового пространства."
 
-#: ../gurpmi2:246
+#: ../gurpmi2:248
 #: ../urpmi:617
 #, c-format
 msgid "%s of packages will be retrieved."
 msgstr "Будет загружено %s пакетов."
 
-#: ../gurpmi2:247
+#: ../gurpmi2:249
 #: ../urpmi:618
 #, c-format
 msgid "Proceed with the installation of one package?"
@@ -372,36 +372,41 @@ msgid_plural "Proceed with the installation of the %d packages?"
 msgstr[0] "Установить один пакет?"
 msgstr[1] "Установить %d пакетов?"
 
-#: ../gurpmi2:253
+#: ../gurpmi2:255
 #: ../urpmi:606
 #, c-format
 msgid "To satisfy dependencies, the following package is going to be installed:"
 msgstr "Для удовлетворения зависимостей будет установлен следующий пакет:"
 
-#: ../gurpmi2:254
+#: ../gurpmi2:256
 #: ../urpmi:607
 #, c-format
 msgid "To satisfy dependencies, the following packages are going to be installed:"
 msgstr "Для удовлетворения зависимостей будут установлены следующие пакеты:"
 
-#: ../gurpmi2:264
-#: ../urpm/main_loop.pm:466
+#: ../gurpmi2:266
+#: ../urpm/main_loop.pm:467
 #, c-format
 msgid "unable to get source packages, aborting"
 msgstr "не удаётся получить пакеты с исходными кодами, аварийное завершение"
 
-#: ../gurpmi2:278
+#: ../gurpmi2:283
 #: ../urpmi:634
 #, c-format
 msgid "Please insert the medium named \"%s\""
 msgstr "Вставьте носитель под названием «%s»"
 
-#: ../gurpmi2:307
+#: ../gurpmi2:303
+#, c-format
+msgid "An error occurred:"
+msgstr "Произошла ошибка:"
+
+#: ../gurpmi2:315
 #, c-format
 msgid "_Done"
 msgstr "_Готово"
 
-#: ../gurpmi2:324
+#: ../gurpmi2:332
 #: ../urpm/main_loop.pm:82
 #, c-format
 msgid ""
@@ -411,29 +416,29 @@ msgstr ""
 "Установка не удалась, отсутствуют некоторые файлы:\n"
 "%s"
 
-#: ../gurpmi2:327
+#: ../gurpmi2:335
 #, c-format
 msgid "You may want to update your urpmi database."
 msgstr "Возможно, нужно обновить базу данных urpmi."
 
-#: ../gurpmi2:331
-#: ../urpm/main_loop.pm:287
-#: ../urpm/main_loop.pm:579
+#: ../gurpmi2:339
+#: ../urpm/main_loop.pm:288
+#: ../urpm/main_loop.pm:580
 #, c-format
 msgid "Installation failed:"
 msgstr "Установка не удалась:"
 
-#: ../gurpmi2:336
+#: ../gurpmi2:344
 #, c-format
 msgid "The package(s) are already installed"
 msgstr "Всё уже установлено"
 
-#: ../gurpmi2:338
+#: ../gurpmi2:346
 #, c-format
 msgid "Installation finished"
 msgstr "Установка завершена"
 
-#: ../gurpmi2:351
+#: ../gurpmi2:359
 #: ../urpmi:692
 #, c-format
 msgid "restarting urpmi"
@@ -573,59 +578,59 @@ msgstr "Эта операция запрещена при работе в огр
 msgid "bad proxy declaration on command line\n"
 msgstr "неверное объявление proxy в командной строке\n"
 
-#: ../urpm/args.pm:309
+#: ../urpm/args.pm:310
 #, c-format
 msgid "urpmq: cannot read rpm file \"%s\"\n"
 msgstr "urpmq: не удаётся прочитать rpm-файл «%s»\n"
 
-#: ../urpm/args.pm:377
+#: ../urpm/args.pm:378
 #, c-format
 msgid "unexpected expression %s"
 msgstr "неожиданное выражение %s"
 
-#: ../urpm/args.pm:378
+#: ../urpm/args.pm:379
 #, c-format
 msgid "missing expression before %s"
 msgstr "перед %s отсутствует выражение"
 
-#: ../urpm/args.pm:384
+#: ../urpm/args.pm:385
 #, c-format
 msgid "unexpected expression %s (suggestion: use -a or -o ?)"
 msgstr "неожиданное выражение %s (рекомендация: используйте параметр -a или -o)"
 
-#: ../urpm/args.pm:388
+#: ../urpm/args.pm:389
 #, c-format
 msgid "no expression to close"
 msgstr "отсутствует выражения для закрытия"
 
-#: ../urpm/args.pm:397
+#: ../urpm/args.pm:398
 #, c-format
 msgid "by default urpmf awaits a regexp. you should use option \"--literal\""
 msgstr "по умолчанию urpmf ожидает регулярное выражение. Используйте параметр «--literal»"
 
-#: ../urpm/args.pm:471
+#: ../urpm/args.pm:472
 #, c-format
 msgid "chroot directory doesn't exist"
 msgstr "Каталог chroot не существует"
 
-#: ../urpm/args.pm:494
+#: ../urpm/args.pm:495
 #, c-format
 msgid "Can't use %s without %s"
 msgstr "%s нельзя использовать без %s"
 
-#: ../urpm/args.pm:497
-#: ../urpm/args.pm:500
+#: ../urpm/args.pm:498
+#: ../urpm/args.pm:501
 #: ../urpmq:155
 #, c-format
 msgid "Can't use %s with %s"
 msgstr "%s нельзя использовать без %s"
 
-#: ../urpm/args.pm:508
+#: ../urpm/args.pm:509
 #, c-format
 msgid "Too many arguments\n"
 msgstr "Слишком много аргументов\n"
 
-#: ../urpm/args.pm:516
+#: ../urpm/args.pm:517
 #, c-format
 msgid ""
 "%s version %s\n"
@@ -640,7 +645,7 @@ msgstr ""
 "\n"
 "использование:\n"
 
-#: ../urpm/args.pm:522
+#: ../urpm/args.pm:523
 #, c-format
 msgid "Copyright (C) %s by %s"
 msgstr "Copyright (C) %s %s"
@@ -855,32 +860,32 @@ msgid "removing bad rpm (%s) from %s"
 msgstr "удаляются неверные rpm-файлы (%s) из %s"
 
 #: ../urpm/install.pm:246
-#: ../urpm/install.pm:375
+#: ../urpm/install.pm:374
 #, c-format
 msgid "removing %s failed: %s"
 msgstr "не удалось удалить %s: %s"
 
-#: ../urpm/install.pm:296
+#: ../urpm/install.pm:295
 #, c-format
 msgid "removing package %s"
 msgstr "удаляется пакет %s"
 
-#: ../urpm/install.pm:343
+#: ../urpm/install.pm:341
 #, c-format
 msgid "created transaction for installing on %s (remove=%d, install=%d, upgrade=%d)"
 msgstr "создана транзакция для установки на %s (remove=%d, install=%d, upgrade=%d)"
 
-#: ../urpm/install.pm:346
+#: ../urpm/install.pm:344
 #, c-format
 msgid "unable to create transaction"
 msgstr "не удаётся создать транзакцию"
 
-#: ../urpm/install.pm:373
+#: ../urpm/install.pm:372
 #, c-format
 msgid "removing installed rpms (%s) from %s"
 msgstr "удаляются установленные rpm-файлы (%s) из %s"
 
-#: ../urpm/install.pm:382
+#: ../urpm/install.pm:381
 #, c-format
 msgid "More information on package %s"
 msgstr "Дополнительная информация о пакете %s"
@@ -976,8 +981,8 @@ msgstr "Продолжить установку?"
 
 #: ../urpm/main_loop.pm:155
 #: ../urpm/main_loop.pm:184
-#: ../urpm/main_loop.pm:289
-#: ../urpm/main_loop.pm:297
+#: ../urpm/main_loop.pm:290
+#: ../urpm/main_loop.pm:298
 #, c-format
 msgid "Installation failed"
 msgstr "Установка не удалась"
@@ -992,37 +997,37 @@ msgstr "удаляются установленные rpm-файлы (%s)"
 msgid "Try to continue anyway?"
 msgstr "Попробовать в любом случае?"
 
-#: ../urpm/main_loop.pm:235
+#: ../urpm/main_loop.pm:236
 #, c-format
 msgid "installing %s from %s"
 msgstr "устанавливается %s из %s"
 
-#: ../urpm/main_loop.pm:237
+#: ../urpm/main_loop.pm:238
 #, c-format
 msgid "installing %s"
 msgstr "устанавливается %s"
 
-#: ../urpm/main_loop.pm:244
+#: ../urpm/main_loop.pm:245
 #, c-format
 msgid "distributing %s"
 msgstr "распределяется %s"
 
-#: ../urpm/main_loop.pm:290
+#: ../urpm/main_loop.pm:291
 #, c-format
 msgid "Try installation without checking dependencies?"
 msgstr "Попробовать установить без проверки зависимостей?"
 
-#: ../urpm/main_loop.pm:298
+#: ../urpm/main_loop.pm:299
 #, c-format
 msgid "Try harder to install (--force)?"
 msgstr "Попробовать принудительную установку (--force)?"
 
-#: ../urpm/main_loop.pm:589
+#: ../urpm/main_loop.pm:590
 #, c-format
 msgid "Packages are up to date"
 msgstr "Пакеты находятся в актуальном состоянии"
 
-#: ../urpm/main_loop.pm:600
+#: ../urpm/main_loop.pm:601
 #: ../urpm/parallel.pm:299
 #, c-format
 msgid "Installation is possible"
@@ -1078,232 +1083,242 @@ msgstr "используется связанный источник для ре
 msgid "--synthesis cannot be used with --media, --excludemedia, --sortmedia, --update, --use-distrib or --parallel"
 msgstr "параметр --synthesis нельзя использовать с --media, --excludemedia, --sortmedia, --update или --parallel"
 
-#: ../urpm/media.pm:779
-#, c-format
-msgid "Search start: %s end: %s"
-msgstr "Поиск: начало - %s, конец - %s"
-
-#: ../urpm/media.pm:796
-#, c-format
-msgid "skipping package %s"
-msgstr "пропускается пакет %s"
-
-#: ../urpm/media.pm:812
-#, c-format
-msgid "would install instead of upgrade package %s"
-msgstr "будет произведена установка вместо обновления пакета %s"
-
-#: ../urpm/media.pm:895
-#, c-format
-msgid "medium \"%s\" already exists"
-msgstr "источник «%s» уже существует"
-
-#: ../urpm/media.pm:937
-#, c-format
-msgid "(ignored by default)"
-msgstr "(игнорируется по умолчанию)"
-
-#: ../urpm/media.pm:943
-#, c-format
-msgid "adding medium \"%s\" before remote medium \"%s\""
-msgstr "добавляется источник «%s» (перед удалённым источником «%s»)"
-
-#: ../urpm/media.pm:949
-#, c-format
-msgid "adding medium \"%s\""
-msgstr "добавляется источник «%s»"
-
-#: ../urpm/media.pm:973
-#, c-format
-msgid "failed to copy media.cfg to %s (%d)"
-msgstr "сбой при копировании media.cfg в %s (%d)"
-
-#: ../urpm/media.pm:1044
-#, c-format
-msgid "directory %s does not exist"
-msgstr "Каталог %s не существует"
-
-#: ../urpm/media.pm:1052
-#, c-format
-msgid "this location doesn't seem to contain any distribution"
-msgstr "не удаётся найти дистрибутив по указанному адресу"
-
-#: ../urpm/media.pm:1076
-#, c-format
-msgid "unable to parse media.cfg"
-msgstr "не удаётся обработать файл media.cfg"
-
-#: ../urpm/media.pm:1079
-#, c-format
-msgid "unable to access the distribution medium (no media.cfg file found)"
-msgstr "нет доступа к источнику с дистрибутивом (не найден файл media.cfg)"
-
-#: ../urpm/media.pm:1100
-#, c-format
-msgid "skipping non compatible media `%s' (for %s)"
-msgstr "пропускается несовместимый источник `%s' (для %s)"
-
-#: ../urpm/media.pm:1115
+#: ../urpm/media.pm:786
 #, c-format
 msgid "ignoring non-free medium `%s'"
 msgstr "игнорируется non-free источник «%s»"
 
-#: ../urpm/media.pm:1164
+#: ../urpm/media.pm:795
+#, c-format
+msgid "un-ignoring non-free medium `%s' b/c nonfree packages are installed"
+msgstr "отмена игнорирования non-free источника пакетов `%s', так как установлены несвободные пакеты"
+
+#: ../urpm/media.pm:799
+#, c-format
+msgid "un-ignoring tainted medium `%s' b/c tainted packages are installed"
+msgstr "отмена игнорирования tainted источника `%s', так как установлены пакеты с сомнительными условиями лицензирования"
+
+#: ../urpm/media.pm:827
+#, c-format
+msgid "Search start: %s end: %s"
+msgstr "Поиск: начало - %s, конец - %s"
+
+#: ../urpm/media.pm:844
+#, c-format
+msgid "skipping package %s"
+msgstr "пропускается пакет %s"
+
+#: ../urpm/media.pm:860
+#, c-format
+msgid "would install instead of upgrade package %s"
+msgstr "будет произведена установка вместо обновления пакета %s"
+
+#: ../urpm/media.pm:943
+#, c-format
+msgid "medium \"%s\" already exists"
+msgstr "источник «%s» уже существует"
+
+#: ../urpm/media.pm:985
+#, c-format
+msgid "(ignored by default)"
+msgstr "(игнорируется по умолчанию)"
+
+#: ../urpm/media.pm:991
+#, c-format
+msgid "adding medium \"%s\" before remote medium \"%s\""
+msgstr "добавляется источник «%s» (перед удалённым источником «%s»)"
+
+#: ../urpm/media.pm:997
+#, c-format
+msgid "adding medium \"%s\""
+msgstr "добавляется источник «%s»"
+
+#: ../urpm/media.pm:1021
+#, c-format
+msgid "failed to copy media.cfg to %s (%d)"
+msgstr "сбой при копировании media.cfg в %s (%d)"
+
+#: ../urpm/media.pm:1092
+#, c-format
+msgid "directory %s does not exist"
+msgstr "Каталог %s не существует"
+
+#: ../urpm/media.pm:1100
+#, c-format
+msgid "this location doesn't seem to contain any distribution"
+msgstr "не удаётся найти дистрибутив по указанному адресу"
+
+#: ../urpm/media.pm:1124
+#, c-format
+msgid "unable to parse media.cfg"
+msgstr "не удаётся обработать файл media.cfg"
+
+#: ../urpm/media.pm:1127
+#, c-format
+msgid "unable to access the distribution medium (no media.cfg file found)"
+msgstr "нет доступа к источнику с дистрибутивом (не найден файл media.cfg)"
+
+#: ../urpm/media.pm:1149
+#, c-format
+msgid "skipping non compatible media `%s' (for %s)"
+msgstr "пропускается несовместимый источник `%s' (для %s)"
+
+#: ../urpm/media.pm:1207
 #, c-format
 msgid "retrieving media.cfg file..."
 msgstr "загружается файл media.cfg..."
 
-#: ../urpm/media.pm:1207
+#: ../urpm/media.pm:1250
 #, c-format
 msgid "trying to select nonexistent medium \"%s\""
 msgstr "был выбран несуществующий источник «%s»"
 
-#: ../urpm/media.pm:1210
+#: ../urpm/media.pm:1253
 #, c-format
 msgid "selecting multiple media: %s"
 msgstr "выбирается составной источник: %s"
 
-#: ../urpm/media.pm:1269
+#: ../urpm/media.pm:1312
 #, c-format
 msgid "removing medium \"%s\""
 msgstr "удаляется источник «%s»"
 
-#: ../urpm/media.pm:1360
+#: ../urpm/media.pm:1403
 #, c-format
 msgid "reconfiguring urpmi for media \"%s\""
 msgstr "перенастраивается urpmi для источника «%s»"
 
-#: ../urpm/media.pm:1394
+#: ../urpm/media.pm:1437
 #, c-format
 msgid "...reconfiguration failed"
 msgstr "...перенастройка не удалась"
 
-#: ../urpm/media.pm:1400
+#: ../urpm/media.pm:1443
 #, c-format
 msgid "reconfiguration done"
 msgstr "перенастройка выполнена"
 
-#: ../urpm/media.pm:1416
+#: ../urpm/media.pm:1459
 #, c-format
 msgid "Error generating names file: dependency %d not found"
 msgstr "Ошибка создания файла имён: не найдена зависимость %d"
 
-#: ../urpm/media.pm:1437
+#: ../urpm/media.pm:1480
 #, c-format
 msgid "medium \"%s\" is up-to-date"
 msgstr "источник «%s» уже обновлён"
 
-#: ../urpm/media.pm:1448
+#: ../urpm/media.pm:1491
 #, c-format
 msgid "examining synthesis file [%s]"
 msgstr "изучается файл synthesis [%s]"
 
-#: ../urpm/media.pm:1468
+#: ../urpm/media.pm:1511
 #, c-format
 msgid "problem reading synthesis file of medium \"%s\""
 msgstr "проблема чтения файла synthesis источника «%s»"
 
-#: ../urpm/media.pm:1481
-#: ../urpm/media.pm:1576
+#: ../urpm/media.pm:1524
+#: ../urpm/media.pm:1619
 #, c-format
 msgid "copying [%s] for medium \"%s\"..."
 msgstr "копируется [%s] для источника «%s»..."
 
-#: ../urpm/media.pm:1483
-#: ../urpm/media.pm:1553
-#: ../urpm/media.pm:1806
+#: ../urpm/media.pm:1526
+#: ../urpm/media.pm:1596
+#: ../urpm/media.pm:1849
 #, c-format
 msgid "...copying failed"
 msgstr "...копирование не удалось"
 
-#: ../urpm/media.pm:1549
+#: ../urpm/media.pm:1592
 #, c-format
 msgid "copying description file of \"%s\"..."
 msgstr "копируется файл описания для «%s»..."
 
-#: ../urpm/media.pm:1551
-#: ../urpm/media.pm:1580
+#: ../urpm/media.pm:1594
+#: ../urpm/media.pm:1623
 #, c-format
 msgid "...copying done"
 msgstr "...копирование выполнено"
 
-#: ../urpm/media.pm:1582
+#: ../urpm/media.pm:1625
 #, c-format
 msgid "copy of [%s] failed (file is suspiciously small)"
 msgstr "копирование [%s] не удалось (файл подозрительно короткий)"
 
-#: ../urpm/media.pm:1630
+#: ../urpm/media.pm:1673
 #, c-format
 msgid "computing md5sum of retrieved source synthesis"
 msgstr "вычисляется md5-сумма для загруженного synthesis-файла источника"
 
-#: ../urpm/media.pm:1632
-#: ../urpm/media.pm:2115
+#: ../urpm/media.pm:1675
+#: ../urpm/media.pm:2158
 #, c-format
 msgid "retrieval of [%s] failed (md5sum mismatch)"
 msgstr "копирование [%s] не удалось (md5-суммы не совпадают)"
 
-#: ../urpm/media.pm:1647
+#: ../urpm/media.pm:1690
 #, c-format
 msgid "genhdlist2 failed on %s"
 msgstr "ошибка выполнения genhdlist2 для %s"
 
-#: ../urpm/media.pm:1657
+#: ../urpm/media.pm:1700
 #, c-format
 msgid "comparing %s and %s"
 msgstr "сравниваются %s и %s"
 
-#: ../urpm/media.pm:1687
+#: ../urpm/media.pm:1730
 #, c-format
 msgid "invalid hdlist file %s for medium \"%s\""
 msgstr "неверный файл hdlist %s для источника «%s»"
 
-#: ../urpm/media.pm:1713
+#: ../urpm/media.pm:1756
 #, c-format
 msgid "copying MD5SUM file of \"%s\"..."
 msgstr "копируется файл MD5SUM для «%s»..."
 
-#: ../urpm/media.pm:1753
+#: ../urpm/media.pm:1796
 #, c-format
 msgid "invalid MD5SUM file (downloaded from %s)"
 msgstr "неверный файл MD5SUM (загружен из %s)"
 
-#: ../urpm/media.pm:1756
+#: ../urpm/media.pm:1799
 #, c-format
 msgid "no metadata found for medium \"%s\""
 msgstr "для источника «%s» не найдены метаданные"
 
-#: ../urpm/media.pm:1788
+#: ../urpm/media.pm:1831
 #, c-format
 msgid "retrieving source synthesis of \"%s\"..."
 msgstr "загружается synthesis-файл источника из «%s»..."
 
-#: ../urpm/media.pm:1854
+#: ../urpm/media.pm:1897
 #, c-format
 msgid "examining pubkey file of \"%s\"..."
 msgstr "проверяется файл открытого ключа для «%s»..."
 
-#: ../urpm/media.pm:1866
+#: ../urpm/media.pm:1909
 #, c-format
 msgid "...imported key %s from pubkey file of \"%s\""
 msgstr "...импортирован ключ %s из файла открытого ключа «%s»"
 
-#: ../urpm/media.pm:1870
+#: ../urpm/media.pm:1913
 #, c-format
 msgid "unable to import pubkey file of \"%s\""
 msgstr "не удаётся импортировать файл открытого ключа «%s»"
 
-#: ../urpm/media.pm:1911
+#: ../urpm/media.pm:1954
 #, c-format
 msgid "no synthesis file found for medium \"%s\""
 msgstr "не найден synthesis-файл для источника «%s»"
 
-#: ../urpm/media.pm:1944
+#: ../urpm/media.pm:1987
 #, c-format
 msgid "updated medium \"%s\""
 msgstr "обновлён источник «%s»"
 
-#: ../urpm/media.pm:2109
+#: ../urpm/media.pm:2152
 #, c-format
 msgid "retrieval of [%s] failed"
 msgstr "не удалось загрузить [%s]"
@@ -1423,7 +1438,7 @@ msgstr "ТБ"
 msgid "Marking %s as manually installed, it won't be auto-orphaned"
 msgstr "%s помечается как установленный вручную; он не будет учитываться при определении пакетов-сирот"
 
-#: ../urpm/orphans.pm:523
+#: ../urpm/orphans.pm:527
 #, c-format
 msgid ""
 "The following package:\n"
@@ -1442,14 +1457,14 @@ msgstr[1] ""
 "%s\n"
 "теперь являются осиротевшими."
 
-#: ../urpm/orphans.pm:526
+#: ../urpm/orphans.pm:530
 #, c-format
 msgid "You may wish to remove it."
 msgid_plural "You may wish to remove them."
 msgstr[0] "Вы можете его удалить."
 msgstr[1] "Вы можете их удалить."
 
-#: ../urpm/orphans.pm:543
+#: ../urpm/orphans.pm:547
 #, c-format
 msgid ""
 "The following package:\n"
@@ -1565,44 +1580,44 @@ msgstr "Следующие пакеты содержат %s: %s"
 msgid "You should use \"-a\" to use all of them"
 msgstr "Чтобы выбрать все, используйте параметр «-a»"
 
-#: ../urpm/select.pm:371
+#: ../urpm/select.pm:372
 #, c-format
 msgid "found package(s) %s in urpmi db, but none are installed"
 msgstr "в базе данных найдены пакеты %s, но ни один из ни не установлен"
 
-#: ../urpm/select.pm:606
+#: ../urpm/select.pm:607
 #, c-format
 msgid "Package %s is already installed"
 msgstr "Пакет %s уже установлен"
 
-#: ../urpm/select.pm:607
+#: ../urpm/select.pm:608
 #, c-format
 msgid "Packages %s are already installed"
 msgstr "Пакеты %s уже установлен"
 
-#: ../urpm/select.pm:624
-#: ../urpm/select.pm:711
+#: ../urpm/select.pm:625
+#: ../urpm/select.pm:712
 #, c-format
 msgid "due to conflicts with %s"
 msgstr "из-за конфликтов с %s"
 
-#: ../urpm/select.pm:625
-#: ../urpm/select.pm:705
+#: ../urpm/select.pm:626
+#: ../urpm/select.pm:706
 #, c-format
 msgid "due to unsatisfied %s"
 msgstr "из-за неудовлетворённости %s"
 
-#: ../urpm/select.pm:631
+#: ../urpm/select.pm:632
 #, c-format
 msgid "trying to promote %s"
 msgstr "попытка активизировать %s"
 
-#: ../urpm/select.pm:632
+#: ../urpm/select.pm:633
 #, c-format
 msgid "in order to keep %s"
 msgstr "чтобы сохранить %s"
 
-#: ../urpm/select.pm:673
+#: ../urpm/select.pm:674
 #, c-format
 msgid ""
 "The following package has to be removed for others to be upgraded:\n"
@@ -1611,7 +1626,7 @@ msgstr ""
 "Следующий пакет будет удалён для обновления остальных:\n"
 "%s"
 
-#: ../urpm/select.pm:674
+#: ../urpm/select.pm:675
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
@@ -1620,12 +1635,12 @@ msgstr ""
 "Следующие пакеты будут удалены для обновления остальных:\n"
 "%s"
 
-#: ../urpm/select.pm:701
+#: ../urpm/select.pm:702
 #, c-format
 msgid "in order to install %s"
 msgstr "чтобы установить %s"
 
-#: ../urpm/select.pm:707
+#: ../urpm/select.pm:708
 #, c-format
 msgid "due to missing %s"
 msgstr "из-за отсутствия %s"
@@ -1665,37 +1680,37 @@ msgstr "БЕЗОПАСНОСТЬ: Средний \"%s\" не имеет ключ
 msgid "Medium without key (%s)"
 msgstr "Средний без ключа (%s)"
 
-#: ../urpm/sys.pm:194
+#: ../urpm/sys.pm:199
 #, c-format
 msgid "system"
 msgstr "система"
 
-#: ../urpm/sys.pm:231
+#: ../urpm/sys.pm:236
 #, c-format
 msgid "You should restart your computer for %s"
 msgstr "Необходимо перезапустить компьютер для %s"
 
-#: ../urpm/sys.pm:233
+#: ../urpm/sys.pm:238
 #, c-format
 msgid "You should restart your session for %s"
 msgstr "Необходимо перезапустить сеанс для %s"
 
-#: ../urpm/sys.pm:235
+#: ../urpm/sys.pm:240
 #, c-format
 msgid "You should restart %s for %s"
 msgstr "Необходимо перезапустить %s для %s"
 
-#: ../urpm/sys.pm:373
+#: ../urpm/sys.pm:378
 #, c-format
 msgid "Can't write file"
 msgstr "Не удаётся записать файл"
 
-#: ../urpm/sys.pm:373
+#: ../urpm/sys.pm:378
 #, c-format
 msgid "Can't open file"
 msgstr "Не удаётся открыть файл"
 
-#: ../urpm/sys.pm:386
+#: ../urpm/sys.pm:391
 #, c-format
 msgid "Can't move file %s to %s"
 msgstr "Не удаётся переместить файл %s в %s"
@@ -3239,6 +3254,14 @@ msgstr "Инсталлятор программ"
 #: ../gurpmi.desktop.in.h:2
 msgid "Graphical front end to install RPM files"
 msgstr "Графический интерфейс для установки файлов RPM"
+
+#: ../polkit/org.mageia.gurpmi2.policy.in.h:1
+msgid "Run Mageia Package Installer"
+msgstr "Запуск программы установки пакетов Mageia"
+
+#: ../polkit/org.mageia.gurpmi2.policy.in.h:2
+msgid "Authentication is required to run Mageia Package Installer"
+msgstr "Требуется аутентификация для запуска программы установки пакетов Mageia"
 
 #~ msgid "(%d package, %d MB)"
 
