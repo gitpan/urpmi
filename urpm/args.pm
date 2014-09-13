@@ -118,10 +118,17 @@ my %options_spec = (
 	justdb => \$options{justdb},
 	replacepkgs => \$options{replacepkgs},
 	suggests => sub { 
-	    $urpm->{fatal}(1, "Use --allow-suggests instead of --suggests");
+	    $urpm->{fatal}(1, "Use --allow-recommends instead of --suggests");
 	},
-	'allow-suggests' => sub { $urpm->{options}{'no-suggests'} = 0 },
-	'no-suggests' => sub { $urpm->{options}{'no-suggests'} = 1 },
+	'allow-suggests' => sub {
+	    warn "WARNING: --allow-suggests is deprecated. Use --allow-recommends instead\n";
+	    $urpm->{options}{'no-recommends'} = 0 },
+	'allow-recommends' => sub { $urpm->{options}{'no-recommends'} = 0 },
+	'no-recommends' => sub { $urpm->{options}{'no-recommends'} = 1 },
+	'no-suggests' => sub { # COMPAT
+	    warn "WARNING: --no-suggests is deprecated. Use --no-recommends instead\n";
+	    $urpm->{options}{'no-recommends'} = 1;
+	},
 	'allow-nodeps' => sub { $urpm->{options}{'allow-nodeps'} = 1 },
 	'allow-force' => sub { $urpm->{options}{'allow-force'} = 1 },
 	'downgrade' => sub { $urpm->{options}{downgrade} = 1 },
@@ -259,9 +266,13 @@ my %options_spec = (
 	provides => \$options{provides},
 	sourcerpm => \$options{sourcerpm},
 	'summary|S' => \$options{summary},
+	recommends => sub {
+	    $options{recommends} = 1;
+	},
 	suggests => sub { 
 	    $urpm->{error}("--suggests now displays the suggested packages, see --allow-suggests for previous behaviour");
-	    $options{suggests} = 1;
+	    $urpm->{error}("You should now use --recommends.");
+	    $options{recommends} = 1;
 	},
 	'list-media:s' => sub { $options{list_media} = $_[1] || 'all' },
 	'list-url' => \$options{list_url},
@@ -418,7 +429,7 @@ foreach my $k ("test!", "force", "root=s", "use-distrib=s", 'env=s',
 {
     $options_spec{urpme}{$k} = $options_spec{urpmi}{$k};
 }
-foreach my $k ("root=s", "nolock", "use-distrib=s", "skip=s", "prefer=s", "synthesis=s", 'no-suggests', 'allow-suggests', 'auto-orphans')
+foreach my $k ("root=s", "nolock", "use-distrib=s", "skip=s", "prefer=s", "synthesis=s", 'no-recommends', 'no-suggests', 'allow-recommends', 'allow-suggests', 'auto-orphans')
 {
     $options_spec{urpmq}{$k} = $options_spec{urpmi}{$k};
 }

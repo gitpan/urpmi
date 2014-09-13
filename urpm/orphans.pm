@@ -139,7 +139,7 @@ sub _installed_req_and_unreq_and_update_unrequested_list {
 }
 
 #- returns the new "unrequested" packages
-#- the reason can be "required by xxx" or "suggested"
+#- the reason can be "required by xxx" or "recommended"
 #-
 #- side-effects: none
 sub _selected_unrequested {
@@ -152,8 +152,8 @@ sub _selected_unrequested {
 	    my $name = $pkg->name;
 	    $pkg->flag_requested || urpm::select::was_pkg_name_installed($rejected, $name) ? () : 
 		($name => "(required by " . $from->fullname . ")");
-	} elsif ($selected->{$_}{suggested}) {
-	    ($urpm->{depslist}[$_]->name => "(suggested)");
+	} elsif ($selected->{$_}{recommended}) {
+	    ($urpm->{depslist}[$_]->name => "(recommended)");
 	} else {
 	    ();
 	}
@@ -223,10 +223,10 @@ sub check_unrequested_orphans_after_auto_select {
 
 =item unrequested_orphans_after_remove($urpm, $toremove)
 
-This function computes wether removing $toremove packages will create
+This function computes whether removing $toremove packages will create
 unrequested orphans.
 
-It does not return the new orphans since "whatsuggests" is not
+It does not return the new orphans since "whatrecommends" is not
 available,
 
 If it detects there are new orphans, _all_unrequested_orphans() must
@@ -247,7 +247,7 @@ sub unrequested_orphans_after_remove {
 sub _unrequested_orphans_after_remove_once {
     my ($urpm, $db, $unrequested, $toremove) = @_;
 
-    # first we get the list of requires/suggests that may be unneeded after removing $toremove
+    # first we get the list of requires/recommends that may be unneeded after removing $toremove
     my @requires;
     foreach my $fn (keys %$toremove) {
 	my ($n) = $fn =~ $fullname2name_re;
@@ -255,7 +255,7 @@ sub _unrequested_orphans_after_remove_once {
 	$db->traverse_tag('name', [ $n ], sub {
 	    my ($p) = @_;
 	    $p->fullname eq $fn or return;
-	    push @requires, $p->requires, $p->suggests;
+	    push @requires, $p->requires, $p->recommends_nosense;
 	});
     }
 
@@ -420,7 +420,7 @@ sub _all_unrequested_orphans {
     while (my $pkg = shift @$req) {
         # do not do anything regarding kernels if we failed to detect the running one (ie: chroot)
  	_kernel_callback($pkg, $unreq_list) if $current_kernel;
-	foreach my $prop ($pkg->requires, $pkg->suggests) {
+	foreach my $prop ($pkg->requires, $pkg->recommends_nosense) {
 	    my $n = URPM::property2name($prop);
 	    foreach my $p (@{$provides{$n} || []}) {
 		if ($p != $pkg && $l{$p->name} && $p->provides_overlap($prop)) {
@@ -577,7 +577,7 @@ sub installed_leaves {
     }
 
     foreach my $pkg (@$packages) {
-	foreach my $prop ($pkg->requires, $pkg->suggests) {
+	foreach my $prop ($pkg->requires, $pkg->recommends_nosense) {
 	    my $n = URPM::property2name($prop);
 	    foreach my $p (@{$provides{$n} || []}) {
 		$p != $pkg && $p->provides_overlap($prop) and 

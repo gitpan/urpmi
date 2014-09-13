@@ -72,7 +72,7 @@ sub usage() {
 ") . N("  --requires     - requires tags
 ") . N("  --size         - installed size
 ") . N("  --sourcerpm    - source rpm name
-") . N("  --suggests     - suggests tags
+") . N("  --recommends   - recommends tags
 ") . N("  --summary      - summary
 ") . N("  --url          - url
 ") . N("  --vendor       - vendor
@@ -97,6 +97,7 @@ my %tags_per_media_info = (
     group
     obsoletes
     provides
+    recommends
     requires
     size
     suggests
@@ -177,7 +178,7 @@ if ($qf eq '%name:%files') {
 
 
 my $multitag = '';
-my %multitags = map { $_ => 1 } qw(conffiles conflicts files obsoletes provides requires suggests);
+my %multitags = map { $_ => 1 } qw(conffiles conflicts files obsoletes provides requires recommends suggests);
 my %usedtags;
 
 (my $proto = $qf) =~ s/%([-\d]*)(\w+)/%${1}s/g;
