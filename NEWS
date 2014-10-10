@@ -1,3 +1,7 @@
+Version 8.01 - 9 October 2014
+
+- revert "bump split-length from 8 to 50"
+
 Version 8.00 - 13 September 2014
 
 - rpm-4.12 support:

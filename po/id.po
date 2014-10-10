@@ -5,6 +5,7 @@
 # Ahmad Ramadhana <ahmad_ramadhana@yahoo.com.sg>, 2005
 # Bayu Artanto <bayuart@yahoo.com>, 2005
 # erwiensamantha <erwiensamantha@gmail.com>, 2005
+# erwiensamantha <erwiensamantha@gmail.com>, 2005
 # Firdaus <dausnux@gmail.com>, 2005
 # Kiki <kiki.syahadat@yahoo.co.id>, 2014
 # Kiki <kiki.syahadat@yahoo.co.id>, 2012-2013
@@ -12,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mageia\n"
-"POT-Creation-Date: 2014-05-11 21:49+0200\n"
-"PO-Revision-Date: 2014-06-22 03:11+0000\n"
+"POT-Creation-Date: 2014-09-13 21:15+0200\n"
+"PO-Revision-Date: 2014-09-25 09:45+0000\n"
 "Last-Translator: Kiki <kiki.syahadat@yahoo.co.id>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/mageia/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +63,7 @@ msgstr "Menginstall paket `%s' (%s/%s)..."
 msgid "Downloading package `%s'..."
 msgstr "Mendownload paket `%s'..."
 
-#: ../gurpm/RPMProgressDialog.pm:349
+#: ../gurpm/RPMProgressDialog.pm:349 ../gurpmi:126
 #, c-format
 msgid "Cancel"
 msgstr "Batal"
@@ -74,22 +75,22 @@ msgstr "Batal"
 msgid "...retrieving failed: %s"
 msgstr "...pengambilan gagal: %s"
 
-#: ../gurpmi:45
+#: ../gurpmi:49
 #, c-format
 msgid "RPM installation"
 msgstr "Instalasi RPM"
 
-#: ../gurpmi:59
+#: ../gurpmi:63
 #, c-format
 msgid "Error: unable to find file %s, will cancel operation"
 msgstr "Error: tidak bisa menemukan file %s, membatalkan operasi"
 
-#: ../gurpmi:60 ../gurpmi2:169 ../gurpmi2:199
+#: ../gurpmi:64 ../gurpmi2:173 ../gurpmi2:203
 #, c-format
 msgid "_Ok"
 msgstr "_Ok"
 
-#: ../gurpmi:80
+#: ../gurpmi:84
 #, c-format
 msgid ""
 "You have selected a source package:\n"
@@ -101,7 +102,7 @@ msgid ""
 "What would you like to do?"
 msgstr "Anda telah memilih paket sumber:\n\n%s\n\nAnda mungkin tidak ingin menginstall ini pada komputer Anda (menginstall ini akan memungkinkan Anda memodifikasi kode sumber lalu mengkompilenya).\n\nApa yang ingin Anda lakukan?"
 
-#: ../gurpmi:88 ../gurpmi:99
+#: ../gurpmi:92 ../gurpmi:103
 #, c-format
 msgid ""
 "You are about to install the following software packages on your computer:\n"
@@ -111,7 +112,7 @@ msgid ""
 "Proceed?"
 msgstr "Anda akan menginstall paket software berikut pada komputer Anda:\n\n%s\n\nLanjutkan?"
 
-#: ../gurpmi:94
+#: ../gurpmi:98
 #, c-format
 msgid ""
 "You are about to install the following software package on your computer:\n"
@@ -121,25 +122,30 @@ msgid ""
 "You may prefer to just save it. What is your choice?"
 msgstr "Anda akan menginstall paket software berikut pada komputer Anda:\n\n%s\n\nAnda mungkin hanya ingin menyimpannya. Apa pilihan Anda?"
 
-#: ../gurpmi:112
+#: ../gurpmi:116
 #, c-format
 msgid "_Install"
 msgstr "_Install"
 
-#: ../gurpmi:113
+#: ../gurpmi:117
 #, c-format
 msgid "_Save"
 msgstr "_Simpan"
 
-#: ../gurpmi:114 ../gurpmi2:169
+#: ../gurpmi:118 ../gurpmi2:173
 #, c-format
 msgid "_Cancel"
 msgstr "Batal"
 
-#: ../gurpmi:122
+#: ../gurpmi:126
 #, c-format
 msgid "Choose location to save file"
 msgstr "Pilih lokasi untuk menyimpan file"
+
+#: ../gurpmi:126 ../gurpmi2:119
+#, c-format
+msgid "Ok"
+msgstr "Ok"
 
 #: ../gurpmi.pm:56
 #, c-format
@@ -216,24 +222,24 @@ msgstr "  --searchmedia  - hanya gunakan media yang diberikan untuk mencari pake
 msgid "No packages specified"
 msgstr "Tidak ada paket yang ditentukan"
 
-#: ../gurpmi2:42
+#: ../gurpmi2:46
 #, c-format
 msgid "Must be root"
 msgstr "Harus root"
 
-#: ../gurpmi2:72
+#: ../gurpmi2:76
 #, c-format
 msgid "Preparing packages installation..."
 msgstr "Menyiapkan instalasi paket..."
 
-#: ../gurpmi2:87 ../urpmi:506
+#: ../gurpmi2:91 ../urpmi:506
 #, c-format
 msgid ""
 "Some requested packages cannot be installed:\n"
 "%s"
 msgstr "Beberapa paket yang diminta tidak bisa diinstall:\n%s"
 
-#: ../gurpmi2:95
+#: ../gurpmi2:99
 #, c-format
 msgid ""
 "Some requested packages cannot be installed:\n"
@@ -241,42 +247,37 @@ msgid ""
 "Continue installation anyway?"
 msgstr "Beberapa paket yang diminta tidak bisa diinstall:\n%s\nLanjutkan saja instalasi?"
 
-#: ../gurpmi2:115
+#: ../gurpmi2:119
 #, c-format
 msgid "Warning"
 msgstr "Peringatan"
 
-#: ../gurpmi2:115
-#, c-format
-msgid "Ok"
-msgstr "Ok"
-
-#: ../gurpmi2:165
+#: ../gurpmi2:169
 #, c-format
 msgid " (to upgrade)"
 msgstr " (untuk upgrade)"
 
-#: ../gurpmi2:166
+#: ../gurpmi2:170
 #, c-format
 msgid " (to install)"
 msgstr " (untuk install)"
 
-#: ../gurpmi2:169
+#: ../gurpmi2:173
 #, c-format
 msgid "Package choice"
 msgstr "Pilihan paket"
 
-#: ../gurpmi2:170
+#: ../gurpmi2:174
 #, c-format
 msgid "One of the following packages is needed:"
 msgstr "Satu dari paket berikut diperlukan:"
 
-#: ../gurpmi2:200
+#: ../gurpmi2:204
 #, c-format
 msgid "_Abort"
 msgstr "B_atalkan"
 
-#: ../gurpmi2:235
+#: ../gurpmi2:239
 #, c-format
 msgid ""
 "The following packages have to be removed for others to be upgraded:\n"
@@ -284,87 +285,87 @@ msgid ""
 "Continue installation anyway?"
 msgstr "Paket berikut harus dihapus agar yang lain bisa diupgrade:\n%s\nLanjutkan saja instalasi?"
 
-#: ../gurpmi2:246 ../urpmi:615
+#: ../gurpmi2:250 ../urpmi:615
 #, c-format
 msgid "%s of additional disk space will be used."
 msgstr "%s dari ruang disk tambahan akan digunakan."
 
-#: ../gurpmi2:247 ../urpmi:616
+#: ../gurpmi2:251 ../urpmi:616
 #, c-format
 msgid "%s of disk space will be freed."
 msgstr "%s dari ruang disk akan bebas."
 
-#: ../gurpmi2:248 ../urpmi:617
+#: ../gurpmi2:252 ../urpmi:617
 #, c-format
 msgid "%s of packages will be retrieved."
 msgstr "%s paket akan diambil."
 
-#: ../gurpmi2:249 ../urpmi:618
+#: ../gurpmi2:253 ../urpmi:618
 #, c-format
 msgid "Proceed with the installation of one package?"
 msgid_plural "Proceed with the installation of the %d packages?"
 msgstr[0] "Lanjutkan instalasi %d paket?"
 
-#: ../gurpmi2:255 ../urpmi:606
+#: ../gurpmi2:259 ../urpmi:606
 #, c-format
 msgid ""
 "To satisfy dependencies, the following package is going to be installed:"
 msgstr "Untuk memenuhi dependensi, paket berikut akan diinstall:"
 
-#: ../gurpmi2:256 ../urpmi:607
+#: ../gurpmi2:260 ../urpmi:607
 #, c-format
 msgid ""
 "To satisfy dependencies, the following packages are going to be installed:"
 msgstr "Untuk memenuhi dependensi, paket berikut akan diinstall:"
 
-#: ../gurpmi2:266 ../urpm/main_loop.pm:467
+#: ../gurpmi2:270 ../urpm/main_loop.pm:467
 #, c-format
 msgid "unable to get source packages, aborting"
 msgstr "tidak bisa mendapatkan paket sumber, membatalkan"
 
-#: ../gurpmi2:283 ../urpmi:634
+#: ../gurpmi2:287 ../urpmi:634
 #, c-format
 msgid "Please insert the medium named \"%s\""
 msgstr "Silakan masukkan media bernama \"%s\""
 
-#: ../gurpmi2:303
+#: ../gurpmi2:307
 #, c-format
 msgid "An error occurred:"
 msgstr "Terjadi error:"
 
-#: ../gurpmi2:315
+#: ../gurpmi2:319
 #, c-format
 msgid "_Done"
 msgstr "Selesai"
 
-#: ../gurpmi2:332 ../urpm/main_loop.pm:82
+#: ../gurpmi2:336 ../urpm/main_loop.pm:82
 #, c-format
 msgid ""
 "Installation failed, some files are missing:\n"
 "%s"
 msgstr "Instalasi gagal, beberapa file tidak ada:\n%s"
 
-#: ../gurpmi2:335
+#: ../gurpmi2:339
 #, c-format
 msgid "You may want to update your urpmi database."
 msgstr "Anda mungkin ingin mengupdate basis data uprmi Anda."
 
-#: ../gurpmi2:339 ../urpm/main_loop.pm:288 ../urpm/main_loop.pm:580
+#: ../gurpmi2:343 ../urpm/main_loop.pm:288 ../urpm/main_loop.pm:580
 #, c-format
 msgid "Installation failed:"
 msgstr "Instalasi gagal:"
 
-#: ../gurpmi2:344
+#: ../gurpmi2:348
 #, c-format
 msgid "The package(s) are already installed"
 msgstr "Paket sudah terinstall"
 
-#: ../gurpmi2:346
+#: ../gurpmi2:350
 #, c-format
 msgid "Installation finished"
 msgstr "Instalasi selesai"
 
-#: ../gurpmi2:359 ../urpmi:692
+#: ../gurpmi2:363 ../urpmi:692
 #, c-format
 msgid "restarting urpmi"
 msgstr "merestart urpmi"
@@ -436,7 +437,7 @@ msgstr "Tidak bisa mendownload paket ke %s"
 msgid "Environment directory %s does not exist"
 msgstr "Direktori lingkungan %s tidak ada"
 
-#: ../urpm.pm:255 ../urpmf:243 ../urpmq:163
+#: ../urpm.pm:255 ../urpmf:244 ../urpmq:163
 #, c-format
 msgid "using specific environment on %s\n"
 msgstr "menggunakan lingkungan spesifik pada %s\n"
@@ -491,62 +492,62 @@ msgstr "error meregister paket lokal"
 msgid "This operation is forbidden while running in restricted mode"
 msgstr "Operasi ini dilarang ketika berjalan dalam mode terbatas"
 
-#: ../urpm/args.pm:150 ../urpm/args.pm:159
+#: ../urpm/args.pm:157 ../urpm/args.pm:166
 #, c-format
 msgid "bad proxy declaration on command line\n"
 msgstr "pernyataan proxy salah pada baris perintah\n"
 
-#: ../urpm/args.pm:310
+#: ../urpm/args.pm:321
 #, c-format
 msgid "urpmq: cannot read rpm file \"%s\"\n"
 msgstr "urpmq: tidak bisa membaca file rpm \"%s\"\n"
 
-#: ../urpm/args.pm:378
+#: ../urpm/args.pm:389
 #, c-format
 msgid "unexpected expression %s"
 msgstr "ekspresi %s tak terduga"
 
-#: ../urpm/args.pm:379
+#: ../urpm/args.pm:390
 #, c-format
 msgid "missing expression before %s"
 msgstr "tidak ada ekspresi sebelum %s"
 
-#: ../urpm/args.pm:385
+#: ../urpm/args.pm:396
 #, c-format
 msgid "unexpected expression %s (suggestion: use -a or -o ?)"
 msgstr "ekspresi %s tak terduga (saran: gunakan -a atau -o ?)"
 
-#: ../urpm/args.pm:389
+#: ../urpm/args.pm:400
 #, c-format
 msgid "no expression to close"
 msgstr "tidak ada ekspresi untuk ditutup"
 
-#: ../urpm/args.pm:398
+#: ../urpm/args.pm:409
 #, c-format
 msgid "by default urpmf awaits a regexp. you should use option \"--literal\""
 msgstr "secara default urpmf menunggu regexp. Anda harus menggunakan opsi \"--literal\""
 
-#: ../urpm/args.pm:472
+#: ../urpm/args.pm:483
 #, c-format
 msgid "chroot directory doesn't exist"
 msgstr "direktori chroot tidak ada"
 
-#: ../urpm/args.pm:495
+#: ../urpm/args.pm:506
 #, c-format
 msgid "Can't use %s without %s"
 msgstr "Tidak bisa menggunakan %s tanpa %s"
 
-#: ../urpm/args.pm:498 ../urpm/args.pm:501 ../urpmq:155
+#: ../urpm/args.pm:509 ../urpm/args.pm:512 ../urpmq:155
 #, c-format
 msgid "Can't use %s with %s"
 msgstr "Tidak bisa menggunakan %s dengan %s"
 
-#: ../urpm/args.pm:509
+#: ../urpm/args.pm:520
 #, c-format
 msgid "Too many arguments\n"
 msgstr "Terlalu banyak argumen\n"
 
-#: ../urpm/args.pm:517
+#: ../urpm/args.pm:528
 #, c-format
 msgid ""
 "%s version %s\n"
@@ -556,7 +557,7 @@ msgid ""
 "usage:\n"
 msgstr "%s versi %s\n%s\nIni adalah free software dan boleh didistribusikan di bawah ketentuan GNU GPL.\n\npenggunaan:\n"
 
-#: ../urpm/args.pm:523
+#: ../urpm/args.pm:534
 #, c-format
 msgid "Copyright (C) %s by %s"
 msgstr "Hak Cipta (C) %s oleh %s"
@@ -603,7 +604,7 @@ msgstr "tidak bisa membaca file config [%s]"
 msgid "medium `%s' is defined twice, aborting"
 msgstr "media `%s' ditetapkan dua kali, membatalkan"
 
-#: ../urpm/cfg.pm:245 ../urpm/media.pm:556
+#: ../urpm/cfg.pm:249 ../urpm/media.pm:556
 #, c-format
 msgid "unable to write config file [%s]"
 msgstr "tidak bisa menulis file config [%s]"
@@ -1284,7 +1285,7 @@ msgstr "Arsitektur"
 
 #: ../urpm/msg.pm:170
 #, c-format
-msgid "(suggested)"
+msgid "(recommended)"
 msgstr "(disarankan)"
 
 #: ../urpm/msg.pm:185
@@ -1921,8 +1922,8 @@ msgstr "  --sourcerpm    - nama rpm sumber\n"
 
 #: ../urpmf:75
 #, c-format
-msgid "  --suggests     - suggests tags\n"
-msgstr "  --suggests     - tag yang disarankan\n"
+msgid "  --recommends   - recommends tags\n"
+msgstr "  --recommends   - tag disarankan\n"
 
 #: ../urpmf:76
 #, c-format
@@ -1949,27 +1950,27 @@ msgstr "  -m             - media di mana paket ditemukan\n"
 msgid "  -f             - print version, release and arch with name.\n"
 msgstr "  -f             - tampilkan versi, rilis dan arsitektur dengan nama.\n"
 
-#: ../urpmf:148
+#: ../urpmf:149
 #, c-format
 msgid "unterminated expression (%s)"
 msgstr "ekspresi tidak tuntas (%s)"
 
-#: ../urpmf:193
+#: ../urpmf:194
 #, c-format
 msgid "Incorrect format: you may use only one multi-valued tag"
 msgstr "Format salah: Anda hanya boleh menggunakan satu tag multi nilai"
 
-#: ../urpmf:286
+#: ../urpmf:287
 #, c-format
 msgid "no hdlist available for medium \"%s\""
 msgstr "tidak ada hdlist yang tersedia untuk media \"%s\""
 
-#: ../urpmf:293
+#: ../urpmf:294
 #, c-format
 msgid "no synthesis available for medium \"%s\""
 msgstr "tidak ada synthesis yang tersedia untuk media \"%s\""
 
-#: ../urpmf:302
+#: ../urpmf:303
 #, c-format
 msgid "no xml-info available for medium \"%s\""
 msgstr "tidak ada info xml yang tersedia untuk media \"%s\""
@@ -1996,8 +1997,8 @@ msgstr "  --auto-orphans - hapus orphan tanpa bertanya\n"
 
 #: ../urpmi:80 ../urpmq:52
 #, c-format
-msgid "  --no-suggests  - do not auto select \"suggested\" packages.\n"
-msgstr "  --no-suggests  - jangan pilih otomatis paket \"disarankan\".\n"
+msgid "  --no-recommends - do not auto select \"recommended\" packages.\n"
+msgstr "  --no-recommends - jangan pilih paket-paket \"disarankan\".\n"
 
 #: ../urpmi:81
 #, c-format
@@ -2085,8 +2086,8 @@ msgstr "  --allow-force  - izinkan menanyakan pengguna untuk menginstall paket\n
 
 #: ../urpmi:105
 #, c-format
-msgid "  --allow-suggests - auto select \"suggested\" packages.\n"
-msgstr "  --allow-suggests - pilih otomatis paket \"disarankan\".\n"
+msgid "  --allow-recommends - auto select \"recommended\" packages.\n"
+msgstr "  --allow-recommends - pilih otomatis paket-paket \"disarankan\".\n"
 
 #: ../urpmi:109
 #, c-format
@@ -2823,8 +2824,8 @@ msgstr "  --requires     - tampilkan yang diperlukan.\n"
 
 #: ../urpmq:84
 #, c-format
-msgid "  --suggests     - print suggests.\n"
-msgstr "  --suggests     - tampilkan yang disarankan.\n"
+msgid "  --recommends   - print recommends.\n"
+msgstr "  --recommends   - tampilkan yang disarankan.\n"
 
 #: ../urpmq:85
 #, c-format
