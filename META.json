@@ -39,5 +39,10 @@
       }
    },
    "release_status" : "stable",
-   "version" : "8.01"
+   "resources" : {
+      "repository" : {
+         "url" : "http://gitweb.mageia.org/software/rpm/urpmi/"
+      }
+   },
+   "version" : "8.02"
 }

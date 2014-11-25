@@ -21,4 +21,6 @@ requires:
   Locale::gettext: '1.01'
   MDV::Packdrakeng: '1.01'
   URPM: '4.15'
-version: '8.01'
+resources:
+  repository: http://gitweb.mageia.org/software/rpm/urpmi/
+version: '8.02'
